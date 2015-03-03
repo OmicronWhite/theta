@@ -53,10 +53,10 @@ map AOW06 "Floating City" {
 	levelnum = 6
 }
 
-map AOW07 "Canyon" {
+map AOW07 "Canyon"{
 	next = "AOW08"
 	secretnext = "AOW08"
-	sky1 = "STSKY2"
+	sky1 = "STSKY14"
 	music = "D_AOW07"
 	levelnum = 7
 }

@@ -9,7 +9,11 @@ echo The build number is %no%.
 echo.
 echo Compiling ACS.
 
-utilities\acc\acc src\base\acs_source\aow2scrp.acs src\base\acs\aow2scrp.o
+if not exist src\code\acs\ (
+	mkdir out >nul
+)
+
+utilities\acc\acc src\code\acs_source\aow2scrp.acs src\code\acs\aow2scrp.o
 echo.
 echo Please check for any errors...
 pause
@@ -20,6 +24,9 @@ if not exist out\ (
 
 echo Packaging base...
 utilities\7za a -tzip out\theta_base-%no%.pk3 src\base\*.* -r
+
+echo Packaging code...
+utilities\7za a -tzip out\theta_code-%no%.pk3 src\code\*.* -r
 
 echo Packaging maps...
 utilities\7za a -tzip out\theta_maps-%no%.pk3 src\maps\*.* -r

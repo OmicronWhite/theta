@@ -1,5 +1,12 @@
+# Compiled ACS files
 *.o
+
+# Builds
 out/
+
+# Backup files
 *.bak*
 *.bac*
+
+# Doom Builder configuration files  
 *.dbs

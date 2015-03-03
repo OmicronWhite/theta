@@ -10,7 +10,7 @@ echo.
 echo Compiling ACS.
 
 if not exist src\code\acs\ (
-	mkdir acs >nul
+	mkdir src\code\acs >nul
 )
 
 utilities\acc\acc src\code\acs_source\aow2scrp.acs src\code\acs\aow2scrp.o

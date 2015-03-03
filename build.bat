@@ -20,21 +20,28 @@ pause
 
 if not exist out\ (
 	mkdir out >nul
+) else (
+	cd out
+	del /F /Q *.*
+	cd ..\
 )
 
 echo Packaging base...
 cd src\base\
-utilities\7za a -tzip ..\..\out\theta_base-%no%.pk3 *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
+..\..\utilities\7za a -tzip ..\..\out\theta_base-%no%.pk3 *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
 
 echo Packaging code...
+cd ..\..\
 cd src\code\
-utilities\7za a -tzip ..\..\out\theta_code-%no%.pk3 src\code\*.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
+..\..\utilities\7za a -tzip ..\..\out\theta_code-%no%.pk3 *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
 
 echo Packaging maps...
+cd ..\..\
 cd src\maps\
-utilities\7za a -tzip ..\..\out\theta_maps-%no%.pk3 src\maps\*.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
+..\..\utilities\7za a -tzip ..\..\out\theta_maps-%no%.pk3 *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
 
 echo Packaging music...
+cd ..\..\
 cd src\music\
-utilities\7za a -tzip ..\..\out\theta_music-%no%.pk3 src\music\*.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
+..\..\utilities\7za a -tzip ..\..\out\theta_music-%no%.pk3 *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
 pause

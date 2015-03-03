@@ -149,7 +149,7 @@ function void DisplayBuildingHud (void) {
 		s:ColorCodeHealth(GetActorSpeed (105)), d:GetActorSpeed (105), s:"\cc%\n",
 		s:ExistsBuilding (107), s:"War Factory\cc: ",
 		s:ColorCodeHealth(GetActorSpeed (107)), d:GetActorSpeed (107), s:"\cc%\n",
-		s:ExistsBuilding (114), s:"Obelisk of Light\cc: ",
+		s:ExistsBuilding (114), s:"Tesla Coil\cc: ",
 		s:ColorCodeHealth(GetActorSpeed (114)), d:GetActorSpeed (114), s:"\cc%\n",
 		s:ExistsBuildingGreen (109), s:"++", s:ExistsBuilding (109), s:"Repair Facility\cc: ",
 		s:ColorCodeHealth(GetActorSpeed (109)), d:GetActorSpeed (109), s:"\cc%\n",

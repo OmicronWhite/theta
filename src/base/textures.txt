@@ -296,14 +296,6 @@ WorldPanning
 Patch MREF4, 0, 0
 }
 
-texture SPWLAVA, 64, 64 {
-	//XScale 0.125
-	//YScale 0.125
-	XScale 0.03125
-	YScale 0.03125
-	Patch SPWLAVA, 0, 0
-}
-
 texture mp_mer_u, 512, 512
 {
 	patch mp_mer_u,0,0
@@ -338,89 +330,6 @@ texture HELL_UP, 512, 512 {
 	{
 		FlipY
 	}
-}
-
-texture MCT1, 64, 128 {
-	patch MCT1, 0, 0
-	patch MCT1, 0, 80
-}
-
-texture MCT2, 64, 128 {
-	patch MCT2, 0, 0
-	patch MCT2, 0, 80
-}
-
-texture MCT4, 64, 128 {
-	patch MCT4, 0, 0
-	patch MCT4, 0, 80
-}
-
-texture TIBREFTV, 128, 256 {
-	patch TIBREFTV, 0, 0
-	patch TIBREFTV, 0, 184
-}
-
-texture RESIGN, 128, 256 {
-	patch RESIGN, 0, 0
-	patch RESIGN, 0, 184
-}
-
-texture TELEBACK, 128, 256 {
-	patch TELEBACK, 0, 0
-	patch TELEBACK, 0, 184
-}
-
-texture PLASCANN, 128, 256 {
-	patch PLASCANN, 0, 0
-	patch PLASCANN, 0, 184
-}
-
-texture BEACNUKE, 128, 256 {
-	patch BEACNUKE, 0, 0
-	patch BEACNUKE, 0, 184
-}
-
-texture SURRTV, 128, 256 {
-	patch SURRTV, 0, 0
-	patch SURRTV, 0, 184
-}
-
-texture BEACION, 128, 256 {
-	patch BEACION, 0, 0
-	patch BEACION, 0, 184
-}
-
-texture PTERM, 128, 256 {
-	patch PTERM, 0, 0
-	patch PTERM, 0, 184
-}
-
-texture RESRCHTV, 128, 256 {
-	patch RESRCHTV, 0, 0
-	patch RESRCHTV, 0, 184
-}
-
-texture PTERM2, 128, 256 {
-	patch PTERM2, 0, 0
-	patch PTERM2, 0, 184
-}
-
-texture MCT3, 128, 256 {
-	patch MCT3, 0, 0
-	patch MCT3, 0, 184
-}
-
-texture REFILL, 128, 256 {
-	patch REFILL, 0, 0
-	patch REFILL, 0, 184
-}
-
-// [SP] CC4 Textures
-texture GSTONEG1, 256, 128 {
-	patch N_GRS01A, 0, 0
-	patch N_GRS01B, 64, 0
-	patch N_GRS01C, 128, 0
-	patch N_GRS01D, 192, 0
 }
 
 //Purchase sprites
@@ -764,10 +673,6 @@ texture wnukage, 64, 64 {
 	patch nukage1, 0, 0 {}
 }
 
-texture compred, 64, 64 {
-	patch n_cred01, 0, 0 {}
-}
-
 texture crate4, 64, 128 {
 	patch gcratel1, 0, 0 {}
 	patch gcrater1, 32, 0 {}
@@ -946,10 +851,10 @@ graphic "fi_bfg", 61, 36 {
 // ============================================================================
 // inventory icons
 
-graphic "tmc4icon", 56, 80 {
-	xscale 5
-	yscale 5
-	offset -28, -12
+graphic "tmc4icon", 61, 99 {
+	xscale 6.2
+	yscale 6.2
+	offset -32, -20
 	patch "tc4ta0", 0, 0
 }
 
@@ -1022,6 +927,22 @@ graphic "mbcnicon", 19, 32 {
 	yscale 2.5
 	patch "mbcnb0", 0, 0
 	offset -15, -12
+}
+
+Graphic "spnmicon", 43, 21
+{
+	XScale 2.5
+	YScale 2.5
+	Patch "spnma0", 0, 0
+	Offset -6, -22
+}
+
+Graphic "spnmico2", 43, 21
+{
+	XScale 2.5
+	YScale 2.5
+	Patch "spnmb0", 0, 0
+	Offset -6, -22
 }
 
 graphic syriicon, 29, 63 {
@@ -1431,16 +1352,26 @@ graphic progbar1, 128, 16 {
 	patch progbar1, 0, 0
 }
 
+graphic progbr1o, 128, 16 {
+	xscale 3.0 yscale 3.0
+	patch progbr1o, 0, 0
+}
+
 graphic progbar2, 128, 16 {
 	xscale 3.0 yscale 3.0
 	patch progbar2, 0, 0
 }
 
-// ==========================
-// FLAT22 fix aliases
-texture flat21, 64, 64 {patch dpad01bl, 0, 0}
-texture flat22, 64, 64 {patch dpad01bl, 0, 0}
-texture flat22r, 64, 64 {patch dpad01rd, 0, 0}
-texture flat24, 64, 64 {patch dpad01rd, 0, 0}
-texture nfft22rd, 64, 64 {patch dpad01rd, 0, 0}
-texture nfft22or, 64, 64 {patch dpad01or, 0, 0}
+graphic jeticon, 25, 29 {
+	XScale 2.0
+	YScale 2.0
+	Offset -7, -8
+	Patch jeticon, 0, 0
+}
+
+graphic fuelicon, 19, 28 {
+	XScale 2.2
+	YScale 2.2
+	Offset 8, 20
+	Patch fuelicon, 0, 0
+}

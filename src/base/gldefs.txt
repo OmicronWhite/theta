@@ -172,24 +172,12 @@ Object GaussPuffBlue
     frame VOLX { light GPUFF1B }
 }
 
-Flickerlight ExplosivePuffS
-{
-	Color 1.0 0.7 0.0
-	Size 20
-	SecondarySize 24
-	Chance 0.45
-}
-
-object ExplosionSmaller
-{
-	frame TNT1 { light ExplosivePuffS }
-}
 
 Flickerlight ExplosivePuff
 {
 	Color 1.0 0.7 0.0
-	Size 28
-	SecondarySize 32
+	Size 24
+	SecondarySize 28
 	Chance 0.45
 }
 
@@ -198,24 +186,39 @@ object ExplosionSmall
 	frame TNT1 { light ExplosivePuff }
 }
 
+Flickerlight ExplosiveSmallerPuff
+{
+	Color 1.0 0.7 0.0
+	Size 14
+	SecondarySize 18
+	Chance 0.45
+}
+
+object ExplosionSmaller
+{
+	frame TNT1 { light ExplosivePuff }
+}
+
 Flickerlight ExplosiveSpawn
 {
 	Color 1.0 0.7 0.0
-	Size 60
-	SecondarySize 68
+	Size 52
+	SecondarySize 60
 	Chance 0.45
 }
+
 
 object ExplosionMain
 {
 	frame TNT1 { light ExplosiveSpawn }
 }
 
+
 Flickerlight ExplosiveSpawnB
 {
 	Color 1.0 0.7 0.0
-	Size 104
-	SecondarySize 112
+	Size 96
+	SecondarySize 104
 	Chance 0.45
 }
 
@@ -241,7 +244,7 @@ Object TiberiumDart
 	frame TNT1 { light Chemical }
 }
 
-Object TiberiumDartBlue
+Object TE21CalShotBlue
 {
 	frame E21X { light TiberiumShot }
 	frame TNT1 { light Chemical }
@@ -253,12 +256,6 @@ flickerlight Tibcrystalnorm
 	size 39
 	secondarySize 34
 	chance 0.04
-}
-
-Object TiberiumCrystal
-{
-	frame TIBW { light Tibcrystalnorm }
-	frame TIBE { light Tibcrystalnorm }
 }
 
 Object TiberiumCrystalGiver
@@ -302,8 +299,8 @@ Object TiberiumCrystalDropped
 flickerlight Anthrax
 {
 	color 0.0 0.6 0.0
-	size 30
-	secondarySize 40
+	size 35
+	secondarySize 45
 	chance 0.30
 }
 
@@ -315,48 +312,14 @@ flickerlight Chemical
 	chance 0.30
 }
 
-object ChemicalCorpse
+object ChemicalDeathThing
 {
 	frame CDT1 { light Chemical }
-	frame CURNA { light Chemical }
-	frame CURNB { light Chemical }
-	frame CURNC { light Chemical }
-	frame CURND { light Chemical }
-	frame CURNE { light Chemical }
-	frame CURNF { light Chemical }
-	frame CURNG { light Chemical }
-	frame CURNH { light Chemical }
-	frame CURNI { light Chemical }
-	frame CURNJ { light Chemical }
-	frame CURNK { light Chemical }
-	frame CURNL { light Chemical }
-	frame CURNM { light Chemical }
-	frame CURNN { light Chemical }
-	frame CURNO { light Chemical }
-	frame CURNP { light Chemical }
-	frame CURNQ { light Chemical }
 }
 
-object ChemicalCorpseFemale
+object FChemicalDeathThing
 {
 	frame CDT1 { light Chemical }
-	frame CURNA { light Chemical }
-	frame CURNB { light Chemical }
-	frame CURNC { light Chemical }
-	frame CURND { light Chemical }
-	frame CURNE { light Chemical }
-	frame CURNF { light Chemical }
-	frame CURNG { light Chemical }
-	frame CURNH { light Chemical }
-	frame CURNI { light Chemical }
-	frame CURNJ { light Chemical }
-	frame CURNK { light Chemical }
-	frame CURNL { light Chemical }
-	frame CURNM { light Chemical }
-	frame CURNN { light Chemical }
-	frame CURNO { light Chemical }
-	frame CURNP { light Chemical }
-	frame CURNQ { light Chemical }
 }
 
 object ChemFireRemains
@@ -384,11 +347,6 @@ object AnthraxDecayBlue
 	frame TNT1 { light Anthrax }
 }
 
-object AnthraxDecaySpecial
-{
-	frame TNT1 { light Anthrax }
-}
-
 object ChemicalShotSmall
 {
 	frame TIBX { light Anthrax }
@@ -407,12 +365,12 @@ flickerlight Flame
 
 object FlameThrowerFire
 {
-	frame FLMX { light Flame }
+	frame FMRF { light Flame }
 }
 
 object FlameThrowerFireBlue
 {
-	frame FLMX { light Flame }
+	frame FMRF { light Flame }
 }
 
 flickerlight Burn
@@ -423,76 +381,34 @@ flickerlight Burn
 	chance 0.30
 }
 
-object BurningCorpse
+object BurnDeathThing
 {
 	frame BDT1 { light Burn }
-	frame BURNA { light Burn }
-	frame BURNB { light Burn }
-	frame BURNC { light Burn }
-	frame BURND { light Burn }
-	frame BURNE { light Burn }
-	frame BURNF { light Burn }
-	frame BURNG { light Burn }
-	frame BURNH { light Burn }
-	frame BURNI { light Burn }
-	frame BURNJ { light Burn }
-	frame BURNK { light Burn }
-	frame BURNL { light Burn }
-	frame BURNM { light Burn }
-	frame BURNN { light Burn }
-	frame BURNO { light Burn }
-	frame BURNP { light Burn }
-	frame BURNQ { light Burn }
 }
 
-object BurningCorpseFemale
+object FBurnDeathThing
 {
 	frame BDT1 { light Burn }
-	frame BURNA { light Burn }
-	frame BURNB { light Burn }
-	frame BURNC { light Burn }
-	frame BURND { light Burn }
-	frame BURNE { light Burn }
-	frame BURNF { light Burn }
-	frame BURNG { light Burn }
-	frame BURNH { light Burn }
-	frame BURNI { light Burn }
-	frame BURNJ { light Burn }
-	frame BURNK { light Burn }
-	frame BURNL { light Burn }
-	frame BURNM { light Burn }
-	frame BURNN { light Burn }
-	frame BURNO { light Burn }
-	frame BURNP { light Burn }
-	frame BURNQ { light Burn }
-}
-
-flickerlight FlameDecay
-{
-	color 1.0 0.6 0.0
-	size 45
-	secondarySize 55
-	chance 0.30
 }
 
 object FlameDecay
 {
-	frame TNT1 { light FlameDecay }
+	frame TNT1 { light Burn }
 }
 
 object FlameDecayBlue
 {
-	frame TNT1 { light FlameDecay }
+	frame TNT1 { light Burn }
 }
 
 object FlameDecayStrong
 {
-	frame TNT1 { light FlameDecay }
+	frame TNT1 { light Burn }
 }
 
 object FlameDecayStrongBlue
 {
-	frame TNT1 { light FlameDecay }
+	frame TNT1 { light Burn }
 }
 
 object FlameWallDecay
@@ -517,19 +433,9 @@ object HeavyMissile
     frame MISR { light ROCKET }
 }
 
-object HeavyMissileBlue
-{
-    frame MISB { light ROCKET }
-}
-
 object HeavyHomingMissile
 {
     frame MISR { light ROCKET }
-}
-
-object HeavyHomingMissileBlue
-{
-    frame MISB { light ROCKET }
 }
 
 ///////Plasma Related stuff
@@ -545,7 +451,7 @@ flickerlight PlasmaReds
 
 flickerlight Plasma
 {
-	color 0.1 0.1 1.0
+	color 0.6 0.1 1.0
 	size 45
 	secondarySize 55
 	chance 0.30
@@ -634,12 +540,12 @@ Object PlasmaFlameDecayBlue
 
 Object PlasmaCannonBall
 {
-    frame PLS1A { light PlasmaBall1R }
-    frame PLS1B { light PlasmaBall2R }
-    frame PLS1C { light PlasmaBall3R }
-    frame PLS1D { light PlasmaBall2R }
-    frame PLS1E { light PlasmaBall4R }
-    frame PLS1F { light PlasmaBall5R }
+    frame PLS3A { light PlasmaBall1R }
+    frame PLS3B { light PlasmaBall2R }
+    frame PLS3C { light PlasmaBall3R }
+    frame PLS3D { light PlasmaBall2R }
+    frame PLS3E { light PlasmaBall4R }
+    frame PLS3F { light PlasmaBall5R }
 	frame PLE1A { light PlasmaBall1R }
     frame PLE1B { light PlasmaBall2R }
     frame PLE1C { light PlasmaBall3R }
@@ -650,12 +556,12 @@ Object PlasmaCannonBall
 
 Object PlasmaCannonBallSmall
 {
-    frame PLS1A { light PlasmaBall1R }
-    frame PLS1B { light PlasmaBall2R }
-    frame PLS1C { light PlasmaBall3R }
-    frame PLS1D { light PlasmaBall2R }
-    frame PLS1E { light PlasmaBall4R }
-    frame PLS1F { light PlasmaBall5R }
+    frame PLS3A { light PlasmaBall1R }
+    frame PLS3B { light PlasmaBall2R }
+    frame PLS3C { light PlasmaBall3R }
+    frame PLS3D { light PlasmaBall2R }
+    frame PLS3E { light PlasmaBall4R }
+    frame PLS3F { light PlasmaBall5R }
 	frame PLE1A { light PlasmaBall1R }
     frame PLE1B { light PlasmaBall2R }
     frame PLE1C { light PlasmaBall3R }
@@ -666,12 +572,12 @@ Object PlasmaCannonBallSmall
 
 Object PlasmaCannonBallBlue
 {
-    frame PLS1A { light PlasmaBall1 }
-    frame PLS1B { light PlasmaBall2 }
-    frame PLS1C { light PlasmaBall3 }
-    frame PLS1D { light PlasmaBall2 }
-    frame PLS1E { light PlasmaBall4 }
-    frame PLS1F { light PlasmaBall5 }
+    frame PLS3A { light PlasmaBall1 }
+    frame PLS3B { light PlasmaBall2 }
+    frame PLS3C { light PlasmaBall3 }
+    frame PLS3D { light PlasmaBall2 }
+    frame PLS3E { light PlasmaBall4 }
+    frame PLS3F { light PlasmaBall5 }
 	frame PLE1A { light PlasmaBall1 }
     frame PLE1B { light PlasmaBall2 }
     frame PLE1C { light PlasmaBall3 }
@@ -682,12 +588,12 @@ Object PlasmaCannonBallBlue
 
 Object PlasmaCannonBallSmallBlue
 {
-    frame PLS1A { light PlasmaBall1 }
-    frame PLS1B { light PlasmaBall2 }
-    frame PLS1C { light PlasmaBall3 }
-    frame PLS1D { light PlasmaBall2 }
-    frame PLS1E { light PlasmaBall4 }
-    frame PLS1F { light PlasmaBall5 }
+    frame PLS3A { light PlasmaBall1 }
+    frame PLS3B { light PlasmaBall2 }
+    frame PLS3C { light PlasmaBall3 }
+    frame PLS3D { light PlasmaBall2 }
+    frame PLS3E { light PlasmaBall4 }
+    frame PLS3F { light PlasmaBall5 }
 	frame PLE1A { light PlasmaBall1 }
     frame PLE1B { light PlasmaBall2 }
     frame PLE1C { light PlasmaBall3 }
@@ -807,27 +713,11 @@ flickerlight RepBlue
 	chance 0.25
 }
 
-flickerlight RepBlueT
-{
-	color 0.0 0.0 1.0
-	size 10
-	secondarySize 14
-	chance 0.25
-}
-
 flickerlight RepPurple
 {
 	color 0.75 0.0 0.75
 	size 30
 	secondarySize 42
-	chance 0.25
-}
-
-flickerlight RepPurpleT
-{
-	color 0.75 0.0 0.75
-	size 10
-	secondarySize 14
 	chance 0.25
 }
 
@@ -839,14 +729,6 @@ flickerlight RepRed
 	chance 0.25
 }
 
-flickerlight RepRedT
-{
-	color 1.0 0.0 0.0
-	size 10
-	secondarySize 14
-	chance 0.25
-}
-
 flickerlight RepYellow
 {
 	color 1.0 1.0 0.0
@@ -855,52 +737,24 @@ flickerlight RepYellow
 	chance 0.25
 }
 
-flickerlight RepYellowT
-{
-	color 1.0 1.0 0.0
-	size 10
-	secondarySize 14
-	chance 0.25
-}
-
 object RepairDisarmPuff
 {
-	frame PLCX { light RepBlue }
-}
-
-object RepairTrail
-{
-	frame PLCX { light RepBlueT }
+	frame RPFF { light RepBlue }
 }
 
 object EnhancedRepairDisarmPuff
 {
-	frame CHMX { light RepPurple }
-}
-
-object UpgradedRepairTrail
-{
-	frame CHMX { light RepPurpleT }
+	frame UPFF { light RepPurple }
 }
 
 object MedicPuff
 {
-	frame CHMX { light RepRed }
-}
-
-object HealTrail
-{
-	frame CHMX { light RepRedT }
+	frame HPFF { light RepRed }
 }
 
 object DisarmPuff
 {
-	frame CHMX { light RepYellow }
-}
-
-object DisarmTrail
-{
-	frame CHMX { light RepYellowT }
+	frame DPFF { light RepYellow }
 }
 
 pointlight GOLDBALL
@@ -1150,7 +1004,7 @@ flickerlight HealRadiusRed
 	Chance 0.2
 }
 
-object MedicationFieldBall
+object HealingRadiusBall
 {
 	Frame GIZR { light HealRadiusRed }
 }

@@ -1,0 +1,54 @@
+actor BerserkPlayer : Player {
+	+NOSKIN
+	-PICKUP
+	Health 200
+	Player.MaxHealth 200
+	Player.DisplayName "Berserker"
+	Player.StartItem "BerserkFists", 1
+	Player.ForwardMove 1.0 // doomguy speed!
+	Player.SideMove 1.0
+	Player.MorphWeapon "BerserkFists"
+	DamageFactor "Chemical", 2.25 // aaahhh
+	
+	// Go splat in every death
+	States {
+	Death:
+	Death.Chemical:
+	Death.ChemicalSpecial:
+	Death.Fire:
+	Death.FireSpecial:
+	Death.Time:
+		goto XDeathGo
+	}
+}
+
+actor BerserkSwitch : PowerupGiver {
+	powerup.type "Berserk"
+	powerup.duration 10500 // five minutes
+	powerup.color RedMap
+	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.ALWAYSPICKUP
+	Inventory.MaxAmount 1
+	states {
+	Spawn:
+		TNT1 A 0
+		stop
+	Pickup:
+		TNT1 A 0 A_GiveInventory ("BerserkHue", 1)
+		TNT1 A 5
+		stop
+	}
+}
+
+actor PowerBerserkHue : PowerNull {}
+actor BerserkHue : BerserkSwitch {
+	powerup.type "BerserkHue"
+	powerup.color RedMap
+}
+
+actor BerserkSwitchTest : BerserkSwitch {Powerup.Duration 0x7FFFFFFF}
+
+actor PowerBerserk : PowerMorph {
+	PowerMorph.PlayerClass "BerserkPlayer"
+	PowerMorph.MorphStyle (MRF_FULLHEALTH|MRF_ADDSTAMINA|MRF_NEWTIDBEHAVIOUR|MRF_WHENINVULNERABLE)
+}

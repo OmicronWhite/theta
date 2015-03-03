@@ -1,0 +1,2 @@
+const int TEAM_BLUE = 0;
+const int TEAM_RED = 1;

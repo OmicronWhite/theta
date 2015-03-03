@@ -437,461 +437,6 @@ Model ChemicalShot
 	FrameIndex TIBX Q 0 16
 }
 
-Model ChemicalShotBlue
-{
-	Path "Models\Flames"
-	
-	Model 0 "ChemicalShot.md3"
-	Skin 0 "Chem01.png"
-
-	ALIGNANGLE
-	ALIGNPITCH
-
-	Scale 5.0 5.0 5.0
-
-	FrameIndex TIBX A 0 0 
-}
-Model ChemicalShotBlue
-{
-	Path "Models\Flames"
-	
-	Model 0 "ChemicalShot.md3"
-	Skin 0 "Chem02.png"
-
-	ALIGNANGLE
-	ALIGNPITCH
-
-	Scale 5.0 5.0 5.0
-
-	FrameIndex TIBX B 0 1
-}
-Model ChemicalShotBlue
-{
-	Path "Models\Flames"
-	
-	Model 0 "ChemicalShot.md3"
-	Skin 0 "Chem03.png"
-
-	ALIGNANGLE
-	ALIGNPITCH
-
-	Scale 5.0 5.0 5.0
-
-	FrameIndex TIBX C 0 2
-}
-Model ChemicalShotBlue
-{
-	Path "Models\Flames"
-	
-	Model 0 "ChemicalShot.md3"
-	Skin 0 "Chem04.png"
-
-	ALIGNANGLE
-	ALIGNPITCH
-
-	Scale 5.0 5.0 5.0
-
-	FrameIndex TIBX D 0 3
-}
-Model ChemicalShotBlue
-{
-	Path "Models\Flames"
-	
-	Model 0 "ChemicalShot.md3"
-	Skin 0 "Chem05.png"
-
-	ALIGNANGLE
-	ALIGNPITCH
-
-	Scale 5.0 5.0 5.0
-
-	FrameIndex TIBX E 0 4
-}
-Model ChemicalShotBlue
-{
-	Path "Models\Flames"
-	
-	Model 0 "ChemicalShot.md3"
-	Skin 0 "Chem06.png"
-
-	ALIGNANGLE
-	ALIGNPITCH
-
-	Scale 5.0 5.0 5.0
-
-	FrameIndex TIBX F 0 5
-}
-Model ChemicalShotBlue
-{
-	Path "Models\Flames"
-	
-	Model 0 "ChemicalShot.md3"
-	Skin 0 "Chem07.png"
-
-	ALIGNANGLE
-	ALIGNPITCH
-
-	Scale 5.0 5.0 5.0
-
-	FrameIndex TIBX G 0 6
-}
-Model ChemicalShotBlue
-{
-	Path "Models\Flames"
-	
-	Model 0 "ChemicalShot.md3"
-	Skin 0 "Chem08.png"
-
-	ALIGNANGLE
-	ALIGNPITCH
-
-	Scale 5.0 5.0 5.0
-
-	FrameIndex TIBX H 0 7
-}
-Model ChemicalShotBlue
-{
-	Path "Models\Flames"
-	
-	Model 0 "ChemicalShot.md3"
-	Skin 0 "Chem09.png"
-
-	ALIGNANGLE
-	ALIGNPITCH
-
-	Scale 5.0 5.0 5.0
-
-	FrameIndex TIBX I 0 8
-}
-Model ChemicalShotBlue
-{
-	Path "Models\Flames"
-	
-	Model 0 "ChemicalShot.md3"
-	Skin 0 "Chem10.png"
-
-	ALIGNANGLE
-	ALIGNPITCH
-
-	Scale 5.0 5.0 5.0
-
-	FrameIndex TIBX J 0 9
-}
-Model ChemicalShotBlue
-{
-	Path "Models\Flames"
-	
-	Model 0 "ChemicalShot.md3"
-	Skin 0 "Chem11.png"
-
-	ALIGNANGLE
-	ALIGNPITCH
-
-	Scale 5.0 5.0 5.0
-
-	FrameIndex TIBX K 0 10
-}
-Model ChemicalShotBlue
-{
-	Path "Models\Flames"
-	
-	Model 0 "ChemicalShot.md3"
-	Skin 0 "Chem12.png"
-
-	ALIGNANGLE
-	ALIGNPITCH
-
-	Scale 5.0 5.0 5.0
-
-	FrameIndex TIBX L 0 11
-}
-Model ChemicalShotBlue
-{
-	Path "Models\Flames"
-	
-	Model 0 "ChemicalShot.md3"
-	Skin 0 "Chem13.png"
-
-	ALIGNANGLE
-	ALIGNPITCH
-
-	Scale 5.0 5.0 5.0
-
-	FrameIndex TIBX M 0 12
-}
-Model ChemicalShotBlue
-{
-	Path "Models\Flames"
-	
-	Model 0 "ChemicalShot.md3"
-	Skin 0 "Chem14.png"
-
-	ALIGNANGLE
-	ALIGNPITCH
-
-	Scale 5.0 5.0 5.0
-
-	FrameIndex TIBX N 0 13
-}
-Model ChemicalShotBlue
-{
-	Path "Models\Flames"
-	
-	Model 0 "ChemicalShot.md3"
-	Skin 0 "Chem15.png"
-
-	ALIGNANGLE
-	ALIGNPITCH
-
-	Scale 5.0 5.0 5.0
-
-	FrameIndex TIBX O 0 14
-}
-Model ChemicalShotBlue
-{
-	Path "Models\Flames"
-	
-	Model 0 "ChemicalShot.md3"
-	Skin 0 "Chem16.png"
-
-	ALIGNANGLE
-	ALIGNPITCH
-
-	Scale 5.0 5.0 5.0
-
-	FrameIndex TIBX P 0 15
-	FrameIndex TIBX Q 0 16
-}
-
-Model ChemicalShotDummy
-{
-	Path "Models\Flames"
-	
-	Model 0 "ChemicalShot.md3"
-	Skin 0 "Chem01.png"
-
-	ALIGNANGLE
-	ALIGNPITCH
-
-	Scale 5.0 5.0 5.0
-
-	FrameIndex TIBX A 0 0 
-}
-Model ChemicalShotDummy
-{
-	Path "Models\Flames"
-	
-	Model 0 "ChemicalShot.md3"
-	Skin 0 "Chem02.png"
-
-	ALIGNANGLE
-	ALIGNPITCH
-
-	Scale 5.0 5.0 5.0
-
-	FrameIndex TIBX B 0 1
-}
-Model ChemicalShotDummy
-{
-	Path "Models\Flames"
-	
-	Model 0 "ChemicalShot.md3"
-	Skin 0 "Chem03.png"
-
-	ALIGNANGLE
-	ALIGNPITCH
-
-	Scale 5.0 5.0 5.0
-
-	FrameIndex TIBX C 0 2
-}
-Model ChemicalShotDummy
-{
-	Path "Models\Flames"
-	
-	Model 0 "ChemicalShot.md3"
-	Skin 0 "Chem04.png"
-
-	ALIGNANGLE
-	ALIGNPITCH
-
-	Scale 5.0 5.0 5.0
-
-	FrameIndex TIBX D 0 3
-}
-Model ChemicalShotDummy
-{
-	Path "Models\Flames"
-	
-	Model 0 "ChemicalShot.md3"
-	Skin 0 "Chem05.png"
-
-	ALIGNANGLE
-	ALIGNPITCH
-
-	Scale 5.0 5.0 5.0
-
-	FrameIndex TIBX E 0 4
-}
-Model ChemicalShotDummy
-{
-	Path "Models\Flames"
-	
-	Model 0 "ChemicalShot.md3"
-	Skin 0 "Chem06.png"
-
-	ALIGNANGLE
-	ALIGNPITCH
-
-	Scale 5.0 5.0 5.0
-
-	FrameIndex TIBX F 0 5
-}
-Model ChemicalShotDummy
-{
-	Path "Models\Flames"
-	
-	Model 0 "ChemicalShot.md3"
-	Skin 0 "Chem07.png"
-
-	ALIGNANGLE
-	ALIGNPITCH
-
-	Scale 5.0 5.0 5.0
-
-	FrameIndex TIBX G 0 6
-}
-Model ChemicalShotDummy
-{
-	Path "Models\Flames"
-	
-	Model 0 "ChemicalShot.md3"
-	Skin 0 "Chem08.png"
-
-	ALIGNANGLE
-	ALIGNPITCH
-
-	Scale 5.0 5.0 5.0
-
-	FrameIndex TIBX H 0 7
-}
-Model ChemicalShotDummy
-{
-	Path "Models\Flames"
-	
-	Model 0 "ChemicalShot.md3"
-	Skin 0 "Chem09.png"
-
-	ALIGNANGLE
-	ALIGNPITCH
-
-	Scale 5.0 5.0 5.0
-
-	FrameIndex TIBX I 0 8
-}
-Model ChemicalShotDummy
-{
-	Path "Models\Flames"
-	
-	Model 0 "ChemicalShot.md3"
-	Skin 0 "Chem10.png"
-
-	ALIGNANGLE
-	ALIGNPITCH
-
-	Scale 5.0 5.0 5.0
-
-	FrameIndex TIBX J 0 9
-}
-Model ChemicalShotDummy
-{
-	Path "Models\Flames"
-	
-	Model 0 "ChemicalShot.md3"
-	Skin 0 "Chem11.png"
-
-	ALIGNANGLE
-	ALIGNPITCH
-
-	Scale 5.0 5.0 5.0
-
-	FrameIndex TIBX K 0 10
-}
-Model ChemicalShotDummy
-{
-	Path "Models\Flames"
-	
-	Model 0 "ChemicalShot.md3"
-	Skin 0 "Chem12.png"
-
-	ALIGNANGLE
-	ALIGNPITCH
-
-	Scale 5.0 5.0 5.0
-
-	FrameIndex TIBX L 0 11
-}
-Model ChemicalShotDummy
-{
-	Path "Models\Flames"
-	
-	Model 0 "ChemicalShot.md3"
-	Skin 0 "Chem13.png"
-
-	ALIGNANGLE
-	ALIGNPITCH
-
-	Scale 5.0 5.0 5.0
-
-	FrameIndex TIBX M 0 12
-}
-Model ChemicalShotDummy
-{
-	Path "Models\Flames"
-	
-	Model 0 "ChemicalShot.md3"
-	Skin 0 "Chem14.png"
-
-	ALIGNANGLE
-	ALIGNPITCH
-
-	Scale 5.0 5.0 5.0
-
-	FrameIndex TIBX N 0 13
-}
-Model ChemicalShotDummy
-{
-	Path "Models\Flames"
-	
-	Model 0 "ChemicalShot.md3"
-	Skin 0 "Chem15.png"
-
-	ALIGNANGLE
-	ALIGNPITCH
-
-	Scale 5.0 5.0 5.0
-
-	FrameIndex TIBX O 0 14
-}
-Model ChemicalShotDummy
-{
-	Path "Models\Flames"
-	
-	Model 0 "ChemicalShot.md3"
-	Skin 0 "Chem16.png"
-
-	ALIGNANGLE
-	ALIGNPITCH
-
-	Scale 5.0 5.0 5.0
-
-	FrameIndex TIBX P 0 15
-	FrameIndex TIBX Q 0 16
-}
-
-
-
-
 Model Utility_CacheMarker
 {
 	Path "Models\Cache"
@@ -1096,74 +641,37 @@ Model TimedC4Armed               // Name of actor in DECORATE
    Path "models/weapons"    // Path to model in PK3
    Model 0 "timedc4.md3"    // Model index, model file
    Skin 0 "timedc4.png"     // Model index, texture (can be in any format supported by GZDoom)
-   Scale 45.0 45.0 50.0             // Scale values
+   Scale 115.0 115.0 160.0             // Scale values
 
-   FrameIndex TC4T A 0 0         // The sprite lump, sprite frame, model index, frame number
+   FrameIndex TC4T R 0 0         // The sprite lump, sprite frame, model index, frame number
 }
 Model TimedC4Thrown               // Name of actor in DECORATE
 {
    Path "models/weapons"    // Path to model in PK3
    Model 0 "timedc4.md3"    // Model index, model file
    Skin 0 "timedc4.png"     // Model index, texture (can be in any format supported by GZDoom)
-   Scale 45.0 45.0 50.0             // Scale values
+   Scale 115.0 115.0 160.0             // Scale values
 
-   FrameIndex TC4T A 0 0         // The sprite lump, sprite frame, model index, frame number
-}
-Model TimedC4ArmedE               // Name of actor in DECORATE
-{
-   Path "models/weapons"    // Path to model in PK3
-   Model 0 "timedc4.md3"    // Model index, model file
-   Skin 0 "timedc4.png"     // Model index, texture (can be in any format supported by GZDoom)
-   Scale 45.0 45.0 50.0             // Scale values
-
-   FrameIndex TC4T A 0 0         // The sprite lump, sprite frame, model index, frame number
-}
-Model TimedC4ThrownE               // Name of actor in DECORATE
-{
-   Path "models/weapons"    // Path to model in PK3
-   Model 0 "timedc4.md3"    // Model index, model file
-   Skin 0 "timedc4.png"     // Model index, texture (can be in any format supported by GZDoom)
-   Scale 45.0 45.0 50.0             // Scale values
-
-   FrameIndex TC4T A 0 0         // The sprite lump, sprite frame, model index, frame number
+   FrameIndex TC4T R 0 0         // The sprite lump, sprite frame, model index, frame number
 }
 Model TimedC4ArmedBlue               // Name of actor in DECORATE
 {
    Path "models/weapons"    // Path to model in PK3
    Model 0 "timedc4.md3"    // Model index, model file
    Skin 0 "timedc4.png"     // Model index, texture (can be in any format supported by GZDoom)
-   Scale 45.0 45.0 50.0             // Scale values
+   Scale 115.0 115.0 160.0             // Scale values
 
-   FrameIndex TC4T A 0 0         // The sprite lump, sprite frame, model index, frame number
+   FrameIndex TC4T B 0 0         // The sprite lump, sprite frame, model index, frame number
 }
 Model TimedC4ThrownBlue               // Name of actor in DECORATE
 {
    Path "models/weapons"    // Path to model in PK3
    Model 0 "timedc4.md3"    // Model index, model file
    Skin 0 "timedc4.png"     // Model index, texture (can be in any format supported by GZDoom)
-   Scale 45.0 45.0 50.0             // Scale values
+   Scale 115.0 115.0 160.0             // Scale values
 
-   FrameIndex TC4T A 0 0         // The sprite lump, sprite frame, model index, frame number
+   FrameIndex TC4T B 0 0         // The sprite lump, sprite frame, model index, frame number
 }
-Model TimedC4ArmedEBlue               // Name of actor in DECORATE
-{
-   Path "models/weapons"    // Path to model in PK3
-   Model 0 "timedc4.md3"    // Model index, model file
-   Skin 0 "timedc4.png"     // Model index, texture (can be in any format supported by GZDoom)
-   Scale 45.0 45.0 50.0             // Scale values
-
-   FrameIndex TC4T A 0 0         // The sprite lump, sprite frame, model index, frame number
-}
-Model TimedC4ThrownEBlue               // Name of actor in DECORATE
-{
-   Path "models/weapons"    // Path to model in PK3
-   Model 0 "timedc4.md3"    // Model index, model file
-   Skin 0 "timedc4.png"     // Model index, texture (can be in any format supported by GZDoom)
-   Scale 45.0 45.0 50.0             // Scale values
-
-   FrameIndex TC4T A 0 0         // The sprite lump, sprite frame, model index, frame number
-}
-
 
 ///////////////////MADCAT MODEL
 Model MadCat               // Name of actor in DECORATE
@@ -1171,7 +679,7 @@ Model MadCat               // Name of actor in DECORATE
    Path "models/madcat"    // Path to model in PK3
    Model 0 "MadCat.md3"    // Model index, model file
    Skin 0 "MadCat.png"     // Model index, texture (can be in any format supported by GZDoom)
-   Scale 7.0 7.0 7.0             // Scale values
+   Scale 6.0 6.0 7.0             // Scale values
 
    FrameIndex MADC K 0 0         // The sprite lump, sprite frame, model index, frame number
    FrameIndex MADC A 0 1         // The sprite lump, sprite frame, model index, frame number
@@ -1208,7 +716,7 @@ Model MadCatUsed               // Name of actor in DECORATE
    Path "models/madcat"    // Path to model in PK3
    Model 0 "MadCat.md3"    // Model index, model file
    Skin 0 "MadCat.png"     // Model index, texture (can be in any format supported by GZDoom)
-   Scale 7.0 7.0 7.0             // Scale values
+   Scale 6.0 6.0 7.0             // Scale values
 
    FrameIndex MADC K 0 0         // The sprite lump, sprite frame, model index, frame number
    FrameIndex MADC A 0 1         // The sprite lump, sprite frame, model index, frame number
@@ -1245,7 +753,7 @@ Model MadCatSwitchPickup               // Name of actor in DECORATE
    Path "models/madcat"    // Path to model in PK3
    Model 0 "MadCat.md3"    // Model index, model file
    Skin 0 "MadCat.png"     // Model index, texture (can be in any format supported by GZDoom)
-   Scale 7.0 7.0 7.0             // Scale values
+   Scale 6.0 6.0 7.0             // Scale values
 
    FrameIndex MADC K 0 0         // The sprite lump, sprite frame, model index, frame number
    FrameIndex MADC A 0 1         // The sprite lump, sprite frame, model index, frame number
@@ -1282,7 +790,7 @@ Model DamagedMadcat               // Name of actor in DECORATE
    Path "models/madcat"    // Path to model in PK3
    Model 0 "MadCat.md3"    // Model index, model file
    Skin 0 "MadCat.png"     // Model index, texture (can be in any format supported by GZDoom)
-   Scale 7.0 7.0 7.0             // Scale values
+   Scale 6.0 6.0 7.0             // Scale values
 
    FrameIndex MADC K 0 0         // The sprite lump, sprite frame, model index, frame number
    FrameIndex MADC A 0 1         // The sprite lump, sprite frame, model index, frame number
@@ -1319,7 +827,7 @@ Model EjectedMadCat               // Name of actor in DECORATE
    Path "models/madcat"    // Path to model in PK3
    Model 0 "MadCat.md3"    // Model index, model file
    Skin 0 "MadCat.png"     // Model index, texture (can be in any format supported by GZDoom)
-   Scale 7.0 7.0 7.0             // Scale values
+   Scale 6.0 6.0 7.0             // Scale values
 
    FrameIndex MADC K 0 0         // The sprite lump, sprite frame, model index, frame number
    FrameIndex MADC A 0 1         // The sprite lump, sprite frame, model index, frame number
@@ -1357,7 +865,8 @@ Model Orca
    Path "models/orca"    // Path to model in PK3
    Model 0 "Orca.md3"    // Model index, model file
    Skin 0 "Orca.png"     // Model index, texture (can be in any format supported by GZDoom)
-   Scale 10.0 10.0 10.0             // Scale values
+   Scale 8.0 8.0 11.0             // Scale values
+   zoffset 20
 
    FrameIndex ORCV A 0 1         // The sprite lump, sprite frame, model index, frame number
    FrameIndex ORCV B 0 1
@@ -1368,7 +877,8 @@ Model EjectedOrca
    Path "models/orca"    // Path to model in PK3
    Model 0 "Orca.md3"    // Model index, model file
    Skin 0 "Orca.png"     // Model index, texture (can be in any format supported by GZDoom)
-   Scale 10.0 10.0 10.0             // Scale values
+   Scale 8.0 8.0 11.0             // Scale values
+   zoffset 20
 
    FrameIndex ORCV A 0 1         // The sprite lump, sprite frame, model index, frame number
    FrameIndex ORCV B 0 1
@@ -1382,7 +892,7 @@ Model Raven               // Name of actor in DECORATE
    Path "models/raven"    // Path to model in PK3
    Model 0 "Raven.md3"    // Model index, model file
    Skin 0 "Raven.png"     // Model index, texture (can be in any format supported by GZDoom)
-   Scale 10.0 10.0 10.0             // Scale values
+   Scale 9.0 9.0 11.0             // Scale values
 
    FrameIndex RAVN I 0 0         // The sprite lump, sprite frame, model index, frame number
    FrameIndex RAVN A 0 1
@@ -1418,7 +928,7 @@ Model RavenUsed               // Name of actor in DECORATE
    Path "models/raven"    // Path to model in PK3
    Model 0 "Raven.md3"    // Model index, model file
    Skin 0 "Raven.png"     // Model index, texture (can be in any format supported by GZDoom)
-   Scale 10.0 10.0 10.0             // Scale values
+   Scale 9.0 9.0 11.0             // Scale values
 
    FrameIndex RAVN I 0 0         // The sprite lump, sprite frame, model index, frame number
    FrameIndex RAVN A 0 1
@@ -1455,7 +965,7 @@ Model RavenSwitchPickup               // Name of actor in DECORATE
    Path "models/raven"    // Path to model in PK3
    Model 0 "Raven.md3"    // Model index, model file
    Skin 0 "Raven.png"     // Model index, texture (can be in any format supported by GZDoom)
-   Scale 10.0 10.0 10.0             // Scale values
+   Scale 9.0 9.0 11.0             // Scale values
 
    FrameIndex RAVN I 0 0         // The sprite lump, sprite frame, model index, frame number
    FrameIndex RAVN A 0 1
@@ -1492,7 +1002,7 @@ Model DamagedRaven               // Name of actor in DECORATE
    Path "models/raven"    // Path to model in PK3
    Model 0 "Raven.md3"    // Model index, model file
    Skin 0 "Raven.png"     // Model index, texture (can be in any format supported by GZDoom)
-   Scale 10.0 10.0 10.0             // Scale values
+   Scale 9.0 9.0 11.0             // Scale values
 
    FrameIndex RAVN I 0 0         // The sprite lump, sprite frame, model index, frame number
    FrameIndex RAVN A 0 1
@@ -1529,7 +1039,7 @@ Model EjectedRaven               // Name of actor in DECORATE
    Path "models/raven"    // Path to model in PK3
    Model 0 "Raven.md3"    // Model index, model file
    Skin 0 "Raven.png"     // Model index, texture (can be in any format supported by GZDoom)
-   Scale 10.0 10.0 10.0             // Scale values
+   Scale 9.0 9.0 11.0             // Scale values
 
    FrameIndex RAVN I 0 0         // The sprite lump, sprite frame, model index, frame number
    FrameIndex RAVN A 0 1
@@ -1566,7 +1076,7 @@ Model Utility_MiniRavenRed               // Name of actor in DECORATE
    Path "models/raven"    // Path to model in PK3
    Model 0 "Raven.md3"    // Model index, model file
    Skin 0 "Raven.png"     // Model index, texture (can be in any format supported by GZDoom)
-   Scale 10.0 10.0 10.0             // Scale values
+   Scale 9.0 9.0 11.0             // Scale values
 
    FrameIndex RAVN I 0 0         // The sprite lump, sprite frame, model index, frame number
    FrameIndex RAVN A 0 1
@@ -1595,7 +1105,7 @@ Model Utility_MiniRavenBlue               // Name of actor in DECORATE
    Path "models/raven"    // Path to model in PK3
    Model 0 "Raven.md3"    // Model index, model file
    Skin 0 "Raven.png"     // Model index, texture (can be in any format supported by GZDoom)
-   Scale 10.0 10.0 10.0             // Scale values
+   Scale 9.0 9.0 11.0             // Scale values
 
    FrameIndex RAVN I 0 0         // The sprite lump, sprite frame, model index, frame number
    FrameIndex RAVN A 0 1
@@ -1624,7 +1134,7 @@ Model Utility_RavenMarker               // Name of actor in DECORATE
    Path "models/raven"    // Path to model in PK3
    Model 0 "Raven.md3"    // Model index, model file
    Skin 0 "Raven.png"     // Model index, texture (can be in any format supported by GZDoom)
-   Scale 10.0 10.0 10.0             // Scale values
+   Scale 9.0 9.0 11.0             // Scale values
 
    FrameIndex RAVN I 0 0         // The sprite lump, sprite frame, model index, frame number
    FrameIndex RAVN A 0 1
@@ -1655,7 +1165,7 @@ Model Utility_Raven               // Name of actor in DECORATE
    Path "models/raven"    // Path to model in PK3
    Model 0 "Raven.md3"    // Model index, model file
    Skin 0 "Raven.png"     // Model index, texture (can be in any format supported by GZDoom)
-   Scale 10.0 10.0 10.0             // Scale values
+   Scale 9.0 9.0 11.0             // Scale values
 
    FrameIndex RAVN I 0 0         // The sprite lump, sprite frame, model index, frame number
    FrameIndex RAVN A 0 1
@@ -1692,7 +1202,7 @@ Model Utility_MiniRavenMarker               // Name of actor in DECORATE
    Path "models/raven"    // Path to model in PK3
    Model 0 "Raven.md3"    // Model index, model file
    Skin 0 "Raven.png"     // Model index, texture (can be in any format supported by GZDoom)
-   Scale 10.0 10.0 10.0             // Scale values
+   Scale 9.0 9.0 11.0             // Scale values
 
    FrameIndex RAVN I 0 0         // The sprite lump, sprite frame, model index, frame number
    FrameIndex RAVN A 0 1
@@ -1716,7 +1226,7 @@ Model Utility_MiniRavenMarker               // Name of actor in DECORATE
    FrameIndex RAVN T 0 20
 }
 
-model Utility_Razorwire
+model Utility_RazorWire
 {
     Path "models/weapons"
     Model 0 "razor.md2"
@@ -1725,7 +1235,7 @@ model Utility_Razorwire
     FrameIndex WIRE A 0 0
 }
 
-model Utility_RazorwireBlue
+model Utility_RazorWireBlue
 {
     Path "models/weapons"
     Model 0 "razor.md2"
@@ -1743,3 +1253,65 @@ model Utility_RazorwireMarker
     FrameIndex WIRE A 0 0
 }
 
+
+Model PowerupCrate
+{
+	Path "Models\Crate"
+	
+	Model 0 "Crate.md3"
+	Skin 0 "Crate.png"
+
+	Scale 0.25 0.25 0.25
+
+	FrameIndex UCRT A 0 0
+}
+
+
+Model IonBeaconThrown
+{
+	Path "Models\Beacons"
+	Model 0 "ionbeacon.md3"
+	Skin 0 "f_gm_ionb.png"
+	Model 1 "IonPanel.md3"
+	Skin 1 "w_beacondisp.png"
+
+	Scale 25.0 25.0 25.0
+
+	FrameIndex BEAC D 0 0
+}
+
+Model IonCannonPlaced
+{
+	Path "Models\Beacons"
+	Model 0 "ionbeacon.md3"
+	Skin 0 "f_gm_ionb.png"
+	Model 1 "IonPanel.md3"
+	Skin 1 "w_beacondisp.png"
+
+	Scale 25.0 25.0 25.0
+
+
+	FrameIndex BEAC D 0 0
+}
+
+Model NukeBeaconThrown
+{
+	Path "Models\Beacons"
+	Model 0 "nukebeacon.md3"
+	Skin 0 "f_gm_nuke.png"
+
+	Scale 37.5 37.5 37.5
+
+	FrameIndex BEAC C 0 0
+}
+
+Model NuclearStrikePlaced
+{
+	Path "Models\Beacons"
+	Model 0 "nukebeacon.md3"
+	Skin 0 "f_gm_nuke.png"
+
+	Scale 37.5 37.5 37.5
+
+	FrameIndex BEAC C 0 0
+}

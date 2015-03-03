@@ -1,2 +1,5 @@
 *.o
 out/
+*.bak*
+*.bac*
+*.dbs

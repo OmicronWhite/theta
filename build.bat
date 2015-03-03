@@ -23,14 +23,14 @@ if not exist out\ (
 )
 
 echo Packaging base...
-utilities\7za a -tzip out\theta_base-%no%.pk3 src\base\*.* -r
+utilities\7za a -tzip out\theta_base-%no%.pk3 src\base\*.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
 
 echo Packaging code...
-utilities\7za a -tzip out\theta_code-%no%.pk3 src\code\*.* -r
+utilities\7za a -tzip out\theta_code-%no%.pk3 src\code\*.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
 
 echo Packaging maps...
-utilities\7za a -tzip out\theta_maps-%no%.pk3 src\maps\*.* -r
+utilities\7za a -tzip out\theta_maps-%no%.pk3 src\maps\*.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
 
 echo Packaging music...
-utilities\7za a -tzip out\theta_music-%no%.pk3 src\music\*.* -r
+utilities\7za a -tzip out\theta_music-%no%.pk3 src\music\*.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
 pause

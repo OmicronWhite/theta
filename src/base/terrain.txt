@@ -1,7 +1,9 @@
-/*// AOW14 nuke texture
+// AOW14 Nuke texture
+
 terrain A14Nuke {
 	damagetype "ChemicalSpecial"
 	damageamount 20
 	damagetimemask 31
 }
-floor a14nuke A14Nuke*/
+
+floor a14nuke A14Nuke

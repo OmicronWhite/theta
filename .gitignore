@@ -13,4 +13,7 @@ out/
 
 # Extra stuff
 a_changelog.acs
+a_version.acs
 acsconstants.dec
+
+*.tmp

@@ -16,6 +16,7 @@ if not exist src\code\acs\ (
 
 cd src\code\acs_src
 %start%\utilities\acschangelog.exe %start%\changelog.txt %start%\src\code\acs_src\a_changelog.acs
+:: %start%\utilities\acver "a_version.acs" "%start%"
 
 cd %start%
 %start%\utilities\acc\acc %start%\src\code\acs_src\aow2scrp.acs %start%\src\code\acs\aow2scrp.o

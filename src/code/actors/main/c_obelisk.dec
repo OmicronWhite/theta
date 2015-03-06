@@ -26,7 +26,7 @@ actor ObeliskEye 21214 {
 	+NOGRAVITY
 	+NOINTERACTION
 	Health 99999
-	Radius 16
+	Radius 1
 	Height 64
 	Mass 999999
 	Speed 0

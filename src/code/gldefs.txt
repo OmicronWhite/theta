@@ -28,11 +28,6 @@ secondarySize 2024
 	chance 0.25
 }
 
-Object Flashbang-Flare
-{
-    frame PPCX { light FLASHBANG }
-}
-
 flickerlight VPUFF
 {
 	color 0.3 0.3 1.0
@@ -47,11 +42,6 @@ Object VoltagePuff
 }
 
 Object VoltagePuff2
-{
-    frame VOLX { light VPUFF }
-}
-
-Object VoltagePuffBlue
 {
     frame VOLX { light VPUFF }
 }
@@ -86,19 +76,7 @@ Object HandgunPuff
     frame PUFFB { light BPUFF2 }
 }
 
-Object HandgunPuffBlue
-{
-    frame PUFFA { light BPUFF1 }
-    frame PUFFB { light BPUFF2 }
-}
-
 Object RiflePuff
-{
-    frame PUFFA { light BPUFF1 }
-    frame PUFFB { light BPUFF2 }
-}
-
-Object RiflePuffBlue
 {
     frame PUFFA { light BPUFF1 }
     frame PUFFB { light BPUFF2 }
@@ -244,11 +222,6 @@ Object TiberiumDart
 	frame TNT1 { light Chemical }
 }
 
-Object TE21CalShotBlue
-{
-	frame E21X { light TiberiumShot }
-	frame TNT1 { light Chemical }
-}
 
 flickerlight Tibcrystalnorm
 {
@@ -275,19 +248,6 @@ Object TiberiumCrystalSitting
 	frame TIBW { light Tibcrystalnorm }
 	frame TIBE { light Tibcrystalnorm }
 }
-
-Object TiberiumCrystalThrownBlue
-{
-	frame TIBW { light Tibcrystalnorm }
-	frame TIBE { light Tibcrystalnorm }
-}
-
-Object TiberiumCrystalSittingBlue
-{
-	frame TIBW { light Tibcrystalnorm }
-	frame TIBE { light Tibcrystalnorm }
-}
-
 Object TiberiumCrystalDropped
 {
 	frame TIBW { light Tibcrystalnorm }
@@ -312,37 +272,12 @@ flickerlight Chemical
 	chance 0.30
 }
 
-object ChemicalDeathThing
-{
-	frame CDT1 { light Chemical }
-}
-
-object FChemicalDeathThing
-{
-	frame CDT1 { light Chemical }
-}
-
-object ChemFireRemains
-{
-	frame TIBX { light Chemical }
-}
-
 object ChemicalShot
 {
 	frame TIBX { light Chemical }
 }
 
-object ChemicalShotBlue
-{
-	frame TIBX { light Chemical }
-}
-
 object AnthraxDecay
-{
-	frame TNT1 { light Anthrax }
-}
-
-object AnthraxDecayBlue
 {
 	frame TNT1 { light Anthrax }
 }
@@ -368,11 +303,6 @@ object FlameThrowerFire
 	frame FMRF { light Flame }
 }
 
-object FlameThrowerFireBlue
-{
-	frame FMRF { light Flame }
-}
-
 flickerlight Burn
 {
 	color 1.0 0.6 0.0
@@ -381,22 +311,7 @@ flickerlight Burn
 	chance 0.30
 }
 
-object BurnDeathThing
-{
-	frame BDT1 { light Burn }
-}
-
-object FBurnDeathThing
-{
-	frame BDT1 { light Burn }
-}
-
 object FlameDecay
-{
-	frame TNT1 { light Burn }
-}
-
-object FlameDecayBlue
 {
 	frame TNT1 { light Burn }
 }
@@ -406,20 +321,11 @@ object FlameDecayStrong
 	frame TNT1 { light Burn }
 }
 
-object FlameDecayStrongBlue
-{
-	frame TNT1 { light Burn }
-}
-
 object FlameWallDecay
 {
 	frame TNT1 { light Burn }
 }
 
-object FlameWallDecayBlue
-{
-	frame TNT1 { light Burn }
-}
 //object FlameThrowerFireRemains
 //{
 //	frame FLMB { light Burn }
@@ -795,31 +701,6 @@ flickerlight GOLD_X4
     chance 0.4
 }
 
-object GoldenBall1
-{
-    frame PLSSA { light GOLDBALL }
-    frame PLSSB { light GOLDBALL }
-
-    frame PLSEA { light GOLD_X1 }
-    frame PLSEB { light GOLD_X2 }
-    frame PLSEC { light GOLD_X2 }
-    frame PLSED { light GOLD_X3 }
-    frame PLSEE { light GOLD_X4 }
-}
-
-
-object GoldenBall1Blue
-{
-    frame PLSSA { light GOLDBALL }
-    frame PLSSB { light GOLDBALL }
-
-    frame PLSEA { light GOLD_X1 }
-    frame PLSEB { light GOLD_X2 }
-    frame PLSEC { light GOLD_X2 }
-    frame PLSED { light GOLD_X3 }
-    frame PLSEE { light GOLD_X4 }
-}
-
 pointlight GOLDIMPBALL
 {
     color 1.0 1.0 0.0
@@ -878,46 +759,6 @@ Object FloatPuffBlue
     frame VOLX { light GOLDPUFF1 }
 }
 
-Object SlowPuffRed
-{
-    frame VOLX { light GOLDPUFF1 }
-}
-
-Object SlowPuffBlue
-{
-    frame VOLX { light GOLDPUFF1 }
-}
-
-Object WeakenPuffRed
-{
-    frame VOLX { light GOLDPUFF1 }
-}
-
-Object WeakenPuffBlue
-{
-    frame VOLX { light GOLDPUFF1 }
-}
-
-object GoldenBall2
-{
-    frame BAL1A { light GOLDIMPBALL    }
-    frame BAL1B { light GOLDIMPBALL    }
-
-    frame BAL1C { light GOLDIMPBALL_X1 }
-    frame BAL1D { light GOLDIMPBALL_X2 }
-    frame BAL1E { light GOLDIMPBALL_X3 }
-}
-
-object GoldenBall2Blue
-{
-    frame BAL1A { light GOLDIMPBALL    }
-    frame BAL1B { light GOLDIMPBALL    }
-
-    frame BAL1C { light GOLDIMPBALL_X1 }
-    frame BAL1D { light GOLDIMPBALL_X2 }
-    frame BAL1E { light GOLDIMPBALL_X3 }
-}
-
 
 //Mech Lights
 flickerlight PulseBall
@@ -933,16 +774,6 @@ object PulseBall
 	Frame PLGX { light PulseBall }
 }
 
-object PulseBallBlue
-{
-	Frame PLGX { light PulseBall }
-}
-
-object PulseBallImpact
-{
-	Frame PLGX { light PulseBall }
-}
-
 Pointlight PPCBALL
 {
 Color 1.0 1.0 1.0
@@ -953,16 +784,6 @@ Pointlight PPCBALLBOOM
 {
 Color 1.0 1.0 1.0
 Size 150
-}
-
-object ShockCannonBallRed
-{
-	frame PPCX { light PPCBALL }
-}
-
-object ShockCannonBallBlue
-{
-	frame PPCX { light PPCBALL }
 }
 
 object ShockCannonBallImpact

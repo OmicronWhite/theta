@@ -7,18 +7,16 @@ defaultmap {
 	clipmidtextures
 }
 
-episode AOW02 {
+episode AOW01 {
 	name = "A New War"
 }
 
-/*
 map AOW01 "Red Zone" {
 	next = "AOW02"
 	sky1 = "SKY1"
 	music = "D_AOW01"
 	levelnum = 1
 }
-*/
 
 map AOW02 "Barrens" {
 	next = "AOW03"
@@ -26,9 +24,10 @@ map AOW02 "Barrens" {
 	music = "D_AOW02"
 }
 
-map AOW11 "Disk Defrag" {
+map AOW03 "Disk Defrag" {
 	next = "AOW12"
 	music = "D_AOW11"
+	evenlighting
 }
 
 skill Normal {

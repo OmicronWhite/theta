@@ -22,12 +22,21 @@ map AOW02 "Barrens" {
 	next = "AOW03"
 	sky1 = "SKY15"
 	music = "D_AOW02"
+	levelnum = 2
 }
 
 map AOW03 "Disk Defrag" {
 	next = "AOW12"
 	music = "D_AOW11"
 	evenlighting
+	levelnum = 3
+}
+
+map AOW04 "Oasis" {
+	next = "AOW05"
+	sky1 = "sky04", 0.1
+	music = "D_AOW04"
+	levelnum = 4
 }
 
 skill Normal {

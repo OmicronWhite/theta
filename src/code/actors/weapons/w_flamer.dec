@@ -1,4 +1,6 @@
 // Flamethrower
+// Fire - Infantry - No dependency - Price:450
+
 actor Flamer : AOWWeapon 21047 {
 	+ALT_AMMO_OPTIONAL
 	Obituary "$OB_FLAMER"
@@ -8,7 +10,7 @@ actor Flamer : AOWWeapon 21047 {
 	Weapon.Kickback 1
 	Weapon.AmmoType "FlamerAmmo"
 	Weapon.AmmoUse 1
-	Weapon.AmmoGive 50
+	Weapon.AmmoGive 110
 	Weapon.AmmoType2 "PhosphorusGrenadeAmmo"
 	Weapon.AmmoUse2 1
 	Weapon.AmmoGive2 0
@@ -163,9 +165,9 @@ actor Flamer : AOWWeapon 21047 {
 }
 
 actor FlamerAmmo : Ammo {
-	inventory.amount 100
+	inventory.amount 55
 	inventory.maxamount 400
-	ammo.backpackamount 100
+	ammo.backpackamount 55
 	ammo.backpackmaxamount 400
 	states {
 	Spawn:
@@ -179,6 +181,7 @@ actor PhosphorusGrenadeAmmo : Ammo {
 	inventory.maxamount 4
 	ammo.backpackamount 1
 	ammo.backpackmaxamount 4
+
 	states {
 	Spawn:
 		TNT1 A 0

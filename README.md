@@ -1,4 +1,4 @@
-All Out War 3
+Theta
 =============
 *Theta* is a continuation of All Out War 2: The Omega Project.
 

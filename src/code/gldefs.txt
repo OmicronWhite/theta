@@ -1,3 +1,9 @@
+glow {
+	flats {
+		BIOF1
+	}
+}
+
 Pointlight FLASH1
 {
 Color 0.8 0.8 0.0

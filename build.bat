@@ -20,9 +20,17 @@ cd src\code\acs_src
 
 cd %start%
 %start%\utilities\acc\acc %start%\src\code\acs_src\aow2scrp.acs %start%\src\code\acs\aow2scrp.o
-echo.
-echo Please check for any errors...
-pause
+
+if not %ERRORLEVEL%==0 (
+    SET ACSError=%ERRORLEVEL%
+    echo.
+    echo An error occured when building the ACS.
+    echo Please fix it and rebuild.
+    echo.
+    echo Press any key to exit.
+    pause >nul
+    exit %ACSError%
+)
 %start%\utilities\acsconstants.exe %start%\src\code\acs_src\aow2scrp.acs %start%\src\code\actors\acsconstants.dec
 
 if not exist out\ (

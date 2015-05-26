@@ -1,3 +1,286 @@
+// ACS Menu Thing by +Sean
+// Feel free to use this as long as you give credit.
+
+#define MSC_ENTER               480
+#define MSC_DRAW                481
+#define MSC_CLEAR               482
+#define MSC_INPUT_LOOP          483
+#define MSC_EXIT                484
+#define MSC_INPUTRECV           485
+
+#define MSIDE_CATEGORIES        0
+#define MSIDE_ITEMS             1
+
+#define MUI_CATEGORIES_X        0.45
+#define MUI_CATEGORIES_Y        0.3
+#define MUI_CATEGORIES_Y_INC    0.02
+
+#define MUI_ITEMS_X             0.65
+#define MUI_ITEMS_Y             0.3
+#define MUI_ITEMS_Y_INC         0.02
+
+#define MIL_DELAY               4
+
+#define CATEGORIES_AMOUNT       5
+str class_categories[CATEGORIES_AMOUNT] = { "Generic", "Support", "Combat", "Power", "Add-ons" };
+
+#define ITEMS_AMOUNT            10
+str class_items[CATEGORIES_AMOUNT][ITEMS_AMOUNT] = {
+    { "Gunman", "Shotgunner", "Rifleman", "Double Shotgunner", "Machine Gunner", "Tiberium Autorifleman", "-----", "-----", "-----", "-----" },
+    { "Engineer", "Technician", "Utility Guy", "Medic", "Tiberium Harvester", "Adv. Tib. Harvester", "Stealth Trooper", "Time Cop", "-----", "-----" },
+    { "Flamer", "Machine Gunner", "Grenadier", "Rocketeer", "Chem Warrior", "Shock Trooper", "Minigunner", "Laser Chaingunner", "Jumpjet Soldier", "Plasma Gunner" },
+    { "Commando", "Sniper", "Suicide Bomber", "Gauss Gunner", "Demo. Expert", "Artillery Soldier", "-----", "-----", "-----", "-----" },
+    { "Chainsaw", "Tiberium Autorifle", "Artillery Cannon", "-----", "-----", "-----", "-----", "-----", "-----", "-----" }
+};
+
+int playerSelection[65][2];
+int playerSide[65];
+int inMenu[65];
+
+// This function is called when the player has chosen an item.
+function void M_InputReceived(int category, int item) { ACS_Execute(MSC_INPUTRECV, 0, category, item, 0); }
+Script MSC_INPUTRECV (int category, int item) {
+    bool shouldExit = false;
+    
+    if (category == 0) { // Generic
+        switch (item) {
+            case 0: shouldExit = true; PurchaseClass(CLASS_GUNMAN); break; // Gunman
+            case 1: shouldExit = true; PurchaseClass(CLASS_SHOTGUNNER); break;
+            case 2: shouldExit = true; PurchaseClass(CLASS_RIFLEMAN); break;
+            case 3: shouldExit = true; PurchaseClass(CLASS_DOUBLESHOTGUNNER); break;
+            case 4: shouldExit = true; PurchaseClass(CLASS_MACHINEGUNNER); break;
+            case 5: shouldExit = true; PurchaseClass(CLASS_TIBRIFLE); break;
+        }
+    }
+    
+    if (category == 1) { // Support
+        switch (item) {
+            case 0: shouldExit = true; PurchaseClass(CLASS_ENGINEER); break; // Gunman
+            case 1: shouldExit = true; PurchaseClass(CLASS_TECHNICIAN); break;
+            case 2: shouldExit = true; PurchaseClass(CLASS_UTILITYGUY); break;
+            case 3: shouldExit = true; PurchaseClass(CLASS_MEDIC); break;
+            case 4: shouldExit = true; PurchaseClass(CLASS_HARVESTER); break;
+            case 5: shouldExit = true; PurchaseClass(CLASS_ADVHARVESTER); break;
+            case 6: shouldExit = true; PurchaseClass(CLASS_STEALTH); break;
+            case 7: shouldExit = true; PurchaseClass(CLASS_TIMECOP); break;
+        }
+    }
+    
+    if (category == 2) { // Combat
+        switch (item) {
+            case 0: shouldExit = true; PurchaseClass(CLASS_FLAMER); break; // Gunman
+            case 1: shouldExit = true; PurchaseClass(CLASS_SNIPER); break;
+            case 2: shouldExit = true; PurchaseClass(CLASS_SUICIDEBOMBER); break;
+            case 3: shouldExit = true; PurchaseClass(CLASS_GAUSSGUNNER); break;
+            case 4: shouldExit = true; PurchaseClass(CLASS_DEMOEXPERT); break;
+            case 5: shouldExit = true; PurchaseClass(CLASS_ARTILLERY); break;
+        }
+    }
+    
+    if (category == 3) { // Power
+        switch (item) {
+            case 0: shouldExit = true; PurchaseClass(CLASS_FLAMER); break; // Gunman
+            case 1: shouldExit = true; PurchaseClass(CLASS_SNIPER); break;
+            case 2: shouldExit = true; PurchaseClass(CLASS_SUICIDEBOMBER); break;
+            case 3: shouldExit = true; PurchaseClass(CLASS_GAUSSGUNNER); break;
+            case 4: shouldExit = true; PurchaseClass(CLASS_DEMOEXPERT); break;
+            case 5: shouldExit = true; PurchaseClass(CLASS_ARTILLERY); break;
+        }
+    }
+    
+    if (category == 3) { // Addons
+        //switch (item) {
+        //}
+    }
+    
+    //if (shouldExit) { M_Exit(); }
+}
+
+// User enters menu.
+function void M_Enter(void) { ACS_ExecuteAlways(MSC_Enter, 0, 0, 0, 0); }
+Script MSC_Enter (void) {
+    int player = PlayerNumber();
+    if(!inMenu[player]) {
+        inMenu[player] = true;
+        M_Freeze();
+        M_Draw();
+        Delay(MIL_DELAY); // prevents accidentally selecting an option
+        M_InputLoop_Start();
+    }
+}
+
+function void M_Exit(void) { ACS_Execute(MSC_EXIT, 0, 0, 0, 0); }
+Script MSC_Exit (void) {
+    int player = PlayerNumber();
+    M_InputLoop_Stop();
+    M_Clear();
+    M_Unfreeze();
+    inMenu[player] = false;
+}
+
+function str M_ItemString(int side, int category, int item) { 
+    int player = PlayerNumber();
+    str value = "";
+    
+    if(playerSide[player] == MSIDE_CATEGORIES) {
+        if(side == MSIDE_ITEMS) 
+            value = StrParam(s: "\cm", s: class_items[category][item]);
+            
+        if(playerSelection[player][MSIDE_CATEGORIES] == item && side == MSIDE_CATEGORIES) {
+                value = StrParam(s: "\cd", s: class_categories[item]);
+        }
+        
+        if(playerSelection[player][MSIDE_CATEGORIES] != item && side == MSIDE_CATEGORIES) {
+                value = StrParam(s: "\cq", s: class_categories[item]);
+        }
+    }
+    
+    else if(playerSide[player] == MSIDE_ITEMS) {
+        if(side == MSIDE_CATEGORIES) 
+            value = StrParam(s: "\cm", s: class_categories[item]);
+        
+        if(playerSelection[player][MSIDE_ITEMS] == item 
+            && playerSelection[player][MSIDE_CATEGORIES] == category
+            && side == MSIDE_ITEMS)
+                value = StrParam(s: "\cd", s: class_items[category][item]);
+        
+        if(playerSelection[player][MSIDE_ITEMS] != item
+            && playerSelection[player][MSIDE_CATEGORIES] == category
+            && side == MSIDE_ITEMS)
+                value = StrParam(s: "\cq", s: class_items[category][item]);
+    }
+    
+    return value;
+}
+
+function void M_Freeze(void) {
+    SetPlayerProperty(0, ON, PROP_TOTALLYFROZEN);
+}
+
+function void M_Unfreeze(void) {
+    SetPlayerProperty(0, OFF, PROP_TOTALLYFROZEN);
+}
+
+// Draws the menu.
+function void M_Draw(void) { ACS_Execute(MSC_Draw, 0, 0, 0, 0); }
+Script MSC_Draw (void) {
+    int player = PlayerNumber();
+    
+    // Draw categories
+    int c_startY = 0.45;
+    int c_incY = 0.02;
+    
+    for (int i = 0; i < CATEGORIES_AMOUNT; i++) {
+        HudMessage(s: M_ItemString(MSIDE_CATEGORIES, 0, i); 
+                HUDMSG_PLAIN, 600 + i, CR_GREY, MUI_CATEGORIES_X, c_startY, 0);
+        c_startY += c_incY;
+    }
+    
+    // Draw items
+    int i_startY = 0.45;
+    int i_incY = 0.02;
+    
+    for (int i1 = 0; i1 < ITEMS_AMOUNT; i1++) {
+        HudMessage(s: M_ItemString(MSIDE_ITEMS, playerSelection[player][MSIDE_CATEGORIES], i1); 
+                HUDMSG_PLAIN, 700 + i1, CR_GREY, MUI_ITEMS_X, i_startY, 0);
+        i_startY += i_incY;
+    }
+    
+    // Draw help
+    HudMessage(s: "\cfHelp\n",
+                s: "\cdMove up: \cq", k: "+forward",
+                s: "\n\cdMove down: \cq", k: "+back",
+                s: "\n\cdSwitch side: \cq", k: "+left", s: "\cd and \cq ", k: "+right",
+                s: "\n\cdSelect: \cq", k: "+use", s: "\cd or \cq", k: "+attack",
+                s: "\n\cdExit: \cq", k: "+altattack";
+                HUDMSG_PLAIN, 599, CR_GREEN, 1.5, 0.7, 0);
+}
+
+function void M_ClearHudMsg(int id) {
+        HudMessage(s: ""; HUDMSG_PLAIN, id, CR_GREY, 0, 0, 0);
+}
+
+function void M_Clear(void) { ACS_Execute(MSC_Clear, 0, 0, 0, 0); }
+Script MSC_Clear (void) {
+    int player = PlayerNumber();
+    for (int i = 0; i < CATEGORIES_AMOUNT; i++) {
+        M_ClearHudMsg(600 + i);
+    }
+    
+    for (int i1 = 0; i1 < ITEMS_AMOUNT; i1++) {
+        M_ClearHudMsg(700 + i1);
+    }
+    
+    M_ClearHudMsg(599);
+}
+
+function void M_InputLoop_Start(void) { ACS_Execute(MSC_Input_Loop, 0, 0, 0, 0); }
+function void M_InputLoop_Stop(void) { ACS_Terminate(MSC_Input_Loop, 0); }
+Script MSC_Input_Loop (void) {
+    int input = GetPlayerInput(-1, INPUT_BUTTONS);
+    int player = PlayerNumber();
+    bool inputUsed = false; // This is to stop us from drawing the menu again if nothing changed.
+    
+    if (input & BT_FORWARD) {
+        inputUsed = true;
+        
+        if(playerSide[player] == MSIDE_CATEGORIES
+            && playerSelection[player][MSIDE_CATEGORIES] == 0) {
+                playerSelection[player][MSIDE_CATEGORIES] = CATEGORIES_AMOUNT - 1;
+        } else if(playerSide[player] == MSIDE_ITEMS
+            && playerSelection[player][MSIDE_ITEMS] == 0) {
+                playerSelection[player][MSIDE_ITEMS] = ITEMS_AMOUNT - 1;
+        } else     
+            playerSelection[player][playerSide[player]]--;
+            
+        Log(d:playerSelection[player][0], s:", ", d: playerSelection[player][1]);
+    }
+    
+    if (input & BT_BACK) {
+        inputUsed = true;
+        
+        if(playerSide[player] == MSIDE_CATEGORIES
+            && playerSelection[player][MSIDE_CATEGORIES] == CATEGORIES_AMOUNT - 1) {
+                playerSelection[player][MSIDE_CATEGORIES] = 0;
+        } else if(playerSide[player] == MSIDE_ITEMS
+            && playerSelection[player][MSIDE_ITEMS] == ITEMS_AMOUNT - 1) {
+                playerSelection[player][MSIDE_ITEMS] = 0;
+        } else     
+            playerSelection[player][playerSide[player]]++;
+            
+        Log(d:playerSelection[player][0], s:", ", d: playerSelection[player][1]);
+    }
+    
+    if (input & BT_MOVELEFT || input & BT_LEFT) {
+        inputUsed = true;
+        playerSide[player] = MSIDE_CATEGORIES;
+    }
+    
+    if (input & BT_MOVERIGHT || input & BT_RIGHT) {
+        inputUsed = true;
+        playerSide[player] = MSIDE_ITEMS;
+    }
+    
+    if (input & BT_ALTATTACK) {
+        M_Exit();
+    }
+    
+    if (input & BT_USE || input & BT_ATTACK) {
+        inputUsed = true;
+        
+        if(playerSide[player] == MSIDE_CATEGORIES)
+            playerSide[player] = MSIDE_ITEMS;
+        else
+            M_InputReceived(playerSelection[player][MSIDE_CATEGORIES],
+                    playerSelection[player][MSIDE_ITEMS]);
+    }
+    
+    
+    if (inputUsed) { M_Draw(); }
+    Delay(MIL_DELAY);
+    restart;
+}
+
 // All Out War 2 Class purchase scripts
 // Credit to VoltlocK for originally creating the engine
 // With modifications by Eruanna, Dusk and the Omega Team
@@ -114,7 +397,9 @@ function void PurchaseClass( int c )
 	// Check monies
 	if( !CheckCredits( cost ))
 		return;
-
+    
+    M_Exit(); // If we're in the menu, leave it.
+    
 	int cflags = Classes[c][CK_FLAGS];
 
 	TakeInventory( "PurchaseToken", 1 );
@@ -255,35 +540,35 @@ script 918( int n )
 }
 
 // -----------------------------------------------------------------------------
-script 20( void ) PurchaseClass( CLASS_GUNMAN );
-script 21( void ) PurchaseClass( CLASS_ENGINEER );
-script 22( void ) PurchaseClass( CLASS_MINIGUNNER );
-script 23( void ) PurchaseClass( CLASS_TECHNICIAN );
-script 24( void ) PurchaseClass( CLASS_FLAMER );
-script 25( void ) PurchaseClass( CLASS_RIFLEMAN );
-script 26( void ) PurchaseClass( CLASS_MACHINEGUNNER );
-script 27( void ) PurchaseClass( CLASS_GRENADIER );
-script 28( void ) PurchaseClass( CLASS_ROCKETEER );
-script 29( void ) PurchaseClass( CLASS_STEALTH );
-script 33( void ) PurchaseClass( CLASS_GAUSSGUNNER );
-script 34( void ) PurchaseClass( CLASS_CHEMWARRIOR );
-script 35( void ) PurchaseClass( CLASS_SHOCKTROOPER );
-script 36( void ) PurchaseClass( CLASS_COMMANDO );
-script 38( void ) PurchaseClass( CLASS_SHOTGUNNER );
-script 62( void ) PurchaseClass( CLASS_SUICIDEBOMBER );
-script 40( void ) PurchaseClass( CLASS_SNIPER );
-script 41( void ) PurchaseClass( CLASS_UTILITYGUY );
-script 42( void ) PurchaseClass( CLASS_DEMOEXPERT );
-script 43( void ) PurchaseClass( CLASS_MEDIC );
-script 44( void ) PurchaseClass( CLASS_LASERCHAINGUNNER );
-script 52( void ) PurchaseClass( CLASS_JUMPJET );
-script 53( void ) PurchaseClass( CLASS_TIBRIFLE );
-script 54( void ) PurchaseClass( CLASS_DOUBLESHOTGUNNER );
-script 60( void ) PurchaseClass( CLASS_PLASMAGUNNER );
-script 61( void ) PurchaseClass( CLASS_ARTILLERY );
-script 39( void ) PurchaseClass( CLASS_TIMECOP );
-script 63( void ) PurchaseClass( CLASS_ADVHARVESTER );
-script 64( void ) PurchaseClass( CLASS_HARVESTER );
+script 20( void ) M_Enter();
+script 21( void ) M_Enter();
+script 22( void ) M_Enter();
+script 23( void ) M_Enter();
+script 24( void ) M_Enter();
+script 25( void ) M_Enter();
+script 26( void ) M_Enter();
+script 27( void ) M_Enter();
+script 28( void ) M_Enter();
+script 29( void ) M_Enter();
+script 33( void ) M_Enter();
+script 34( void ) M_Enter();
+script 35( void ) M_Enter();
+script 36( void ) M_Enter();
+script 38( void ) M_Enter();
+script 62( void ) M_Enter();
+script 40( void ) M_Enter();
+script 41( void ) M_Enter();
+script 42( void ) M_Enter();
+script 43( void ) M_Enter();
+script 44( void ) M_Enter();
+script 52( void ) M_Enter();
+script 53( void ) M_Enter();
+script 54( void ) M_Enter();
+script 60( void ) M_Enter();
+script 61( void ) M_Enter();
+script 39( void ) M_Enter();
+script 63( void ) M_Enter();
+script 64( void ) M_Enter();
 
 //---------------------------PLASMA CANNON
 script 37( void )

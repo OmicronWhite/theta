@@ -1,0 +1,6 @@
+user noarchive int zz_cl_donateto = 0;
+user noarchive int zz_cl_donateamt = 0;
+
+user noarchive int zz_cl_menutomap = 0;
+user noarchive int zz_cl_menutomap_bots = 0;
+user noarchive bool zz_cl_menutomap_going = false;

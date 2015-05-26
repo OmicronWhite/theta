@@ -21,7 +21,7 @@ function int msqr( int n )
 }
 
 // [SP] This came from the ZDoom wiki
-function int sqrt( int number )
+/*function int sqrt( int number )
 {	if( number <= 3 )
 	{	if( number > 0 )
 		{	return 1;
@@ -40,7 +40,7 @@ function int sqrt( int number )
 	}
 
 	return oldAns;
-}
+}*/
 
 // [Dusk] check functions
 

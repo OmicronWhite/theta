@@ -238,7 +238,7 @@ script 69( void )
 		SpawnSpot( "Utility_GlobalAmmoCacheBlue", 113 );
 }
 
-//---------------------------+1 GERNADE
+//---------------------------+1 TIMED C4
 script 70( void )
 {	int cost = 150;
 

@@ -27,7 +27,7 @@ map AOW02 "Barrens" {
 
 map AOW03 "Disk Defrag" {
 	next = "AOW12"
-	music = "D_AOW11"
+	music = "D_AOW03"
 	evenlighting
 	levelnum = 3
 }

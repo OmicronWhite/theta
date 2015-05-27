@@ -240,7 +240,7 @@ script 69( void )
 
 //---------------------------+1 GERNADE
 script 70( void )
-{	int cost = 250;
+{	int cost = 150;
 
 	if( MitigateDoublePress() )
 		terminate;
@@ -248,7 +248,7 @@ script 70( void )
 	if( !CheckPlant( PlayerTeam() ))
 		terminate;
 
-	if( GetAmmoCapacity( "FragGrenadeAmmo" ) >= 4 )
+	if( GetAmmoCapacity( "TimedC4" ) >= 4 )
 	{	Error( "You already have 4!" );
 		terminate;
 	}
@@ -256,9 +256,9 @@ script 70( void )
 	if( !CheckInventory( "PurchaseToken" ))
 	{	GiveInventory( "PurchaseToken", 1 );
 		SetFont( "BIGFONT" );
-		HudMessage( s: "\cd----+1 FRAG GRENADE----\n",
+		HudMessage( s: "\cd----+1 TIMED C4----\n",
 					s:"\n\ciCost: \cf$", d:cost, s:"\n",
-					s:"\ciPurpose: \cdAdditional frag grenade.\n",
+					s:"\ciPurpose: \cdAn additional timed C4 explosive.\n",
 					s:"\cd--- Maximum of 4.\n";
 					HUDMSG_FADEOUT, 2100 + PlayerNumber(), CR_Green, 0.25, 0.25, 3.0, 2.0 );
 		ACS_ExecuteWithResult( 330, cost );
@@ -274,9 +274,7 @@ script 70( void )
 	GiveInventory( "Refunds", cost / 2 );
 	DisplayTick();
 	BigMessage( "\ci+1 frag grenade!" );
-	SetAmmoCapacity( "FragGrenadeAmmo", GetAmmoCapacity( "FragGrenadeAmmo" ) + 1);
-	SetInventory( "FragGrenadeAmmo", GetAmmoCapacity( "FragGrenadeAmmo" ));
-	SetWeapon( "FragGrenade" );
+	SetInventory( "TimedC4", GetInventory( "TimedC4" ) + 1 );
 	TakeInventory( "PurchaseToken", 1 );
 	Log( s: pname( -1 ), s: " purchases +1 frag grenade" );
 }

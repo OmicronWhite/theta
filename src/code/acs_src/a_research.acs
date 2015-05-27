@@ -274,7 +274,7 @@ script 70( void )
 	GiveInventory( "Refunds", cost / 2 );
 	DisplayTick();
 	BigMessage( "\ci+1 frag grenade!" );
-	SetInventory( "TimedC4", GetInventory( "TimedC4" ) + 1 );
+	SetInventory( "TimedC4", CheckInventory( "TimedC4" ) + 1 );
 	TakeInventory( "PurchaseToken", 1 );
 	Log( s: pname( -1 ), s: " purchases +1 frag grenade" );
 }

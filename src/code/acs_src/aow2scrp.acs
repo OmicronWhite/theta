@@ -177,6 +177,8 @@
 #define TARGETINFO_Name			13 // Name (akin to print (n:0))
 
 // TODO: populate this list
+#define SC_MenuGoMap              780
+#define SC_MenuGoneMap            781
 #define SC_SelfHealHealth         816
 #define SC_CL_ObeliskTrail        822
 #define SC_UpdateCreditDisplay    827
@@ -184,6 +186,7 @@
 #define SC_SpawnMarkerDestroyed   852
 #define SC_CL_Changelog           853
 #define SC_HUDTicker              854
+#define SC_ServerIsFull           860
 #define SC_ChangePlayerTeam       891
 #define SC_RazorWire              892
 #define SC_TargetInfo             899
@@ -460,6 +463,7 @@ str NormalWeaponNames[MAX_NORMAL_WEAPONS] =
 #include "a_jetpack.acs"
 #include "a_mechs.acs"
 #include "a_menu.acs"
+#include "a_menudef.acs"
 #include "a_misc.acs"
 #include "a_netscripts.acs"
 #include "a_opendeck.acs"

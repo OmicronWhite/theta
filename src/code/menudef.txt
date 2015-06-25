@@ -1,0 +1,89 @@
+//////////////////////////////////////
+// ALL OUT WAR 2: THE THETA PROJECT //
+//              MENUDEF             //
+//////////////////////////////////////
+
+// New main menu.
+ListMenu "MainMenu" {
+    StaticPatch     94,                 2,                          "M_DOOM"
+    Position        97,                 72
+    IfOption(ReadThis){
+        Position    97,                 64
+    }
+    
+    TextItem        "Play Offline",     "n",                        "AOWPlayOffline"
+    TextItem        "All Out War 2",    "a",                        "AOWMenu" 
+    
+    TextItem        "Options",          "o",                        "OptionsMenu"
+    
+    IfOption(ReadThis) {
+        TextItem    "Read this!",       "r",                        "ReadThisMenu"
+    }
+    
+    TextItem        "Quit",             "q",                        "AOWQuitMenu"
+}
+
+// Custom quit menu.
+OptionMenu "AOWQuitMenu" {
+    Title           "Quit"
+    
+    StaticText      "Are you sure you want to quit?"
+    StaticText      " "
+    SafeCommand     "Disconnect",       "disconnect"
+    SafeCommand     "Exit Game",        "exit"
+}
+
+
+OptionValue "AOWMaps" {
+    0,              "AOW01 - Red Zone"
+    1,              "AOW02 - Barrens"
+    2,              "AOW03 - Disk Defrag"
+    3,              "AOW04 - Oasis"
+}
+
+OptionMenu "AOWPlayOffline" {
+    Title           "Play Offline"
+    
+    StaticText      "Note: For the map to change, you must exit the menu."
+    StaticText      " "
+    Option          "Map",              "zz_cl_menutomap",          "AOWMaps",          1
+    //NumberField "Bots", "zz_cl_menutomap_bots", 0, 31, 1
+    StaticText      " "
+    SafeCommand     "Play",             "aowmenu_gomap"
+}
+
+ListMenu "AOWMenu" {
+    TextItem        "Commands",         "d",                        "AOWCommands"
+    TextItem        "Donate",           "d",                        "AOWDonations"
+    //StaticText      " "
+    TextItem        "Client Options",   "d",                        "AOWClientOptions"
+}
+
+OptionMenu "AOWCommands" {
+    Title           "Commands"
+    
+    SafeCommand     "Join Weaker Team", "teamswitch"
+    //SafeCommand     "Sell Weapon",      "sellweapon"
+    SafeCommand     "Surrender",        "surrender"
+    SafeCommand     "Eject Mech",       "ejectmech"
+    Command         "Show Changelog",   "aow_changelog"
+}
+
+OptionMenu "AOWDonations" {
+    Title           "Donate"
+    
+    PlayerField     "Player",           "zz_cl_donateto",           notself
+    NumberField     "Amount",           "zz_cl_donateamt",          100,        1000,       100
+    Command         "Send Donation",    "aow_donate"
+}
+
+OptionMenu "AOWClientOptions" {
+    Title "Client Options"
+    
+    Option "No HUD",                    "aow_cl_nohud",             "YesNo"
+    Option "Always have radar",         "aow_cl_alwaysradar",       "YesNo"
+    Option "Console font HUD",          "aow_cl_confonthud",        "YesNo"
+    Option "Full team log",             "aow_cl_fullteamlog",       "YesNo"
+    Option "Enable effects",            "aow_cl_fx",                "YesNo"
+    Option "Show killer's health",      "aow_cl_killerhealth",      "YesNo"
+}

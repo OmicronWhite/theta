@@ -198,3 +198,13 @@ script SC_RazorWire( int myteam )
 		GiveActorInventory( TID_Player + i, "RazorWireSlow", 1 );
 	}
 }
+
+int fullMode = false;
+
+Script SC_ServerIsFull ENTER{
+    int lmaxplayers = GetCVar("sv_maxplayers");
+    if(PlayerCount() >= lmaxplayers / 3 * 4 && !fullMode) {
+        fullMode = true;
+        SetMusic(StrParam(s: "D_FULL", d: random(1, 2)));
+    }
+}

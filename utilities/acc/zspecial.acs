@@ -289,12 +289,12 @@ special
 	-45:ACS_NamedExecuteAlways(2,5),
 	-46:UniqueTID(0,2),
 	-47:IsTIDUsed(1),
-	//-48:Sqrt(1),
+	-48:Sqrt(1),
 	-49:FixedSqrt(1),
 	-50:VectorLength(2),
 	-51:SetHUDClipRect(4,5),
 	-52:SetHUDWrapWidth(1),
-	//-53:SetCVar(2),
+	-53:SetCVar(2),
 	-54:GetUserCVar(2),
 	-55:SetUserCVar(3),
 	-56:GetCVarString(1),
@@ -355,3 +355,4 @@ special
 	-19261:SetTeamScore(2),
 	
 	-100000:__EndOfList__(10);
+	

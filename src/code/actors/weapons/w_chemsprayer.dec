@@ -13,7 +13,7 @@ actor ChemicalSprayer : AOWWeapon {
 	weapon.ammotype2 "ChemicalGrenadeAmmo"
 	weapon.ammouse2 1
 	weapon.ammogive2 0
-	Weapon.PreferredSkin "MarinePlasma"
+	weapon.PreferredSkin "MarinePlasma"
 
 	States {
 	Spawn:

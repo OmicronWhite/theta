@@ -1,7 +1,7 @@
 // Gatling Gun
 // Bullet - Close combat - No dependency - Price:400
 
-actor GatlingGun : AOWWeapon 21045 {
+actor GatlingGun : AOWWeapon {
 	obituary "$OB_GATLING" // "%o was perforated by %k's gatling gun."
 	inventory.pickupmessage "You got the gatling gun!"
 	weapon.selectionorder 7

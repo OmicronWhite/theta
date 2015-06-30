@@ -45,46 +45,50 @@ Script MSC_INPUTRECV (int category, int item) {
     if (category == 0) { // Generic
         switch (item) {
             case 0: shouldExit = true; PurchaseClass(CLASS_GUNMAN); break; // Gunman
-            case 1: shouldExit = true; PurchaseClass(CLASS_SHOTGUNNER); break;
-            case 2: shouldExit = true; PurchaseClass(CLASS_RIFLEMAN); break;
-            case 3: shouldExit = true; PurchaseClass(CLASS_DOUBLESHOTGUNNER); break;
-            case 4: shouldExit = true; PurchaseClass(CLASS_MACHINEGUNNER); break;
-            case 5: shouldExit = true; PurchaseClass(CLASS_TIBRIFLE); break;
+            case 1: shouldExit = true; PurchaseClass(CLASS_SHOTGUNNER); break; // Shotgunner
+            case 2: shouldExit = true; PurchaseClass(CLASS_RIFLEMAN); break; // Rifleman
+            case 3: shouldExit = true; PurchaseClass(CLASS_DOUBLESHOTGUNNER); break; // Double Shotgunner
+            case 4: shouldExit = true; PurchaseClass(CLASS_MACHINEGUNNER); break; // Machine Gunner
+            case 5: shouldExit = true; PurchaseClass(CLASS_TIBRIFLE); break; // Tiberium Autorifleman
         }
     }
     
     if (category == 1) { // Support
         switch (item) {
-            case 0: shouldExit = true; PurchaseClass(CLASS_ENGINEER); break; // Gunman
-            case 1: shouldExit = true; PurchaseClass(CLASS_TECHNICIAN); break;
-            case 2: shouldExit = true; PurchaseClass(CLASS_UTILITYGUY); break;
-            case 3: shouldExit = true; PurchaseClass(CLASS_MEDIC); break;
-            case 4: shouldExit = true; PurchaseClass(CLASS_HARVESTER); break;
-            case 5: shouldExit = true; PurchaseClass(CLASS_ADVHARVESTER); break;
-            case 6: shouldExit = true; PurchaseClass(CLASS_STEALTH); break;
-            case 7: shouldExit = true; PurchaseClass(CLASS_TIMECOP); break;
+            case 0: shouldExit = true; PurchaseClass(CLASS_ENGINEER); break; // Engineer
+            case 1: shouldExit = true; PurchaseClass(CLASS_TECHNICIAN); break; // Technician
+            case 2: shouldExit = true; PurchaseClass(CLASS_UTILITYGUY); break; // Utility Guy
+            case 3: shouldExit = true; PurchaseClass(CLASS_MEDIC); break; // Medic
+            case 4: shouldExit = true; PurchaseClass(CLASS_HARVESTER); break; // Tiberium Harvester
+            case 5: shouldExit = true; PurchaseClass(CLASS_ADVHARVESTER); break; // Adv. Tib. Harvester
+            case 6: shouldExit = true; PurchaseClass(CLASS_STEALTH); break; // Stealth Trooper - Generic?
+            case 7: shouldExit = true; PurchaseClass(CLASS_TIMECOP); break; // Time Cop
         }
     }
     
     if (category == 2) { // Combat
         switch (item) {
-            case 0: shouldExit = true; PurchaseClass(CLASS_FLAMER); break; // Gunman
-            case 1: shouldExit = true; PurchaseClass(CLASS_SNIPER); break;
-            case 2: shouldExit = true; PurchaseClass(CLASS_SUICIDEBOMBER); break;
-            case 3: shouldExit = true; PurchaseClass(CLASS_GAUSSGUNNER); break;
-            case 4: shouldExit = true; PurchaseClass(CLASS_DEMOEXPERT); break;
-            case 5: shouldExit = true; PurchaseClass(CLASS_ARTILLERY); break;
+            case 0: shouldExit = true; PurchaseClass(CLASS_FLAMER); break; // Flamer
+            case 1: shouldExit = true; PurchaseClass(CLASS_MACHINEGUNNER); break; // Machine Gunner - What!?
+            case 2: shouldExit = true; PurchaseClass(CLASS_GRENADIER); break; // Grenadier
+            case 3: shouldExit = true; PurchaseClass(CLASS_ROCKETEER); break; // Rocketeer
+            case 4: shouldExit = true; PurchaseClass(CLASS_CHEMWARRIOR); break; // Chem Warrior
+            case 5: shouldExit = true; PurchaseClass(CLASS_SHOCKTROOPER); break; // Shock Trooper <- res centre?
+            case 6: shouldExit = true; PurchaseClass(CLASS_MINIGUNNER); break; // Minigunner - Generic?
+            case 7: shouldExit = true; PurchaseClass(CLASS_LASERCHAINGUNNER); break; // Laser Chaingunner <- res centre?
+            case 8: shouldExit = true; PurchaseClass(CLASS_JUMPJET); break; // Jumpjet Soldier
+            case 9: shouldExit = true; PurchaseClass(CLASS_PLASMAGUNNER); break; // Plasma Gunner <- res centre?
         }
     }
     
     if (category == 3) { // Power
         switch (item) {
-            case 0: shouldExit = true; PurchaseClass(CLASS_FLAMER); break; // Gunman
-            case 1: shouldExit = true; PurchaseClass(CLASS_SNIPER); break;
-            case 2: shouldExit = true; PurchaseClass(CLASS_SUICIDEBOMBER); break;
-            case 3: shouldExit = true; PurchaseClass(CLASS_GAUSSGUNNER); break;
-            case 4: shouldExit = true; PurchaseClass(CLASS_DEMOEXPERT); break;
-            case 5: shouldExit = true; PurchaseClass(CLASS_ARTILLERY); break;
+            case 0: shouldExit = true; PurchaseClass(CLASS_COMMANDO); break; // Commando
+            case 1: shouldExit = true; PurchaseClass(CLASS_SNIPER); break; // Sniper
+            case 2: shouldExit = true; PurchaseClass(CLASS_SUICIDEBOMBER); break; // Suicide Bomber - Suport?
+            case 3: shouldExit = true; PurchaseClass(CLASS_GAUSSGUNNER); break; // Gauss Gunner
+            case 4: shouldExit = true; PurchaseClass(CLASS_DEMOEXPERT); break; // Demo. Expert - Suport?
+            case 5: shouldExit = true; PurchaseClass(CLASS_ARTILLERY); break; // Artillery Soldier - Combat?
         }
     }
     

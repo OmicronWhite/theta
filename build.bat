@@ -15,11 +15,11 @@ if not exist src\code\acs\ (
 )
 
 cd src\code\acs_src
-%start%\utilities\acschangelog.exe %start%\changelog.txt %start%\src\code\acs_src\a_changelog.acs
+"%start%\utilities\acschangelog.exe" "%start%\changelog.txt" "%start%\src\code\acs_src\a_changelog.acs"
 :: %start%\utilities\acver "a_version.acs" "%start%"
 
-cd %start%
-%start%\utilities\acc\acc %start%\src\code\acs_src\aow2scrp.acs %start%\src\code\acs\aow2scrp.o
+cd "%start%"
+"%start%\utilities\acc\acc" "%start%\src\code\acs_src\aow2scrp.acs" "%start%\src\code\acs\aow2scrp.o"
 
 if not %ERRORLEVEL%==0 (
     SET ACSError=%ERRORLEVEL%
@@ -31,8 +31,7 @@ if not %ERRORLEVEL%==0 (
     pause >nul
     exit %ACSError%
 )
-%start%\utilities\acsconstants.exe %start%\src\code\acs_src\aow2scrp.acs %start%\src\code\actors\acsconstants.dec
-
+"%start%\utilities\acsconstants.exe" "%start%\src\code\acs_src\aow2scrp.acs" "%start%\src\code\actors\acsconstants.dec"
 if not exist out\ (
 	mkdir out >nul
 ) else (
@@ -43,20 +42,20 @@ if not exist out\ (
 
 echo Packaging base...
 cd src\base\
-%start%\utilities\7za a -tzip %start%\out\theta_base-%no%.pk3 *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
+"%start%\utilities\7za" a -tzip "%start%\out\theta_base-%no%.pk3" *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
 
 echo Packaging code...
 cd ..\..\
 cd src\code\
-%start%\utilities\7za a -tzip %start%\out\theta_code-%no%.pk3 *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
+"%start%\utilities\7za" a -tzip "%start%\out\theta_code-%no%.pk3" *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
 
 echo Packaging maps...
 cd ..\..\
 cd src\maps\
-%start%\utilities\7za a -tzip %start%\out\theta_maps-%no%.pk3 *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
+"%start%\utilities\7za" a -tzip "%start%\out\theta_maps-%no%.pk3" *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
 
 echo Packaging music...
 cd ..\..\
 cd src\music\
-..\..\utilities\7za a -tzip %start%\out\theta_music-%no%.pk3 *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
+"%start%\utilities\7za" a -tzip "%start%\out\theta_music-%no%.pk3" *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
 pause

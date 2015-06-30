@@ -8,4 +8,4 @@ Theta
  * __AOW03__ - Disk Defrag
  * __AOW04__ - Oasis
 
-Keep on the track of everything that's happing to theta in Zandronum irc, channel - #Theta
+Come join our IRC channel! `irc.zandronum.com #theta`

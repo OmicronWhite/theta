@@ -5,5 +5,5 @@ Theta
 ##Maps
  * __AOW01__ - Red Zone
  * __AOW02__ - Barrens
- * __AOW03__ - Oasis
- * __AOW04__ - Disk Defrag
+ * __AOW03__ - Disk Defrag
+ * __AOW04__ - Oasis

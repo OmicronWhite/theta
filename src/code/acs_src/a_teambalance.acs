@@ -8,6 +8,11 @@
  * of this and call it your own. Thanks!
  */
 
+int lastPlayerToJoin;
+Script SC_TrackLastPlayer ENTER {
+	lastPlayerToJoin = PlayerNumber();
+}
+
 // [Dusk] Rewritten this for the most part..
 function void CheckTeamBalance( void )
 {	int i, delta, lesserteam, switchee, switcheetime;
@@ -26,7 +31,7 @@ function void CheckTeamBalance( void )
 		lesserteam = cond( delta > 0, TEAM_BLUE, TEAM_RED );
 
 		// Find someone to switch
-		switchee = MAXPLAYERS;
+		switchee = lastPlayerToJoin;
 		switcheetime = 0;
 
 		for( i = 0; i < MAXPLAYERS; i++ )

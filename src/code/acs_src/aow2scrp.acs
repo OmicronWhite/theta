@@ -187,6 +187,7 @@
 #define SC_CL_Changelog           853
 #define SC_HUDTicker              854
 #define SC_ServerIsFull           860
+#define SC_TrackLastPlayer        890
 #define SC_ChangePlayerTeam       891
 #define SC_RazorWire              892
 #define SC_TargetInfo             899

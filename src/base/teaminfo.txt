@@ -1,13 +1,13 @@
 ClearTeams
 
 Team "Blue" {
-	PlayerColor "05 72 87"
+	PlayerColor "00 af 8f"
 	TextColor "Blue"
 	PlayerStartThingNumber 5080
 }
 
 Team "Red" {
-	PlayerColor "B3 00 1D"
+	PlayerColor "ff 00 00"
 	TextColor "Red"
 	PlayerStartThingNumber 5081
 }

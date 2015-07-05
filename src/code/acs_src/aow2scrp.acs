@@ -373,6 +373,9 @@ int CrateNumber = 0;
 // [Dusk] for spawn markers
 int HasSpawnMarker[MAXPLAYERS];
 
+// [SB] For the team balance.
+int lastPlayerToJoin = 0;
+
 // =============================================================================
 int Classes[NUM_CLASSES][64];
 

@@ -8,7 +8,6 @@
  * of this and call it your own. Thanks!
  */
 
-int lastPlayerToJoin;
 Script SC_TrackLastPlayer ENTER {
 	lastPlayerToJoin = PlayerNumber();
 }

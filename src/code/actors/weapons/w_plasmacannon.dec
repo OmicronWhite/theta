@@ -174,7 +174,7 @@ actor PlasmaCannonBallSmall : PlasmaCannonBall {
 }
 
 actor PlasmaCannonBallBlue : PlasmaCannonBall {
-	translation "112:120=200:207", "121:127=241:247"
+	translation "112:127=192:207"
 	obituary "$OB_PLASMACANNON_BLUE"
 	states {
 	Spawn:
@@ -193,7 +193,7 @@ actor PlasmaCannonBallBlue : PlasmaCannonBall {
 }
 
 actor PlasmaCannonBallSmallBlue : PlasmaCannonBallSmall {
-	translation "112:120=200:207", "121:127=241:247"
+	translation "112:127=192:207"
 	obituary "$OB_PLASMACANNON_ALT_BLUE"
 	DamageType "Explosion"
 }

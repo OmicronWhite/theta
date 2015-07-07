@@ -259,7 +259,7 @@ actor PhosphorusGrenade {
 
 // Map Actor
 
-actor ChemicalSprayerPickup : CustomInventory 21047 {
+actor FlamerPickup : CustomInventory 21047 {
 	//$Category Theta Weapons
 	inventory.pickupmessage "You got the flamethrower!"
 	inventory.maxamount 0

@@ -27,16 +27,16 @@ actor PuffSmoke {
 	}
 }
 
-actor PulseBallSmokePuff : PuffSmoke {scale 1.0}
-actor PlayerStepSmokePuff : PuffSmoke	{Alpha 0.25	Scale 1.0}
-actor FireSmokePuff : PuffSmoke		{Scale 4.0}
-actor PowerPlantSmokePuff : PuffSmoke	{Scale 8.0}
-actor PowerPlantSmokePuffSmall : PuffSmoke{Scale 4.0}
-actor BurnDeathSmokePuff : PuffSmoke	{Scale 4.0}
-actor EjectedMechSmokePuff : PuffSmoke	{Scale 8.0}
-actor MechStepSmokePuff : PuffSmoke		{Scale 4.0}
-actor MechStepSmokePuffLarge : PuffSmoke	{Scale 6.0}
-actor OrcaSmokePuff : PuffSmoke		{Scale 2.0}
-actor RocketSmoke : PuffSmoke			{Scale 1.0}
-actor GrenadeSmoke : PuffSmoke		{Scale 1.0}
-actor LavaSmoke : PuffSmoke			{Scale 1.0}
+actor PulseBallSmokePuff : PuffSmoke			{scale 1.0}
+actor PlayerStepSmokePuff : PuffSmoke			{Alpha 0.25	Scale 1.0}
+actor FireSmokePuff : PuffSmoke				{Scale 4.0}
+actor PowerPlantSmokePuff : PuffSmoke			{Scale 8.0}
+actor PowerPlantSmokePuffSmall : PuffSmoke		{Scale 4.0}
+actor BurnDeathSmokePuff : PuffSmoke			{Scale 4.0}
+actor EjectedMechSmokePuff : PuffSmoke			{Scale 8.0}
+actor MechStepSmokePuff : PuffSmoke				{Scale 4.0}
+actor MechStepSmokePuffLarge : PuffSmoke			{Scale 6.0}
+actor OrcaSmokePuff : PuffSmoke				{Scale 2.0}
+actor RocketSmoke : PuffSmoke					{Scale 1.0}
+actor GrenadeSmoke : PuffSmoke				{Scale 1.0}
+actor AowLavaSmoke : PuffSmoke replaces LavaSmoke	{Scale 1.0}

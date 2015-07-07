@@ -115,7 +115,7 @@ name = "MarineSniper"
 sprite = PSNP
 }
 
-/////////////////////////////////////////MECHS
+/*/////////////////////////////////////////MECHS
 {
 name = "RavenMech"
 sprite = RAVN
@@ -162,4 +162,4 @@ sprite = TERM
 scale = 1.8
 class = "JUggernaut"
 hidden = True
-}
+}*/

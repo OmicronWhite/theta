@@ -1,5 +1,7 @@
 # Compiled ACS files
 *.o
+# ACS error files
+acs.err
 
 # Builds
 out/

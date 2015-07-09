@@ -289,10 +289,10 @@ Script MSC_Input_Loop (void) {
     restart;
 }
 
-function M_DeathReset(void) { ACS_ExecuteAlways(MSC_DEATHRESET, 0, 0, 0, 0); }
+function void M_DeathReset(void) { ACS_ExecuteAlways(MSC_DEATHRESET, 0, 0, 0, 0); }
 Script MSC_DEATHRESET DEATH { M_Exit(); }
 
-function M_QuitReset(void) { ACS_ExecuteAlways(MSC_QUITRESET, 0, 0, 0, 0); }
+function void M_QuitReset(void) { ACS_ExecuteAlways(MSC_QUITRESET, 0, 0, 0, 0); }
 Script MSC_QUITRESET (int gone) DISCONNECT { M_Exit(); }
 
 // All Out War 2 Class purchase scripts

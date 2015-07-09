@@ -1,0 +1,9 @@
+*.ogg filter=lfs diff=lfs merge=lfs -crlf
+*.png filter=lfs diff=lfs merge=lfs -crlf
+*.mp3 filter=lfs diff=lfs merge=lfs -crlf
+*.wad filter=lfs diff=lfs merge=lfs -crlf
+*.dbprefab filter=lfs diff=lfs merge=lfs -crlf
+*.exe filter=lfs diff=lfs merge=lfs -crlf
+*.md3 filter=lfs diff=lfs merge=lfs -crlf
+*.lmp filter=lfs diff=lfs merge=lfs -crlf
+*.lump filter=lfs diff=lfs merge=lfs -crlf

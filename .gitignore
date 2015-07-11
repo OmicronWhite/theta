@@ -24,6 +24,8 @@ acsconstants.dec
 *.pdb
 utilities/msvcsolutions/Debug
 utilities/msvcsolutions/Release
+utilities/msvcsolutions/Win32
+utilities/msvcsolutions/x64
 *.user
 *.sdf
 *.opensdf

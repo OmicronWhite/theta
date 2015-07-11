@@ -19,3 +19,12 @@ a_version.acs
 acsconstants.dec
 
 *.tmp
+
+# MSVC
+*.pdb
+utilities/msvcsolutions/Debug
+utilities/msvcsolutions/Release
+*.user
+*.sdf
+*.opensdf
+*.suo

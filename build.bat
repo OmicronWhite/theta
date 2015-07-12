@@ -1,4 +1,6 @@
 @ECHO OFF
+title All Out War: Theta Build Script
+
 for /F "usebackq tokens=1,2 delims==" %%i in (`wmic os get LocalDateTime /VALUE 2^>NUL`) do if '.%%i.'=='.LocalDateTime.' set ldt=%%je
 SET no=%ldt:~2,6%
 SET start=%cd%
@@ -27,24 +29,26 @@ echo All Out War "Theta" Build Script
 echo Written by Sean
 echo.
 
-"%start%\utilities\x%ARCH%\gitcommit.exe" batch "%start%\utilities\commit.bat"
+"%start%\utilities\x%ARCH%\gitcommit.exe" batch "%start%\utilities\commit.bat" --silent
 if not %errorlevel%==0 goto exefail
 call "%start%\utilities\commit.bat"
 
 echo The build number is %no%.
+echo You are building commit %COMMIT_HASH%.
 echo.
-
-echo Compiling ACS.
 
 if not exist src\code\acs\ (
 	mkdir src\code\acs >nul
 )
 
-cd src\code\acs_src
-"%start%\utilities\x%ARCH%\acschangelog.exe" "%start%\changelog.txt" "%start%\src\code\acs_src\a_changelog.acs"
+:::::: We don't have a changelog!!
+::echo Generating ACS changelog.
+::cd src\code\acs_src
+::"%start%\utilities\x%ARCH%\acschangelog.exe" "%start%\changelog.txt" "%start%\src\code\acs_src\a_changelog.acs"
 if not %errorlevel%==0 goto exefail
 :: %start%\utilities\acver "a_version.acs" "%start%"
 
+echo Compiling ACS.
 cd "%start%"
 "%start%\utilities\acc\acc.exe" "%start%\src\code\acs_src\aow2scrp.acs" "%start%\src\code\acs\aow2scrp.o"
 if not %errorlevel%==0 goto exefail
@@ -101,6 +105,7 @@ echo.
 echo The PK3 files are to be found in:
 echo %start%\out
 
+title All Out War: Theta Build Success
 echo.
 echo Press any key to exit the build script.
 pause >nul
@@ -110,7 +115,9 @@ exit 0
 :: GO TO HERE WHEN %ERRORLEVEL% != 0 ! ::::::::::::::::::::::::::::::::::::::
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :exefail
+title All Out War: Theta Build Failed
 echo Something somewhere has gone wrong, and Theta could not be built.
+echo Command returned error code %ERRORLEVEL%.
 echo.
 echo Press any key to exit.
 pause >nul

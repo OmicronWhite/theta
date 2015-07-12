@@ -26,10 +26,13 @@ IF /I "%1"=="/FORCEWIN32" (
 echo All Out War "Theta" Build Script
 echo Written by Sean
 echo.
+
+"%start%\utilities\x%ARCH%\gitcommit.exe" batch "%start%\utilities\commit.bat"
+if not %errorlevel%==0 goto exefail
+call "%start%\utilities\commit.bat"
+
 echo The build number is %no%.
 echo.
-
-SET PATH=%PATH%;%start%\utilties;%start%\utilties\x%ARCH%;%start%\utilities\acc
 
 echo Compiling ACS.
 
@@ -38,11 +41,13 @@ if not exist src\code\acs\ (
 )
 
 cd src\code\acs_src
-acschangelog "%start%\changelog.txt" "%start%\src\code\acs_src\a_changelog.acs"
+"%start%\utilities\x%ARCH%\acschangelog.exe" "%start%\changelog.txt" "%start%\src\code\acs_src\a_changelog.acs"
+if not %errorlevel%==0 goto exefail
 :: %start%\utilities\acver "a_version.acs" "%start%"
 
 cd "%start%"
-acc "%start%\src\code\acs_src\aow2scrp.acs" "%start%\src\code\acs\aow2scrp.o"
+"%start%\utilities\acc\acc.exe" "%start%\src\code\acs_src\aow2scrp.acs" "%start%\src\code\acs\aow2scrp.o"
+if not %errorlevel%==0 goto exefail
 
 if not %ERRORLEVEL%==0 (
     SET ACSError=%ERRORLEVEL%
@@ -55,7 +60,8 @@ if not %ERRORLEVEL%==0 (
     exit %ACSError%
 )
 
-acsconstants.exe "%start%\src\code\acs_src\aow2scrp.acs" "%start%\src\code\actors\acsconstants.dec"
+"%start%\utilities\x%ARCH%\acsconstants.exe" "%start%\src\code\acs_src\aow2scrp.acs" "%start%\src\code\actors\acsconstants.dec"
+if not %errorlevel%==0 goto exefail
 
 if not exist out\ (
 	mkdir out >nul
@@ -67,24 +73,45 @@ if not exist out\ (
 
 echo Packaging base...
 cd src\base\
-7za a -tzip "%start%\out\theta_base-%no%.pk3" *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
+"%start%\utilities\x%ARCH%\7za.exe" a -tzip "%start%\out\theta_base-%no%.pk3" *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
+if not %errorlevel%==0 goto exefail
 
 echo Packaging code...
 cd ..\..\
 cd src\code\
-7za a -tzip "%start%\out\theta_code-%no%.pk3" *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
+"%start%\utilities\x%ARCH%\7za.exe" a -tzip "%start%\out\theta_code-%no%.pk3" *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
+if not %errorlevel%==0 goto exefail
 
 echo Packaging maps...
 cd ..\..\
 cd src\maps\
-7za a -tzip "%start%\out\theta_maps-%no%.pk3" *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
+"%start%\utilities\x%ARCH%\7za.exe" a -tzip "%start%\out\theta_maps-%no%.pk3" *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
+if not %errorlevel%==0 goto exefail
 
 echo Packaging music...
 cd ..\..\
 cd src\music\
-7za a -tzip "%start%\out\theta_music-%no%.pk3" *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
+"%start%\utilities\x%ARCH%\7za.exe" a -tzip "%start%\out\theta_music-%no%.pk3" *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
+if not %errorlevel%==0 goto exefail
 
+echo Cleaning up...
+IF EXIST "%start%\utilities\commit.bat" del /F /Q "%start%\utilities\commit.bat"
+
+echo.
 echo The PK3 files are to be found in:
 echo %start%\out
 
-pause
+echo.
+echo Press any key to exit the build script.
+pause >nul
+exit 0
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:: GO TO HERE WHEN %ERRORLEVEL% != 0 ! ::::::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:exefail
+echo Something somewhere has gone wrong, and Theta could not be built.
+echo.
+echo Press any key to exit.
+pause >nul
+exit 1

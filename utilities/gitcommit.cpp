@@ -53,18 +53,19 @@ int main (int argc, char *argv[])
     string comment = "";
 	bool silent = false;
 
-	if (argc != 3 + 1)
+	if (argc == 3 + 1)
 	{
 		string thirdArg = string(argv[3]);
+
 		silent = (thirdArg == "-s" || thirdArg == "--silent");
 	}
 
 	if (!silent) printf("Theta Git commit tool, by Sean\n");
 
-    if (argc != 2 + 1 || argc != 3 + 1)
+    if (argc != 2 + 1 && !silent)
     {
         printf("Expected two arguments.\n");
-        printf("Syntax: gitcommit <language: c | batch> <output file>\n");
+        printf("Syntax: gitcommit <language: c | batch> <output file> [--silent]\n");
 		printf("Got %d arguments instead.\n", argc);
 		for (int i = 0; i < argc; i++)
 		{

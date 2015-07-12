@@ -22,10 +22,10 @@ acsconstants.dec
 
 # MSVC
 *.pdb
-utilities/msvcsolutions/Debug
-utilities/msvcsolutions/Release
-utilities/msvcsolutions/Win32
-utilities/msvcsolutions/x64
+utilities/windows/msvcsolutions/Debug
+utilities/windows/msvcsolutions/Release
+utilities/windows/msvcsolutions/Win32
+utilities/windows/msvcsolutions/x64
 *.user
 *.sdf
 *.opensdf

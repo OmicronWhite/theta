@@ -22,8 +22,17 @@ IF /I "%PROCESSOR_ARCHITECTURE%"=="x32" (
 )
 
 IF /I "%1"=="/FORCEWIN32" (
+    echo Note: Tools will run in 32-bit mode!
+    title All Out War: Theta Build Script [32-bit]
     SET ARCH=32
 )
+IF /I "%1"=="/FORCEWIN64" (
+    echo Note: Tools will run in 64-bit mode!
+    title All Out War: Theta Build Script [64-bit]
+    SET ARCH=64
+)
+
+IF /I "%2"=="/NOPAUSE" SET USEPAUSE=0 ELSE SET USEPAUSE=1
 
 echo All Out War "Theta" Build Script
 echo Written by Sean
@@ -110,8 +119,8 @@ echo Commit hash: %COMMIT_HASH%.
 
 title All Out War: Theta Build Success
 echo.
-echo Press any key to exit the build script.
-pause >nul
+if %USEPAUSE%==1 echo Press any key to exit the build script.
+if %USEPAUSE%==1 pause >nul
 exit 0
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -122,6 +131,6 @@ title All Out War: Theta Build Failed
 echo Something somewhere has gone wrong, and Theta could not be built.
 echo Command returned error code %ERRORLEVEL%.
 echo.
-echo Press any key to exit.
-pause >nul
+if %USEPAUSE%==1 echo Press any key to exit.
+if %USEPAUSE%==1 pause >nul
 exit 1

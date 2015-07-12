@@ -105,6 +105,8 @@ IF EXIST "%START%\utilities\commit.bat" del /F /Q "%START%\utilities\commit.bat"
 echo.
 echo The PK7 files are to be found in:
 echo %START%\out
+echo Build number #%no%.
+echo Commit hash: %COMMIT_HASH%.
 
 title All Out War: Theta Build Success
 echo.

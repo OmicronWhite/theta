@@ -77,32 +77,32 @@ if not exist out\ (
 
 echo Packaging base...
 cd src\base\
-"%start%\utilities\x%ARCH%\7za.exe" a -tzip "%start%\out\theta_base-%no%.pk3" *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
+"%start%\utilities\x%ARCH%\7za.exe" a -t7z "%start%\out\theta_base-%no%.pk7" *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
 if not %errorlevel%==0 goto exefail
 
 echo Packaging code...
 cd ..\..\
 cd src\code\
-"%start%\utilities\x%ARCH%\7za.exe" a -tzip "%start%\out\theta_code-%no%.pk3" *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
+"%start%\utilities\x%ARCH%\7za.exe" a -t7z "%start%\out\theta_code-%no%.pk7" *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
 if not %errorlevel%==0 goto exefail
 
 echo Packaging maps...
 cd ..\..\
 cd src\maps\
-"%start%\utilities\x%ARCH%\7za.exe" a -tzip "%start%\out\theta_maps-%no%.pk3" *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
+"%start%\utilities\x%ARCH%\7za.exe" a -t7z "%start%\out\theta_maps-%no%.pk7" *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
 if not %errorlevel%==0 goto exefail
 
 echo Packaging music...
 cd ..\..\
 cd src\music\
-"%start%\utilities\x%ARCH%\7za.exe" a -tzip "%start%\out\theta_music-%no%.pk3" *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
+"%start%\utilities\x%ARCH%\7za.exe" a -t7z "%start%\out\theta_music-%no%.pk7" *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
 if not %errorlevel%==0 goto exefail
 
 echo Cleaning up...
 IF EXIST "%start%\utilities\commit.bat" del /F /Q "%start%\utilities\commit.bat"
 
 echo.
-echo The PK3 files are to be found in:
+echo The PK7 files are to be found in:
 echo %start%\out
 
 title All Out War: Theta Build Success

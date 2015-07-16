@@ -454,7 +454,7 @@ str NormalWeaponNames[MAX_NORMAL_WEAPONS] =
 #include "a_bases.acs"
 #include "a_botmarines.acs"
 #include "a_bots.acs"
-#include "a_changelog.acs" // auto-generated
+//#include "a_changelog.acs" // auto-generated
 #include "a_client.acs"
 #include "a_classes.acs"
 #include "a_core.acs"

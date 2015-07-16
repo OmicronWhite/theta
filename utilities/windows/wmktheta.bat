@@ -55,7 +55,7 @@ if not exist src\code\acs\ (
 ::echo Generating ACS changelog.
 ::cd src\code\acs_src
 ::"%START%\utilities\windows\win%ARCH%\acschangelog.exe" "%START%\changelog.txt" "%START%\src\code\acs_src\a_changelog.acs"
-if not %errorlevel%==0 goto exefail
+::if not %errorlevel%==0 goto exefail
 :: %START%\utilities\acver "a_version.acs" "%START%"
 
 echo Compiling ACS.
@@ -87,25 +87,25 @@ if not exist out\ (
 
 echo Packaging base...
 cd src\base\
-"%START%\utilities\windows\win%ARCH%\7za.exe" a -t7z "%START%\out\theta_base-%no%.pk7" *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
+"%START%\utilities\windows\win%ARCH%\7za.exe" a -tzip "%START%\out\theta_base-%no%.pk3" *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
 if not %errorlevel%==0 goto exefail
 
 echo Packaging code...
 cd ..\..\
 cd src\code\
-"%START%\utilities\windows\win%ARCH%\7za.exe" a -t7z "%START%\out\theta_code-%no%.pk7" *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
+"%START%\utilities\windows\win%ARCH%\7za.exe" a -tzip "%START%\out\theta_code-%no%.pk3" *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
 if not %errorlevel%==0 goto exefail
 
 echo Packaging maps...
 cd ..\..\
 cd src\maps\
-"%START%\utilities\windows\win%ARCH%\7za.exe" a -t7z "%START%\out\theta_maps-%no%.pk7" *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
+"%START%\utilities\windows\win%ARCH%\7za.exe" a -tzip "%START%\out\theta_maps-%no%.pk3" *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
 if not %errorlevel%==0 goto exefail
 
 echo Packaging music...
 cd ..\..\
 cd src\music\
-"%START%\utilities\windows\win%ARCH%\7za.exe" a -t7z "%START%\out\theta_music-%no%.pk7" *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
+"%START%\utilities\windows\win%ARCH%\7za.exe" a -tzip "%START%\out\theta_music-%no%.pk3" *.* -r -xr!*.dbs -xr!*.backup1 -xr!*.backup2 -xr!*.backup3 -xr!*.bak
 if not %errorlevel%==0 goto exefail
 
 echo Cleaning up...

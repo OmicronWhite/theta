@@ -32,7 +32,11 @@ IF /I "%1"=="/FORCEWIN64" (
     SET ARCH=64
 )
 
-IF /I "%2"=="/NOPAUSE" SET USEPAUSE=0 ELSE SET USEPAUSE=1
+IF /I "%2"=="/NOPAUSE" (
+    SET USEPAUSE=0
+) ELSE (
+    SET USEPAUSE=1
+)
 
 echo All Out War "Theta" Build Script
 echo Written by Sean
@@ -111,16 +115,19 @@ if not %errorlevel%==0 goto exefail
 echo Cleaning up...
 IF EXIST "%START%\utilities\commit.bat" del /F /Q "%START%\utilities\commit.bat"
 
+cd %start%
 echo.
-echo The PK7 files are to be found in:
+echo The PK3 files are to be found in:
 echo %START%\out
 echo Build number #%no%.
 echo Commit hash: %COMMIT_HASH%.
 
 title All Out War: Theta Build Success
 echo.
-if %USEPAUSE%==1 echo Press any key to exit the build script.
-if %USEPAUSE%==1 pause >nul
+if %USEPAUSE%==1 (
+    echo Press any key to exit the build script.
+    pause >nul
+)
 exit 0
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::

@@ -7,6 +7,8 @@
 #define MSC_INPUT_LOOP          483
 #define MSC_EXIT                484
 #define MSC_INPUTRECV           485
+#define MSC_DEATHRESET          486
+#define MSC_QUITRESET           487
 
 #define MSIDE_CATEGORIES        0
 #define MSIDE_ITEMS             1
@@ -286,6 +288,12 @@ Script MSC_Input_Loop (void) {
     Delay(MIL_DELAY);
     restart;
 }
+
+function void M_DeathReset(void) { ACS_ExecuteAlways(MSC_DEATHRESET, 0, 0, 0, 0); }
+Script MSC_DEATHRESET DEATH { M_Exit(); }
+
+function void M_QuitReset(void) { ACS_ExecuteAlways(MSC_QUITRESET, 0, 0, 0, 0); }
+Script MSC_QUITRESET (int gone) DISCONNECT { M_Exit(); }
 
 // All Out War 2 Class purchase scripts
 // Credit to VoltlocK for originally creating the engine

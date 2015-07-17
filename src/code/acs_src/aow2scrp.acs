@@ -373,6 +373,9 @@ int CrateNumber = 0;
 // [Dusk] for spawn markers
 int HasSpawnMarker[MAXPLAYERS];
 
+// [SB] For the team balance.
+int lastPlayerToJoin = 0;
+
 // =============================================================================
 int Classes[NUM_CLASSES][64];
 
@@ -451,7 +454,7 @@ str NormalWeaponNames[MAX_NORMAL_WEAPONS] =
 #include "a_bases.acs"
 #include "a_botmarines.acs"
 #include "a_bots.acs"
-#include "a_changelog.acs" // auto-generated
+//#include "a_changelog.acs" // auto-generated
 #include "a_client.acs"
 #include "a_classes.acs"
 #include "a_core.acs"

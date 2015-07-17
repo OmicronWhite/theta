@@ -1,8 +1,11 @@
-ACTOR PlasmaGun : AOWWeapon replaces PlasmaRifle 21087 {
+// Plasma Gun
+// Energy - Class: Power - Price:800
+
+ACTOR PlasmaGun : AOWWeapon replaces PlasmaRifle {
 	Inventory.PickupMessage "You got the plasma gun!"
 	Obituary "%o was incinerated by %k's plasma gun."
 	Weapon.AmmoType "PlasmaRifleAmmo"
-	Weapon.AmmoGive 25
+	Weapon.AmmoGive 100
 	Weapon.AmmoUse 1
 	Weapon.AmmoType2 "PlasmaHeat"
 	Weapon.AmmoUse2 0
@@ -120,9 +123,9 @@ ACTOR PlasmaGun : AOWWeapon replaces PlasmaRifle 21087 {
 }
 
 actor PlasmaRifleAmmo : Ammo {
-	inventory.amount 40
+	inventory.amount 50
 	inventory.maxamount 300
-	ammo.backpackamount 40
+	ammo.backpackamount 50
 	ammo.backpackmaxamount 300
 	states {
 	Spawn:
@@ -160,7 +163,7 @@ actor PlasmaShot {
 }
 
 actor PlasmaShotBlue : PlasmaShot {
-	Translation ""
+//	Translation "" // If we dont need translation so why we have it?
 }
 
 actor PlasmaHeat : Ammo {
@@ -187,5 +190,30 @@ ACTOR OverheatSmokeSpawner {
 		TNT1 A 0
 		TNT1 A 0 A_SpawnItemEx("PulseBallSmokePuff",0,0,-2,0,0,0.1*Random(0,10))
 		Stop
+	}
+}
+
+// Map Actor
+
+actor PlasmaGunPickup : CustomInventory 21087 {
+	//$Category Theta Weapons
+	inventory.pickupmessage "You got the plasma gun!"
+	inventory.maxamount 0
+	inventory.respawntics 2100
+	inventory.pickupsound "misc/w_pkup"
+
+	states {
+	Spawn:
+		PLAS X -1
+		stop
+	Pickup:
+		TNT1 A 0 A_JumpIfInventory ("PlasmaGun", 1, "Failure")
+		TNT1 A 0 A_GiveInventory ("PlasmaGun", 1)
+		TNT1 A 0 A_GiveInventory ("PlasmaRifleAmmo", 100)
+		TNT1 A 0 A_GiveInventory ("Refunds", 266)
+		stop
+	Failure:
+		TNT1 A 0
+		fail
 	}
 }

@@ -3,9 +3,16 @@
 #include <string.h>
 #include <time.h>
 
+#ifdef _MSC_VER
+#define _CRT_SECURE_NO_WARNINGS
+
+# pragma warning(push)
+# pragma warning(disable: 4996)
+#endif
+
 const char defineString[] = "#define";
 
-inline int isWhitespace (char* c) {
+int isWhitespace (char* c) {
 	return (*c == ' ' || *c == '\t');
 }
 
@@ -69,3 +76,7 @@ int main (int argc, char* argv[]) {
 	printf ("%s: %d ACS constants copied to DECORATE\n", argv[0], count);
 	exit (EXIT_SUCCESS);
 }
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif

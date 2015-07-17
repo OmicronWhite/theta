@@ -63,7 +63,7 @@ actor BaseTerminalOutside {
 		goto Idle
 	
 	Pain.Superweapon:
-		TNT1 A 5 ACS_ExecuteAlways (652, 0, args[0], 3000)
+		TNT1 A 5 ACS_ExecuteAlways (652, 0, args[0], 4000)
 		goto Idle
 
 	Respawn:

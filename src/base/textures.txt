@@ -748,50 +748,6 @@ texture SW2CRED, 64, 128 {
 }
 
 //-------------------/spawn/-----------/
-texture FLSLIM2, 128, 128
-{
-XScale 2.0
-YScale 2.0
-Patch FLSLIM2, 0, 0
-  {
-  }
-}
-
-texture TVREFL2, 96, 64
-{
-XScale 1.5
-YScale 2.0
-Patch TVREFL2, 0, 0
-  {
-  }
-}
-
-texture TVSURR2, 96, 64
-{
-XScale 1.5
-YScale 2.0
-Patch TVSURR2, 0, 0
-  {
-  }
-}
-
-texture TVRSNG2, 96, 64
-{
-XScale 1.5
-YScale 2.0
-Patch TVRSNG2, 0, 0
-  {
-  }
-}
-
-texture TVTELE2, 96, 64
-{
-XScale 1.5
-YScale 2.0
-Patch TVTELE2, 0, 0
-  {
-  }
-}
 
 sprite upgrn0, 200, 200 {
 	patch upgrn0, 0, 0
@@ -1369,9 +1325,11 @@ graphic jeticon, 25, 29 {
 	Patch jeticon, 0, 0
 }
 
-graphic fuelicon, 19, 28 {
+// Keep it maybe will be usefull
+
+/*graphic fuelicon, 19, 28 {
 	XScale 2.2
 	YScale 2.2
 	Offset 8, 20
 	Patch fuelicon, 0, 0
-}
+}*/

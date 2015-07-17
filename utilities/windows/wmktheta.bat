@@ -71,7 +71,7 @@ if not %ERRORLEVEL%==0 (
     SET ACSError=%ERRORLEVEL%
     echo.
     echo An error occured when building the ACS.
-    echo Please fix it and rebuild.
+    echo Please fix it and avenge.
     echo.
     echo Press any key to exit.
     pause >nul

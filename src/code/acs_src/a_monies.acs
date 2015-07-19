@@ -1,3 +1,5 @@
+// because linguist -*- mode: c;-*-
+
 // MONEY RELATED SCRIPTS
 function int IncrCredits( int p, int amount )
 {	if( IsAdmin[PlayerNumber()] )

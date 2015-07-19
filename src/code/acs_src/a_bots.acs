@@ -1,3 +1,5 @@
+// because linguist -*- mode: c;-*-
+
 // BOT SUPPORT
 int BotClassCosts[13] = {0, 400, 200, 450, 550, 600, 550, 400, 600, 600, 1000, 650, 800};
 int BotClassNumbers[13] = {20, 22, 54, 24, 27, 33, 34, 53, 61, 35, 36, 44, 60};

@@ -1,3 +1,5 @@
+// because linguist -*- mode: c;-*-
+
 // BUILDING HUD CODE
 script 930( int what, int team )
 {	if( ActivatorTID() == 0 )

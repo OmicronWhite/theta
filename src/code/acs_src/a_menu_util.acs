@@ -38,7 +38,7 @@ int g_ParticleFuserData[MAX_PARTICLEFUSER_DATA][MAX_UTILKEYS];
 function void InitParticleFuserData (void) {
 	if (g_ParticleFuserData[0][0] != 0)
 		return;
-	
+
 	// =========================================================================
 	// CACHE DEFINITIONS
 	PF_AddDef (0, 0, PF_AMMOCACHE, "Ammo Cache", 0, 400, 6.5,
@@ -53,7 +53,7 @@ function void InitParticleFuserData (void) {
 		"Provides 1HP/sec health regeration for\nyour team. Must be built\ninto the \cFRepair Facility.");
 	PF_AddDef (0, 5, PF_GLOBALAMMOREGEN, "Global Ammo Regen\n", 2250, 10000, 36.0,
 		"Provides slow ammunition regeneration\nfor your team. Must be\nbuilt into the \cFRepair Facility.");
-	
+
 	// =========================================================================
 	// PICKUP DEFINITIONS
 	PF_AddDef (1, 0, PF_C4BOX, "C4 Box", 0, 0, 6.0,
@@ -72,7 +72,7 @@ function void InitParticleFuserData (void) {
 		"A basic, fast mech armed with LRM-5:s\nand an AC2 rotary gun.");
 	PF_AddDef (1, 7, PF_WOLVERINE, "Wolverine mech", 1600, 3000, 18.0,
 		"A heavier mech with LRM-10:s, a minigun\nand a pulse cannon.");
-	
+
 	// =========================================================================
 	// DEFENSE DEFINITIONS
 	PF_AddDef (2, 0, PF_GUNTURRET, "Gun turret", 50, 250, 3.5,
@@ -91,7 +91,7 @@ function void InitParticleFuserData (void) {
 		"A turret with a repair gun. Place in\nfront of terminals for automatic\nrepairing.");
 	PF_AddDef (2, 7, PF_ARTILLERYTURRET, "Artillery Turret", 200, 400, 3.5,
 		"An anti-mech turret with 80mm shells\ndesigned for taking down walkers.\nIts specialization, however, renders\nit useless against infantry.");
-	
+
 	// =========================================================================
 	// GEOMETRY
 	PF_AddDef (3, 0, PF_RAZORWIRE, "Razor Wire", 0, 400, 6.0,
@@ -116,11 +116,11 @@ function void PF_AddDef (int i, int j, int id, str name, int cost, int health,
 {
 	if (id < 0 || id >= MAX_PARTICLEFUSER_DATA)
 		FatalError ("PF_AddDef: Bad id given!");
-	
+
 	if (i < 0 || j < 0 || i >= MAX_MENU_CATEGORIES || j >= MAX_MENU_ITEMS)
 		FatalError5f ("PF_AddDef: Tried to insert particle fuser definition %s to bogus index %d:%d! Max is %d:%d",
 			name, i, j, MAX_MENU_CATEGORIES, MAX_MENU_ITEMS);
-	
+
 	g_ParticleFuserData[id][UK_NAME] = name;
 	g_ParticleFuserData[id][UK_COST] = cost;
 	g_ParticleFuserData[id][UK_HEALTH] = health;
@@ -134,16 +134,16 @@ function int PF_FindDefByMenuCoords (int i, int j) {
 	for (int x = 0; x < MAX_PARTICLEFUSER_DATA; x++) {
 		if (g_ParticleFuserData[x][UK_NAME] == 0)
 			continue;
-		
+
 		if (g_ParticleFuserData[x][UK_MENUCATEGORY] != i)
 			continue;
-		
+
 		if (g_ParticleFuserData[x][UK_MENUELEMENT] != j)
 			continue;
-		
+
 		return x;
 	}
-	
+
 	FatalError2f ("PF_FindByMenuCoords: Couldn't find any particle fuser definition at %d:%d", i, j);
 	return -1;
 }
@@ -152,7 +152,7 @@ function int PF_FindDef (str label) {
 	for (int x = 0; x < MAX_PARTICLEFUSER_DATA; x++)
 		if (g_ParticleFuserData[x][UK_NAME] == label)
 			return x;
-	
+
 	FatalError1f ("PF_Find: Couldn't find any particle fuser definition with label %s", label);
 	return -1;
 }
@@ -162,18 +162,18 @@ function int PF_FindDef (str label) {
 script 700 (void) CLIENTSIDE {
 	// Top-level name
 	MenuName = "UTILITY GUN";
-	
+
 	// Name the categories
 	MenuCategories[0] = "CACHES";
 	MenuCategories[1] = "PICKUPS";
 	MenuCategories[2] = "DEFENSES";
 	MenuCategories[3] = "GEOMETRY";
-	
+
 	// Names of items
 	for (int x = 0; x < MAX_PARTICLEFUSER_DATA; x++) {
 		if (!g_ParticleFuserData[x][UK_NAME])
 			continue;
-		
+
 		int i = g_ParticleFuserData[x][UK_MENUCATEGORY];
 		int j = g_ParticleFuserData[x][UK_MENUELEMENT];
 		MenuItems[i][j] = g_ParticleFuserData[x][UK_NAME];
@@ -184,12 +184,12 @@ script 700 (void) CLIENTSIDE {
 // MENU DRAW
 script 701 (int m0, int m1, int y) CLIENTSIDE {
 	int x = PF_FindDefByMenuCoords (m0, m1);
-	
+
 	// Description
 	HudMessage (s:g_ParticleFuserData[x][UK_DESCRIPTION];
 		HUDMSG_PLAIN, MENU_HID + 21, CR_WHITE, UMENU_X4, y, 0.0);
 	y -= 0.1;
-	
+
 	// Price
 	if (g_ParticleFuserData[x][UK_COST] > 0)
 		HudMessage (s:"Cost: \cq$\cd", d:g_ParticleFuserData[x][UK_COST];
@@ -198,14 +198,14 @@ script 701 (int m0, int m1, int y) CLIENTSIDE {
 		HudMessage (s:"Cost: \cdfree!";
 			HUDMSG_PLAIN, MENU_HID + 22, CR_WHITE, UMENU_X4, y, 0.0);
 	y -= MENU_SPACING;
-	
+
 	// Build time
 	if (g_ParticleFuserData[x][UK_BUILDTIME] > 0) {
 		HudMessage (s:"Build time: \cd", f:g_ParticleFuserData[x][UK_BUILDTIME], s:" \cqseconds";
 			HUDMSG_PLAIN, MENU_HID + 23, CR_WHITE, UMENU_X4, y, 0.0);
 		y -= MENU_SPACING;
 	}
-	
+
 	// Display the limit, if there is any
 	int lcur, lmax;
 	switch (x) {
@@ -231,27 +231,27 @@ script 701 (int m0, int m1, int y) CLIENTSIDE {
 		lmax = MAX_RAZORWIRE;
 		break;
 	}
-	
+
 	if (lmax != 0) {
 		str c1 = FractionColor (lmax-lcur, lmax);
-		
+
 		int c2 = CR_White;
 		if (lcur >= lmax)
 			c2 = CR_Red;
-		
+
 		HudMessage (s:"Limit: ", s:c1, d:lcur, s:"\c-/", s:c1, d:lmax;
 			HUDMSG_PLAIN, MENU_HID + 50, c2, UMENU_X4, y, 0.0);
 		y -= MENU_SPACING;
 	} else
 		ClearHudMessage (MENU_HID + 50);
-	
+
 	// Display a limit error in case it's outstanding.
 	if (!PF_CheckLimits (x)) {
 		HudMessage (s:g_Error; HUDMSG_PLAIN, MENU_HID + 51, CR_Red, UMENU_X4, y, 0.0);
 		y -= MENU_SPACING;
 	} else
 		ClearHudMessage (MENU_HID + 51);
-	
+
 	SetResultValue (y);
 }
 
@@ -260,22 +260,22 @@ script 701 (int m0, int m1, int y) CLIENTSIDE {
 script 708 (int m0, int m1) {
 	// Utility-specific stuff
 	int x = PF_FindDefByMenuCoords (m0, m1);
-	
+
 	// Check limit
 	if (!PF_CheckLimits (x)) {
 		MenuResponse (MSGTYPE_ERROR, g_Error);
 		terminate;
 	}
-	
+
 	// Configure the utility gun based on selection
 	ActivatorSound ("switch/pulse", 127);
 	SetInventory ("MenuSelection", m0);
 	SetInventory ("MenuSelection2", m1);
-	
+
 	// Convenience.
 	if (Developer)
 		GiveInventory ("Utility_Percent", 75);
-	
+
 	SetResultValue (1);
 }
 

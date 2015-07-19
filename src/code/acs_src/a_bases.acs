@@ -1,3 +1,5 @@
+// because linguist -*- mode: c;-*-
+
 //---------------------------BLUE BARRACKS DEATH
 script 101( VOID )
 {	Thing_Destroy( 100, 0 );

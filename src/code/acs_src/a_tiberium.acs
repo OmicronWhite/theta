@@ -1,3 +1,5 @@
+// because linguist -*- mode: c;-*-
+
 // determine should we pick up Tiberium or leave it there
 script 357( void )
 {	SetResultValue( 0 );

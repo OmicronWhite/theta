@@ -1,3 +1,5 @@
+// because linguist -*- mode: c;-*-
+
 // Clientside effects and designation actors
 int ChemSmokers[MAXPLAYERS];
 

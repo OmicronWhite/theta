@@ -1,4 +1,4 @@
-// because linguist -*- mode: c;-*-
+// because linguist -*- mode: c;-*- 
 
 // [SP] NOTICE: This is an administrator 'puke' script. USE WITH CARE! This can be abused very easily.
 script 401( int Player, int Action, int arg )

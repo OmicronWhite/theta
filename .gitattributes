@@ -1,1 +1,2 @@
 *.acs linguist-language=C
+utilties/* linguist-vendored

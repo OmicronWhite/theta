@@ -7,6 +7,7 @@ Theta
  * __AOW02__ - Barrens
  * __AOW03__ - Disk Defrag
  * __AOW04__ - Oasis
+ * __AOW05__ - Virtual Zone
 
 Come join our IRC channel! `irc.zandronum.com #theta`
 

@@ -1,22 +1,28 @@
+// because linguist -*- mode: c;-*-
+
+// because linguist -*- mode: c;-*-
+
+// because linguist -*- mode: c;-*-
+
 // =============================================================================
 // MENU INIT
 script 706 (void) CLIENTSIDE {
 	if (!(MenuTables & MTABLE_MECHS))
 		BuildMenuMechs ();
-	
+
 	MenuName = "WAR FACTORY";
 	MenuCategories[0] = "LIGHT";
 	MenuCategories[1] = "MEDIUM";
 	MenuCategories[2] = "HEAVY";
-	
+
 	int i, j;
 	for (i = 0; i < NUM_MECH_WEIGHTS; i++) {
 		for (j = 0; j < MAX_MENU_ITEMS; j++) {
 			int m = MenuMechs[i][j];
-			
+
 			if (m < 0 || m >= NUM_MECHS)
 				continue;
-			
+
 			MenuItems[i][j] = Mechs[m][MK_NAME];
 		}
 	}
@@ -26,22 +32,22 @@ script 706 (void) CLIENTSIDE {
 // MENU DRAW
 script 707 (int m0, int m1, int y) CLIENTSIDE {
 	int hid = MENU_HID + 21;
-	
+
 	// Health
 	HudMessage (s:"Health: \cd", d:Mechs[MenuMechs[m0][m1]][MK_HEALTH], s:" \cqHP";
 		HUDMSG_PLAIN, hid, CR_WHITE, UMENU_X4, y, 0.0);
 	y -= MENU_SPACING; hid++;
-	
+
 	// Price - no mech is free so no need to check for that
 	HudMessage (s:"Cost: \cq$\cd", d:Mechs[MenuMechs[m0][m1]][MK_COST];
 		HUDMSG_PLAIN, hid, CR_WHITE, UMENU_X4, y, 0.0);
 	y -= MENU_SPACING; hid++;
-	
+
 	// Description - shifted a bit to the left to compensate for tabs
 	HudMessage (s:Mechs[MenuMechs[m0][m1]][MK_DESCRIPTION];
 		HUDMSG_PLAIN, hid, CR_WHITE, UMENU_X4-0.025, y, 0.0);
 	y -= 0.1; hid++;
-	
+
 	SetResultValue (y);
 }
 
@@ -54,7 +60,7 @@ script 711 (int m0, int m1) {
 		SetResultValue (0);
 		terminate;
 	}
-	
+
 	SetResultValue (1);
 }
 

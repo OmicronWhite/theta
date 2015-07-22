@@ -1,3 +1,5 @@
+// because linguist -*- mode: c;-*-
+
 //REGENERATION
 script 343 OPEN
 {	int n, r;

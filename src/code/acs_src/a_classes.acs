@@ -1,27 +1,16 @@
+// because linguist -*- mode: c;-*-
+
 // ACS Menu Thing by +Sean
 // Feel free to use this as long as you give credit.
 
-#define MSC_ENTER               480
-#define MSC_DRAW                481
-#define MSC_CLEAR               482
-#define MSC_INPUT_LOOP          483
-#define MSC_EXIT                484
-#define MSC_INPUTRECV           485
-#define MSC_DEATHRESET          486
-#define MSC_QUITRESET           487
-
-#define MSIDE_CATEGORIES        0
-#define MSIDE_ITEMS             1
-
-#define MUI_CATEGORIES_X        0.45
-#define MUI_CATEGORIES_Y        0.3
-#define MUI_CATEGORIES_Y_INC    0.02
-
-#define MUI_ITEMS_X             0.65
-#define MUI_ITEMS_Y             0.3
-#define MUI_ITEMS_Y_INC         0.02
-
-#define MIL_DELAY               4
+#define MSCC_ENTER               480
+#define MSCC_DRAW                481
+#define MSCC_CLEAR               482
+#define MSCC_INPUT_LOOP          483
+#define MSCC_EXIT                484
+#define MSCC_INPUTRECV           485
+#define MSCC_DEATHRESET          486
+#define MSCC_QUITRESET           487
 
 #define CATEGORIES_AMOUNT       5
 str class_categories[CATEGORIES_AMOUNT] = { "Generic", "Support", "Combat", "Power", "Add-ons" };
@@ -35,13 +24,9 @@ str class_items[CATEGORIES_AMOUNT][ITEMS_AMOUNT] = {
     { "Chainsaw", "Tiberium Autorifle", "Artillery Cannon", "-----", "-----", "-----", "-----", "-----", "-----", "-----" }
 };
 
-int playerSelection[65][2];
-int playerSide[65];
-int inMenu[65];
-
 // This function is called when the player has chosen an item.
-function void M_InputReceived(int category, int item) { ACS_Execute(MSC_INPUTRECV, 0, category, item, 0); }
-Script MSC_INPUTRECV (int category, int item) {
+function void MC_InputReceived(int category, int item) { ACS_Execute(MSCC_INPUTRECV, 0, category, item, 0); }
+Script MSCC_INPUTRECV (int category, int item) {
     bool shouldExit = false;
 
     if (category == 0) { // Generic
@@ -98,28 +83,30 @@ Script MSC_INPUTRECV (int category, int item) {
         //}
     }
 
-    //if (shouldExit) { M_Exit(); }
+    LocalAmbientSound("menu/choose", 127);
+
+    //if (shouldExit) { MC_Exit(); }
 }
 
 // User enters menu.
-function void M_Enter(void) { ACS_ExecuteAlways(MSC_Enter, 0, 0, 0, 0); }
-Script MSC_Enter (void) {
+function void MC_Enter(void) { ACS_ExecuteAlways(MSCC_Enter, 0, 0, 0, 0); }
+Script MSCC_Enter (void) {
     int player = PlayerNumber();
     if(!inMenu[player]) {
         inMenu[player] = true;
-        M_Freeze();
-        M_Draw();
+        MC_Freeze();
+        MC_Draw();
         Delay(MIL_DELAY); // prevents accidentally selecting an option
-        M_InputLoop_Start();
+        MC_InputLoop_Start();
     }
 }
 
-function void M_Exit(void) { ACS_Execute(MSC_EXIT, 0, 0, 0, 0); }
-Script MSC_Exit (void) {
+function void MC_Exit(void) { ACS_Execute(MSCC_EXIT, 0, 0, 0, 0); }
+Script MSCC_Exit (void) {
     int player = PlayerNumber();
-    M_InputLoop_Stop();
-    M_Clear();
-    M_Unfreeze();
+    MC_InputLoop_Stop();
+    MC_Clear();
+    MC_Unfreeze();
 
     playerSelection[player][0] = 0;
     playerSelection[player][1] = 0;
@@ -127,7 +114,7 @@ Script MSC_Exit (void) {
     inMenu[player] = false;
 }
 
-function str M_ItemString(int side, int category, int item) {
+function str MC_ItemString(int side, int category, int item) {
     int player = PlayerNumber();
     str value = "";
 
@@ -162,17 +149,17 @@ function str M_ItemString(int side, int category, int item) {
     return value;
 }
 
-function void M_Freeze(void) {
+function void MC_Freeze(void) {
     SetPlayerProperty(0, ON, PROP_TOTALLYFROZEN);
 }
 
-function void M_Unfreeze(void) {
+function void MC_Unfreeze(void) {
     SetPlayerProperty(0, OFF, PROP_TOTALLYFROZEN);
 }
 
 // Draws the menu.
-function void M_Draw(void) { ACS_Execute(MSC_Draw, 0, 0, 0, 0); }
-Script MSC_Draw (void) {
+function void MC_Draw(void) { ACS_Execute(MSCC_Draw, 0, 0, 0, 0); }
+Script MSCC_Draw (void) {
     int player = PlayerNumber();
 
     // Draw categories
@@ -180,7 +167,7 @@ Script MSC_Draw (void) {
     int c_incY = 0.02;
 
     for (int i = 0; i < CATEGORIES_AMOUNT; i++) {
-        HudMessage(s: M_ItemString(MSIDE_CATEGORIES, 0, i);
+        HudMessage(s: MC_ItemString(MSIDE_CATEGORIES, 0, i);
                 HUDMSG_PLAIN, 600 + i, CR_GREY, MUI_CATEGORIES_X, c_startY, 0);
         c_startY += c_incY;
     }
@@ -190,7 +177,7 @@ Script MSC_Draw (void) {
     int i_incY = 0.02;
 
     for (int i1 = 0; i1 < ITEMS_AMOUNT; i1++) {
-        HudMessage(s: M_ItemString(MSIDE_ITEMS, playerSelection[player][MSIDE_CATEGORIES], i1);
+        HudMessage(s: MC_ItemString(MSIDE_ITEMS, playerSelection[player][MSIDE_CATEGORIES], i1);
                 HUDMSG_PLAIN, 700 + i1, CR_GREY, MUI_ITEMS_X, i_startY, 0);
         i_startY += i_incY;
     }
@@ -205,26 +192,26 @@ Script MSC_Draw (void) {
                 HUDMSG_PLAIN, 599, CR_GREEN, 1.5, 0.7, 0);
 }
 
-function void M_ClearHudMsg(int id) {
+function void MC_ClearHudMsg(int id) {
         HudMessage(s: ""; HUDMSG_PLAIN, id, CR_GREY, 0, 0, 0);
 }
 
-function void M_Clear(void) { ACS_Execute(MSC_Clear, 0, 0, 0, 0); }
-Script MSC_Clear (void) {
+function void MC_Clear(void) { ACS_Execute(MSCC_Clear, 0, 0, 0, 0); }
+Script MSCC_Clear (void) {
     for (int i = 0; i < CATEGORIES_AMOUNT; i++) {
-        M_ClearHudMsg(600 + i);
+        MC_ClearHudMsg(600 + i);
     }
 
     for (int i1 = 0; i1 < ITEMS_AMOUNT; i1++) {
-        M_ClearHudMsg(700 + i1);
+        MC_ClearHudMsg(700 + i1);
     }
 
-    M_ClearHudMsg(599);
+    MC_ClearHudMsg(599);
 }
 
-function void M_InputLoop_Start(void) { ACS_Execute(MSC_Input_Loop, 0, 0, 0, 0); }
-function void M_InputLoop_Stop(void) { ACS_Terminate(MSC_Input_Loop, 0); }
-Script MSC_Input_Loop (void) {
+function void MC_InputLoop_Start(void) { ACS_Execute(MSCC_Input_Loop, 0, 0, 0, 0); }
+function void MC_InputLoop_Stop(void) { ACS_Terminate(MSCC_Input_Loop, 0); }
+Script MSCC_Input_Loop (void) {
     int input = GetPlayerInput(-1, INPUT_BUTTONS);
     int player = PlayerNumber();
     bool inputUsed = false; // This is to stop us from drawing the menu again if nothing changed.
@@ -241,6 +228,8 @@ Script MSC_Input_Loop (void) {
         } else
             playerSelection[player][playerSide[player]]--;
 
+        LocalAmbientSound("menu/cursor", 127);
+
         Log(d:playerSelection[player][0], s:", ", d: playerSelection[player][1]);
     }
 
@@ -256,6 +245,8 @@ Script MSC_Input_Loop (void) {
         } else
             playerSelection[player][playerSide[player]]++;
 
+        LocalAmbientSound("menu/cursor", 127);
+
         Log(d:playerSelection[player][0], s:", ", d: playerSelection[player][1]);
     }
 
@@ -270,7 +261,7 @@ Script MSC_Input_Loop (void) {
     }
 
     if (input & BT_ALTATTACK) {
-        M_Exit();
+        MC_Exit();
     }
 
     if (input & BT_USE || input & BT_ATTACK) {
@@ -279,21 +270,21 @@ Script MSC_Input_Loop (void) {
         if(playerSide[player] == MSIDE_CATEGORIES)
             playerSide[player] = MSIDE_ITEMS;
         else
-            M_InputReceived(playerSelection[player][MSIDE_CATEGORIES],
+            MC_InputReceived(playerSelection[player][MSIDE_CATEGORIES],
                     playerSelection[player][MSIDE_ITEMS]);
     }
 
 
-    if (inputUsed) { M_Draw(); }
+    if (inputUsed) { MC_Draw(); }
     Delay(MIL_DELAY);
     restart;
 }
 
-function void M_DeathReset(void) { ACS_ExecuteAlways(MSC_DEATHRESET, 0, 0, 0, 0); }
-Script MSC_DEATHRESET DEATH { M_Exit(); }
+function void MC_DeathReset(void) { ACS_ExecuteAlways(MSCC_DEATHRESET, 0, 0, 0, 0); }
+Script MSCC_DEATHRESET DEATH { MC_Exit(); }
 
-function void M_QuitReset(void) { ACS_ExecuteAlways(MSC_QUITRESET, 0, 0, 0, 0); }
-Script MSC_QUITRESET (int gone) DISCONNECT { M_Exit(); }
+function void MC_QuitReset(void) { ACS_ExecuteAlways(MSCC_QUITRESET, 0, 0, 0, 0); }
+Script MSCC_QUITRESET (int gone) DISCONNECT { MC_Exit(); }
 
 // All Out War 2 Class purchase scripts
 // Credit to VoltlocK for originally creating the engine
@@ -412,7 +403,7 @@ function void PurchaseClass( int c )
 	if( !CheckCredits( cost ))
 		return;
 
-    M_Exit(); // If we're in the menu, leave it.
+    MC_Exit(); // If we're in the menu, leave it.
 
 	int cflags = Classes[c][CK_FLAGS];
 
@@ -554,35 +545,35 @@ script 918( int n )
 }
 
 // -----------------------------------------------------------------------------
-script 20( void ) M_Enter();
-script 21( void ) M_Enter();
-script 22( void ) M_Enter();
-script 23( void ) M_Enter();
-script 24( void ) M_Enter();
-script 25( void ) M_Enter();
-script 26( void ) M_Enter();
-script 27( void ) M_Enter();
-script 28( void ) M_Enter();
-script 29( void ) M_Enter();
-script 33( void ) M_Enter();
-script 34( void ) M_Enter();
-script 35( void ) M_Enter();
-script 36( void ) M_Enter();
-script 38( void ) M_Enter();
-script 62( void ) M_Enter();
-script 40( void ) M_Enter();
-script 41( void ) M_Enter();
-script 42( void ) M_Enter();
-script 43( void ) M_Enter();
-script 44( void ) M_Enter();
-script 52( void ) M_Enter();
-script 53( void ) M_Enter();
-script 54( void ) M_Enter();
-script 60( void ) M_Enter();
-script 61( void ) M_Enter();
-script 39( void ) M_Enter();
-script 63( void ) M_Enter();
-script 64( void ) M_Enter();
+script 20( void ) MC_Enter();
+script 21( void ) MC_Enter();
+script 22( void ) MC_Enter();
+script 23( void ) MC_Enter();
+script 24( void ) MC_Enter();
+script 25( void ) MC_Enter();
+script 26( void ) MC_Enter();
+script 27( void ) MC_Enter();
+script 28( void ) MC_Enter();
+script 29( void ) MC_Enter();
+script 33( void ) MC_Enter();
+script 34( void ) MC_Enter();
+script 35( void ) MC_Enter();
+script 36( void ) MC_Enter();
+script 38( void ) MC_Enter();
+script 62( void ) MC_Enter();
+script 40( void ) MC_Enter();
+script 41( void ) MC_Enter();
+script 42( void ) MC_Enter();
+script 43( void ) MC_Enter();
+script 44( void ) MC_Enter();
+script 52( void ) MC_Enter();
+script 53( void ) MC_Enter();
+script 54( void ) MC_Enter();
+script 60( void ) MC_Enter();
+script 61( void ) MC_Enter();
+script 39( void ) MC_Enter();
+script 63( void ) MC_Enter();
+script 64( void ) MC_Enter();
 
 //---------------------------PLASMA CANNON
 script 37( void )

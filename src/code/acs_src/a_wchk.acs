@@ -1,3 +1,7 @@
+// because linguist -*- mode: c;-*-
+
+// because linguist -*- mode: c;-*-
+
 script 905 ENTER
 	ACS_ExecuteAlways( 906, 0 );
 

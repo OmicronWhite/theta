@@ -1,3 +1,5 @@
+// because linguist -*- mode: c;-*-
+
 // Stealth code
 script 310( int action )
 {	int a;

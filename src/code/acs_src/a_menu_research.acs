@@ -1,51 +1,254 @@
-// =============================================================================
-// MENU INIT
-script 704 (void) CLIENTSIDE {
-	if (!(MenuTables & MTABLE_RESEARCHES))
-		BuildMenuResearches ();
-	
-	MenuName = "RESEARCH CENTRE";
-	MenuCategories[0] = "UPGRADES";
-	MenuCategories[1] = "EXTENSIONS";
-	MenuCategories[2] = "ADD-ONS";
-	
-	int i, j;
-	for (i = 0; i <= 2; i++) {
-		for (j = 0; j < MAX_MENU_ITEMS; j++) {
-			int r = MenuResearches[i][j];
-			
-			if (r < 0 || r >= NUM_RESEARCHES)
-				continue;
-			
-			MenuItems[i][j] = Researches[r][RCK_NAME];
-		}
-	}
+// because linguist -*- mode: c;-*-
+
+// ACS Menu Thing by +Sean
+// Feel free to use this as long as you give credit.
+
+#define MSCR_ENTER               488
+#define MSCR_DRAW                489
+#define MSCR_CLEAR               490
+#define MSCR_INPUT_LOOP          491
+#define MSCR_EXIT                492
+#define MSCR_INPUTRECV           493
+#define MSCR_DEATHRESET          494
+#define MSCR_QUITRESET           495
+
+#define R_CATEGORIES_AMOUNT       5
+str rsch_categories[R_CATEGORIES_AMOUNT] = { "Advancements", "Regens", "Personal" };
+
+#define R_ITEMS_AMOUNT            4
+str rsch_items[R_CATEGORIES_AMOUNT][R_ITEMS_AMOUNT] = {
+    { "Enhanced Refining", "Advanced Mechs", "Advanced Turrets", "More Turrets" },
+    { "Team HP Regen", "Team Ammo Regen", "-----", "-----" },
+    { "+1 Timed C4", "Advanced Repair Gun", "-----", "-----" }
+};
+
+// This function is called when the player has chosen an item.
+function void MR_InputReceived(int category, int item) { ACS_Execute(MSCR_INPUTRECV, 0, category, item, 0); }
+Script MSCR_INPUTRECV (int category, int item) {
+    bool shouldExit = false;
+
+    if (category == 0) { // Advancements
+        switch (item) {
+            case 0: shouldExit = true; ACS_ExecuteAlways(65, 0); break; // Enhanced Refining
+            case 1: shouldExit = true; ACS_ExecuteAlways(66, 0); break; // Advanced Mechs
+            case 2: shouldExit = true; ACS_ExecuteAlways(72, 0); break; // Advanced Mechs
+            case 3: shouldExit = true; ACS_ExecuteAlways(73, 0); break; // Advanced Mechs
+        }
+    }
+
+    if (category == 1) { // Regens
+        switch (item) {
+            case 0: shouldExit = true; ACS_ExecuteAlways(68, 0); break; // Health Regeneration
+            case 1: shouldExit = true; ACS_ExecuteAlways(69, 0); break; // Ammo Regeneration
+        }
+    }
+
+    if (category == 2) { // Personal
+        switch (item) {
+            case 0: shouldExit = true; ACS_ExecuteAlways(70, 0); break; // +1 Timed C4
+            case 1: shouldExit = true; ACS_ExecuteAlways(71, 0); break; // Advanced Repair Gun
+        }
+    }
+
+    LocalAmbientSound("menu/choose", 127);
+
+    //if (shouldExit) { MR_Exit(); }
 }
 
-// =============================================================================
-// MENU DRAW
-script 705 (int m0, int m1, int y) CLIENTSIDE {
-	HudMessage (s:Researches[MenuResearches[m0][m1]][RCK_DESCRIPTION];
-		HUDMSG_PLAIN, MENU_HID + 21, CR_WHITE, UMENU_X4, y, 0.0);
-	y -= 0.1;
-		
-	// Price
-	HudMessage (s:"Cost: \cq$\cd", d:Researches[MenuResearches[m0][m1]][RCK_COST];
-		HUDMSG_PLAIN, MENU_HID + 22, CR_WHITE, UMENU_X4, y, 0.0);
-	y -= MENU_SPACING;
-	
-	SetResultValue (y);
+// User enters menu.
+function void MR_Enter(void) { ACS_ExecuteAlways(MSCR_Enter, 0, 0, 0, 0); }
+Script MSCR_Enter (void) {
+    int player = PlayerNumber();
+    if(!inMenu[player]) {
+        inMenu[player] = true;
+        MR_Freeze();
+        MR_Draw();
+        Delay(MIL_DELAY); // prevents accidentally selecting an option
+        MR_InputLoop_Start();
+    }
 }
 
-// =============================================================================
-// MENU SELECT
-script 710 (int m0, int m1) {
-	RC_PurchaseResearch (MenuResearches[m0][m1]);
-	SetResultValue (0);
+function void MR_Exit(void) { ACS_Execute(MSCR_EXIT, 0, 0, 0, 0); }
+Script MSCR_Exit (void) {
+    int player = PlayerNumber();
+    MR_InputLoop_Stop();
+    MR_Clear();
+    MR_Unfreeze();
+
+    playerSelection[player][0] = 0;
+    playerSelection[player][1] = 0;
+    playerSide[player] = 0;
+    inMenu[player] = false;
 }
 
-// =============================================================================
-// MENU LIMIT
-script 714 (int m0, int m1) CLIENTSIDE {
-	SetResultValue (!CheckResearch (MenuResearches[m0][m1]));
+function str MR_ItemString(int side, int category, int item) {
+    int player = PlayerNumber();
+    str value = "";
+
+    if(playerSide[player] == MSIDE_CATEGORIES) {
+        if(side == MSIDE_ITEMS)
+            value = StrParam(s: "\cm", s: rsch_items[category][item]);
+
+        if(playerSelection[player][MSIDE_CATEGORIES] == item && side == MSIDE_CATEGORIES) {
+                value = StrParam(s: "\cd", s: rsch_categories[item]);
+        }
+
+        if(playerSelection[player][MSIDE_CATEGORIES] != item && side == MSIDE_CATEGORIES) {
+                value = StrParam(s: "\cq", s: rsch_categories[item]);
+        }
+    }
+
+    else if(playerSide[player] == MSIDE_ITEMS) {
+        if(side == MSIDE_CATEGORIES)
+            value = StrParam(s: "\cm", s: rsch_categories[item]);
+
+        if(playerSelection[player][MSIDE_ITEMS] == item
+            && playerSelection[player][MSIDE_CATEGORIES] == category
+            && side == MSIDE_ITEMS)
+                value = StrParam(s: "\cd", s: rsch_items[category][item]);
+
+        if(playerSelection[player][MSIDE_ITEMS] != item
+            && playerSelection[player][MSIDE_CATEGORIES] == category
+            && side == MSIDE_ITEMS)
+                value = StrParam(s: "\cq", s: rsch_items[category][item]);
+    }
+
+    return value;
 }
+
+function void MR_Freeze(void) {
+    SetPlayerProperty(0, ON, PROP_TOTALLYFROZEN);
+}
+
+function void MR_Unfreeze(void) {
+    SetPlayerProperty(0, OFF, PROP_TOTALLYFROZEN);
+}
+
+// Draws the menu.
+function void MR_Draw(void) { ACS_Execute(MSCR_Draw, 0, 0, 0, 0); }
+Script MSCR_Draw (void) {
+    int player = PlayerNumber();
+
+    // Draw categories
+    int c_startY = 0.45;
+    int c_incY = 0.02;
+
+    for (int i = 0; i < R_CATEGORIES_AMOUNT; i++) {
+        HudMessage(s: MR_ItemString(MSIDE_CATEGORIES, 0, i);
+                HUDMSG_PLAIN, 600 + i, CR_GREY, MUI_CATEGORIES_X, c_startY, 0);
+        c_startY += c_incY;
+    }
+
+    // Draw items
+    int i_startY = 0.45;
+    int i_incY = 0.02;
+
+    for (int i1 = 0; i1 < R_ITEMS_AMOUNT; i1++) {
+        HudMessage(s: MR_ItemString(MSIDE_ITEMS, playerSelection[player][MSIDE_CATEGORIES], i1);
+                HUDMSG_PLAIN, 700 + i1, CR_GREY, MUI_ITEMS_X, i_startY, 0);
+        i_startY += i_incY;
+    }
+
+    // Draw help
+    HudMessage(s: "\cfHelp\n",
+                s: "\cdMove up: \cq", k: "+forward",
+                s: "\n\cdMove down: \cq", k: "+back",
+                s: "\n\cdSwitch side: \cq", k: "+left", s: "\cd and \cq ", k: "+right",
+                s: "\n\cdSelect: \cq", k: "+use", s: "\cd or \cq", k: "+attack",
+                s: "\n\cdExit: \cq", k: "+altattack";
+                HUDMSG_PLAIN, 599, CR_GREEN, 1.5, 0.7, 0);
+}
+
+function void MR_ClearHudMsg(int id) {
+        HudMessage(s: ""; HUDMSG_PLAIN, id, CR_GREY, 0, 0, 0);
+}
+
+function void MR_Clear(void) { ACS_Execute(MSCR_Clear, 0, 0, 0, 0); }
+Script MSCR_Clear (void) {
+    for (int i = 0; i < R_CATEGORIES_AMOUNT; i++) {
+        MR_ClearHudMsg(600 + i);
+    }
+
+    for (int i1 = 0; i1 < R_ITEMS_AMOUNT; i1++) {
+        MR_ClearHudMsg(700 + i1);
+    }
+
+    MR_ClearHudMsg(599);
+}
+
+function void MR_InputLoop_Start(void) { ACS_Execute(MSCR_Input_Loop, 0, 0, 0, 0); }
+function void MR_InputLoop_Stop(void) { ACS_Terminate(MSCR_Input_Loop, 0); }
+Script MSCR_Input_Loop (void) {
+    int input = GetPlayerInput(-1, INPUT_BUTTONS);
+    int player = PlayerNumber();
+    bool inputUsed = false; // This is to stop us from drawing the menu again if nothing changed.
+
+    if (input & BT_FORWARD) {
+        inputUsed = true;
+
+        if(playerSide[player] == MSIDE_CATEGORIES
+            && playerSelection[player][MSIDE_CATEGORIES] == 0) {
+                playerSelection[player][MSIDE_CATEGORIES] = R_CATEGORIES_AMOUNT - 1;
+        } else if(playerSide[player] == MSIDE_ITEMS
+            && playerSelection[player][MSIDE_ITEMS] == 0) {
+                playerSelection[player][MSIDE_ITEMS] = R_ITEMS_AMOUNT - 1;
+        } else
+            playerSelection[player][playerSide[player]]--;
+
+        LocalAmbientSound("menu/cursor", 127);
+
+        Log(d:playerSelection[player][0], s:", ", d: playerSelection[player][1]);
+    }
+
+    if (input & BT_BACK) {
+        inputUsed = true;
+
+        if(playerSide[player] == MSIDE_CATEGORIES
+            && playerSelection[player][MSIDE_CATEGORIES] == R_CATEGORIES_AMOUNT - 1) {
+                playerSelection[player][MSIDE_CATEGORIES] = 0;
+        } else if(playerSide[player] == MSIDE_ITEMS
+            && playerSelection[player][MSIDE_ITEMS] == R_ITEMS_AMOUNT - 1) {
+                playerSelection[player][MSIDE_ITEMS] = 0;
+        } else
+            playerSelection[player][playerSide[player]]++;
+
+        LocalAmbientSound("menu/cursor", 127);
+
+        Log(d:playerSelection[player][0], s:", ", d: playerSelection[player][1]);
+    }
+
+    if (input & BT_MOVELEFT || input & BT_LEFT) {
+        inputUsed = true;
+        playerSide[player] = MSIDE_CATEGORIES;
+    }
+
+    if (input & BT_MOVERIGHT || input & BT_RIGHT) {
+        inputUsed = true;
+        playerSide[player] = MSIDE_ITEMS;
+    }
+
+    if (input & BT_ALTATTACK) {
+        MR_Exit();
+    }
+
+    if (input & BT_USE || input & BT_ATTACK) {
+        inputUsed = true;
+
+        if(playerSide[player] == MSIDE_CATEGORIES)
+            playerSide[player] = MSIDE_ITEMS;
+        else
+            MR_InputReceived(playerSelection[player][MSIDE_CATEGORIES],
+                    playerSelection[player][MSIDE_ITEMS]);
+    }
+
+
+    if (inputUsed) { MR_Draw(); }
+    Delay(MIL_DELAY);
+    restart;
+}
+
+function void MR_DeathReset(void) { ACS_ExecuteAlways(MSCR_DEATHRESET, 0, 0, 0, 0); }
+Script MSCR_DEATHRESET DEATH { MR_Exit(); }
+
+function void MR_QuitReset(void) { ACS_ExecuteAlways(MSCR_QUITRESET, 0, 0, 0, 0); }
+Script MSCR_QUITRESET (int gone) DISCONNECT { MR_Exit(); }

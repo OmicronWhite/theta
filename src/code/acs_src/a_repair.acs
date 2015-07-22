@@ -1,3 +1,5 @@
+// because linguist -*- mode: c;-*-
+
 // REPAIR GUN ACS
 
 #define REPAIRTYPE_REPAIR 0

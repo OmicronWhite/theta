@@ -1,3 +1,5 @@
+// because linguist -*- mode: c;-*-
+
 //Player burnt and is burning script, unfortunately the killer who set the player alight is not awarded for this.
 script 360( void )
 {	delay( 1 );

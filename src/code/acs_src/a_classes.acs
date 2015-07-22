@@ -3,27 +3,14 @@
 // ACS Menu Thing by +Sean
 // Feel free to use this as long as you give credit.
 
-#define MSC_ENTER               480
-#define MSC_DRAW                481
-#define MSC_CLEAR               482
-#define MSC_INPUT_LOOP          483
-#define MSC_EXIT                484
-#define MSC_INPUTRECV           485
-#define MSC_DEATHRESET          486
-#define MSC_QUITRESET           487
-
-#define MSIDE_CATEGORIES        0
-#define MSIDE_ITEMS             1
-
-#define MUI_CATEGORIES_X        0.45
-#define MUI_CATEGORIES_Y        0.3
-#define MUI_CATEGORIES_Y_INC    0.02
-
-#define MUI_ITEMS_X             0.65
-#define MUI_ITEMS_Y             0.3
-#define MUI_ITEMS_Y_INC         0.02
-
-#define MIL_DELAY               4
+#define MSCC_ENTER               480
+#define MSCC_DRAW                481
+#define MSCC_CLEAR               482
+#define MSCC_INPUT_LOOP          483
+#define MSCC_EXIT                484
+#define MSCC_INPUTRECV           485
+#define MSCC_DEATHRESET          486
+#define MSCC_QUITRESET           487
 
 #define CATEGORIES_AMOUNT       5
 str class_categories[CATEGORIES_AMOUNT] = { "Generic", "Support", "Combat", "Power", "Add-ons" };
@@ -42,8 +29,8 @@ int playerSide[65];
 int inMenu[65];
 
 // This function is called when the player has chosen an item.
-function void M_InputReceived(int category, int item) { ACS_Execute(MSC_INPUTRECV, 0, category, item, 0); }
-Script MSC_INPUTRECV (int category, int item) {
+function void MC_InputReceived(int category, int item) { ACS_Execute(MSCC_INPUTRECV, 0, category, item, 0); }
+Script MSCC_INPUTRECV (int category, int item) {
     bool shouldExit = false;
 
     if (category == 0) { // Generic
@@ -106,24 +93,24 @@ Script MSC_INPUTRECV (int category, int item) {
 }
 
 // User enters menu.
-function void M_Enter(void) { ACS_ExecuteAlways(MSC_Enter, 0, 0, 0, 0); }
-Script MSC_Enter (void) {
+function void MC_Enter(void) { ACS_ExecuteAlways(MSCC_Enter, 0, 0, 0, 0); }
+Script MSCC_Enter (void) {
     int player = PlayerNumber();
     if(!inMenu[player]) {
         inMenu[player] = true;
-        M_Freeze();
-        M_Draw();
+        MC_Freeze();
+        MC_Draw();
         Delay(MIL_DELAY); // prevents accidentally selecting an option
-        M_InputLoop_Start();
+        MC_InputLoop_Start();
     }
 }
 
-function void M_Exit(void) { ACS_Execute(MSC_EXIT, 0, 0, 0, 0); }
-Script MSC_Exit (void) {
+function void MC_Exit(void) { ACS_Execute(MSCC_EXIT, 0, 0, 0, 0); }
+Script MSCC_Exit (void) {
     int player = PlayerNumber();
-    M_InputLoop_Stop();
-    M_Clear();
-    M_Unfreeze();
+    MC_InputLoop_Stop();
+    MC_Clear();
+    MC_Unfreeze();
 
     playerSelection[player][0] = 0;
     playerSelection[player][1] = 0;
@@ -131,7 +118,7 @@ Script MSC_Exit (void) {
     inMenu[player] = false;
 }
 
-function str M_ItemString(int side, int category, int item) {
+function str MC_ItemString(int side, int category, int item) {
     int player = PlayerNumber();
     str value = "";
 
@@ -166,17 +153,17 @@ function str M_ItemString(int side, int category, int item) {
     return value;
 }
 
-function void M_Freeze(void) {
+function void MC_Freeze(void) {
     SetPlayerProperty(0, ON, PROP_TOTALLYFROZEN);
 }
 
-function void M_Unfreeze(void) {
+function void MC_Unfreeze(void) {
     SetPlayerProperty(0, OFF, PROP_TOTALLYFROZEN);
 }
 
 // Draws the menu.
-function void M_Draw(void) { ACS_Execute(MSC_Draw, 0, 0, 0, 0); }
-Script MSC_Draw (void) {
+function void MC_Draw(void) { ACS_Execute(MSCC_Draw, 0, 0, 0, 0); }
+Script MSCC_Draw (void) {
     int player = PlayerNumber();
 
     // Draw categories
@@ -209,12 +196,12 @@ Script MSC_Draw (void) {
                 HUDMSG_PLAIN, 599, CR_GREEN, 1.5, 0.7, 0);
 }
 
-function void M_ClearHudMsg(int id) {
+function void MC_ClearHudMsg(int id) {
         HudMessage(s: ""; HUDMSG_PLAIN, id, CR_GREY, 0, 0, 0);
 }
 
-function void M_Clear(void) { ACS_Execute(MSC_Clear, 0, 0, 0, 0); }
-Script MSC_Clear (void) {
+function void MC_Clear(void) { ACS_Execute(MSC_Clear, 0, 0, 0, 0); }
+Script MSCC_Clear (void) {
     for (int i = 0; i < CATEGORIES_AMOUNT; i++) {
         M_ClearHudMsg(600 + i);
     }
@@ -297,11 +284,11 @@ Script MSC_Input_Loop (void) {
     restart;
 }
 
-function void M_DeathReset(void) { ACS_ExecuteAlways(MSC_DEATHRESET, 0, 0, 0, 0); }
-Script MSC_DEATHRESET DEATH { M_Exit(); }
+function void MC_DeathReset(void) { ACS_ExecuteAlways(MSCC_DEATHRESET, 0, 0, 0, 0); }
+Script MSCC_DEATHRESET DEATH { M_Exit(); }
 
-function void M_QuitReset(void) { ACS_ExecuteAlways(MSC_QUITRESET, 0, 0, 0, 0); }
-Script MSC_QUITRESET (int gone) DISCONNECT { M_Exit(); }
+function void MC_QuitReset(void) { ACS_ExecuteAlways(MSCC_QUITRESET, 0, 0, 0, 0); }
+Script MSCC_QUITRESET (int gone) DISCONNECT { M_Exit(); }
 
 // All Out War 2 Class purchase scripts
 // Credit to VoltlocK for originally creating the engine

@@ -100,7 +100,9 @@ Script MSC_INPUTRECV (int category, int item) {
         //}
     }
 
-    //if (shouldExit) { M_Exit(); }
+    LocalAmbientSound("menu/choose");
+
+    if (shouldExit) { M_Exit(); }
 }
 
 // User enters menu.
@@ -243,6 +245,8 @@ Script MSC_Input_Loop (void) {
         } else
             playerSelection[player][playerSide[player]]--;
 
+        LocalAmbientSound("menu/cursor");
+
         Log(d:playerSelection[player][0], s:", ", d: playerSelection[player][1]);
     }
 
@@ -257,6 +261,8 @@ Script MSC_Input_Loop (void) {
                 playerSelection[player][MSIDE_ITEMS] = 0;
         } else
             playerSelection[player][playerSide[player]]++;
+
+        LocalAmbientSound("menu/cursor");
 
         Log(d:playerSelection[player][0], s:", ", d: playerSelection[player][1]);
     }

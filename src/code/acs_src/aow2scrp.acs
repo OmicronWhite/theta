@@ -238,7 +238,13 @@
 #define MUI_ITEMS_Y             0.3
 #define MUI_ITEMS_Y_INC         0.02
 
-#define MIL_DELAY               3 
+#define MIL_DELAY               3
+
+int playerSelection[65][2];
+int playerSide[65];
+int inMenu[65];
+
+/********************* Menus *********************/
 
 bool Bots[MAX_MARINES];
 
@@ -485,6 +491,7 @@ str NormalWeaponNames[MAX_NORMAL_WEAPONS] =
 #include "a_jetpack.acs"
 #include "a_mechs.acs"
 #include "a_menu.acs"
+#include "a_menu_research.acs"
 #include "a_menudef.acs"
 #include "a_misc.acs"
 #include "a_netscripts.acs"

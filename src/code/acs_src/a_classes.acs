@@ -103,15 +103,15 @@ Script MSCC_Enter (void) {
 
 function void MC_Exit(void) { ACS_ExecuteAlways(MSCC_EXIT, 0, 0, 0, 0); }
 Script MSCC_Exit (void) {
+    inMenu[player] = false;
     int player = PlayerNumber();
-    MC_InputLoop_Stop();
+    //MC_InputLoop_Stop(); // Its now stopped by inMenu being false.
     MC_Clear();
     MC_Unfreeze();
 
     playerSelection[player][0] = 0;
     playerSelection[player][1] = 0;
     playerSide[player] = 0;
-    inMenu[player] = false;
 }
 
 function str MC_ItemString(int side, int category, int item) {
@@ -277,7 +277,7 @@ Script MSCC_Input_Loop (void) {
 
     if (inputUsed) { MC_Draw(); }
     Delay(MIL_DELAY);
-    restart;
+    if(inMenu[player]) restart;
 }
 
 function void MC_DeathReset(void) { ACS_ExecuteAlways(MSCC_DEATHRESET, 0, 0, 0, 0); }

@@ -176,7 +176,7 @@ Script MSCR_Clear (void) {
     MR_ClearHudMsg(599);
 }
 
-function void MR_InputLoop_Start(void) { ACS_Execute(MSCR_Input_Loop, 0, 0, 0, 0); }
+function void MR_InputLoop_Start(void) { ACS_ExecuteAlways(MSCR_Input_Loop, 0, 0, 0, 0); }
 function void MR_InputLoop_Stop(void) { ACS_Terminate(MSCR_Input_Loop, 0); }
 Script MSCR_Input_Loop (void) {
     int input = GetPlayerInput(-1, INPUT_BUTTONS);

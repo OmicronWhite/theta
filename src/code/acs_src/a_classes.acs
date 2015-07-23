@@ -209,7 +209,7 @@ Script MSCC_Clear (void) {
     MC_ClearHudMsg(599);
 }
 
-function void MC_InputLoop_Start(void) { ACS_Execute(MSCC_Input_Loop, 0, 0, 0, 0); }
+function void MC_InputLoop_Start(void) { ACS_ExecuteAlways(MSCC_Input_Loop, 0, 0, 0, 0); }
 function void MC_InputLoop_Stop(void) { ACS_Terminate(MSCC_Input_Loop, 0); }
 Script MSCC_Input_Loop (void) {
     int input = GetPlayerInput(-1, INPUT_BUTTONS);

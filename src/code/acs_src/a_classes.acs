@@ -25,7 +25,7 @@ str class_items[CATEGORIES_AMOUNT][ITEMS_AMOUNT] = {
 };
 
 // This function is called when the player has chosen an item.
-function void MC_InputReceived(int category, int item) { ACS_Execute(MSCC_INPUTRECV, 0, category, item, 0); }
+function void MC_InputReceived(int category, int item) { ACS_ExecuteAlways(MSCC_INPUTRECV, 0, category, item, 0); }
 Script MSCC_INPUTRECV (int category, int item) {
     bool shouldExit = false;
 
@@ -101,7 +101,7 @@ Script MSCC_Enter (void) {
     }
 }
 
-function void MC_Exit(void) { ACS_Execute(MSCC_EXIT, 0, 0, 0, 0); }
+function void MC_Exit(void) { ACS_ExecuteAlways(MSCC_EXIT, 0, 0, 0, 0); }
 Script MSCC_Exit (void) {
     int player = PlayerNumber();
     MC_InputLoop_Stop();
@@ -158,7 +158,7 @@ function void MC_Unfreeze(void) {
 }
 
 // Draws the menu.
-function void MC_Draw(void) { ACS_Execute(MSCC_Draw, 0, 0, 0, 0); }
+function void MC_Draw(void) { ACS_ExecuteAlways(MSCC_Draw, 0, 0, 0, 0); }
 Script MSCC_Draw (void) {
     int player = PlayerNumber();
 
@@ -196,7 +196,7 @@ function void MC_ClearHudMsg(int id) {
         HudMessage(s: ""; HUDMSG_PLAIN, id, CR_GREY, 0, 0, 0);
 }
 
-function void MC_Clear(void) { ACS_Execute(MSCC_Clear, 0, 0, 0, 0); }
+function void MC_Clear(void) { ACS_ExecuteAlways(MSCC_Clear, 0, 0, 0, 0); }
 Script MSCC_Clear (void) {
     for (int i = 0; i < CATEGORIES_AMOUNT; i++) {
         MC_ClearHudMsg(600 + i);

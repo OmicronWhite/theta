@@ -70,15 +70,15 @@ Script MSCR_Enter (void) {
 
 function void MR_Exit(void) { ACS_ExecuteAlways(MSCR_EXIT, 0, 0, 0, 0); }
 Script MSCR_Exit (void) {
+    inMenu[player] = false;
     int player = PlayerNumber();
-    MR_InputLoop_Stop();
-    MR_Clear();
-    MR_Unfreeze();
+    //MC_InputLoop_Stop(); // Its now stopped by inMenu being false.
+    MC_Clear();
+    MC_Unfreeze();
 
     playerSelection[player][0] = 0;
     playerSelection[player][1] = 0;
     playerSide[player] = 0;
-    inMenu[player] = false;
 }
 
 function str MR_ItemString(int side, int category, int item) {
@@ -244,7 +244,7 @@ Script MSCR_Input_Loop (void) {
 
     if (inputUsed) { MR_Draw(); }
     Delay(MIL_DELAY);
-    restart;
+    if(inMenu[player]) restart;
 }
 
 function void MR_DeathReset(void) { ACS_ExecuteAlways(MSCR_DEATHRESET, 0, 0, 0, 0); }

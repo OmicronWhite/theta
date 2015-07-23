@@ -70,8 +70,8 @@ Script MSCR_Enter (void) {
 
 function void MR_Exit(void) { ACS_ExecuteAlways(MSCR_EXIT, 0, 0, 0, 0); }
 Script MSCR_Exit (void) {
-    inMenu[player] = false;
     int player = PlayerNumber();
+    inMenu[player] = false;
     //MC_InputLoop_Stop(); // Its now stopped by inMenu being false.
     MC_Clear();
     MC_Unfreeze();

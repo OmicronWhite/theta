@@ -8,7 +8,7 @@ Theta
  * __AOW03__ - Disk Defrag
  * __AOW04__ - Oasis
 
-Come join our IRC channel! `irc.zandronum.com #theta`
+Come join our IRC channel! We're at `irc.zandronum.com #theta`.
 
 ##Building
 If you're on Windows, building Theta is really easy!  

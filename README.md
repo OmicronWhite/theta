@@ -12,5 +12,5 @@ Come join our IRC channel! We're at `irc.zandronum.com #theta`.
 
 ##Building
 If you're on Windows, building Theta is really easy!  
-Just clone the repo or [download it as a zip](https://github.com/PlusGit/theta/archive/master.zip), then run `build.bat`.  
+Just clone the repo or [download it as a zip](https://github.com/PlusGit/theta/archive/master.zip), then run `build.bat` or `buil_from-zipbat` respectvely.
 Tools will run in 64-bit if they can, if you don't want them to then just run `build.bat /FORCEWIN32`.

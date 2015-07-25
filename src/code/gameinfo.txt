@@ -1,0 +1,3 @@
+IWAD = "doom2.wad"
+STARTUPTITLE = "All Out War 2: The Theta Project"
+STARTUPCOLORS = "FF0000", "000000"

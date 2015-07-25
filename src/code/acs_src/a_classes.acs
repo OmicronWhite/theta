@@ -544,37 +544,6 @@ script 918( int n )
 	}
 }
 
-// -----------------------------------------------------------------------------
-script 20( void ) MC_Enter();
-script 21( void ) MC_Enter();
-script 22( void ) MC_Enter();
-script 23( void ) MC_Enter();
-script 24( void ) MC_Enter();
-script 25( void ) MC_Enter();
-script 26( void ) MC_Enter();
-script 27( void ) MC_Enter();
-script 28( void ) MC_Enter();
-script 29( void ) MC_Enter();
-script 33( void ) MC_Enter();
-script 34( void ) MC_Enter();
-script 35( void ) MC_Enter();
-script 36( void ) MC_Enter();
-script 38( void ) MC_Enter();
-script 62( void ) MC_Enter();
-script 40( void ) MC_Enter();
-script 41( void ) MC_Enter();
-script 42( void ) MC_Enter();
-script 43( void ) MC_Enter();
-script 44( void ) MC_Enter();
-script 52( void ) MC_Enter();
-script 53( void ) MC_Enter();
-script 54( void ) MC_Enter();
-script 60( void ) MC_Enter();
-script 61( void ) MC_Enter();
-script 39( void ) MC_Enter();
-script 63( void ) MC_Enter();
-script 64( void ) MC_Enter();
-
 //---------------------------PLASMA CANNON
 script 37( void )
 {	int cost = 1500;

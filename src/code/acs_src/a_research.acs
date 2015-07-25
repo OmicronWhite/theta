@@ -12,12 +12,12 @@
 // Barracks Upgrades: Cost 1750
 
 // Private Upgrade - Make all team player before master sergeant gain more 100% xp.
-script 50 ( void )
+script 20 ( void )
 {
 	int cost = 1750;
 
 	if( MitigateDoublePress() ) terminate;
-	if( LowLevelDoublexp[PlayerTeam()] )
+	if( GetResearchFlag(PlayerTeam(), TR_XP_MULTIPLY) )
 	{
 		Error( "This has already been researched!" );
 		terminate;
@@ -27,13 +27,13 @@ script 50 ( void )
 	{
 	GiveInventory( "PurchaseToken", 1 );
 	SetFont( "BIGFONT" );
-		HudMessage( s: "
-				\cd----XP Multiply----
-				\n\n\ciCost: \cf$1750
-				\n\ciPurpose: \cdIncreases XP gained.
-				\n\tby objectives done.
-				\n\cd--- Your team will earn more XP when received."
-		HUDMSG_FADEOUT, 2100 + PlayerNumber(), CR_Green, 0.25, 0.25, 3.0, 2.0 );
+	HudMessage( s: "
+			\cd----XP Multiply----
+			\n\n\ciCost: \cf$1750
+			\n\ciPurpose: \cdIncreases XP gained.
+			\n\tby objectives done.
+			\n\cd--- Your team will earn more XP when received.";
+	HUDMSG_FADEOUT, 2100 + PlayerNumber(), CR_Green, 0.25, 0.25, 3.0, 2.0 );
 
 		ACS_ExecuteWithResult( 330, cost );
 		Delay( 35 );
@@ -49,16 +49,16 @@ script 50 ( void )
 
 	BigMessage( "\ciResearch Complete!" );
 	Log( s: pname( -1 ), s: " researches \cqXP Multiply\cd for ", s: TeamNames[PlayerTeam()] );
-	LowLevelDoublexp[PlayerTeam()] = True;
+	SetResearchFlag(PlayerTeam(), TR_XP_MULTIPLY);
 }
 
 // Recicle arsenal - Sold weapons gives you back double the sale value, also in resing.
-script 51 ( void )
+script 21 ( void )
 {
 	int cost = 1750;
 
 	if( MitigateDoublePress() ) terminate;
-	if( DoubleRefund[PlayerTeam()] )
+	if( GetResearchFlag(PlayerTeam(), TR_RECYCLE_ARSENAL) )
 	{
 		Error( "This has already been researched!" );
 		terminate;
@@ -68,13 +68,13 @@ script 51 ( void )
 	{
 	GiveInventory( "PurchaseToken", 1 );
 	SetFont( "BIGFONT" );
-		HudMessage( s: "
-				\cd----Recycle Arsenal----
-				\n\n\ciCost: \cf$1750
-				\n\ciPurpose: \cdBarracks now Recycle your sold
-				\n\tweapons.
-				\n\cd--- More money is given back when resigning\n    or selling."
-		HUDMSG_FADEOUT, 2100 + PlayerNumber(), CR_Green, 0.25, 0.25, 3.0, 2.0 );
+	HudMessage( s: "
+			\cd----Recycle Arsenal----
+			\n\n\ciCost: \cf$1750
+			\n\ciPurpose: \cdBarracks now Recycle your sold
+			\n\tweapons.
+			\n\cd--- More money is given back when resigning\n    or selling.";
+	HUDMSG_FADEOUT, 2100 + PlayerNumber(), CR_Green, 0.25, 0.25, 3.0, 2.0 );
 
 		ACS_ExecuteWithResult( 330, cost );
 		Delay( 35 );
@@ -90,11 +90,11 @@ script 51 ( void )
 
 	BigMessage( "\ciResearch Complete!" );
 	Log( s: pname( -1 ), s: " researches \cqRecycle Arsenal\cd for ", s: TeamNames[PlayerTeam()] );
-	DoubleRefund[PlayerTeam()] = True;
+	SetResearchFlag(PlayerTeam(), TR_RECYCLE_ARSENAL);
 }
 
 // Not done.
-script 52 ( void )
+script 22 ( void )
 {
 	Error( "Not avaliable yet!" );
 	terminate;

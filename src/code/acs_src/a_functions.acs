@@ -10,6 +10,24 @@
  * of this and call it your own. Thanks!
  */
 
+//[SB] For the research centre.
+function int GetResearchFlag (int team, int flag)
+{
+	return (TeamResearches[team] & flag);
+}
+
+function void SetResearchFlag ( int team, int flag )
+{
+	if (!GetResearchFlag(team, flag))
+		TeamResearches[team] |= flag;
+}
+
+function void UnsetResearchFlag (int team, int flag)
+{
+	if (GetResearchFlag(team, flag))
+		TeamResearches[team] &= ~flag;
+}
+
 // MATH FUNCTIONS
 function int abs( int n )
 {	if( n < 0 )

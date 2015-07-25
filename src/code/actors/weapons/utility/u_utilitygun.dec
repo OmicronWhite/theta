@@ -1124,6 +1124,7 @@ actor Utility_TurretBase {
 	+NOTARGET
 	+LOOKALLAROUND
 	+NEVERRESPAWN
+	+ALWAYSFAST //testing
 
 	states {
 	Death.Deconstruction:

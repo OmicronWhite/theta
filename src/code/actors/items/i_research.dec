@@ -1,0 +1,6 @@
+// Theta upgrade items.
+// We're using these instead of ACS variables due to the stupid
+// limit.
+
+actor RLowLevelXPMultiply       : Inventory {inventory.maxamount 1}
+actor RDoubleRefund             : Inventory {inventory.maxamount 1}

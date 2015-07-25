@@ -181,9 +181,11 @@ Script MSCC_Draw (void) {
     int c_incY = 0.02;
 
     for (int i = 0; i < CATEGORIES_AMOUNT; i++) {
-        if (IsResigned() && i == 5) continue;
+        if (IsResignedN() && i == 5) continue;
+        SetFont("SMALLFONT");
         HudMessage(s: MC_ItemString(MSIDE_CATEGORIES, 0, i);
                 HUDMSG_PLAIN, 600 + i, CR_GREY, MUI_CATEGORIES_X, c_startY, 0);
+        SetFont("DOOMFONT");
         c_startY += c_incY;
     }
 
@@ -193,8 +195,10 @@ Script MSCC_Draw (void) {
 
     for (int i1 = 0; i1 < ITEMS_AMOUNT; i1++) {
         if (playerSelection[player][MSIDE_CATEGORIES] == 5) continue;
+        SetFont("SMALLFONT");
         HudMessage(s: MC_ItemString(MSIDE_ITEMS, playerSelection[player][MSIDE_CATEGORIES], i1);
                 HUDMSG_PLAIN, 700 + i1, CR_GREY, MUI_ITEMS_X, i_startY, 0);
+        SetFont("DOOMFONT");
         i_startY += i_incY;
     }
 
@@ -237,7 +241,7 @@ Script MSCC_Input_Loop (void) {
 
         if(playerSide[player] == MSIDE_CATEGORIES
             && playerSelection[player][MSIDE_CATEGORIES] == 0) {
-                playerSelection[player][MSIDE_CATEGORIES] = CATEGORIES_AMOUNT - cond(IsResigned(), 2, 1);
+                playerSelection[player][MSIDE_CATEGORIES] = CATEGORIES_AMOUNT - cond(IsResignedN(), 2, 1);
         } else if(playerSide[player] == MSIDE_ITEMS
             && playerSelection[player][MSIDE_ITEMS] == 0) {
                 playerSelection[player][MSIDE_ITEMS] = ITEMS_AMOUNT - 1;
@@ -253,7 +257,7 @@ Script MSCC_Input_Loop (void) {
         inputUsed = true;
 
         if((playerSide[player] == MSIDE_CATEGORIES && playerSelection[player][MSIDE_CATEGORIES] == CATEGORIES_AMOUNT - 1)
-            || (playerSelection[player][MSIDE_CATEGORIES] == 5 && IsResigned())) {
+            || (playerSelection[player][MSIDE_CATEGORIES] == 5 && IsResignedN())) {
                 playerSelection[player][MSIDE_CATEGORIES] = 0;
         } else if(playerSide[player] == MSIDE_ITEMS
             && playerSelection[player][MSIDE_ITEMS] == ITEMS_AMOUNT - 1) {
@@ -286,7 +290,7 @@ Script MSCC_Input_Loop (void) {
         inputUsed = true;
 
         if(playerSide[player] == MSIDE_CATEGORIES)
-            if(playerSelection[player][MSIDE_CATEGORIES] == 5 && !IsResigned())
+            if(playerSelection[player][MSIDE_CATEGORIES] == 5 && !IsResignedN())
                 MC_InputReceived(playerSelection[player][MSIDE_CATEGORIES],
                     playerSelection[player][MSIDE_ITEMS]);
             else

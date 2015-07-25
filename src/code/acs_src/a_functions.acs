@@ -81,6 +81,11 @@ function int IsResigned( void )
 	return 0;
 }
 
+function int IsResignedN( void )
+{
+    return (CheckInventory( "HasClass" ) == 0);
+}
+
 // [Dusk] returns 1 if player is pressing this button the second time
 function int IsSecondPress( str StatCard, int price )
 {	// AOW20 skips this check for classes

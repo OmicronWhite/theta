@@ -13,7 +13,7 @@
 #define MSCC_QUITRESET           487
 
 #define CATEGORIES_AMOUNT       6
-str class_categories[CATEGORIES_AMOUNT] = { "Generic", "Support", "Combat", "Power", "Add-ons", "\cfResign"};
+str class_categories[CATEGORIES_AMOUNT] = { "Generic", "Support", "Combat", "Power", "Add-ons", "Resign"};
 
 #define ITEMS_AMOUNT            10
 str class_items[CATEGORIES_AMOUNT][ITEMS_AMOUNT] = {

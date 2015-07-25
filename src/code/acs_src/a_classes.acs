@@ -256,8 +256,8 @@ Script MSCC_Input_Loop (void) {
     if (input & BT_BACK) {
         inputUsed = true;
 
-        if((playerSide[player] == MSIDE_CATEGORIES && playerSelection[player][MSIDE_CATEGORIES] == CATEGORIES_AMOUNT - 1)
-            || (playerSelection[player][MSIDE_CATEGORIES] == 5 && IsResignedN())) {
+        if( (playerSide[player] == MSIDE_CATEGORIES && playerSelection[player][MSIDE_CATEGORIES] == CATEGORIES_AMOUNT - 1)
+            || (playerSide[player] == MSIDE_CATEGORIES && playerSelection[player][MSIDE_CATEGORIES] == 4 && IsResignedN()) ) {
                 playerSelection[player][MSIDE_CATEGORIES] = 0;
         } else if(playerSide[player] == MSIDE_ITEMS
             && playerSelection[player][MSIDE_ITEMS] == ITEMS_AMOUNT - 1) {

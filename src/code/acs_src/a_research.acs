@@ -1,3 +1,11 @@
+// All Out War 2 Research Centre scripts
+// Credit to VoltlocK for originally creating the engine
+// With modifications by Eruanna, Dusk, the Omega Team, and the Theta
+
+// You may use portions of this script in your project as long as you give credit where credit is
+// due. Please don't be lame and just copy-paste any of this and call it your own. Thanks!
+// [Dusk] Rewritten pretty much entirely
+
 // Research Centre Upgrades
 // Here is definied all data thats used in research centre
 
@@ -20,11 +28,11 @@ script 50 ( void )
 	GiveInventory( "PurchaseToken", 1 );
 	SetFont( "BIGFONT" );
 		HudMessage( s: "
-				\cd----Private Upgrade----
+				\cd----XP Multiply----
 				\n\n\ciCost: \cf$1750
-				\n\ciPurpose: \cdIncrease privates promotion rates
+				\n\ciPurpose: \cdIncreases XP gained.
 				\n\tby objectives done.
-				\n\cd--- Double Xp gained before Master Sergeant."
+				\n\cd--- Your team will earn more XP when received."
 		HUDMSG_FADEOUT, 2100 + PlayerNumber(), CR_Green, 0.25, 0.25, 3.0, 2.0 );
 
 		ACS_ExecuteWithResult( 330, cost );
@@ -40,7 +48,7 @@ script 50 ( void )
 	DisplayTick();
 
 	BigMessage( "\ciResearch Complete!" );
-	Log( s: pname( -1 ), s: " researches private upgrade for ", s: TeamNames[PlayerTeam()] );
+	Log( s: pname( -1 ), s: " researches \cqXP Multiply\cd for ", s: TeamNames[PlayerTeam()] );
 	LowLevelDoublexp[PlayerTeam()] = True;
 }
 
@@ -61,11 +69,11 @@ script 51 ( void )
 	GiveInventory( "PurchaseToken", 1 );
 	SetFont( "BIGFONT" );
 		HudMessage( s: "
-				\cd----Recicle arsenal----
+				\cd----Recycle Arsenal----
 				\n\n\ciCost: \cf$1750
-				\n\ciPurpose: \cdBarracks now recicle your sold
+				\n\ciPurpose: \cdBarracks now Recycle your sold
 				\n\tweapons.
-				\n\cd--- Double money gained in resing or selling."
+				\n\cd--- More money is given back when resigning\n    or selling."
 		HUDMSG_FADEOUT, 2100 + PlayerNumber(), CR_Green, 0.25, 0.25, 3.0, 2.0 );
 
 		ACS_ExecuteWithResult( 330, cost );
@@ -81,7 +89,7 @@ script 51 ( void )
 	DisplayTick();
 
 	BigMessage( "\ciResearch Complete!" );
-	Log( s: pname( -1 ), s: " researches recicle arsenal for ", s: TeamNames[PlayerTeam()] );
+	Log( s: pname( -1 ), s: " researches \cqRecycle Arsenal\cd for ", s: TeamNames[PlayerTeam()] );
 	DoubleRefund[PlayerTeam()] = True;
 }
 

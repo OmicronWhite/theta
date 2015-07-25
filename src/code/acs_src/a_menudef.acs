@@ -1,4 +1,4 @@
-str maps_menu[4] = {"AOW01", "AOW02", "AOW03", "AOW04", "AOW05"};
+str maps_menu[5] = {"AOW01", "AOW02", "AOW03", "AOW04", "AOW05"};
 
 Script SC_MenuGoMap (void) NET CLIENTSIDE {
     if (PlayerNumber() != ConsolePlayerNumber()) { terminate; }

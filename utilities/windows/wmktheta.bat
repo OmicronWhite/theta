@@ -41,7 +41,12 @@ IF /I "%2"=="/NOPAUSE" (
 IF /I "%3"=="/NOGIT" (
     SET NOGIT=1
 ) ELSE (
-    SET NOGIT=0
+    git >nul 2>&1
+    if %errorlevel%==9009 (
+        SET NOGIT=1
+    ) else (
+        SET NOGIT=0
+    )
 )
 
 echo All Out War "Theta" Build Script

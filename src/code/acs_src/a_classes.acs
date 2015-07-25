@@ -282,7 +282,7 @@ Script MSCC_Input_Loop (void) {
         inputUsed = true;
 
         if(playerSide[player] == MSIDE_CATEGORIES)
-            if(playerSelection[MSIDE_CATEGORIES] == 5)
+            if(playerSelection[player][MSIDE_CATEGORIES] == 5)
                 MC_InputReceived(playerSelection[player][MSIDE_CATEGORIES],
                     playerSelection[player][MSIDE_ITEMS]);
             else

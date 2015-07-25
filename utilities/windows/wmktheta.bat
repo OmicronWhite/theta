@@ -49,14 +49,14 @@ echo Written by Sean
 echo.
 
 echo %START%
-IF %NOGIT%=1 (
+IF %NOGIT%==1 (
     "%START%\utilities\windows\win%ARCH%\gitcommit.exe" batch "%START%\utilities\commit.bat" --silent
     if not %errorlevel%==0 goto exefail
     call "%START%\utilities\commit.bat"
 )
 
 echo The build number is %no%.
-IF %NOGIT%=0 echo You are building commit %COMMIT_HASH%.
+IF %NOGIT%==0 echo You are building commit %COMMIT_HASH%.
 echo.
 
 if not exist src\code\acs\ (
@@ -128,7 +128,7 @@ echo.
 echo The PK3 files are to be found in:
 echo %START%\out
 echo Build number #%no%.
-IF %NOGIT%=0 echo Commit hash: %COMMIT_HASH%.
+IF %NOGIT%==0 echo Commit hash: %COMMIT_HASH%.
 
 title All Out War: Theta Build Success
 echo.

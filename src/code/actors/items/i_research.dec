@@ -2,5 +2,14 @@
 // We're using these instead of ACS variables due to the stupid
 // limit.
 
-actor RLowLevelXPMultiply       : Inventory {inventory.maxamount 1}
-actor RDoubleRefund             : Inventory {inventory.maxamount 1}
+// -- Skeletal actor; don't give directly to the player.
+actor ResearchBool : Inventory {
+    +INVENTORY.UNDROPPABLE
+    +INVENTORY.QUIET
+    +INVENTORY.UNTOSSABLE
+    
+    Inventory.MaxAmount     1 // You should increase this if you want multi-level researches.
+}
+
+actor RLowLevelXPMultiply       : ResearchBool
+actor RDoubleRefund             : ResearchBool

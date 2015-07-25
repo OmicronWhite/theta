@@ -24,9 +24,12 @@ str class_items[CATEGORIES_AMOUNT][ITEMS_AMOUNT] = {
     { "Chainsaw", "Tiberium Autorifle", "Artillery Cannon", "-----", "-----", "-----", "-----", "-----", "-----", "-----" }
 };
 
+int drawResign[32];
+
 // This function is called when the player has chosen an item.
 function void MC_InputReceived(int category, int item) { ACS_ExecuteAlways(MSCC_INPUTRECV, 0, category, item, 0); }
 Script MSCC_INPUTRECV (int category, int item) {
+    int player = PlayerNumber();
     bool shouldExit = false;
 
     if (category == 0) { // Generic
@@ -84,7 +87,10 @@ Script MSCC_INPUTRECV (int category, int item) {
     }
 
     if (category == 5) { // Resign
-        ACS_ExecuteAlways(95, 0);
+        ACS_ExecuteAlways(95, 0, 0, true); // arg1 is unused
+        playerSelection[player][MSIDE_CATEGORIES] = 0;
+        drawResign[player] = false;
+        MC_ClearHudMsg(600 + 5);
     }
 
     LocalAmbientSound("menu/choose", 127);
@@ -97,6 +103,7 @@ function void MC_Enter(void) { ACS_ExecuteAlways(MSCC_Enter, 0, 0, 0, 0); }
 Script MSCC_Enter (void) {
     int player = PlayerNumber();
     if(!inMenu[player]) {
+        drawResign[player] = !IsResignedN();
         inMenu[player] = true;
         MC_Freeze();
         MC_Draw();
@@ -181,7 +188,7 @@ Script MSCC_Draw (void) {
     int c_incY = 0.02;
 
     for (int i = 0; i < CATEGORIES_AMOUNT; i++) {
-        if (IsResignedN() && i == 5) continue;
+        if ((!drawResign[player] || IsResignedN()) && i == 5) continue;
         SetFont("SMALLFONT");
         HudMessage(s: MC_ItemString(MSIDE_CATEGORIES, 0, i);
                 HUDMSG_PLAIN, 600 + i, CR_GREY, MUI_CATEGORIES_X, c_startY, 0);
@@ -194,7 +201,11 @@ Script MSCC_Draw (void) {
     int i_incY = 0.02;
 
     for (int i1 = 0; i1 < ITEMS_AMOUNT; i1++) {
-        if (playerSelection[player][MSIDE_CATEGORIES] == 5) continue;
+        if (playerSelection[player][MSIDE_CATEGORIES] == 5) {
+            MC_ClearHudMsg(700 + i1);
+            continue;
+        }
+
         SetFont("SMALLFONT");
         HudMessage(s: MC_ItemString(MSIDE_ITEMS, playerSelection[player][MSIDE_CATEGORIES], i1);
                 HUDMSG_PLAIN, 700 + i1, CR_GREY, MUI_ITEMS_X, i_startY, 0);
@@ -241,7 +252,7 @@ Script MSCC_Input_Loop (void) {
 
         if(playerSide[player] == MSIDE_CATEGORIES
             && playerSelection[player][MSIDE_CATEGORIES] == 0) {
-                playerSelection[player][MSIDE_CATEGORIES] = CATEGORIES_AMOUNT - cond(IsResignedN(), 2, 1);
+                playerSelection[player][MSIDE_CATEGORIES] = CATEGORIES_AMOUNT - cond((!drawResign[player] || IsResignedN()), 2, 1);
         } else if(playerSide[player] == MSIDE_ITEMS
             && playerSelection[player][MSIDE_ITEMS] == 0) {
                 playerSelection[player][MSIDE_ITEMS] = ITEMS_AMOUNT - 1;
@@ -257,7 +268,7 @@ Script MSCC_Input_Loop (void) {
         inputUsed = true;
 
         if( (playerSide[player] == MSIDE_CATEGORIES && playerSelection[player][MSIDE_CATEGORIES] == CATEGORIES_AMOUNT - 1)
-            || (playerSide[player] == MSIDE_CATEGORIES && playerSelection[player][MSIDE_CATEGORIES] == 4 && IsResignedN()) ) {
+            || (playerSide[player] == MSIDE_CATEGORIES && playerSelection[player][MSIDE_CATEGORIES] == 4 && (!drawResign[player] || IsResignedN())) ) {
                 playerSelection[player][MSIDE_CATEGORIES] = 0;
         } else if(playerSide[player] == MSIDE_ITEMS
             && playerSelection[player][MSIDE_ITEMS] == ITEMS_AMOUNT - 1) {
@@ -273,13 +284,16 @@ Script MSCC_Input_Loop (void) {
     if (input & BT_MOVELEFT || input & BT_LEFT) {
         inputUsed = true;
         playerSide[player] = MSIDE_CATEGORIES;
+        LocalAmbientSound("menu/activate", 127);
     }
 
     if (input & BT_MOVERIGHT || input & BT_RIGHT) {
         inputUsed = true;
 
-        if (playerSelection[player][MSIDE_CATEGORIES] != 5)
+        if (playerSelection[player][MSIDE_CATEGORIES] != 5) {
             playerSide[player] = MSIDE_ITEMS;
+            LocalAmbientSound("menu/activate", 127);
+        }
     }
 
     if (input & BT_ALTATTACK) {
@@ -290,11 +304,13 @@ Script MSCC_Input_Loop (void) {
         inputUsed = true;
 
         if(playerSide[player] == MSIDE_CATEGORIES)
-            if(playerSelection[player][MSIDE_CATEGORIES] == 5 && !IsResignedN())
+            if(playerSelection[player][MSIDE_CATEGORIES] == 5 && (drawResign[player] || !IsResignedN()))
                 MC_InputReceived(playerSelection[player][MSIDE_CATEGORIES],
                     playerSelection[player][MSIDE_ITEMS]);
-            else
+            else {
                 playerSide[player] = MSIDE_ITEMS;
+                LocalAmbientSound("menu/activate", 127);
+            }
         else
             MC_InputReceived(playerSelection[player][MSIDE_CATEGORIES],
                     playerSelection[player][MSIDE_ITEMS]);

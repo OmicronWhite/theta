@@ -12,15 +12,15 @@
 #define MSCC_DEATHRESET          486
 #define MSCC_QUITRESET           487
 
-#define CATEGORIES_AMOUNT       5
-str class_categories[CATEGORIES_AMOUNT] = { "Generic", "Support", "Combat", "Power", "Add-ons" };
+#define CATEGORIES_AMOUNT       6
+str class_categories[CATEGORIES_AMOUNT] = { "Generic", "Support", "Combat", "Power", "Add-ons", "\cfResign"};
 
 #define ITEMS_AMOUNT            10
 str class_items[CATEGORIES_AMOUNT][ITEMS_AMOUNT] = {
     { "Gunman", "Shotgunner", "Rifleman", "Double Shotgunner", "Machine Gunner", "Tiberium Autorifleman", "-----", "-----", "-----", "-----" },
     { "Engineer", "Technician", "Utility Guy", "Medic", "Tiberium Harvester", "Adv. Tib. Harvester", "Stealth Trooper", "Time Cop", "-----", "-----" },
     { "Flamer", "Grenadier", "Rocketeer", "Chem Warrior", "Shock Trooper", "Minigunner", "Laser Chaingunner", "Jumpjet Soldier", "Plasma Gunner", "-----" },
-    { "Commando", "Sniper", "Suicide Bomber", "Gauss Gunner", "Demo. Expert", "Artillery Soldier", "-----", "-----", "-----", "-----" },
+    { "Commando", "Sniper", "Suicide Bomber", "Gauss Gunner", "Demo. Expert", "Artillery Solzdier", "-----", "-----", "-----", "-----" },
     { "Chainsaw", "Tiberium Autorifle", "Artillery Cannon", "-----", "-----", "-----", "-----", "-----", "-----", "-----" }
 };
 
@@ -78,9 +78,13 @@ Script MSCC_INPUTRECV (int category, int item) {
         }
     }
 
-    if (category == 3) { // Addons
+    if (category == 4) { // Addons
         //switch (item) {
         //}
+    }
+
+    if (category == 5) { // Resign
+        ACS_ExecuteAlways(95, 0);
     }
 
     LocalAmbientSound("menu/choose", 127);
@@ -122,12 +126,22 @@ function str MC_ItemString(int side, int category, int item) {
         if(side == MSIDE_ITEMS)
             value = StrParam(s: "\cm", s: class_items[category][item]);
 
-        if(playerSelection[player][MSIDE_CATEGORIES] == item && side == MSIDE_CATEGORIES) {
-                value = StrParam(s: "\cd", s: class_categories[item]);
-        }
+        if (item == 5) {
+            if(playerSelection[player][MSIDE_CATEGORIES] == item && side == MSIDE_CATEGORIES) {
+                    value = StrParam(s: "\cf", s: class_categories[item]);
+            }
 
-        if(playerSelection[player][MSIDE_CATEGORIES] != item && side == MSIDE_CATEGORIES) {
-                value = StrParam(s: "\cq", s: class_categories[item]);
+            if(playerSelection[player][MSIDE_CATEGORIES] != item && side == MSIDE_CATEGORIES) {
+                    value = StrParam(s: "\ci", s: class_categories[item]);
+            }
+        } else {
+            if(playerSelection[player][MSIDE_CATEGORIES] == item && side == MSIDE_CATEGORIES) {
+                    value = StrParam(s: "\cd", s: class_categories[item]);
+            }
+
+            if(playerSelection[player][MSIDE_CATEGORIES] != item && side == MSIDE_CATEGORIES) {
+                    value = StrParam(s: "\cq", s: class_categories[item]);
+            }
         }
     }
 
@@ -268,7 +282,11 @@ Script MSCC_Input_Loop (void) {
         inputUsed = true;
 
         if(playerSide[player] == MSIDE_CATEGORIES)
-            playerSide[player] = MSIDE_ITEMS;
+            if(playerSelection[MSIDE_CATEGORIES] == 5)
+                MC_InputReceived(playerSelection[player][MSIDE_CATEGORIES],
+                    playerSelection[player][MSIDE_ITEMS]);
+            else
+                playerSide[player] = MSIDE_ITEMS;
         else
             MC_InputReceived(playerSelection[player][MSIDE_CATEGORIES],
                     playerSelection[player][MSIDE_ITEMS]);

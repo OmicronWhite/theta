@@ -1,0 +1,42 @@
+actor Utility_TurretBase {
+	damagefactor "Disarm", 0.0
+	damagefactor "Fist", 0.5
+	damagefactor "Mechstomp", 0.0
+	damagefactor "Explosion", 1.5
+	damagefactor "AntiArmor", 2.5
+	damagefactor "Fire", 0.6
+	damagefactor "Chemical", 0.6
+	painchance "Laser", 255
+	radius 24
+	height 56
+	scale 0.75
+	mass 0x7FFFFFFF
+	speed 0
+
+	MONSTER
+	+FLOORCLIP
+	+NOBLOOD
+	+NOICEDEATH
+	-SOLID
+	-COUNTKILL
+	-FRIENDLY
+	+NOTARGET
+	+LOOKALLAROUND
+	+NEVERRESPAWN
+	+ALWAYSFAST //testing
+
+	DeathSound "weapons/rocklx"
+
+	states {
+	Death.Deconstruction:
+		"----" A 2 A_PlaySound ("utility/deconstruct")
+		"----" AAAAAAAAAA 2 A_Fadeout(0.1)
+		stop
+	Death:
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_SpawnItemEx("ExplosionMain", 0, 0, 32)
+		TNT1 A 0 A_Scream
+		TNT1 A 0 A_SpawnItemEx("FlameWallDecay")
+		stop
+	}
+}

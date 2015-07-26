@@ -1,167 +1,98 @@
 // Gun turret
+// Behaves exactly like a sub-machinegun
+
 actor Utility_GunTurretRed : Utility_TurretBase {
 	obituary "%o was owned by a \cgRed \c-turret."
 	health 250
 	painchance 50
 	//seesound "turret/sight"
-	attacksound "minigun/fire2"
+	attacksound "subby/fire"
 	activesound "turret/sight"
+	DesignatedTeam 1
 	states {
+
 	Spawn:
-		GUNT A 0
-		GUNT A 0 Thing_SetSpecial (0, 84, 345, 0, TEAM_RED)
+		GUNT A 0 Thing_SetSpecial(0, 84, 345, 0, TEAM_RED)
 	Idle:
-		GUNT A 0 A_TakeInventory ("GunTurretClip", 23)
-		GUNT A 0 A_StopSound (6)
-		GUNT AAAAA 6 A_Look
-		goto Idle+2
+		GUNT A 2 A_Look
+		goto Idle
 	See:
-		GUNT A 0 A_GiveInventory("IsRed",1)
-		GUNT A 2 A_ChangeFlag("FRIENDLY",0)
-		GUNT A 8 A_StopSoundEx("SoundSlot6")
+		GUNT A 0 A_GiveInventory("IsRed", 1)
+		GUNT A 0 A_ChangeFlag("FRIENDLY", 0)
 		GUNT A 2 A_JumpIfTargetInLOS("Missile")
-		GUNT A 0 A_TakeInventory("GunTurretClip",23)
-		GUNT A 2 A_ClearTarget
-		goto Spawn+2
+		GUNT A 0 A_ClearTarget
+		goto Idle
 	Clear:
 		GUNT A 2 A_ClearTarget
 		goto See
-	See3:
-		GUNT A 1 A_JumpIfInTargetInventory ("IsBlue", 1, 1)
-		goto Clear
-		GUNT A 0 A_Jump(16,"MissileGo")
-		GUNT A 0 A_JumpIfCloser(128,"MissileGo")
-		goto See
-	MissileCheck:
+	Missile:
 		GUNT A 0 A_JumpIfInTargetInventory ("IsBlue", 1, 1)
 		goto Clear
-		GUNT A 0 A_Chase("","",CHF_DONTMOVE)
-		GUNT A 0 
-		goto MissileGo+2
-	Missile:
-		GUNT A 0 
-		GUNT A 1 A_JumpIfInTargetInventory ("IsBlue", 1, 1)
+		GUNT A 0 A_JumpIfInTargetInventory("StealthMode", 1, "Clear")
+		GUNT A 0 A_JumpIfCloser(1280,"MissileAuto")
+		GUNT A 0 A_JumpIfCloser(3072,"MissileBurst")
 		goto Clear
-		GUNT A 0 A_JumpIfInTargetInventory("StealthMode",1,"Clear")
-		GUNT A 1 A_JumpIfCloser(3072,"MissileGo")
-		GUNT A 0 
+	MissileAuto:
+		GUNT B 4 A_FaceTarget //Turret shot delay
+		GUNT B 0 A_FaceTarget
+		GUNT B 0 A_SpawnItemEx("ShellCasing", 8, 8, 48, random(1,3), random(0,1), random(1,3), random(45,60), 128)
+		GUNT C 2 BRIGHT A_CustomBulletAttack (random(15,33)*0.14, random(15,33)*0.13, 1, 10, "HandgunPuff", 3072, CBAF_NORANDOM)
+		GUNT B 2 
+		GUNT A 0 A_JumpIfCloser(1280, 2) // Check if player is close to switch shoting mode.
+		GUNT A 0 A_CPosRefire
+		goto MissileBurst+1
+		GUNT A 0 A_CPosRefire
+		goto MissileAuto+1
+	MissileBurst:
+		GUNT B 4 A_FaceTarget // Turret shot delay
+		GUNT B 0 A_FaceTarget
+		GUNT B 0 A_SpawnItemEx("ShellCasing",8,8,48,random(1,3),random(0,1),random(1,3),random(45,60),128)
+		GUNT C 2 BRIGHT A_CustomBulletAttack (1.5, 1.5, 1, 10, "HandgunPuff", 3072, CBAF_NORANDOM)
+		GUNT B 2 
+		GUNT B 0 A_FaceTarget
+		GUNT B 0 A_SpawnItemEx("ShellCasing",8,8,48,random(1,3),random(0,1),random(1,3),random(45,60),128)
+		GUNT C 2 BRIGHT A_CustomBulletAttack (1.5, 1.5, 1, 10, "HandgunPuff", 3072, CBAF_NORANDOM)
+		GUNT B 2 
+		GUNT B 0 A_FaceTarget
+		GUNT B 0 A_SpawnItemEx("ShellCasing",8,8,48,random(1,3),random(0,1),random(1,3),random(45,60),128)
+		GUNT C 2 BRIGHT A_CustomBulletAttack (1.5, 1.5, 1, 10, "HandgunPuff", 3072, CBAF_NORANDOM)
+		GUNT B 2
+		GUNT A 7 // Sub-machinegun delay on burst shot
+		GUNT A 0 A_JumpIfCloser(1280, 2) // Check if player is close to switch shoting mode.
+		GUNT A 0 A_CPosRefire
+		goto MissileBurst+1
+		GUNT A 0 A_JumpIfCloser(3072, 1) // Check if player is on max range to still shot.
 		goto Clear
-	MissileGo:
-		GUNT B 8 A_FaceTarget
-		GUNT F 0 A_CPosRefire
-		GUNT B 2 A_PlaySoundEx("minigun/loop","SoundSlot6",1)
-		GUNT B 0 A_JumpIfInventory("GunTurretClip",23,"Pain")
-		GUNT B 0 A_CustomBulletAttack (2.5, 2, 1, 6, "RiflePuff", 8000, CBAF_NORANDOM)
-		GUNT B 0 A_SpawnItemEx ("Flash")
-		GUNT B 0 A_FaceTarget
-		GUNT C 2 BRIGHT A_SpawnItemEx("ShellCasing",8,8,48,random(1,3),random(0,1),random(1,3),random(45,60),128)
-		GUNT B 1 BRIGHT
-		GUNT B 0 A_CustomBulletAttack (2.5, 2, 1, 6, "RiflePuff", 8000, CBAF_NORANDOM)
-		GUNT B 0 A_SpawnItemEx ("Flash")
-		GUNT B 0 A_PlaySoundEx("minigun/fire2","Weapon")
-		GUNT B 0 A_FaceTarget
-		GUNT C 2 BRIGHT A_SpawnItemEx("ShellCasing",8,8,48,random(1,3),random(0,1),random(1,3),random(45,60),128)
-		GUNT B 1 BRIGHT A_ChangeFlag("FRIENDLY",0)
-		GUNT F 0 A_CPosRefire
-		GUNT F 0 A_GiveInventory("GunTurretClip",1)
-		goto MissileCheck
+		GUNT A 0 A_CPosRefire
+		goto MissileAuto+1
 	Pain:
-		GUNT A 0 A_StopSoundEx("SoundSlot6")
-		GUNT A 0 A_ClearTarget
-		GUNT A 9 A_TakeInventory("GunTurretClip",23)
+		GUNT A 2 A_ClearTarget
 		goto See
-	Death:  
-		TC4T A 0     
-		GUNT A 0 A_StopSoundEx("SoundSlot6")
-		TC4T A 0 A_NoBlocking
-		TNT1 A 0 A_SpawnItemEx("ExplosionMain", 0, 0, 32)
-		TC4T A 0 A_PlaySound("weapons/rocklx")
-		TNT1 A 0 A_SpawnItemEx("FlameWallDecay")
-		TNT1 A 4
-		stop
 	}
 }
 
-actor Utility_GunTurretBlue : Utility_TurretBase {
+// Use Red turret code to decrease code usage.
+actor Utility_GunTurretBlue : Utility_GunTurretRed {
 	obituary "%o was owned by a \chBlue \c-turret."
-	health 250
-	painchance 50
-	//seesound "turret/sight"
-	attacksound "minigun/fire2"
-	activesound "turret/sight"
+	DesignatedTeam 0
 	states {
+
 	Spawn:
 		GUNT A 0
-		GUNT A 0 Thing_SetSpecial (0, 84, 345, 0, TEAM_BLUE)
-	Idle:
-		GUNT A 0 A_TakeInventory ("GunTurretClip", 23)
-		GUNT A 0 A_StopSound (6)
-		GUNT AAAAA 6 A_Look
-		goto Idle+2
+		GUNT A 0 Thing_SetSpecial(0, 84, 345, 0, TEAM_BLUE)
 	See:
-		GUNT A 0 A_GiveInventory("IsBlue",1)
-		GUNT A 2 A_ChangeFlag("FRIENDLY",0)
-		GUNT A 8 A_StopSoundEx("SoundSlot6")
+		GUNT A 0 A_GiveInventory("IsBlue", 1)
+		GUNT A 0 A_ChangeFlag("FRIENDLY", 0)
 		GUNT A 2 A_JumpIfTargetInLOS("Missile")
-		GUNT A 0 A_TakeInventory("GunTurretClip",12)
-		GUNT A 2 A_ClearTarget
-		goto Spawn+2
-	See3:
-		GUNT A 1 A_JumpIfInTargetInventory ("IsRed", 1, 1)
-		goto Clear
-		GUNT A 0 A_Jump(16,"MissileGo")
-		GUNT A 0 A_JumpIfCloser(128,"MissileGo")
-		goto See
-	Clear:
-		GUNT A 2 A_ClearTarget
-		goto See
-	MissileCheck:
-		GUNT A 0 A_JumpIfInTargetInventory ("IsRed", 1, 1)
-		goto Clear
-		GUNT A 0 A_Chase("","",CHF_DONTMOVE)
-		GUNT A 0 
-		goto MissileGo+2
-	Missile:
-		GUNT A 0 
-		GUNT A 1 A_JumpIfInTargetInventory ("IsRed", 1, 1)
-		goto Clear
-		GUNT A 0 A_JumpIfInTargetInventory("StealthMode",1,"Clear")
-		GUNT A 1 A_JumpIfCloser(3072,"MissileGo")
-		GUNT A 0 
-		goto Clear
-	MissileGo:
-		GUNT B 8 A_FaceTarget
-		GUNT F 0 A_CPosRefire
-		GUNT B 2 A_PlaySoundEx("minigun/loop","SoundSlot6",1)
-		GUNT B 0 A_JumpIfInventory("GunTurretClip",23,"Pain")
-		GUNT B 0 A_CustomBulletAttack (2.5, 2, 1, 6, "RiflePuff", 8000, CBAF_NORANDOM)
-		GUNT B 0 A_SpawnItemEx ("Flash")
-		GUNT B 0 A_FaceTarget
-		GUNT C 2 BRIGHT A_SpawnItemEx("ShellCasing",8,8,48,random(1,3),random(0,1),random(1,3),random(45,60),128)
-		GUNT B 1 BRIGHT 
-		GUNT B 0 A_CustomBulletAttack (2.5, 2, 1, 6, "RiflePuff", 8000, CBAF_NORANDOM)
-		GUNT B 0 A_SpawnItemEx("Flash",0,0,0,0,0,0,0,128,0)
-		GUNT B 0 A_PlaySoundEx("minigun/fire2","Weapon")
-		GUNT B 0 A_FaceTarget
-		GUNT C 2 BRIGHT A_SpawnItemEx("ShellCasing",8,8,48,random(1,3),random(0,1),random(1,3),random(45,60),128)
-		GUNT B 1 BRIGHT A_ChangeFlag("FRIENDLY",0)
-		GUNT F 0 A_CPosRefire
-		GUNT F 0 A_GiveInventory("GunTurretClip",1)
-		goto MissileCheck
-	Pain:
-		GUNT A 0 A_StopSoundEx("SoundSlot6")
 		GUNT A 0 A_ClearTarget
-		GUNT A 9 A_TakeInventory("GunTurretClip",23)
-		goto See
-	Death:  
-		TC4T A 0     
-		GUNT A 0 A_StopSoundEx("SoundSlot6")
-		TC4T A 0 A_NoBlocking
-		TNT1 A 0 A_SpawnItemEx("ExplosionMain", 0, 0, 32)
-		TC4T A 0 A_PlaySound("weapons/rocklx")
-		TNT1 A 0 A_SpawnItemEx("FlameWallDecay")
-		TNT1 A 4
-		stop
+		goto Idle
+	Missile:
+		GUNT A 1 A_JumpIfInTargetInventory ("IsRed", 1, 1)
+		goto Clear
+		GUNT A 0 A_JumpIfInTargetInventory("StealthMode", 1, "Clear")
+		GUNT A 0 A_JumpIfCloser(1280,"MissileAuto")
+		GUNT A 0 A_JumpIfCloser(3072,"MissileBurst")
+		goto Clear
 	}
 }
 

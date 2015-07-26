@@ -93,9 +93,166 @@ script 21 ( void )
 	SetResearchFlag(PlayerTeam(), TR_RECYCLE_ARSENAL);
 }
 
-// Not done.
+// Alsenal Expansion - Barracks terminal allow you to buy advanced armor and weapons.
 script 22 ( void )
 {
-	Error( "Not avaliable yet!" );
-	terminate;
+	int cost = 1750;
+
+	if( MitigateDoublePress() ) terminate;
+	if( GetResearchFlag(PlayerTeam(), TR_ADDONS_MENU) )
+	{
+		Error( "This has already been researched!" );
+		terminate;
+	}
+	if( !CheckPlant( PlayerTeam() )) terminate;
+	if( !CheckInventory( "PurchaseToken" ))
+	{
+	GiveInventory( "PurchaseToken", 1 );
+	SetFont( "BIGFONT" );
+	HudMessage( s: "
+			\cd----Alsenal Expansion----
+			\n\n\ciCost: \cf$1750
+			\n\ciPurpose: \cdBarracks now produces better
+			\n\tweapons and armos to be buy.
+			\n\cd--- Barracks terminal now has everything\n    avaliable.";
+	HUDMSG_FADEOUT, 2100 + PlayerNumber(), CR_Green, 0.25, 0.25, 3.0, 2.0 );
+
+		ACS_ExecuteWithResult( 330, cost );
+		Delay( 35 );
+		TakeInventory( "PurchaseToken", 1 );
+		terminate;
+	}
+	if( !CheckCredits( cost )) terminate;
+
+	AddExperience( 150 );
+	GivePoints( POINTS_RESEARCH );
+	SpendCredits( cost );
+	DisplayTick();
+
+	BigMessage( "\ciResearch Complete!" );
+	Log( s: pname( -1 ), s: " researches \cqAlsenal Expansion\cd for ", s: TeamNames[PlayerTeam()] );
+	SetResearchFlag(PlayerTeam(), TR_ADDONS_MENU);
+}
+
+// Purificate - Gives more 125$ of credits by refining tiberium.
+script 23 ( void )
+{
+	int cost = 2000;
+
+	if( MitigateDoublePress() ) terminate;
+	if( GetResearchFlag(PlayerTeam(), TR_PURIFICATE) )
+	{
+		Error( "This has already been researched!" );
+		terminate;
+	}
+	if( !CheckPlant( PlayerTeam() )) terminate;
+	if( !CheckInventory( "PurchaseToken" ))
+	{
+	GiveInventory( "PurchaseToken", 1 );
+	SetFont( "BIGFONT" );
+	HudMessage( s: "
+			\cd----Purificate----
+			\n\n\ciCost: \cf$2000
+			\n\ciPurpose: \cdRefinary clean and produce a
+			\n\tbetter use of tiberium.
+			\n\cd--- Refining gives you more \cf$125 \ci.";
+	HUDMSG_FADEOUT, 2100 + PlayerNumber(), CR_Green, 0.25, 0.25, 3.0, 2.0 );
+
+		ACS_ExecuteWithResult( 330, cost );
+		Delay( 35 );
+		TakeInventory( "PurchaseToken", 1 );
+		terminate;
+	}
+	if( !CheckCredits( cost )) terminate;
+
+	AddExperience( 150 );
+	GivePoints( POINTS_RESEARCH );
+	SpendCredits( cost );
+	DisplayTick();
+
+	BigMessage( "\ciResearch Complete!" );
+	Log( s: pname( -1 ), s: " researches \cqPurificate\cd for ", s: TeamNames[PlayerTeam()] );
+	SetResearchFlag(PlayerTeam(), TR_PURIFICATE);
+}
+
+// Improved Pumps - Gives more $50 to team by refining tiberium.
+script 24 ( void )
+{
+	int cost = 2000;
+
+	if( MitigateDoublePress() ) terminate;
+	if( GetResearchFlag(PlayerTeam(), TR_IMPROVED_PUMPS) )
+	{
+		Error( "This has already been researched!" );
+		terminate;
+	}
+	if( !CheckPlant( PlayerTeam() )) terminate;
+	if( !CheckInventory( "PurchaseToken" ))
+	{
+	GiveInventory( "PurchaseToken", 1 );
+	SetFont( "BIGFONT" );
+	HudMessage( s: "
+			\cd----Purificate----
+			\n\n\ciCost: \cf$2000
+			\n\ciPurpose: \cdGives to refinary better pumping
+			\n\ttecnology increasing the production.
+			\n\cd--- Refining gives to your team more $75 \ci.";
+	HUDMSG_FADEOUT, 2100 + PlayerNumber(), CR_Green, 0.25, 0.25, 3.0, 2.0 );
+
+		ACS_ExecuteWithResult( 330, cost );
+		Delay( 35 );
+		TakeInventory( "PurchaseToken", 1 );
+		terminate;
+	}
+	if( !CheckCredits( cost )) terminate;
+
+	AddExperience( 150 );
+	GivePoints( POINTS_RESEARCH );
+	SpendCredits( cost );
+	DisplayTick();
+
+	BigMessage( "\ciResearch Complete!" );
+	Log( s: pname( -1 ), s: " researches \cqImproved Pumps\cd for ", s: TeamNames[PlayerTeam()] );
+	SetResearchFlag(PlayerTeam(), TR_IMPROVED_PUMPS);
+}
+
+// Enchanced Refinery - Increase the refinery credits production by 1.
+script 25( void )
+{
+	int cost = 2000;
+
+	if( MitigateDoublePress() ) terminate;
+	if( GetResearchFlag(PlayerTeam(), TR_ENCHANCED_REFINERY) )
+	{
+		Error( "This has already been researched!" );
+		terminate;
+	}
+	if( !CheckPlant( PlayerTeam() )) terminate;
+	if( !CheckInventory( "PurchaseToken" ))
+	{
+	GiveInventory( "PurchaseToken", 1 );
+	SetFont( "BIGFONT" );
+	HudMessage( s: "
+			\cd----Enchanced Refinery----
+			\n\n\ciCost: \cf$2000
+			\n\ciPurpose: \cdUpgrade refinary credits
+			\n\tproduction.
+			\n\cd--- Refining production increase by $1 \ci.";
+	HUDMSG_FADEOUT, 2100 + PlayerNumber(), CR_Green, 0.25, 0.25, 3.0, 2.0 );
+
+		ACS_ExecuteWithResult( 330, cost );
+		Delay( 35 );
+		TakeInventory( "PurchaseToken", 1 );
+		terminate;
+	}
+	if( !CheckCredits( cost )) terminate;
+
+	AddExperience( 150 );
+	GivePoints( POINTS_RESEARCH );
+	SpendCredits( cost );
+	DisplayTick();
+
+	BigMessage( "\ciResearch Complete!" );
+	Log( s: pname( -1 ), s: " researches \cqImproved Pumps\cd for ", s: TeamNames[PlayerTeam()] );
+	SetResearchFlag(PlayerTeam(), TR_IMPROVED_PUMPS);
 }

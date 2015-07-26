@@ -474,6 +474,9 @@ int TeamResearches[2] = {0, 0};
 #define TR_XP_MULTIPLY			(1 << 1)
 #define TR_RECYCLE_ARSENAL		(1 << 2)
 #define TR_ADDONS_MENU			(1 << 3)
+#define TR_PURIFICATE			(1 << 4)
+#define TR_IMPROVED_PUMPS		(1 << 5)
+#define TR_ENCHANCED_REFINERY	(1 << 6)
 
 /************************ RESEARCHES ************************/
 

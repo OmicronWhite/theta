@@ -13,13 +13,12 @@
 #define MSCR_QUITRESET           495
 
 #define R_CATEGORIES_AMOUNT       5
-str rsch_categories[R_CATEGORIES_AMOUNT] = { "Advancements", "Regens", "Personal" };
+str rsch_categories[R_CATEGORIES_AMOUNT] = { "Barracks", "Refinery" };
 
 #define R_ITEMS_AMOUNT            4
 str rsch_items[R_CATEGORIES_AMOUNT][R_ITEMS_AMOUNT] = {
-    { "Enhanced Refining", "Advanced Mechs", "Advanced Turrets", "More Turrets" },
-    { "Team HP Regen", "Team Ammo Regen", "-----", "-----" },
-    { "+1 Timed C4", "Advanced Repair Gun", "-----", "-----" }
+    { "XP Multiply", "Recycle Arsenal", "Arsenal Expansion", "-----" },
+    { "Purify", "Improved Pumps", "Enhanced Refinery" "-----" }
 };
 
 // This function is called when the player has chosen an item.
@@ -29,24 +28,17 @@ Script MSCR_INPUTRECV (int category, int item) {
 
     if (category == 0) { // Advancements
         switch (item) {
-            case 0: shouldExit = true; ACS_ExecuteAlways(65, 0); break; // Enhanced Refining
-            case 1: shouldExit = true; ACS_ExecuteAlways(66, 0); break; // Advanced Mechs
-            case 2: shouldExit = true; ACS_ExecuteAlways(72, 0); break; // Advanced Mechs
-            case 3: shouldExit = true; ACS_ExecuteAlways(73, 0); break; // Advanced Mechs
+            case 0: shouldExit = true; ACS_ExecuteAlways(20, 0); break; // XP Multiply
+            case 1: shouldExit = true; ACS_ExecuteAlways(21, 0); break; // REcycle Arsenal
+            case 2: shouldExit = true; ACS_ExecuteAlways(22, 0); break; // Arsenal Expansion
+            case 3: shouldExit = true; ACS_ExecuteAlways(23, 0); break; // Purify
         }
     }
 
     if (category == 1) { // Regens
         switch (item) {
-            case 0: shouldExit = true; ACS_ExecuteAlways(68, 0); break; // Health Regeneration
-            case 1: shouldExit = true; ACS_ExecuteAlways(69, 0); break; // Ammo Regeneration
-        }
-    }
-
-    if (category == 2) { // Personal
-        switch (item) {
-            case 0: shouldExit = true; ACS_ExecuteAlways(70, 0); break; // +1 Timed C4
-            case 1: shouldExit = true; ACS_ExecuteAlways(71, 0); break; // Advanced Repair Gun
+            case 0: shouldExit = true; ACS_ExecuteAlways(24, 0); break; // Improved Pumps
+            case 1: shouldExit = true; ACS_ExecuteAlways(25, 0); break; // Enchanced Refinery
         }
     }
 

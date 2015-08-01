@@ -18,10 +18,10 @@
 function int AI_RequestID (void)
 {
 	// Find a free slot
-	for(int i = 0; Bots[i] && i < MAX_MARINES; i++)
+	for (int i = 0; Bots[i] && i < MAX_MARINES; i++)
 		;
 
-	if(i >= MAX_MARINES)
+	if (i >= MAX_MARINES)
 	{
 		// Uh oh.
 		Log(s: "AI_RequestID: Too many AI marines!");
@@ -37,7 +37,7 @@ function int AI_RequestID (void)
 // [Dusk] Remove a marine from game
 function bool AI_ClearMarine(int i)
 {
-	if(!Bots[i])
+	if (!Bots[i])
 	{	Log(s: "AI_ClearMarine: Marine ", d: i, s: " doesn't exist.");
 		return false;
 	}
@@ -47,7 +47,7 @@ function bool AI_ClearMarine(int i)
 
 	// Send to Dismiss state if it's still alive. This makes it
 	// look like as if the marine teleports away from the game.
-	if(GetActorHealth(TID_MARINE + i) > 0)
+	if (GetActorHealth(TID_MARINE + i) > 0)
 		SetActorState(TID_MARINE + i, "Dismiss");
 
 	// Clear the TID
@@ -62,10 +62,10 @@ Script SC_MARINE_INIT (void)
 	GiveInventory("IsAIMarine", 1);
 
 	// If we haven't gotten an ID already, get one now
-	if(ActivatorTID() == 0)
+	if (ActivatorTID() == 0)
 	{	int i = AI_RequestID();
 
-		if(i != -1)
+		if (i != -1)
 			Thing_ChangeTID(0, TID_MARINE + i);
 		else
 			Thing_Remove(0);
@@ -85,15 +85,15 @@ Script SC_MARINE_COMPENSATION OPEN
 {
 	int n, rc, bc, team;
 
-	while(true)
+	while (true)
 	{
 		Delay(35 * 5);
 
-		if(!GetCVar("aow_debugmarines") && (Timer() < 5 * MINUTETICS || GetCVar("aow_nocompensation")))
+		if (!GetCVar("aow_debugmarines") && (Timer() < 5 * MINUTETICS || GetCVar("aow_nocompensation")))
 			continue;
 
 		// Calculate AI marine needs
-		if(GetCVar("aow_debugmarines") > 0)
+		if (GetCVar("aow_debugmarines") > 0)
 		{
 			// Debug CVAR to override these counts.
 			AIMarines[TEAM_BLUE] = GetCVar("aow_debugmarines");
@@ -104,35 +104,35 @@ Script SC_MARINE_COMPENSATION OPEN
 			rc = GetTeamProperty(TEAM_RED, TPROP_NumPlayers);
 			bc = GetTeamProperty(TEAM_BLUE, TPROP_NumPlayers);
 
-			if(rc > bc + 1 + (rc > 7) && bc != 0)
+			if (rc > bc + 1 + (rc > 7) && bc != 0)
 				AIMarines[TEAM_BLUE] = rc - (bc + 1 + (rc > 7));
-			else if(AIMarines[TEAM_BLUE] > 0)
+			else if (AIMarines[TEAM_BLUE] > 0)
 				AIMarines[TEAM_BLUE] = 0;
 
-			if(bc > rc + 1 + (bc > 7) && rc != 0)
+			if (bc > rc + 1 + (bc > 7) && rc != 0)
 				AIMarines[TEAM_RED] = bc - (rc + 1 + (bc > 7));
-			else if(AIMarines[TEAM_RED] > 0)
+			else if (AIMarines[TEAM_RED] > 0)
 				AIMarines[TEAM_RED] = 0;
 		}
 
 		// Make sure teams have the right amount of marines
-		for(team = TEAM_BLUE; team <= TEAM_RED; team++)
+		for (team = TEAM_BLUE; team <= TEAM_RED; team++)
 		{
 			int AICount = 0;
 			int spottid;
 
 			str AIClass = "BlueRandomMarine";
 
-			if(team == TEAM_RED)
+			if (team == TEAM_RED)
 				AIClass = "RedRandomMarine";
 
 			// Count how many AI marines the specified team has
-			for(int i = 0; i < MAX_MARINES; i++)
+			for (int i = 0; i < MAX_MARINES; i++)
 			{
-				if(!Bots[i])
+				if (!Bots[i])
 					continue;
 
-				if(CheckActorInventory(TID_MARINE + i, "IsRed") == team &&
+				if (CheckActorInventory(TID_MARINE + i, "IsRed") == team &&
 				   CheckActorInventory(TID_MARINE + i, "IsCompensationMarine"))
 				{
 					AICount++;
@@ -140,7 +140,7 @@ Script SC_MARINE_COMPENSATION OPEN
 			}
 
 			// Determine initial spawn spot
-			if(team == TEAM_BLUE)
+			if (team == TEAM_BLUE)
 				spottid = TID_REPAIR_BLUE;
 			else
 				spottid = TID_REPAIR_RED;
@@ -150,49 +150,49 @@ Script SC_MARINE_COMPENSATION OPEN
 			// not enough.
 			int delta = AICount - AIMarines[team];
 
-			if(delta > 0)
+			if (delta > 0)
 			{
 				// Positive delta, too many AI marines - send one of them home
 				Log(s: "Compensation: Removing ", d: delta, s: " marines from ", s: TeamNames[team], s: ".");
 
-				for(i = 0; i < MAX_MARINES && delta > 0; i++)
+				for (i = 0; i < MAX_MARINES && delta > 0; i++)
 				{
 					// Find a marine that we can send home.
-					if(!Bots[i])
+					if (!Bots[i])
 						continue; // free slot
 
-					if(!CheckActorInventory(TID_MARINE + i, "IsCompensationMarine"))
+					if (!CheckActorInventory(TID_MARINE + i, "IsCompensationMarine"))
 						continue; // not compensation (e.g. marine beacon, don't touch them)
 
-					if(CheckActorInventory(TID_MARINE + i, "IsRed") != team)
+					if (CheckActorInventory(TID_MARINE + i, "IsRed") != team)
 						continue; // wrong team
 
 					AI_ClearMarine(i);
 					delta--;
 				}
 			}
-			else if(delta < 0)
+			else if (delta < 0)
 			{
 				// Negative delta, team needs more marines.
 				Log(s: "Compensation: Adding ", d: -delta, s: " marines to ", s: TeamNames[team], s: ".");
 
-				while(AICount < AIMarines[team])
+				while (AICount < AIMarines[team])
 				{
 					// Get a free ID
 					i = AI_RequestID();
 
-					if(i == -1)
+					if (i == -1)
 						break; // no free IDs, can't do anything
 
 					int spawned = 0;
 					int tries = 5;
 
-					while(tries > 0 && !spawned)
+					while (tries > 0 && !spawned)
 					{
 						// Spawn the marine initially onto the repair facility
 						spawned = SpawnSpotForced(AIClass, spottid, TID_MARINE + i, 0);
 
-						if(spawned)
+						if (spawned)
 						{
 							AICount += spawned;
 
@@ -213,7 +213,7 @@ Script SC_MARINE_COMPENSATION OPEN
 						Delay(35);
 					}
 
-					if(!spawned)
+					if (!spawned)
 					{
 						// Something's seriously wrong if we get here
 						Log(s: "WARNING: Couldn't spawn compensation marines to ", s: TeamNames[team],
@@ -239,7 +239,7 @@ Script SC_MARINE_DEATH(int i)
 	AI_ClearMarine(i);
 
 	// Give the killer a bounty if he was an enemy player
-	if(PlayerNumber() != -1 && PlayerTeam() != AITeam)
+	if (PlayerNumber() != -1 && PlayerTeam() != AITeam)
 	{
 		LocalAmbientSound("game/boink", 127);
 		AddExperience(100);
@@ -252,9 +252,9 @@ Script SC_MARINE_DEATH(int i)
 // [Dusk] Dumps known information about AI marines. Not a lot here at the moment..
 Script SC_MARINE_STATS(void)
 {
-	for(int i = 0; i < MAX_MARINES; i++)
+	for (int i = 0; i < MAX_MARINES; i++)
 	{
-		if(!Bots[i])
+		if (!Bots[i])
 		{
 			Log(s: "Marine ", d: i, s: ": -");
 			continue;
@@ -262,7 +262,7 @@ Script SC_MARINE_STATS(void)
 
 		str compensation = "";
 
-		if(CheckActorInventory(TID_MARINE + i, "IsCompensationMarine"))
+		if (CheckActorInventory(TID_MARINE + i, "IsCompensationMarine"))
 			compensation = " (compensation)";
 
 		Log(s: "Marine ", d: i, s: ": ", s: TeamNames[CheckActorInventory(TID_MARINE + i, "IsRed")], s: compensation);

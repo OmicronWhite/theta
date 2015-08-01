@@ -57,7 +57,7 @@ function bool AI_ClearMarine(int i)
 
 // ============================================================================
 // [Dusk] Init a marine
-ScriptSC_MARINE_INIT (void)
+Script SC_MARINE_INIT (void)
 {
 	GiveInventory("IsAIMarine", 1);
 
@@ -81,7 +81,7 @@ ScriptSC_MARINE_INIT (void)
 // we try balance teams via the switcher, surplus remains. Therefore, the weaker team is
 // put on on compensation and give them AI marines. We keep doing this until teams are
 // balanced out.
-ScriptSC_MARINE_COMPENSATION OPEN
+Script SC_MARINE_COMPENSATION OPEN
 {
 	int n, rc, bc, team;
 
@@ -230,7 +230,7 @@ ScriptSC_MARINE_COMPENSATION OPEN
 
 // ============================================================================
 // [Dusk] AI marine bounty
-ScriptSC_MARINE_DEATH(int i)
+Script SC_MARINE_DEATH(int i)
 {
 	// No matter what happened to the marine, the slot needs to
 	// be cleared now that it's dead. Save its team first,
@@ -250,7 +250,7 @@ ScriptSC_MARINE_DEATH(int i)
 }
 
 // [Dusk] Dumps known information about AI marines. Not a lot here at the moment..
-ScriptSC_MARINE_STATS(void)
+Script SC_MARINE_STATS(void)
 {
 	for(int i = 0; i < MAX_MARINES; i++)
 	{

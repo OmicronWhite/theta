@@ -3,7 +3,7 @@
 //Player burnt and is burning script, unfortunately the killer who set the player alight is not awarded for this.
 Script 360(void)
 {
-	delay(1);
+	Delay(1);
 
 	if (CheckInventory("CrispyPlayer"))
 		terminate;
@@ -16,7 +16,7 @@ Script 360(void)
 	while (n > 0 && GetHealth() > 1)
 	{
 		Thing_Damage2(0, 1, "FireSpecial");
-		delay(5);
+		Delay(5);
 		n--;
 	}
 
@@ -26,7 +26,7 @@ Script 360(void)
 //Player poisoned and is burning script, unfortunately the killer who set the player alight is not awarded for this.
 Script 361(void)
 {
-	delay(1);
+	Delay(1);
 
 	if (CheckInventory("CrispyPlayer2"))
 		terminate;
@@ -37,7 +37,7 @@ Script 361(void)
 	while (n > 0 && GetHealth() > 1)
 	{
 		Thing_Damage2(0, 1, "ChemicalSpecial");
-		delay(8);
+		Delay(8);
 		n--;
 	}
 

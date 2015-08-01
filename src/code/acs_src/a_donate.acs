@@ -128,7 +128,7 @@ Script 335 (void) NET
 	{
 		GiveInventory("DonateMenu", 1);
 
-		while(CheckValid)
+		while (CheckValid)
 		{
 			if (GetPlayerInfo(0 + CheckInventory("DonationName"), PLAYERINFO_TEAM) != PlayerTeam())
 				GiveInventory("DonationName", 1);

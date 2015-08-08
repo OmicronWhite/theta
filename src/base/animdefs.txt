@@ -1,1 +1,38 @@
-warp texture BIOF1
+// -- Animation Definitions --
+
+// - Animated Textures -
+
+// Blue Force Field
+texture ffieldb1
+	pic ffieldb1 tics 2
+	pic ffieldb2 tics 2
+	pic ffieldb3 tics 2
+	pic ffieldb4 tics 2
+	pic ffieldb5 tics 2
+	pic ffieldb6 tics 2
+	pic ffieldb7 tics 2
+	pic ffieldb8 tics 2
+	pic ffieldb9 tics 2
+	pic ffieldba tics 2
+
+// Red Force Field
+texture ffieldr1
+	pic ffieldr1 tics 2
+	pic ffieldr2 tics 2
+	pic ffieldr3 tics 2
+	pic ffieldr4 tics 2
+	pic ffieldr5 tics 2
+	pic ffieldr6 tics 2
+	pic ffieldr7 tics 2
+	pic ffieldr8 tics 2
+	pic ffieldr9 tics 2
+	pic ffieldra tics 2
+
+// - Animated Flats -
+
+// Warping Liquids
+warp flat FLUID1_1
+warp flat FLUID1_2
+warp flat FLUID1_3
+warp flat FLUID1_4
+warp flat FLUID1_5

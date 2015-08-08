@@ -3,7 +3,7 @@ title All Out War: Theta Build Script
 
 SET START=%CD%
 for /F "usebackq tokens=1,2 delims==" %%i in (`wmic os get LocalDateTime /VALUE 2^>NUL`) do if '.%%i.'=='.LocalDateTime.' set ldt=%%je
-SET no=%ldt:~2,6%
+SET no=-%ldt:~2,6%
 
 IF /I "%PROCESSOR_ARCHITECTURE%"=="x32" (
     IF NOT DEFINED PROCESSOR_ARCHITEW6432 (
@@ -47,6 +47,10 @@ IF /I "%3"=="/NOGIT" (
     ) else (
         SET NOGIT=0
     )
+)
+
+IF /I "%1"=="/NOVERSION" (
+    SET no=
 )
 
 echo All Out War "Theta" Build Script

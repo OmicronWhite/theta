@@ -12,13 +12,17 @@
 #define MSCR_DEATHRESET          494
 #define MSCR_QUITRESET           495
 
-#define R_CATEGORIES_AMOUNT       5
-str rsch_categories[R_CATEGORIES_AMOUNT] = { "Barracks", "Refinery" };
+#define R_CATEGORIES_AMOUNT       6
+str rsch_categories[R_CATEGORIES_AMOUNT] = { "Barracks", "Refinery", "Research Centre", "War Factory", "Turrets", "Caches" };
 
-#define R_ITEMS_AMOUNT            4
+#define R_ITEMS_AMOUNT            3
 str rsch_items[R_CATEGORIES_AMOUNT][R_ITEMS_AMOUNT] = {
-    { "XP Multiply", "Recycle Arsenal", "Arsenal Expansion", "-----" },
-    { "Purify", "Improved Pumps", "Enhanced Refinery" "-----" }
+    { "XP Multiply", "Recycle Arsenal", "\clArsenal Expansion" },
+    { "Purify", "Improved Pumps", "\clEnhanced Refinery" },
+    { "-----", "-----", "-----" },
+    { "-----", "-----", "-----" },
+    { "-----", "-----", "-----" },
+    { "-----", "-----", "-----" },
 };
 
 // This function is called when the player has chosen an item.
@@ -26,19 +30,48 @@ function void MR_InputReceived(int category, int item) { ACS_Execute(MSCR_INPUTR
 Script MSCR_INPUTRECV (int category, int item) {
     bool shouldExit = false;
 
-    if (category == 0) { // Advancements
+    if (category == 0) { // Barracks related upgrades
         switch (item) {
             case 0: shouldExit = true; ACS_ExecuteAlways(20, 0); break; // XP Multiply
-            case 1: shouldExit = true; ACS_ExecuteAlways(21, 0); break; // REcycle Arsenal
+            case 1: shouldExit = true; ACS_ExecuteAlways(21, 0); break; // Recycle Arsenal
             case 2: shouldExit = true; ACS_ExecuteAlways(22, 0); break; // Arsenal Expansion
-            case 3: shouldExit = true; ACS_ExecuteAlways(23, 0); break; // Purify
         }
     }
 
-    if (category == 1) { // Regens
+    if (category == 1) { // Refinery related upgrades
         switch (item) {
-            case 0: shouldExit = true; ACS_ExecuteAlways(24, 0); break; // Improved Pumps
-            case 1: shouldExit = true; ACS_ExecuteAlways(25, 0); break; // Enchanced Refinery
+            case 0: shouldExit = true; ACS_ExecuteAlways(23, 0); break; // Purify
+            case 1: shouldExit = true; ACS_ExecuteAlways(24, 0); break; // Improved Pumps
+            case 2: shouldExit = true; ACS_ExecuteAlways(25, 0); break; // Enchanced Refinery
+        }
+    }
+
+    if (category == 2) { // Research Centre related upgrades
+        switch (item) {
+            case 0: shouldExit = true; ACS_ExecuteAlways(23, 0); break; // Purify
+            case 1: shouldExit = true; ACS_ExecuteAlways(24, 0); break; // Improved Pumps
+            case 2: shouldExit = true; ACS_ExecuteAlways(25, 0); break; // Enchanced Refinery
+        }
+    }
+    if (category == 3) { // War Factory related upgrades
+        switch (item) {
+            case 0: shouldExit = true; ACS_ExecuteAlways(23, 0); break; // Purify
+            case 1: shouldExit = true; ACS_ExecuteAlways(24, 0); break; // Improved Pumps
+            case 2: shouldExit = true; ACS_ExecuteAlways(25, 0); break; // Enchanced Refinery
+        }
+    }
+    if (category == 4) { // Turrets related upgrades
+        switch (item) {
+            case 0: shouldExit = true; ACS_ExecuteAlways(23, 0); break; // Purify
+            case 1: shouldExit = true; ACS_ExecuteAlways(24, 0); break; // Improved Pumps
+            case 2: shouldExit = true; ACS_ExecuteAlways(25, 0); break; // Enchanced Refinery
+        }
+    }
+    if (category == 5) { // Caches related upgrades
+        switch (item) {
+            case 0: shouldExit = true; ACS_ExecuteAlways(23, 0); break; // Purify
+            case 1: shouldExit = true; ACS_ExecuteAlways(24, 0); break; // Improved Pumps
+            case 2: shouldExit = true; ACS_ExecuteAlways(25, 0); break; // Enchanced Refinery
         }
     }
 

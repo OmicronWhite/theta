@@ -1,18 +1,18 @@
 // because linguist -*- mode: c;-*-
 
-// because linguist -*- mode: c;-*-
+Script 905 ENTER
+	ACS_ExecuteAlways(906, 0);
 
-script 905 ENTER
-	ACS_ExecuteAlways( 906, 0 );
-
-script 906 RESPAWN
-{	if( PlayerInGame( PlayerNumber() ))
-	{	// [SP] The following code removes redundant weapons
-		if( CheckInventory( "StealthLaserRifle" )) SetInventory( "LaserRifle", 0 );
-		if( CheckInventory( "TiberiumAutorifle" )) SetInventory( "TiberiumAutorifleWeak", 0 );
-		if( CheckInventory( "SniperRifle" )) SetInventory( "SniperRifleWeak", 0 );
+Script 906 RESPAWN
+{
+	if (PlayerInGame(PlayerNumber()))
+	{
+		// [SP] The following code removes redundant weapons
+		if (CheckInventory("StealthLaserRifle")) SetInventory("LaserRifle", 0);
+		if (CheckInventory("TiberiumAutorifle")) SetInventory("TiberiumAutorifleWeak", 0);
+		if (CheckInventory("SniperRifle")) SetInventory("SniperRifleWeak", 0);
 	}
 
-	delay( 35 );
+	delay(35);
 	restart;
 }

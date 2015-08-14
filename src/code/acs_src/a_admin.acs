@@ -1,7 +1,7 @@
 // because linguist -*- mode: c;-*-
 
 // [SP] NOTICE: This is an administrator 'puke' script. USE WITH CARE! This can be abused very easily.
-Script 401(int Player, int Action, int arg)
+Script 401 (int Player, int Action, int arg)
 {
 	SetActivator(TID_Player + Player);
 
@@ -68,7 +68,7 @@ Script 401(int Player, int Action, int arg)
 					break;
 
 				default:
-					Log(s: "Please don't puke this script directly! Use the provided ccmd's ",
+					Log(s: "Please don't puke this Script directly! Use the provided ccmd's ",
 						s: "- it's for your sanity's own good!");
 					break;
 			}
@@ -79,7 +79,7 @@ Script 401(int Player, int Action, int arg)
 	}
 }
 
-script 402(int Arg1, int Arg2, int Arg3) NET
+Script 402 (int Arg1, int Arg2, int Arg3) NET
 {
 	if (IsAdmin[PlayerNumber()] == false)
 		terminate;
@@ -87,7 +87,7 @@ script 402(int Arg1, int Arg2, int Arg3) NET
 	int newrotation;
 	str msg;
 
-	switch(Arg1)
+	switch (Arg1)
 	{
 		case 0:
 			// help!
@@ -264,7 +264,7 @@ Log(s: "Unknown action!");
 }
 
 // [Dusk] TEAM SHUFFLE
-script 403(void)
+Script 403 (void)
 {
 	AmbientSound("nuke/boom", 127);
 	int max = PlayerCount() / 2;
@@ -275,11 +275,11 @@ script 403(void)
 
 	// First, knock out start times of everybody - we don't want the team
 	// switcher to interfere.
-	for(i = 0; i < MAXPLAYERS; i++)
+	for (i = 0; i < MAXPLAYERS; i++)
 		if (PlayerInGame(i))
 			StartTime[i] = -0x7FFFFFFF;
 
-	for(i = 0; i < MAXPLAYERS; i++)
+	for (i = 0; i < MAXPLAYERS; i++)
 	{
 		if (!PlayerInGame(i))
 			continue;
@@ -312,6 +312,6 @@ script 403(void)
 
 	SetActivator(-1);
 	HudMessageBold(s: "Teams have been shuffled";
-		HUDMSG_FADEOUT, 0, CR_GREEN, 0.5, 0.3, 3.5, 1.0);
+					HUDMSG_FADEOUT, 0, CR_GREEN, 0.5, 0.3, 3.5, 1.0);
 	Log(s: "[SHUFFLE] Shuffle complete.");
 }

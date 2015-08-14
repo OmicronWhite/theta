@@ -28,7 +28,7 @@ Script 999 OPEN
 	if (GetCVar("aow_disablemechs") == 0)
 		ConsoleCommand("set aow_mechs 1");
 	else
-		ConleCommand("set aow_mechs 0");
+		ConsoleCommand("set aow_mechs 0");
 
 	//Red
 	GotRefinery[0] = True;

@@ -18,7 +18,7 @@ Script SC_TrackLastPlayer ENTER
 // [Dusk] Rewritten this for the most part..
 function void CheckTeamBalance (void)
 {
-	int i, delta, lesserteam, switchee, switcheetime;
+	int i, delta, lesserteam, switchee, switcheetime, notLast;
 	int PlayerStayTics = GetCVAR("aow_teamstaytime") * MINUTETICS;
 
 	// [Dusk] Allow the team switcher be disabled
@@ -41,6 +41,7 @@ function void CheckTeamBalance (void)
 		// don't use lastPlayerToJoin if some criteria is met...
 		if (!PlayerInGame(lastPlayerToJoin) || IsAdmin[lastPlayerToJoin])
 		{
+			notLast = true;
 			for(i = 0; i < MAXPLAYERS; i++)
 			{
 				// [SB] last check here shouldn't happen, but who knows?
@@ -71,7 +72,8 @@ function void CheckTeamBalance (void)
 		{
 			// If the player was already in-game for a bit, tell him why
 			// he's suddenly being switched out.
-			//SetActivator(TID_Player + switchee);
+			if (notLast)
+				SetActivator(TID_Player + switchee);
 			BigMessage("You have been switched to even out teams.");
 		}
 

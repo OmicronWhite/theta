@@ -202,7 +202,7 @@ actor LaserPuff : HHBulletPuff {
 
 actor LaserPuffBlue : LaserPuff {
 	DamageType "Laser"
-//	Translation "" // If we dont need translation so why we have it?
+	Translation ""
 }
 
 actor StealthCharge : Ammo {

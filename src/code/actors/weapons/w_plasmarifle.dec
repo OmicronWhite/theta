@@ -163,7 +163,7 @@ actor PlasmaShot {
 }
 
 actor PlasmaShotBlue : PlasmaShot {
-//	Translation "" // If we dont need translation so why we have it?
+	Translation ""
 }
 
 actor PlasmaHeat : Ammo {

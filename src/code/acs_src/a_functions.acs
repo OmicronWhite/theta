@@ -811,5 +811,8 @@ Script SC_ChangePlayerTeam (int player, int team)
 					HUDMSG_FADEOUT, SC_ChangePlayerTeam, CR_GOLD, 1.5, 0.7, 3.0);
 	}
 
+	if (CheckInventory("IsMech"))
+		ACS_ExecuteAlways(697, 0);
+
 	RemoveSpawnMarker(player);
 }

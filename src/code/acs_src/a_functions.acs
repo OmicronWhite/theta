@@ -783,33 +783,33 @@ function void ChangePlayerTeam(int p, int newteam)
 	if (!PlayerInGame(p) || GetPlayerTeam(p) == newteam || newteam < 0 || newteam > 1)
 		return;
 
-	ACS_ExecuteWithResult(891, p, newteam);
+	ACS_ExecuteWithResult(SC_ChangePlayerTeam, p, newteam);
 }
 
-// [Dusk] Separate script so as not to mess with the activator.
-script SC_ChangePlayerTeam(int p, int newteam)
+// [SB] Rewritten for Theta.
+Script SC_ChangePlayerTeam (int player, int team)
 {
-	Log(s: pname(p), s: " is now on ", s: TeamNames[newteam], s: ".");
+	Log(s: pname(player), s: " is being switched to team #", d: team);
 
-	SetActivator(TID_Player + p);
-	Player_SetTeam(newteam);
-	SetInventory("IsBlue", newteam == TEAM_BLUE);
-	SetInventory("IsRed",  newteam == TEAM_RED);
+	Player_SetTeam(team);
+	SetInventory("IsBlue", (team == TEAM_BLUE));
+	SetInventory("IsRed", (team == TEAM_rED));
 
-	// If they are in field right now, send them to their new team's base,
-	// otherwise, into the spawn room.
 	if (CheckInventory("IsInSpawnRoom"))
-		Teleport(70 + (newteam == TEAM_RED));
+		Teleport(70 + (team == TEAM_RED));
 	else
-		Teleport(1 + (newteam == TEAM_RED));
+		Teleport(1 + (team == TEAM_RED));
 
-	// If they were carrying a beacon, swap that now.
+	// Swap their beacon, if they have one.
 	if (CheckInventory("IonCannonBeacon") || CheckInventory("NuclearStrikeBeacon"))
 	{
-		SetInventory("IonCannonBeacon", newteam == TEAM_BLUE);
-		SetInventory("NuclearStrikeBeacon", newteam == TEAM_RED);
+		SetInventory("IonCannonBeacon", (team == TEAM_BLUE));
+		SetInventory("NuclearStrikeBeacon", (team == TEAM_RED));
+		HudMessage(s: "\cfYour ", s: cond(team, "\cnIon Cannon Beacon", "\cgNuclear Strike Beacon"),
+					s: "\cf has been swapped with a ", s: cond(!team, "\cnIon Cannon Beacon", "\cgNuclear Strike Beacon"),
+					s: "\cf.";
+					HUDMSG_FADEOUT, SC_ChangePlayerTeam, CR_GOLD, 1.5, 0.7, 3.0);
 	}
 
-	// Their spawn marker is now invalidated
-	RemoveSpawnMarker (p);
+	RemoveSpawnMarker(player);
 }

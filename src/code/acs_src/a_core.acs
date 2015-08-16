@@ -227,6 +227,8 @@ Script 10 RESPAWN
 
 Script 11 ENTER
 {
+	// [SB] We give this now, so team balance works right.
+	GiveInventory("IsInSpawnRoom", 1);
 	// [Dusk] This player's joining might throw off team balance, so check that now.
 	CheckTeamBalance();
 
@@ -234,7 +236,6 @@ Script 11 ENTER
 	InitPlayer();
 
 	GiveInventory("Ingame", 1);
-	GiveInventory("IsInSpawnRoom", 1);
 	SetInventory("IsBlue", PlayerTeam() == TEAM_BLUE);
 	SetInventory("IsRed", PlayerTeam() == TEAM_RED);
 	Thing_ChangeTID(0, PlayerNumber() + TID_Player);

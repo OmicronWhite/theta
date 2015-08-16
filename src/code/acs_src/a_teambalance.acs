@@ -76,5 +76,6 @@ function void CheckTeamBalance (void)
 		}
 
 		SetActivator(-1);
+		return; // [SB] just in case we might need this to actually loop later...
 	}
 }

@@ -793,7 +793,7 @@ Script SC_ChangePlayerTeam (int player, int team)
 
 	Player_SetTeam(team);
 	SetInventory("IsBlue", (team == TEAM_BLUE));
-	SetInventory("IsRed", (team == TEAM_rED));
+	SetInventory("IsRed", (team == TEAM_RED));
 
 	if (CheckInventory("IsInSpawnRoom"))
 		Teleport(70 + (team == TEAM_RED));

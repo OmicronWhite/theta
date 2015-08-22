@@ -40,10 +40,17 @@ map AOW04 "Oasis" {
 }
 
 map AOW05 "Virtual Zone" {
-	next = "AOW01"
+	next = "AOW06"
 	sky1 = "-"
 	music = "D_AOW05"
 	levelnum = 5
+}
+
+map AOW06 "Glacier" {
+	next = "AOW01"
+	sky1 = "stsky14"
+	music = "D_AOW06"
+	levelnum = 6
 }
 
 skill Normal {

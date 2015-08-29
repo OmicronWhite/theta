@@ -148,6 +148,8 @@ actor VoltProjectileRed : VoltProjectile {
 }
 			
 actor VoltDamageLurker {
+	+NOGRAVITY
+
 	DamageType "Laser"
 	
 	States {

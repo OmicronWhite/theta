@@ -51,7 +51,7 @@ if [[ -d "acc" || -f "acc" ]]; then
 fi
 x "git clone -q https://github.com/rheit/acc ${s}" "Cloning acc           "
 x "cd acc"
-x "make -j12 ${s}" "Compiling acc         "
+x "make -j12 ${s}" "Compiling acc        "
 x "mv acc ../acc.tmp"
 x "mv *.acs .."
 x "cd .."

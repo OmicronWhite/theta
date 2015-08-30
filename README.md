@@ -13,6 +13,22 @@ Theta
 Come join our IRC channel! We're at `irc.zandronum.com #theta`.
 
 ##Building
+### Windows
 If you're on Windows, building Theta is really easy!  
 Just clone the repo or [download it as a zip](https://github.com/PlusGit/theta/archive/master.zip), then run `build.bat` or `build_from-zip.bat` respectvely.
 Tools will run in 64-bit if they can, if you don't want them to then just run `build.bat /FORCEWIN32`.
+### Linux
+It's slightly more complicated on Linux:
+
+__Install needed packages__  
+```bash
+sudo apt-get install gcc g++ p7zip-full
+```
+__Initialise your enviroment__  
+`cd` to where you cloned theta, and then:
+```bash
+utilities/linux/initenv.sh
+```
+to prepare your enviroment.
+
+Then, you can just run `./build.sh` in your Theta root directory (use `-n` option to build without a version).

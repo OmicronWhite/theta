@@ -36,3 +36,9 @@ commit.bat
 
 # Windows
 Thumbs.db
+
+utilities/linux/acc
+utilities/linux/acschangelog
+utilities/linux/gitcommit
+utilities/linux/acsconstants
+utilities/linux/*.acs

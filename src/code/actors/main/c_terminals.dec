@@ -35,6 +35,8 @@ actor BaseTerminal {
 	DamageFactor "Mechstomp", 0.0
 	DamageFactor "Monster", 0.0
 	DamageFactor "Deconstruction", 0.0
+	DamageFactor "LaserRed", 0.0
+	DamageFactor "Laser", 0.75
 	
 	States {
 	Spawn:
@@ -91,6 +93,8 @@ actor BaseTerminal {
 }
 
 actor BaseTerminalBlue : BaseTerminal {
+	DamageFactor "LaserRed", 0.75
+	DamageFactor "Laser", 0.0
 	DesignatedTeam 0
 	Obituary "%o was killed with a \cFGDI\c- building."
 }

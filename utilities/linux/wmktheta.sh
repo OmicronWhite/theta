@@ -63,7 +63,7 @@ success() {
     echo -e "\033[1;37;42m ${msg} ${reset}"
 }
 
-if [[ -d "out" && ! jenkins]]; then
+if [[ -d "out" && jenkins != true ]]; then
 	x "rm -rf out"
 fi
 

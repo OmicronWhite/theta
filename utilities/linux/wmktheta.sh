@@ -31,6 +31,7 @@ if [[ "$1" == "--jenkins" ]]; then
 	typeset git=true
 	typeset no="-$(date +\"%y%m%d-%H%M\")-$(git log -1 --format=%h)"
 	typeset jenkins=true
+	chmod 755 out
 fi
 
 x() {
@@ -63,7 +64,7 @@ success() {
     echo -e "\033[1;37;42m ${msg} ${reset}"
 }
 
-if [[ -d "out" && jenkins != true ]]; then
+if [[ -d "out" && ! jenkins == true ]]; then
 	x "rm -rf out"
 fi
 

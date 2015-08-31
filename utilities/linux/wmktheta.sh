@@ -29,7 +29,7 @@ fi
 
 if [[ "$1" == "--jenkins" ]]; then
 	typeset git=true
-	typeset no="-$(date +\"%y%m%d\")-$(git log -1 --format=%h)"
+	typeset no="-$(date +\"%y%m%d-%H%M\")-$(git log -1 --format=%h)"
 	typeset jenkins=true
 fi
 

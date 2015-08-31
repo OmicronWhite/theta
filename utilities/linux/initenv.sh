@@ -49,7 +49,7 @@ x "cd utilities/linux"
 if [[ -d "acc" || -f "acc" ]]; then
 	x "rm -rf acc ${ss}"
 fi
-x "hg clone -q https://bitbucket.org/Torr_Samaho/acc ${s}" "Cloning acc           "
+x "git clone -q https://bitbucket.org/Torr_Samaho/acc ${s}" "Cloning acc           "
 x "cd acc"
 x "make -j12 ${s}" "Compiling acc         "
 x "mv acc ../acc.tmp"

@@ -80,5 +80,6 @@ x "7za a -tzip \"../../out/theta_music${no}.pk3\" -r -xr!*.dbs -xr!*.backup1 -xr
 cd ../../
 echo
 echo The PK3 files are to be found in:
-echo out
+echo Commit:
+echo -e "\t$(git log -1 --format="%Cred%h%Creset | %Cgreen%s%Creset %n\t%Cblue%aN <%aE>")"
 echo Build number \#${no}

@@ -81,5 +81,5 @@ cd ../../
 echo
 echo The PK3 files are to be found in:
 echo Commit:
-echo -e "$(git log -1 --format="\t%Cred%H%Creset%\tn%Cgreen%s%Creset %n\t%Cblue%aN <%aE>")"
+echo -e "$(git log -1 --format="\t%Cred%H%Creset%n\t%Cgreen%s%Creset %n\t%Cblue%aN <%aE>")"
 echo Build number \#${no}

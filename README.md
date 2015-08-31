@@ -22,7 +22,7 @@ It's slightly more complicated on Linux:
 
 __Install needed packages__  
 ```bash
-sudo apt-get install gcc g++ p7zip-full git mercurial
+sudo apt-get install gcc g++ p7zip-full git
 ```
 __Initialise your enviroment__  
 `cd` to where you cloned theta, and then:

@@ -11,7 +11,7 @@ typeset row="\033[0;31;47m"
 typeset s="> /dev/null"
 typeset ss="2>&1 >/dev/null"
 
-if [[ "$1" == "--no-git" || "$1" == "-g" || "$2" == "--no-git" || "$2" == "-g" ]]; then
+if [[ "$1" == "--version-commit" || "$1" == "-g" || "$2" == "--version-commit" || "$2" == "-g" ]]; then
 	typeset git=false
 else
 	typeset git=true
@@ -20,7 +20,11 @@ fi
 if [[ "$1" == "--no-version" || "$1" == "-n" || "$2" == "--no-version" || "$2" == "-n" ]]; then
 	typeset no=""
 else
-	typeset no="-$(date +\"%y%m%d\")"
+	if [[ git == true ]]; then
+		typeset no="-$(date +\"%y%m%d\")-$(git log -1 --format=%h)"
+	else
+		typeset no="-$(date +\"%y%m%d\")"
+	fi
 fi
 
 x() {

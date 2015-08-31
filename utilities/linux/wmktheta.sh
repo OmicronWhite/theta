@@ -27,9 +27,15 @@ else
 	fi
 fi
 
+if [[ "$1" == "--jenkins" ]]; then
+	typeset git=true
+	typeset no="-$(date +\"%y%m%d\")-$(git log -1 --format=%h)"
+	typeset jenkins=true
+fi
+
 x() {
     typeset cmnd="$1"
-	typeset msg="$2"
+    typeset msg="$2"
     typeset ret_code
 	if [[ $# -eq 2 ]]; then
 		echo -en "${wob} $msg "
@@ -57,7 +63,7 @@ success() {
     echo -e "\033[1;37;42m ${msg} ${reset}"
 }
 
-if [[ -d "out" ]]; then
+if [[ -d "out" && ! jenkins]]; then
 	x "rm -rf out"
 fi
 

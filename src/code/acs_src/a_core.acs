@@ -100,6 +100,15 @@ Script 999 OPEN
 		SetActorSpeed(TID_TICKETCOUNTER_BLUE, 0);
 		SetActorSpeed(TID_TICKETCOUNTER_RED, 0);
 	}
+	
+	// [SB] Idiot proofing
+	while (true) {
+		ConsoleCommand("fraglimit 0");
+		ConsoleCommand("pointlimit 0");
+		ConsoleCommand("winlimit 0");
+		ConsoleCommand("duellimit 0");
+		delay(1);
+	}
 }
 
 // Server settings

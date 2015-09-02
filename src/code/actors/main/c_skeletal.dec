@@ -60,5 +60,5 @@ actor Boolean : Inventory {
 }
 
 actor UBoolean : Boolean {
-	+Inventory.UNTOSSABLE
+	//+INVENTORY.UNTOSSABLE // <-- Hm.
 }

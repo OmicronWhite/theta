@@ -438,7 +438,7 @@ function void PurchaseClass (int c)
 	}
 
 	// Check time cops
-	int maxtimecops = GetCVAR("aow_maxtimecopsperteam");
+	int maxtimecops = GetCVAR("theta_maxtimecopsperteam");
 
 	if (c == CLASS_TIMECOP && maxtimecops > 0 && NumTimeCops[team] >= maxtimecops)
 	{
@@ -678,7 +678,7 @@ Script 37 (void)
 		terminate;
 	}
 
-	int maxcannons = GetCVar("aow_maxcannonsperteam");
+	int maxcannons = GetCVar("theta_maxcannonsperteam");
 
 	if (maxcannons != -1 && NumPlasmaCannons[PlayerTeam()] >= maxcannons)
 	{
@@ -686,7 +686,7 @@ Script 37 (void)
 		terminate;
 	}
 
-	int delaytime = GetCVAR("aow_plasmapurchasedelay") * 35 * 60;
+	int delaytime = GetCVAR("theta_plasmapurchasedelay") * 35 * 60;
 
 	if (Timer() < delaytime)
 	{
@@ -832,7 +832,7 @@ Script 55 (int Team)
 		terminate;
 	}
 
-	BlueBeaconTime = (GetCVAR("aow_beaconpurchasedelay") * 60) - (Timer() - LastPurchasedBeacon[1]) / 35;
+	BlueBeaconTime = (GetCVAR("theta_beaconpurchasedelay") * 60) - (Timer() - LastPurchasedBeacon[1]) / 35;
 
 	if (BlueBeaconTime <= 0)
 		BlueBeaconCooldown = false;
@@ -885,7 +885,7 @@ Script 56 (int Team)
 	if (MitigateDoublePress()) terminate;
 
 	RedBeaconCooldown = true;
-	RedBeaconTime = (GetCVAR("aow_beaconpurchasedelay") * 60) - (Timer() - LastPurchasedBeacon[2]) / 35;
+	RedBeaconTime = (GetCVAR("theta_beaconpurchasedelay") * 60) - (Timer() - LastPurchasedBeacon[2]) / 35;
 
 	if (RedBeaconTime <= 0)
 		RedBeaconCooldown = false;

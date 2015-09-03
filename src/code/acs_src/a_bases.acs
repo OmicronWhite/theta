@@ -384,7 +384,7 @@ function void AwardBuildingDestruction(int team, int small)
 		if (d < 0)
 			points = 0;
 		else
-			points = (ratio * (d + GetCVAR("aow_buildingpoints"))) >> 16;
+			points = (ratio * (d + GetCVAR("theta_buildingpoints"))) >> 16;
 	}
 	else
 		points = 40;
@@ -495,7 +495,7 @@ Script SC_RestoreObelisk(int team)
 	SetLineTexture(cond(team == TEAM_RED, 12, 11), SIDE_FRONT, TEXTURE_BOTTOM, "MCT1");
 	SetActorProperty(tid1, APROP_Invulnerable, 1);
 	RestoringObelisk[team] = true;
-	int time = GetCVar("aow_obeliskrestoredelay");
+	int time = GetCVar("theta_obeliskrestoredelay");
 	Log(s:"Starting obelisk restoration process for ", s:TeamNames[team]);
 
 	for (int i = 0; i < time; ++i)

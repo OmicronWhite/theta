@@ -30,7 +30,7 @@ Script 942 (void) NET
 		terminate;
 
 	// Not during warm-up
-	if (Timer() <= 5 * 60 * 35 && !GetCVar("aow_debug"))
+	if (Timer() <= 5 * 60 * 35 && !GetCVar("theta_debug"))
 	{
 		Error("Too early to use this!");
 		terminate;

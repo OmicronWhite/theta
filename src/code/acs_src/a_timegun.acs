@@ -39,7 +39,7 @@ Script SC_TIMEGUN (int action, int type)
 
 		int pn = PlayerNumber();
 
-		if (MedicBonus[pn] < GetCVAR("aow_medicbonusneed"))
+		if (MedicBonus[pn] < GetCVAR("theta_medicbonusneed"))
 			MedicBonus[pn] += 40 * bonus;
 		else
 		{	MedicBonus[pn] = 0;

@@ -7,7 +7,7 @@ Script 342(void) NET
 		terminate;
 	}
 
-	switch (GetCVAR("aow_surrendermode"))
+	switch (GetCVAR("theta_surrendermode"))
 	{
 		case 1:
 			if ((PlayerTeam() == TEAM_RED && BaseLeft[0] >= 5) || (PlayerTeam() == TEAM_BLUE && BaseLeft[1] >= 5))

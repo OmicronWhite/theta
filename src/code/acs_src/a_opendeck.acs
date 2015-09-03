@@ -20,7 +20,7 @@ Script 955(int action)
 	{
 		if (CheckInventory("CrateChooserReady")) terminate;
 
-		if (!GetCVAR("aow_mechs"))
+		if (!GetCVAR("theta_mechs"))
 			GiveInventory("NoMechs", 1);
 
 		GiveInventory("CrateChooserReady", 1);
@@ -97,7 +97,7 @@ Script 955(int action)
 
 			case 13:
 
-				if (!GetCVAR("aow_mechs"))
+				if (!GetCVAR("theta_mechs"))
 				{
 					DisplayCross();
 					SETFONT("BigFont");

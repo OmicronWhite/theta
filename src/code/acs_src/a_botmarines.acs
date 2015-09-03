@@ -89,15 +89,15 @@ Script SC_MARINE_COMPENSATION OPEN
 	{
 		Delay(35 * 5);
 
-		if (!GetCVar("aow_debugmarines") && (Timer() < 5 * MINUTETICS || GetCVar("aow_nocompensation")))
+		if (!GetCVar("theta_debugmarines") && (Timer() < 5 * MINUTETICS || GetCVar("theta_nocompensation")))
 			continue;
 
 		// Calculate AI marine needs
-		if (GetCVar("aow_debugmarines") > 0)
+		if (GetCVar("theta_debugmarines") > 0)
 		{
 			// Debug CVAR to override these counts.
-			AIMarines[TEAM_BLUE] = GetCVar("aow_debugmarines");
-			AIMarines[TEAM_RED] = GetCVar("aow_debugmarines");
+			AIMarines[TEAM_BLUE] = GetCVar("theta_debugmarines");
+			AIMarines[TEAM_RED] = GetCVar("theta_debugmarines");
 		}
 		else
 		{
@@ -243,7 +243,7 @@ Script SC_MARINE_DEATH(int i)
 	{
 		LocalAmbientSound("game/boink", 127);
 		AddExperience(100);
-		AwardCredits(GetCVar("aow_creditfrag"));
+		AwardCredits(GetCVar("theta_creditfrag"));
 		TakeTickets(AITeam, 1);
 		Team_GivePoints(PlayerTeam(), 2, false);
 	}

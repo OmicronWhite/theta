@@ -224,7 +224,7 @@ Script 96 (int type)
 			if (PlayerTeam() == TEAM_RED)
 				dest = 210;
 
-			if (!GetCVAR("aow_mechs"))
+			if (!GetCVAR("theta_mechs"))
 			{
 				Error("Mechs have been disabled for this map!");
 				teleportToSpawn = true;

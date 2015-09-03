@@ -20,7 +20,7 @@ Script 998 OPEN
 {
     delay(5);
 
-	while(Timer() < GetCVAR("aow_suddendeathtime") * 35 * 60) delay(35 * 15);
+	while(Timer() < GetCVAR("theta_suddendeathtime") * 35 * 60) delay(35 * 15);
 
 	ACS_Execute(997, 0);
 }

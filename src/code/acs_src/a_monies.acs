@@ -8,8 +8,8 @@ function int IncrCredits (int p, int amount)
 
 	Credits[p] += amount;
 
-	if (Credits[p] > GetCVAR("aow_creditlimit") && GetCVAR("aow_creditlimit") > 0)
-		Credits[p] = GetCVAR("aow_creditlimit");
+	if (Credits[p] > GetCVAR("theta_creditlimit") && GetCVAR("theta_creditlimit") > 0)
+		Credits[p] = GetCVAR("theta_creditlimit");
 
 	ShowStatus(p);
 
@@ -124,17 +124,17 @@ script 330(int Price)
 // CREDIT BONUS
 Script 326 OPEN
 {
-	while (GetCVAR("aow_bonustime") <= 0)
+	while (GetCVAR("theta_bonustime") <= 0)
 		delay(5 * 35);
 
-	delay(35 * 60 * GetCVAR("aow_bonustime"));
+	delay(35 * 60 * GetCVAR("theta_bonustime"));
 
 	for (int i = 0; i < MAXPLAYERS; i++)
 		if (PlayerInGame(i) && !IsAdmin[i])
-			IncrCredits(i, GetCVAR("aow_bonusamount"));
+			IncrCredits(i, GetCVAR("theta_bonusamount"));
 
 	AmbientSound("powerup/credsound", 127);
-	IntelMessageBold(strparam(s: "Credit bonus! \cQ$\cD", d: GetCVAR("aow_bonusamount")));
+	IntelMessageBold(strparam(s: "Credit bonus! \cQ$\cD", d: GetCVAR("theta_bonusamount")));
 	restart;
 }
 
@@ -234,7 +234,7 @@ script 4 OPEN
 
 		if (MiniRefinery[TEAM_RED] == 1) p += 75;
 
-		redflow = (GetCVAR("aow_credflow") * p) / 100;
+		redflow = (GetCVAR("theta_credflow") * p) / 100;
 
 		p = 25;
 
@@ -244,7 +244,7 @@ script 4 OPEN
 
 		if (MiniRefinery[TEAM_BLUE] == 1) p += 75;
 
-		blueflow = (GetCVAR("aow_credflow") * p) / 100;
+		blueflow = (GetCVAR("theta_credflow") * p) / 100;
 
 		for (i = 0; i < MAXPLAYERS; i++)
 		{

@@ -121,13 +121,13 @@ Script 309 (int Crate, int Override)
 
 		case 5:
 		case 16:
-			if (GetCredits(-1) >= GetCVAR("aow_creditlimit"))
+			if (GetCredits(-1) >= GetCVAR("theta_creditlimit"))
 			{
 				crate = 0;
 				restart;
 			}
 
-			amount = GetCVAR("aow_bonusamount") + (GetCredits(-1) / 4);
+			amount = GetCVAR("theta_bonusamount") + (GetCredits(-1) / 4);
 			IntelMessage(strparam(s: "Bonus credits! You get \cQ$\cD", d: amount, s: "!"));
 			LocalAmbientSound("powerup/cred", 255);
 			Delay(4);
@@ -535,7 +535,7 @@ Script 309 (int Crate, int Override)
 		case 45:
 			if (!Override && (CrateTime ||
 			   CheckInventory("IsMech") ||
-			   !GetCVAR("aow_mechs") ||
+			   !GetCVAR("theta_mechs") ||
 			   CheckInventory("JuggernautPowerup")))
 			{
 				crate = 0;

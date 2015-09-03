@@ -86,7 +86,7 @@ Script 80(int mech)
 	if (!CheckFactory(PlayerTeam()))
 		terminate;
 
-	if (mech == MECH_GUARDIAN && JuggernautCount() >= GetCVAR("aow_guardianlimit") && !!IsAdmin[PlayerNumber()])
+	if (mech == MECH_GUARDIAN && JuggernautCount() >= GetCVAR("theta_guardianlimit") && !!IsAdmin[PlayerNumber()])
 	{
 		Error("At limit!");
 		terminate;

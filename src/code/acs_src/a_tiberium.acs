@@ -42,9 +42,9 @@ Script 110 (int Team)
 	int bonus;
 
 	if (CheckInventory("ClassID") == CLASS_ADVHARVESTER)
-		bonus = GetCVar(cond(EnhancedRefining[Team], "aow_enharvestbonusadv", "aow_enharvestbonus"));
+		bonus = GetCVar(cond(EnhancedRefining[Team], "theta_enharvestbonusadv", "theta_enharvestbonus"));
 	else
-		bonus = GetCVar(cond(EnhancedRefining[Team], "aow_harvestbonusadv", "aow_harvestbonus"));
+		bonus = GetCVar(cond(EnhancedRefining[Team], "theta_harvestbonusadv", "theta_harvestbonus"));
 
 	BigMessage(strparam(s: "You refined a \cDtiberium crystal!\c- Extra \cQ$\cD", d: bonus, s: "\c- for you"));
 	GiveCredits(-5, bonus);
@@ -52,7 +52,7 @@ Script 110 (int Team)
 	int amount = 75;
 
 	// [SB] why not use an if?
-	switch (GetCVAR("aow_economy_mode"))
+	switch (GetCVAR("theta_economy_mode"))
 	{
 		case 1:
 			amount = 75;

@@ -59,7 +59,7 @@ Script 66 (void)
 		terminate;
 
 	// [SP] mechs not allowed!
-	if(!GetCVAR("aow_mechs"))
+	if(!GetCVAR("theta_mechs"))
 	{
 		Error("Mechs have been disabled for this map!");
 		terminate;
@@ -133,7 +133,7 @@ Script 67 (void)
 		HudMessage(s: "\cd----", s:name, s:" Restoration----",
 					s:"\n\n\ciCost: \cf$", d:cost,
 					s:"\n\ciPurpose: \cdRestores the ", s:name, s:" if it is destroyed.\n",
-					s:"\n\cd--- Restoration takes ", d:GetCVAR("aow_obeliskrestoredelay"), s:" seconds to complete.";
+					s:"\n\cd--- Restoration takes ", d:GetCVAR("theta_obeliskrestoredelay"), s:" seconds to complete.";
 					HUDMSG_FADEOUT, 2100 + PlayerNumber(), CR_Green, 0.25, 0.25, 3.0, 2.0);
 
 		ACS_ExecuteWithResult(330, cost);

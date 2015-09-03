@@ -25,10 +25,10 @@ Script 999 OPEN
 	RankTitles[6] = "Major";
 	RankTitles[7] = "General";
 
-	if (GetCVar("aow_disablemechs") == 0)
-		ConsoleCommand("set aow_mechs 1");
+	if (GetCVar("theta_disablemechs") == 0)
+		ConsoleCommand("set theta_mechs 1");
 	else
-		ConsoleCommand("set aow_mechs 0");
+		ConsoleCommand("set theta_mechs 0");
 
 	//Red
 	GotRefinery[0] = True;
@@ -47,16 +47,16 @@ Script 999 OPEN
 	GotObelisk[1] = True;
 	BaseLeft[1] = 5;
 
-	if (GetCVAR("aow_tickets") <= 1 && TicketPool == False)
-		ConsoleCommand("set aow_tickets 75");
-	else if (GetCVAR("aow_tickets") <= 100 && TicketPool == True)
-		ConsoleCommand("set aow_tickets 250");
+	if (GetCVAR("theta_tickets") <= 1 && TicketPool == False)
+		ConsoleCommand("set theta_tickets 75");
+	else if (GetCVAR("theta_tickets") <= 100 && TicketPool == True)
+		ConsoleCommand("set theta_tickets 250");
 
-	StartingTickets = GetCVAR("aow_tickets");
+	StartingTickets = GetCVAR("theta_tickets");
 
 	Tickets[0] = StartingTickets;
 	Tickets[1] = StartingTickets;
-	TicketPool = GetCVAR("aow_ticketpool");
+	TicketPool = GetCVAR("theta_ticketpool");
 
 	SetLineSpecial(159, 80, 342, 0, 0, 0, 0);
 
@@ -100,7 +100,7 @@ Script 999 OPEN
 		SetActorSpeed(TID_TICKETCOUNTER_BLUE, 0);
 		SetActorSpeed(TID_TICKETCOUNTER_RED, 0);
 	}
-	
+
 	// [SB] Idiot proofing
 	while (true)
 	{
@@ -143,73 +143,73 @@ Script 599 OPEN
 	// ==================================
 	// CUSTOM CVARS
 	// w/ sanity checks
-	if (GetCVAR("aow_greedkill") < 0) ConsoleCommand("set aow_greedkill 0");
+	if (GetCVAR("theta_greedkill") < 0) ConsoleCommand("set theta_greedkill 0");
 
-	if (!GetCVAR("aow_creditlimit")) ConsoleCommand("set aow_creditlimit 10000");
+	if (!GetCVAR("theta_creditlimit")) ConsoleCommand("set theta_creditlimit 10000");
 
-	if (GetCVAR("aow_economy_mode") < 0) ConsoleCommand("set aow_economy_mode 0");
+	if (GetCVAR("theta_economy_mode") < 0) ConsoleCommand("set theta_economy_mode 0");
 
-	if (GetCVAR("aow_economy_mode") > 1) ConsoleCommand("set aow_economy_mode 1");
+	if (GetCVAR("theta_economy_mode") > 1) ConsoleCommand("set theta_economy_mode 1");
 
-	if (GetCVAR("aow_harvestbonus") <= 0) ConsoleCommand("set aow_harvestbonus 10");
+	if (GetCVAR("theta_harvestbonus") <= 0) ConsoleCommand("set theta_harvestbonus 10");
 
-	if (GetCVAR("aow_enharvestbonus") <= 0) ConsoleCommand("set aow_enharvestbonus 20");
+	if (GetCVAR("theta_enharvestbonus") <= 0) ConsoleCommand("set theta_enharvestbonus 20");
 
-	if (GetCVAR("aow_harvestbonusadv") <= 0) ConsoleCommand("set aow_harvestbonusadv 25");
+	if (GetCVAR("theta_harvestbonusadv") <= 0) ConsoleCommand("set theta_harvestbonusadv 25");
 
-	if (GetCVAR("aow_enharvestbonusadv") <= 0) ConsoleCommand("set aow_enharvestbonusadv 50");
+	if (GetCVAR("theta_enharvestbonusadv") <= 0) ConsoleCommand("set theta_enharvestbonusadv 50");
 
-	if (!GetCVAR("aow_credflow")) ConsoleCommand("set aow_credflow 4");
+	if (!GetCVAR("theta_credflow")) ConsoleCommand("set theta_credflow 4");
 
-	if (GetCVAR("aow_startcredits") <= 0) ConsoleCommand("set aow_startcredits 300");
+	if (GetCVAR("theta_startcredits") <= 0) ConsoleCommand("set theta_startcredits 300");
 
-	if (GetCVAR("aow_creditfrag") <= 0) ConsoleCommand("set aow_creditfrag 50");
+	if (GetCVAR("theta_creditfrag") <= 0) ConsoleCommand("set theta_creditfrag 50");
 
-	if (GetCVAR("aow_bonusamount") <= 0) ConsoleCommand("set aow_bonusamount 300");
+	if (GetCVAR("theta_bonusamount") <= 0) ConsoleCommand("set theta_bonusamount 300");
 
-	if (GetCVAR("aow_bonustime") <= 0) ConsoleCommand("set aow_bonustime 5");
+	if (GetCVAR("theta_bonustime") <= 0) ConsoleCommand("set theta_bonustime 5");
 
-	if (GetCVAR("aow_medicbonusneed") <= 0) ConsoleCommand("set aow_medicbonusneed 175");
+	if (GetCVAR("theta_medicbonusneed") <= 0) ConsoleCommand("set theta_medicbonusneed 175");
 
-	if (GetCVAR("aow_repairbonus") <= 0) ConsoleCommand("set aow_repairbonus 1");
+	if (GetCVAR("theta_repairbonus") <= 0) ConsoleCommand("set theta_repairbonus 1");
 
-	if (GetCVAR("aow_guardianlimit") <= 0) ConsoleCommand("set aow_guardianlimit 2");
+	if (GetCVAR("theta_guardianlimit") <= 0) ConsoleCommand("set theta_guardianlimit 2");
 
-	if (GetCVAR("aow_ticketpool") <= 0) ConsoleCommand("set aow_ticketpool 0");
+	if (GetCVAR("theta_ticketpool") <= 0) ConsoleCommand("set theta_ticketpool 0");
 
 	//[SP]How long you can stay on a team before you are never switched.
-	if (GetCVAR("aow_teamstaytime") <= 0) ConsoleCommand("set aow_teamstaytime 2");
+	if (GetCVAR("theta_teamstaytime") <= 0) ConsoleCommand("set theta_teamstaytime 2");
 
 	// Plasma Cannon initial delay
-	if (!GetCVAR("aow_plasmapurchasedelay")) ConsoleCommand("set aow_plasmapurchasedelay 5");
+	if (!GetCVAR("theta_plasmapurchasedelay")) ConsoleCommand("set theta_plasmapurchasedelay 5");
 
 	//[SP]Maximum number of plasma cannons per team. (Set to -1 for unlimited)
-	if (!GetCVAR("aow_maxcannonsperteam")) ConsoleCommand("set aow_maxcannonsperteam 4");
+	if (!GetCVAR("theta_maxcannonsperteam")) ConsoleCommand("set theta_maxcannonsperteam 4");
 
 	// [Dusk] Time (in minutes) to determine plasma cannon cooldown. Use -1 to disable
-	if (!GetCVAR("aow_plasmacooldown")) ConsoleCommand("set aow_plasmacooldown 3");
+	if (!GetCVAR("theta_plasmacooldown")) ConsoleCommand("set theta_plasmacooldown 3");
 
 	//[SP]How long you have to wait to buy a new superweapon beacon. (Minutes) (Set to -1 to disable wait)
-	if (!GetCVAR("aow_beaconpurchasedelay"))ConsoleCommand("set aow_beaconpurchasedelay 5");
+	if (!GetCVAR("theta_beaconpurchasedelay"))ConsoleCommand("set theta_beaconpurchasedelay 5");
 
 	// [SP]Maximum number of time cops per team. (Set to -1 for unlimited)
-	if (!GetCVAR("aow_maxtimecopsperteam")) ConsoleCommand("set aow_maxtimecopsperteam 1");
+	if (!GetCVAR("theta_maxtimecopsperteam")) ConsoleCommand("set theta_maxtimecopsperteam 1");
 
 	//[SP] Time (in minutes) before sudden death.
 	// [Dusk] changed default to 45, -1 means immediate
-	if (GetCVAR("aow_suddendeathtime") == 0) ConsoleCommand("set aow_suddendeathtime 45");
+	if (GetCVAR("theta_suddendeathtime") == 0) ConsoleCommand("set theta_suddendeathtime 45");
 
-	if (GetCVAR("aow_disablemechs") <= 0) ConsoleCommand("set aow_disablemechs 0");
+	if (GetCVAR("theta_disablemechs") <= 0) ConsoleCommand("set theta_disablemechs 0");
 
-	if (GetCVAR("aow_surrendermode") <= 0) ConsoleCommand("set aow_surrendermode 0");
+	if (GetCVAR("theta_surrendermode") <= 0) ConsoleCommand("set theta_surrendermode 0");
 
 	// [Dusk] How much score does destroying a building award you, in addition to difference?
-	if (GetCVAR("aow_buildingpoints") <= 0)
-		ConsoleCommand("set aow_buildingpoints 125");
+	if (GetCVAR("theta_buildingpoints") <= 0)
+		ConsoleCommand("set theta_buildingpoints 125");
 
 	// [Dusk] How long does the obelisk take to restore fully? Seconds, -1 for instant
-	if (GetCVAR("aow_obeliskrestoredelay") == 0)
-		ConsoleCommand("set aow_obeliskrestoredelay 450");
+	if (GetCVAR("theta_obeliskrestoredelay") == 0)
+		ConsoleCommand("set theta_obeliskrestoredelay 450");
 
 	delay(35 * 5);
 	restart;
@@ -325,7 +325,7 @@ Script 303 OPEN
 
 function void InitPlayer(void)
 {
-	SetCredits(PlayerNumber(), GetCVAR("aow_startcredits"));
+	SetCredits(PlayerNumber(), GetCVAR("theta_startcredits"));
 	Experience[PlayerNumber()] = 0;
 	Rank[PlayerNumber()] = RANK_PRIVATE;
 	Surrender[PlayerNumber()] = False;

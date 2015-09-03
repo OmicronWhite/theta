@@ -19,7 +19,7 @@ Script 943 OPEN CLIENTSIDE
 	if (PlayerIsBot(PlayerNumber()) || consoleplayer == -1)
 		terminate;
 
-	// if (GetCVAR ("aow_nofriendinfo") <= 0) ConsoleCommand ("set aow_nofriendinfo 0");
+	// if (GetCVAR ("theta_nofriendinfo") <= 0) ConsoleCommand ("set theta_nofriendinfo 0");
 
 	int teammate, i;
 

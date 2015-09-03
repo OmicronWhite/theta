@@ -102,11 +102,14 @@ Script 999 OPEN
 	}
 	
 	// [SB] Idiot proofing
-	while (true) {
+	while (true)
+	{
 		ConsoleCommand("fraglimit 0");
-		ConsoleCommand("pointlimit 0");
 		ConsoleCommand("winlimit 0");
 		ConsoleCommand("duellimit 0");
+		if (GetCVar("timelimit") > 0)
+			if (GetCVar("timelimit") < GetCVar("theta_suddendeathtime"))
+				ConsoleCommand(StrParam(s: "timelimit ", GetCVar("theta_suddendeathtime") + 15);
 		delay(1);
 	}
 }

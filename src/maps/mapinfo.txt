@@ -60,6 +60,12 @@ map AOW07 "Sand Canyon" {
 	levelnum = 7
 }
 
+map AOW99 "Test" {
+	next = "AOW01"
+	sky1 = "stsky14"
+	levelnum = 99
+}
+
 skill Normal {
 	name = "Normal"
 	damagefactor = 1.0

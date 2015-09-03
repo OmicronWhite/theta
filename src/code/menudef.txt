@@ -41,6 +41,7 @@ OptionValue "AOWMaps" {
     3,              "AOW04 - Oasis"
     4,              "AOW05 - Virtual Zone"
     6,              "AOW06 - Glacier"
+    7,		    "AOW07 - Sand Canyon"
 }
 
 OptionMenu "AOWPlayOffline" {

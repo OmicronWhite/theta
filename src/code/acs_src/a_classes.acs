@@ -21,7 +21,7 @@ str class_items[CATEGORIES_AMOUNT][ITEMS_AMOUNT] = {
     { "Engineer", "Technician", "Utility Guy", "Medic", "Tiberium Harvester", "Adv. Tib. Harvester", "Stealth Trooper", "Time Cop", "-----", "-----" },
     { "Flamer", "Grenadier", "Rocketeer", "Chem Warrior", "Shock Trooper", "Minigunner", "Laser Chaingunner", "Jumpjet Soldier", "Plasma Gunner", "-----" },
     { "Commando", "Sniper", "Suicide Bomber", "Gauss Gunner", "Demo. Expert", "Artillery Solzdier", "-----", "-----", "-----", "-----" },
-    { "Chainsaw", "Tiberium Autorifle", "Artillery Cannon", "-----", "-----", "-----", "-----", "-----", "-----", "-----" }
+    { "Chainsaw", "Tiberium Autorifle", "Artillery Cannon", "Team Beacon", "-----", "-----", "-----", "-----", "-----", "-----" }
 };
 
 int drawResign[32];
@@ -164,12 +164,12 @@ function str MC_ItemString(int side, int category, int item)
         if (playerSelection[player][MSIDE_ITEMS] == item
             && playerSelection[player][MSIDE_CATEGORIES] == category
             && side == MSIDE_ITEMS)
-                value = StrParam(s: "\cd", s: class_items[category][item]);
+                value = StrParam(s: "\cd", s: cond(item  == 3&& category == 4, cond(PlayerTeam(), "Ion Cannon Beacon", "Nuclear Strike Beacon"), class_items[category][item]));
 
         if (playerSelection[player][MSIDE_ITEMS] != item
             && playerSelection[player][MSIDE_CATEGORIES] == category
             && side == MSIDE_ITEMS)
-                value = StrParam(s: "\cq", s: class_items[category][item]);
+                value = StrParam(s: "\cq", s: cond(item == 3 && category == 4, cond(PlayerTeam(), "Ion Cannon Beacon", "Nuclear Strike Beacon"), class_items[category][item]));
     }
 
     return value;

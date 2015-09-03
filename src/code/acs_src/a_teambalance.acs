@@ -22,7 +22,7 @@ function void CheckTeamBalance (void)
 	int PlayerStayTics = GetCVAR("aow_teamstaytime") * MINUTETICS;
 
 	// [Dusk] Allow the team switcher be disabled
-	if (GetCVar("aow_noteamswitcher"))
+	if (GetCVar("theta_noteamswitcher"))
 		return;
 
 	while(true)

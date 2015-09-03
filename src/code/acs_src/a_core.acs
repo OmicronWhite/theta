@@ -109,7 +109,7 @@ Script 999 OPEN
 		ConsoleCommand("duellimit 0");
 		if (GetCVar("timelimit") > 0)
 			if (GetCVar("timelimit") < GetCVar("theta_suddendeathtime"))
-				ConsoleCommand(StrParam(s: "timelimit ", GetCVar("theta_suddendeathtime") + 15);
+				ConsoleCommand(StrParam(s: "timelimit ", d: GetCVar("theta_suddendeathtime") + 15));
 		delay(1);
 	}
 }

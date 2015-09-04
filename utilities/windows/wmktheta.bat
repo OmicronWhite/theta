@@ -57,10 +57,9 @@ echo All Out War "Theta" Build Script
 echo Written by Sean
 echo.
 
-echo %START%
-IF %NOGIT%==1 (
+IF %NOGIT%==0 (
     "%START%\utilities\windows\win%ARCH%\gitcommit.exe" batch "%START%\utilities\commit.bat" --silent
-    if not %errorlevel%==0 goto exefail
+    ::if not %errorlevel%==0 goto exefail
     call "%START%\utilities\commit.bat"
 )
 
@@ -78,6 +77,13 @@ if not exist src\code\acs\ (
 ::"%START%\utilities\windows\win%ARCH%\acschangelog.exe" "%START%\changelog.txt" "%START%\src\code\acs_src\a_changelog.acs"
 ::if not %errorlevel%==0 goto exefail
 :: %START%\utilities\acver "a_version.acs" "%START%"
+
+:: Make an .acs with commit info.
+
+IF %NOGIT%==0 (
+    "%START%\utilities\windows\win%ARCH%\gitcommit.exe" c "%START%\src\code\acs_src\gitcommit.acs" --silent
+    if not %errorlevel%==0 goto exefail
+)
 
 echo Compiling ACS.
 cd "%START%"

@@ -68,6 +68,7 @@ if [[ -d "out" && "$jenkins" != true ]]; then
 	x "rm -rf out"
 fi
 
+x "utilities/linux/gitcommit c src/code/acs_src/gitcommit.acs --silent" "Making gitcommit.acs"
 x "mkdir -p src/code/acs" "Making acs output folder"
 x "utilities/linux/acc src/code/acs_src/aow2scrp.acs src/code/acs/aow2scrp.o" "Compiling ACS ${reset}"
 x "utilities/linux/acsconstants src/code/acs_src/aow2scrp.acs src/code/actors/acsconstants.dec ${s}" "Generating ACS -> Decorate constants"

@@ -1191,3 +1191,18 @@ graphic jeticon, 25, 29 {
 	Offset 8, 20
 	Patch fuelicon, 0, 0
 }*/
+
+//[SB]
+texture crateli2, 64, 128 {
+	patch sgcrate2, 0, 0 {}
+	patch sgcrate2, 32, 0 {}
+	patch gcratel1, 0, 64 {}
+	patch gcrater1, 32, 64 {}
+}
+
+texture crateli5, 64, 128 {
+	patch n_cttnlt, 0, 0 {}
+	patch n_cttnlt, 32, 0 {}
+	patch n_ctgnl, 0, 64 {}
+	patch n_ctgnr, 32, 64 {}
+}

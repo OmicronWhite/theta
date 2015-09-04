@@ -104,9 +104,10 @@ Script 999 OPEN
 	// [SB] Idiot proofing
 	while (true)
 	{
-		ConsoleCommand("fraglimit 0");
-		ConsoleCommand("winlimit 0");
-		ConsoleCommand("duellimit 0");
+		return;
+		IdiotProofCvar("fraglimit", 0, 0);
+		IdiotProofCvar("winlimit", 0, 0);
+		IdiotProofCvar("duellimit", 0, 0);
 		if (GetCVar("timelimit") > 0)
 			if (GetCVar("timelimit") < GetCVar("theta_suddendeathtime"))
 				ConsoleCommand(StrParam(s: "timelimit ", d: GetCVar("theta_suddendeathtime") + 15));

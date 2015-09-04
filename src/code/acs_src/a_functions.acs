@@ -828,3 +828,9 @@ function bool IsLevel(int num)
 {
 	return (GetLevelInfo(LEVELINFO_LEVELNUM) == num);
 }
+
+function void IdiotProofCvar(str cvar, int expected, int new)
+{
+	if (GetCVAR(cvar) != expected)
+		ConsoleCommand(StrParam(s: cvar, s: " ", d: new));
+}

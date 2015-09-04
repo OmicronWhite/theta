@@ -140,43 +140,55 @@ function str MC_ItemString(int side, int category, int item)
     if (playerSide[player] == MSIDE_CATEGORIES)
     {
         if (side == MSIDE_ITEMS)
-            value = StrParam(s: "\cm", s: class_items[category][item]);
+            return StrParam(s: "\cm", s: class_items[category][item]);
 
         if (item == 5)
         {
             if (playerSelection[player][MSIDE_CATEGORIES] == item && side == MSIDE_CATEGORIES)
-                    value = StrParam(s: "\cf", s: class_categories[item]);
+                    return StrParam(s: "\cf", s: class_categories[item]);
 
             if (playerSelection[player][MSIDE_CATEGORIES] != item && side == MSIDE_CATEGORIES)
-                    value = StrParam(s: "\ci", s: class_categories[item]);
+                    return StrParam(s: "\ci", s: class_categories[item]);
         }
         else
         {
             if (playerSelection[player][MSIDE_CATEGORIES] == item && side == MSIDE_CATEGORIES)
-                    value = StrParam(s: "\cd", s: class_categories[item]);
+                    return StrParam(s: "\cd", s: class_categories[item]);
 
             if (playerSelection[player][MSIDE_CATEGORIES] != item && side == MSIDE_CATEGORIES)
-                    value = StrParam(s: "\cq", s: class_categories[item]);
+                    return StrParam(s: "\cq", s: class_categories[item]);
         }
     }
 
     else if (playerSide[player] == MSIDE_ITEMS)
     {
         if (side == MSIDE_CATEGORIES)
-            value = StrParam(s: "\cm", s: class_categories[item]);
+            return StrParam(s: "\cm", s: class_categories[item]);
 
+        // selected empty
+        if (playerSelection[player][MSIDE_ITEMS] == item && playerSelection[player][MSIDE_CATEGORIES] == category
+            && StrICmp(class_items[category][item], "----") == 0)
+            return "\cc----";
+
+        // unselected empty
+        if (playerSelection[player][MSIDE_ITEMS] != item && playerSelection[player][MSIDE_CATEGORIES] == category
+            && StrICmp(class_items[category][item], "----") == 0)
+            return "\cm----";
+
+        // SELECTED
         if (playerSelection[player][MSIDE_ITEMS] == item
             && playerSelection[player][MSIDE_CATEGORIES] == category
             && side == MSIDE_ITEMS)
-                value = StrParam(s: "\cd", s: cond(item  == 3&& category == 4, cond(PlayerTeam(), "Ion Cannon Beacon", "Nuclear Strike Beacon"), class_items[category][item]));
+                return StrParam(s: "\cd", s: cond(item  == 3&& category == 4, cond(PlayerTeam(), "Ion Cannon Beacon", "Nuclear Strike Beacon"), class_items[category][item]));
 
+        // UNSELECTED
         if (playerSelection[player][MSIDE_ITEMS] != item
             && playerSelection[player][MSIDE_CATEGORIES] == category
             && side == MSIDE_ITEMS)
-                value = StrParam(s: "\cq", s: cond(item == 3 && category == 4, cond(PlayerTeam(), "Ion Cannon Beacon", "Nuclear Strike Beacon"), class_items[category][item]));
+                return StrParam(s: "\cq", s: cond(item == 3 && category == 4, cond(PlayerTeam(), "Ion Cannon Beacon", "Nuclear Strike Beacon"), class_items[category][item]));
     }
 
-    return value;
+    return "\cg!!ERROR!!";
 }
 
 function void MC_Freeze (void)
@@ -280,7 +292,7 @@ Script MSCC_Input_Loop  (void)
 
         LocalAmbientSound("menu/cursor", 127);
 
-        Log(d:playerSelection[player][0], s:", ", d: playerSelection[player][1]);
+        DebugLog(StrParam(d: playerSelection[player][0], s:", ", d: playerSelection[player][1]));
     }
 
     if (input & BT_BACK)
@@ -298,24 +310,30 @@ Script MSCC_Input_Loop  (void)
 
         LocalAmbientSound("menu/cursor", 127);
 
-        Log(d:playerSelection[player][0], s:", ", d: playerSelection[player][1]);
+        DebugLog(StrParam(d: playerSelection[player][0], s:", ", d: playerSelection[player][1]));
     }
 
     if (input & BT_MOVELEFT || input & BT_LEFT)
     {
-        inputUsed = true;
-        playerSide[player] = MSIDE_CATEGORIES;
-        LocalAmbientSound("menu/activate", 127);
+        if (playerSide[player] != MSIDE_CATEGORIES)
+        {
+            inputUsed = true;
+            playerSide[player] = MSIDE_CATEGORIES;
+            LocalAmbientSound("menu/activate", 127);
+        }
     }
 
     if (input & BT_MOVERIGHT || input & BT_RIGHT)
     {
-        inputUsed = true;
-
-        if (playerSelection[player][MSIDE_CATEGORIES] != 5)
+        if (playerSide[player] != MSIDE_ITEMS)
         {
-            playerSide[player] = MSIDE_ITEMS;
-            LocalAmbientSound("menu/activate", 127);
+            inputUsed = true;
+
+            if (playerSelection[player][MSIDE_CATEGORIES] != 5)
+            {
+                playerSide[player] = MSIDE_ITEMS;
+                LocalAmbientSound("menu/activate", 127);
+            }
         }
     }
 
@@ -351,7 +369,7 @@ function void MC_DeathReset (void) { ACS_ExecuteAlways(MSCC_DEATHRESET, 0, 0, 0,
 Script MSCC_DEATHRESET DEATH { MC_Exit(); }
 
 function void MC_QuitReset (void) { ACS_ExecuteAlways(MSCC_QUITRESET, 0, 0, 0, 0); }
-Script MSCC_QUITRESET (int gone) DISCONNECT { MC_Exit(); }
+Script MSCC_QUITRESET (int gone) DISCONNECT { if (PlayerNumber() == gone) MC_Exit(); }
 
 // All Out War 2 Class purchase scripts
 // Credit to VoltlocK for originally creating the engine

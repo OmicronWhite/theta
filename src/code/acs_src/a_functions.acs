@@ -821,7 +821,7 @@ Script SC_ChangePlayerTeam (int player, int team)
 function void DebugLog(str string)
 {
 	if (GetCVar("theta_debug"))
-		Log(s: string);
+		Log(s: "DEBUG | ", s: "#", d: PlayerNumber(), s: " | ", s: string);
 }
 
 function bool IsLevel(int num)

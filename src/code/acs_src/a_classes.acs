@@ -83,8 +83,12 @@ Script MSCC_INPUTRECV (int category, int item)
     }
 
     if (category == 4) { // Addons
-        //switch (item) {
-        //}
+        switch (item) {
+            case 0: ACS_ExecuteAlways(50, 0); // Chainsaw
+            case 1: ACS_ExecuteAlways(49, 0); // Tiberium Autorifle
+            case 2: ACS_ExecuteAlways(51, 0); // Artillery Cannon
+            case 3: ACS_ExecuteAlways(55 + PlayerTeam(), 0, PlayerTeam()); // Team Beacon
+        }
     }
 
     if (category == 5) { // Resign

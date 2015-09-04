@@ -823,3 +823,8 @@ function void DebugLog(str string)
 	if (GetCVar("theta_debug"))
 		Log(s: string);
 }
+
+function bool IsLevel(int num)
+{
+	return (GetLevelInfo(LEVELINFO_LEVELNUM) == num);
+}

@@ -43,7 +43,10 @@ Script 94 (int Team)
 	}
 
 	TakeInventory("IsInSpawnRoom", 1);
-	ACS_ExecuteAlways(961, 0, Team);
+	int _team = Team;
+	if (IsLevel(4) || IsLevel(6) || IsLevel(7))
+	    _team = !_team;
+	ACS_ExecuteAlways(961, 0, _team);
 }
 
 // RESIGN

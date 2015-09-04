@@ -25,3 +25,5 @@ server bool theta_surrendermode = false;
 server int theta_buildingpoints = 125;
 server int theta_obeliskrestoredelay = 450;
 server bool theta_noteamswitcher = false;
+
+server bool theta_debug = false;

@@ -9,6 +9,7 @@ Theta
  * __AOW04__ - Oasis
  * __AOW05__ - Virtual Zone
  * __AOW06__ - Glacier
+ * __AOW07__ - Sand Canyon
 
 Come join our IRC channel! We're at `irc.zandronum.com #theta`.
 

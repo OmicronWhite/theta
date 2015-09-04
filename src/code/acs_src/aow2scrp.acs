@@ -467,6 +467,8 @@ str NormalWeaponNames[MAX_NORMAL_WEAPONS] =
 	"TimeGun"
 };
 
+#include "gitcommit.acs" // [SB] Auto generated
+
 #include "a_functions.acs"
 #include "a_armor.acs"
 #include "a_monies.acs"

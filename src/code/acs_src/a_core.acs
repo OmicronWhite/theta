@@ -102,9 +102,9 @@ Script 999 OPEN
 	}
 
 	// [SB] Idiot proofing
+	/*
 	while (true)
 	{
-		return;
 		IdiotProofCvar("fraglimit", 0, 0);
 		IdiotProofCvar("winlimit", 0, 0);
 		IdiotProofCvar("duellimit", 0, 0);
@@ -113,6 +113,7 @@ Script 999 OPEN
 				ConsoleCommand(StrParam(s: "timelimit ", d: GetCVar("theta_suddendeathtime") + 15));
 		delay(1);
 	}
+	*/
 }
 
 // Server settings

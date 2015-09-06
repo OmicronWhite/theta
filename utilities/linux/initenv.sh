@@ -46,16 +46,17 @@ x "g++ utilities/gitcommit.cpp -o utilities/linux/gitcommit" "Compiling gitcommi
 x "gcc utilities/acsconstants.c -o utilities/linux/acsconstants" "Compiling acsconstants"
 x "g++ utilities/acschangelog.cpp -o utilities/linux/acschangelog" "Compiling acschangelog"
 x "cd utilities/linux"
-if [[ -d "acc" || -f "acc" ]]; then
-	x "rm -rf acc ${ss}"
+if [[ -d "bcc" || -f "bcc" ]]; then
+	x "rm -rf bcc ${ss}"
 fi
-x "git clone -q https://bitbucket.org/Torr_Samaho/acc ${s}" "Cloning acc           "
-x "cd acc"
-x "make -j12 ${s}" "Compiling acc         "
-x "mv acc ../acc.tmp"
-x "mv *.acs .."
+x "git clone -q https://github.com/wormt/bcc ${s}" "Cloning bcc           "
+x "cd bcc"
+x "premake4 gmake ${s}" "Generating makefiles  "
+x "make -j12 ${s}" "Compiling bcc         "
+x "mv bcc ../acc.tmp"
+x "mv include/*.acs .."
 x "cd .."
-x "rm -rf acc" "Removing acc directory"
+x "rm -rf acc" "Removing bcc directory"
 x "mv acc.tmp acc"
 
 echo

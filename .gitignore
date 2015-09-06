@@ -17,8 +17,7 @@ out/
 a_changelog.acs
 a_version.acs
 acsconstants.dec
-gitcommit.acs
-
+src/code/acs_src/gitcommit.acs
 *.tmp
 
 # MSVC
@@ -38,6 +37,7 @@ commit.bat
 # Windows
 Thumbs.db
 
+utilities/linux/bcc
 utilities/linux/acc
 utilities/linux/acschangelog
 utilities/linux/gitcommit

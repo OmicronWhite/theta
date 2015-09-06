@@ -72,6 +72,7 @@ Script SC_PORTAL_INIT (void)
 	int angle, x, y, z, z2;
 	int tid;
 	int idx;
+	int dest;
 
 	// check if we're supposed to have these in the first place
 	if (!UsePortals)
@@ -112,7 +113,7 @@ Script SC_PORTAL_INIT (void)
 		tid = TID_PORTAL_BLUE1 + idx;
 
 		// Determine destination
-		int dest = Portal_GetDestination(idx);
+		dest = Portal_GetDestination(idx);
 
 		// Check that the portals are not too close to each other.
 		int PortalMinDistance = 192;

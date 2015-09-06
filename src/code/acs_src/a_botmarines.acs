@@ -18,19 +18,19 @@
 function int AI_RequestID (void)
 {
 	// Find a free slot
-	for (int i = 0; Bots[i] && i < MAX_MARINES; i++)
-		;
-
-	if (i >= MAX_MARINES)
+	for (int i = 0; Bots[i] && i < MAX_MARINES; i++) 
 	{
-		// Uh oh.
-		Log(s: "AI_RequestID: Too many AI marines!");
-		return -1;
-	}
+		if (i >= MAX_MARINES)
+		{
+			// Uh oh.
+			Log(s: "AI_RequestID: Too many AI marines!");
+			return -1;
+		}
 
-	AIMarineCount++;
-	Bots[i] = true;
-	return i;
+		AIMarineCount++;
+		Bots[i] = true;
+		return i;
+	}
 }
 
 // ============================================================================
@@ -83,7 +83,7 @@ Script SC_MARINE_INIT (void)
 // balanced out.
 Script SC_MARINE_COMPENSATION OPEN
 {
-	int n, rc, bc, team;
+	int n, rc, bc, team, i;
 
 	while (true)
 	{
@@ -127,7 +127,7 @@ Script SC_MARINE_COMPENSATION OPEN
 				AIClass = "RedRandomMarine";
 
 			// Count how many AI marines the specified team has
-			for (int i = 0; i < MAX_MARINES; i++)
+			for (i = 0; i < MAX_MARINES; i++)
 			{
 				if (!Bots[i])
 					continue;

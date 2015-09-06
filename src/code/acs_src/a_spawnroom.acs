@@ -76,28 +76,32 @@ Script 95 (int unused, int force)
 	RefundCredits(CheckInventory("Refunds"));
 	SetInventory("Refunds", 0);
 
+	// [SB] Fix compilation under bcc.
+	bool HasPlasma, HasArtillery, HasTiberiumAutorifle, HasSuperWeapon, HasChainsaw,
+		 HasKamikaze, HasGoldHue, HasRedHue, HasGreenHue, HasBerserk = false;
+
 	if (CheckInventory("JumpjetSwitch")) GiveInventory("JumpjetDeactivate", 1);
-	if (CheckInventory("PlasmaCannon")) bool HasPlasma = True;
-	if (CheckInventory("ArtilleryCannon")) bool HasArtillery = True;
-	if (CheckInventory("TiberiumAutorifleWeak")) bool HasTiberiumAutorifle = True;
-	if (CheckInventory("IonCannonBeacon") || CheckInventory("NuclearStrikeBeacon")) bool HasSuperWeapon = True;
-	if (CheckInventory("EagerBeaver")) bool HasChainsaw = True;
-	if (CheckInventory("BombPack")) bool HasKamikaze = True;
+	if (CheckInventory("PlasmaCannon")) HasPlasma = true;
+	if (CheckInventory("ArtilleryCannon")) HasArtillery = true;
+	if (CheckInventory("TiberiumAutorifleWeak")) HasTiberiumAutorifle = true;
+	if (CheckInventory("IonCannonBeacon") || CheckInventory("NuclearStrikeBeacon")) HasSuperWeapon = true;
+	if (CheckInventory("EagerBeaver")) HasChainsaw = true;
+	if (CheckInventory("BombPack")) HasKamikaze = true;
 
 	// ClearInventory doesn't reset the fade, hack around it
 	if (CheckInventory("PowerTimeGunFloat") || CheckInventory("PowerTimeGunBoost") ||
 		CheckInventory("IsTeleporting") || CheckInventory("PowerTimeGunSpeed") ||
 		CheckInventory("PowerGoldHue"))
-		bool HasGoldHue = 1;
+		HasGoldHue = true;
 
 	if (CheckInventory("PowerTimeGunWeaken") || CheckInventory("PowerTimeGunSlow"))
-		bool HasRedHue = 1;
+		HasRedHue = true;
 
 	if (CheckInventory("PowerInvulnerable"))
-		bool HasGreenHue = True;
+		HasGreenHue = true;
 
 	if (CheckInventory("PowerBerserk"))
-		bool HasBerserk = True;
+		HasBerserk = true;
 
 	TakeInventory("PowerTimeGunBoost", 1);
 	SetActorProperty(0, APROP_Alpha, 1.0);

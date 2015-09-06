@@ -87,10 +87,11 @@ Script 950 (void) NET
 	int price = 0;
 	str weapon = "";
 
+	int i;
 	// Most weapons are primary weapons of some class, so try find that
 	// first. Make the price be 25% of the cost of the first found class
 	// which uses this weapon as the primary weapon.
-	for (int i = 0; i < NUM_CLASSES; ++i)
+	for (i = 0; i < NUM_CLASSES; ++i)
 	{
 		if (!CheckWeapon(GetClassItemName(i, 0)))
 			continue;

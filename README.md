@@ -2,6 +2,8 @@ Theta
 =============
 *Theta* is a continuation of All Out War 2: The Omega Project.
 
+[![Support us on ModDB](http://button.moddb.com/popularity/medium/mods/28018.png)](http://www.moddb.com/mods/theta)
+
 ##Maps
  * __AOW01__ - Red Zone
  * __AOW02__ - Barrens

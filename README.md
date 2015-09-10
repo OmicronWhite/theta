@@ -15,7 +15,12 @@ Theta
 
 Come join our IRC channel! We're at `irc.zandronum.com #theta`.
 
-##Hosting
+## Get
+The [releases page](https://github.com/PlusGit/theta/releases) is the most up-to-date source of *stable* releases of Theta. For development builds, see the [Building](https://github.com/PlusGit/theta#building) section below.
+
+You can also get some stable releases from our [ModDB page](http://www.moddb.com/mods/theta/downloads) and [TSPG Britsteel](http://britsteel.allfearthesentinel.net/wads), but these may be outdated.
+
+## Hosting
 __IWAD:__ `doom2.wad`
 
 __WADs:__ (must be loaded in this order)
@@ -25,7 +30,7 @@ __WADs:__ (must be loaded in this order)
  - `theta_maps_YYMMDD.pk3` - [Check for Latest Release](https://github.com/PlusGit/theta/releases)
  - `theta_music_YYMMDD.pk3` - [Check for Latest Release](https://github.com/PlusGit/theta/releases)
 
-##Building
+## Building
 ### Windows
 If you're on Windows, building Theta is really easy!  
 Just clone the repo or [download it as a zip](https://github.com/PlusGit/theta/archive/master.zip), then run `build.bat` or `build_from-zip.bat` respectvely.

@@ -54,7 +54,7 @@ Script 110 (int Team)
 	// [SB] why not use an if?
 	switch (GetCVAR("theta_economy_mode"))
 	{
-		case 1:
+		case 0:
 			amount = 75;
 
 			if (EnhancedRefining[Team])
@@ -62,7 +62,7 @@ Script 110 (int Team)
 
 			break;
 
-		case 0:
+		case 1:
 			amount = 1500;
 
 			if (EnhancedRefining[Team])

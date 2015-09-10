@@ -292,10 +292,10 @@ Script 70 (void)
 	SpendCredits(cost);
 	GiveInventory("Refunds", cost / 2);
 	DisplayTick();
-	BigMessage("\ci+1 frag grenade!");
+	BigMessage("\ci+1 timed C4!");
 	SetInventory("TimedC4", CheckInventory("TimedC4") + 1);
 	TakeInventory("PurchaseToken", 1);
-	Log(s: pname(-1), s: " purchases +1 frag grenade");
+	Log(s: pname(-1), s: " purchases +1 timed C4");
 }
 
 //---------------------------REPAIR GUN UPGRADE

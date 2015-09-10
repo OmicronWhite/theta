@@ -15,6 +15,16 @@ Theta
 
 Come join our IRC channel! We're at `irc.zandronum.com #theta`.
 
+##Hosting
+__IWAD:__ `doom2.wad`
+
+__WADs:__ (must be loaded in this order)
+ - `skulltag_content_2.1a.pk3` - [Download](http://grandvoid.sickedwick.net/wads/skulltag_content2.1a.pk3) - While Theta is mostly independant of Skulltag, it still needs some bits and bobs.
+ - `theta_base_YYMMDD.pk3` - [Check for Latest Release](https://github.com/PlusGit/theta/releases)
+ - `theta_code_YYMMDD.pk3` - [Check for Latest Release](https://github.com/PlusGit/theta/releases)
+ - `theta_maps_YYMMDD.pk3` - [Check for Latest Release](https://github.com/PlusGit/theta/releases)
+ - `theta_music_YYMMDD.pk3` - [Check for Latest Release](https://github.com/PlusGit/theta/releases)
+
 ##Building
 ### Windows
 If you're on Windows, building Theta is really easy!  

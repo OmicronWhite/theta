@@ -2,6 +2,8 @@ Theta
 =============
 *Theta* is a continuation of All Out War 2: The Omega Project.
 
+[![Support us on ModDB](http://button.moddb.com/popularity/medium/mods/28018.png)](http://www.moddb.com/mods/theta)
+
 ##Maps
  * __AOW01__ - Red Zone
  * __AOW02__ - Barrens
@@ -13,7 +15,22 @@ Theta
 
 Come join our IRC channel! We're at `irc.zandronum.com #theta`.
 
-##Building
+## Get
+The [releases page](https://github.com/PlusGit/theta/releases) is the most up-to-date source of *stable* releases of Theta. For development builds, see the [Building](https://github.com/PlusGit/theta#building) section below.
+
+You can also get some stable releases from our [ModDB page](http://www.moddb.com/mods/theta/downloads) and [TSPG Britsteel](http://britsteel.allfearthesentinel.net/wads), but these may be outdated.
+
+## Hosting
+__IWAD:__ `doom2.wad`
+
+__WADs:__ (must be loaded in this order)
+ - `skulltag_content_2.1a.pk3` - [Download](http://grandvoid.sickedwick.net/wads/skulltag_content2.1a.pk3) - While Theta is mostly independant of Skulltag, it still needs some bits and bobs.
+ - `theta_base_YYMMDD.pk3` - [Check for Latest Release](https://github.com/PlusGit/theta/releases)
+ - `theta_code_YYMMDD.pk3` - [Check for Latest Release](https://github.com/PlusGit/theta/releases)
+ - `theta_maps_YYMMDD.pk3` - [Check for Latest Release](https://github.com/PlusGit/theta/releases)
+ - `theta_music_YYMMDD.pk3` - [Check for Latest Release](https://github.com/PlusGit/theta/releases)
+
+## Building
 ### Windows
 If you're on Windows, building Theta is really easy!  
 Just clone the repo or [download it as a zip](https://github.com/PlusGit/theta/archive/master.zip), then run `build.bat` or `build_from-zip.bat` respectvely.

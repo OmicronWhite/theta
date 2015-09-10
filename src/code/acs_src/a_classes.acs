@@ -21,7 +21,7 @@ str class_items[CATEGORIES_AMOUNT][ITEMS_AMOUNT] = {
     { "Engineer", "Technician", "Utility Guy", "Medic", "Tiberium Harvester", "Adv. Tib. Harvester", "Stealth Trooper", "Time Cop", "-----", "-----" },
     { "Flamer", "Grenadier", "Rocketeer", "Chem Warrior", "Shock Trooper", "Minigunner", "Laser Chaingunner", "Jumpjet Soldier", "Plasma Gunner", "-----" },
     { "Commando", "Sniper", "Suicide Bomber", "Gauss Gunner", "Demo. Expert", "Artillery Solzdier", "-----", "-----", "-----", "-----" },
-    { "Chainsaw", "Tiberium Autorifle", "Artillery Cannon", "Team Beacon", "-----", "-----", "-----", "-----", "-----", "-----" }
+    { "Chainsaw", "Tiberium Autorifle", "Artillery Cannon", "Team Beacon", "Armour Upgrade", "-----", "-----", "-----", "-----", "-----" }
 };
 
 int drawResign[32];
@@ -88,6 +88,7 @@ Script MSCC_INPUTRECV (int category, int item)
             case 1: ACS_ExecuteAlways(49, 0); // Tiberium Autorifle
             case 2: ACS_ExecuteAlways(51, 0); // Artillery Cannon
             case 3: ACS_ExecuteAlways(55 + PlayerTeam(), 0, PlayerTeam()); // Team Beacon
+            case 4: ACS_ExecuteAlways(57, 0); break;
         }
     }
 

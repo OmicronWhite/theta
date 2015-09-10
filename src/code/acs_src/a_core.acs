@@ -137,6 +137,9 @@ Script 599 OPEN
 
 	if (!GetCVAR("compat_clientssendfullbuttoninfo")) ConsoleCommand("compat_clientssendfullbuttoninfo 1");
 
+	if (GetCVAR("sv_nocrouch")) ConsoleCommand("sv_nocrouch 0");
+	if (GetCVAR("sv_nojump")) ConsoleCommand("sv_nojump 0");
+
 	// [Dusk] enforce no pointlimit until game is considered over. Pointlimit is used
 	// to end the game when needed. We don't want this Script to conflict it at any
 	// given time.

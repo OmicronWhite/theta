@@ -47,7 +47,7 @@ __Arch Linux__
 ```bash
 sudo pacman -S gcc p7zip git
 ```
-####Initialise your enviroment__  
+####Initialise your enviroment  
 `cd` to where you cloned theta, and then:
 ```bash
 utilities/linux/initenv.sh

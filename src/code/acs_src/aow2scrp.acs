@@ -238,7 +238,7 @@
 #define MUI_ITEMS_Y             0.3
 #define MUI_ITEMS_Y_INC         0.02
 
-#define MIL_DELAY               3
+#define MIL_DELAY               4
 
 int playerSelection[65][2];
 int playerSide[65];

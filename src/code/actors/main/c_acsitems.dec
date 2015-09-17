@@ -71,3 +71,6 @@ actor TeamSwitchedBR : Boolean {}
 
 // [SB] Menu
 actor InMenu : Boolean {}
+actor PlayerSide : Boolean {}
+actor PlayerSelectionCategories : Inventory{}
+actor PlayerSelectionItems : Inventory{}

@@ -39,8 +39,13 @@ Tools will run in 64-bit if they can, if you don't want them to then just run `b
 It's slightly more complicated on Linux:
 
 __Install needed packages__  
+__Debian/Ubuntu/Linux Mint/etc__
 ```bash
 sudo apt-get install gcc g++ p7zip-full git
+```
+__Arch Linux__
+```bash
+sudo pacman -S gcc p7zip git
 ```
 __Initialise your enviroment__  
 `cd` to where you cloned theta, and then:

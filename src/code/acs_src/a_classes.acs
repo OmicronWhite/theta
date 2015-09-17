@@ -27,8 +27,8 @@ str class_items[CATEGORIES_AMOUNT][ITEMS_AMOUNT] = {
 int drawResign[32];
 
 // This function is called when the player has chosen an item.
-function void MC_InputReceived(int category, int item) { ACS_ExecuteAlways(MSCC_INPUTRECV, 0, category, item, 0); }
-Script MSCC_INPUTRECV (int category, int item)
+function void MC_InputReceived(int category, int item) { RequestScriptPuke(MSCC_INPUTRECV, 0, category, item, 0); }
+Script MSCC_INPUTRECV (int category, int item) NET
 {
     int player = PlayerNumber();
     bool shouldExit = false;
@@ -102,17 +102,17 @@ Script MSCC_INPUTRECV (int category, int item)
 
     LocalAmbientSound("menu/choose", 127);
 
-    //if (shouldExit) { MC_Exit(); }
+    //if (shouldExit) { MC_Exit2(); }
 }
 
 // User enters menu.
 function void MC_Enter (void) { ACS_ExecuteAlways(MSCC_Enter, 0, 0, 0, 0); }
-Script MSCC_Enter  (void)
+Script MSCC_Enter (void)
 {
     int player = PlayerNumber();
-    if (!inMenu[player]) {
+    if (!CheckInventory("InMenu")) {
         drawResign[player] = !IsResignedN();
-        inMenu[player] = true;
+        SetInventory("InMenu", 1);
         MC_Freeze();
         MC_Draw();
         Delay(MIL_DELAY); // prevents accidentally selecting an option
@@ -120,11 +120,12 @@ Script MSCC_Enter  (void)
     }
 }
 
-function void MC_Exit (void) { ACS_ExecuteAlways(MSCC_EXIT, 0, 0, 0, 0); }
-Script MSCC_Exit  (void)
+function void MC_Exit (void) { RequestScriptPuke(MSCC_EXIT, 0, 0, 0, 0); }
+function void MC_Exit2 (void) { ACS_ExecuteAlways(MSCC_EXIT, 0, 0, 0, 0); }
+Script MSCC_Exit (void) NET
 {
     int player = PlayerNumber();
-    inMenu[player] = false;
+    SetInventory("InMenu", 0);
     //MC_InputLoop_Stop(); // Its now stopped by inMenu being false.
     MC_Clear();
     MC_Unfreeze();
@@ -173,7 +174,7 @@ function str MC_ItemString(int side, int category, int item)
             return "\cc----";
 
         // unselected empty
-        if (playerSelection[player][MSIDE_ITEMS] != item && playerSelection[player][MSIDE_CATEGORIES] == category
+        if (playerSelection[player][MSIDE_ITEMS] != item &ACS_ExecuteAlways& playerSelection[player][MSIDE_CATEGORIES] == category
             && StrICmp(class_items[category][item], "----") == 0)
             return "\cm----";
 
@@ -205,7 +206,7 @@ function void MC_Unfreeze (void)
 
 // Draws the menu.
 function void MC_Draw (void) { ACS_ExecuteAlways(MSCC_Draw, 0, 0, 0, 0); }
-Script MSCC_Draw  (void)
+Script MSCC_Draw (void) CLIENTSIDE
 {
     int player = PlayerNumber();
 
@@ -258,7 +259,7 @@ function void MC_ClearHudMsg(int id)
 }
 
 function void MC_Clear (void) { ACS_ExecuteAlways(MSCC_Clear, 0, 0, 0, 0); }
-Script MSCC_Clear  (void)
+Script MSCC_Clear (void) CLIENTSIDE
 {
     for (int i = 0; i < CATEGORIES_AMOUNT; i++) {
         MC_ClearHudMsg(600 + i);
@@ -273,7 +274,7 @@ Script MSCC_Clear  (void)
 
 function void MC_InputLoop_Start (void) { ACS_ExecuteAlways(MSCC_Input_Loop, 0, 0, 0, 0); }
 function void MC_InputLoop_Stop (void) { ACS_Terminate(MSCC_Input_Loop, 0); }
-Script MSCC_Input_Loop  (void)
+Script MSCC_Input_Loop (void) CLIENTSIDE
 {
     int input = GetPlayerInput(-1, INPUT_BUTTONS);
     int player = PlayerNumber();
@@ -364,7 +365,7 @@ Script MSCC_Input_Loop  (void)
 
     if (inputUsed) { MC_Draw(); }
     Delay(MIL_DELAY);
-    if (inMenu[player]) restart;
+    if (CheckInventory("InMenu")) restart;
 }
 
 function void MC_DeathReset (void) { ACS_ExecuteAlways(MSCC_DEATHRESET, 0, 0, 0, 0); }
@@ -504,7 +505,7 @@ function void PurchaseClass (int c)
 	if (!CheckCredits(cost))
 		return;
 
-    MC_Exit(); // If we're in the menu, leave it.
+    MC_Exit2(); // If we're in the menu, leave it.
 
 	int cflags = Classes[c][CK_FLAGS];
 

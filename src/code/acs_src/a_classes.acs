@@ -27,7 +27,7 @@ str class_items[CATEGORIES_AMOUNT][ITEMS_AMOUNT] = {
 int drawResign[32];
 
 // This function is called when the player has chosen an item.
-function void MC_InputReceived(int category, int item) { RequestScriptPuke(MSCC_INPUTRECV, 0, category, item, 0); }
+function void MC_InputReceived(int category, int item) { RequestScriptPuke(MSCC_INPUTRECV, 0, category, item); }
 Script MSCC_INPUTRECV (int category, int item) NET
 {
     int player = PlayerNumber();
@@ -120,7 +120,7 @@ Script MSCC_Enter (void)
     }
 }
 
-function void MC_Exit (void) { RequestScriptPuke(MSCC_EXIT, 0, 0, 0, 0); }
+function void MC_Exit (void) { RequestScriptPuke(MSCC_EXIT, 0, 0, 0); }
 function void MC_Exit2 (void) { ACS_ExecuteAlways(MSCC_EXIT, 0, 0, 0, 0); }
 Script MSCC_Exit (void) NET
 {
@@ -285,7 +285,7 @@ Script MSCC_Input_Loop (void) CLIENTSIDE
 
         if (CheckInventory("PlayerSide") == MSIDE_CATEGORIES
             && CheckInventory("PlayerSelectionCategories") == 0)
-                CheckInventory("PlayerSelectionCategories") = CATEGORIES_AMOUNT - cond((!drawResign[player] || IsResignedN()), 2, 1);
+                CheckInventory("PlayerSelectionCategories") == CATEGORIES_AMOUNT - cond((!drawResign[player] || IsResignedN()), 2, 1);
                 TakeInventory("PlayerSideCategories", CATEGORIES_AMOUNT);
         else if (CheckInventory("PlayerSide") == MSIDE_ITEMS
             && CheckInventory("PlayerSelectionItems") == 0)

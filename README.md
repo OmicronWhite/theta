@@ -2,6 +2,9 @@ Theta
 =============
 *Theta* is a continuation of All Out War 2: The Omega Project.
 
+Come join our IRC channel! We're at `irc.zandronum.com #theta`.  
+Also check out our forums at [theta.plussean.co.uk](http://theta.plussean.co.uk).
+
 [![Support us on ModDB](http://button.moddb.com/popularity/medium/mods/28018.png)](http://www.moddb.com/mods/theta)
 
 ##Maps
@@ -12,8 +15,6 @@ Theta
  * __AOW05__ - Virtual Zone
  * __AOW06__ - Glacier
  * __AOW07__ - Sand Canyon
-
-Come join our IRC channel! We're at `irc.zandronum.com #theta`.
 
 ## Get
 The [releases page](https://github.com/PlusGit/theta/releases) is the most up-to-date source of *stable* releases of Theta. For development builds, see the [Building](https://github.com/PlusGit/theta#building) section below.

@@ -60,4 +60,4 @@ Then, you can just run `./build.sh` in your Theta root directory (use `-n` optio
  - Voltlock, for creating *All Out War*
  - The *Omega* Team for creating *All Out War 2: The Omega Project*, which *Theta* is a fork of
  - The *Theta* Team, for developing *All Out War 2: The Theta Project*
- - [Freedoom](https://freedoom.github.io/), for creating an open-source Doom IWAD, which *Theta* will use resources from soon.
+ - [Freedoom](https://freedoom.github.io/), for creating an open-source Doom IWAD, which *Theta* will soon use resources from.

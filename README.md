@@ -57,6 +57,7 @@ to prepare your enviroment.
 Then, you can just run `./build.sh` in your Theta root directory (use `-n` option to build without a version).
 
 ## Credits
-
-To omega team by the coding and the awsome mod they made and leaded for near 1 year.
-Also a to the [Freedoom](https://freedoom.github.io/), since the data of iwads are going to be part of your main data, to become a free mod to everyone plays!
+ - Voltlock, for creating *All Out War*
+ - The *Omega* Team for creating *All Out War 2: The Omega Project*, which *Theta* is a fork of
+ - The *Theta* Team, for developing *All Out War 2: The Theta Project*
+ - [Freedoom](https://freedoom.github.io/), for creating an open-source Doom IWAD, which *Theta* will use resources from soon.

@@ -115,7 +115,7 @@ actor IsSawing : Inventory {}
 
 // Map Actor
 
-	actor EagerBeaverPickup : CustomInventory replaces Chainsaw {
+	actor EagerBeaverPickup : CustomInventory replaces Chainsaw 21098 {
 	//$Category Theta Weapons
 	inventory.pickupmessage "$GOTCHAINSAW"
 	inventory.maxamount 0

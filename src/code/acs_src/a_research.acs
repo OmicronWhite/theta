@@ -2,7 +2,7 @@
 // Credit to VoltlocK for originally creating the engine
 // With modifications by Eruanna, Dusk, the Omega Team, and the Theta
 
-// You may use portions of this script in your project as long as you give credit where credit is
+// You may use portions of this Script in your project as long as you give credit where credit is
 // due. Please don't be lame and just copy-paste any of this and call it your own. Thanks!
 // [Dusk] Rewritten pretty much entirely
 
@@ -42,9 +42,9 @@ script 20 ( void )
 	}
 	if( !CheckCredits( cost )) terminate;
 
-	AddExperience( 150 );
-	GivePoints( POINTS_RESEARCH );
-	SpendCredits( cost );
+	AddExperience(150);
+	GivePoints(POINTS_RESEARCH);
+	SpendCredits(cost);
 	DisplayTick();
 
 	BigMessage( "\ciResearch Complete!" );
@@ -83,9 +83,9 @@ script 21 ( void )
 	}
 	if( !CheckCredits( cost )) terminate;
 
-	AddExperience( 150 );
-	GivePoints( POINTS_RESEARCH );
-	SpendCredits( cost );
+	AddExperience(150);
+	GivePoints(POINTS_RESEARCH);
+	SpendCredits(cost);
 	DisplayTick();
 
 	BigMessage( "\ciResearch Complete!" );
@@ -117,9 +117,9 @@ script 22 ( void )
 			\n\cd--- Barracks terminal now has everything\n    avaliable.";
 	HUDMSG_FADEOUT, 2100 + PlayerNumber(), CR_Green, 0.25, 0.25, 3.0, 2.0 );
 
-		ACS_ExecuteWithResult( 330, cost );
-		Delay( 35 );
-		TakeInventory( "PurchaseToken", 1 );
+		ACS_ExecuteWithResult(330, cost);
+		Delay(35);
+		TakeInventory("PurchaseToken", 1);
 		terminate;
 	}
 	if( !CheckCredits( cost )) terminate;
@@ -206,9 +206,9 @@ script 24 ( void )
 	}
 	if( !CheckCredits( cost )) terminate;
 
-	AddExperience( 150 );
-	GivePoints( POINTS_RESEARCH );
-	SpendCredits( cost );
+	AddExperience(150);
+	GivePoints(POINTS_RESEARCH);
+	SpendCredits(cost);
 	DisplayTick();
 
 	BigMessage( "\ciResearch Complete!" );
@@ -247,9 +247,9 @@ script 25( void )
 	}
 	if( !CheckCredits( cost )) terminate;
 
-	AddExperience( 150 );
-	GivePoints( POINTS_RESEARCH );
-	SpendCredits( cost );
+	AddExperience(150);
+	GivePoints(POINTS_RESEARCH);
+	SpendCredits(cost);
 	DisplayTick();
 
 	BigMessage( "\ciResearch Complete!" );

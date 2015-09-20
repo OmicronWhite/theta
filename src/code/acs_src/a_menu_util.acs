@@ -35,7 +35,8 @@
 #define PF_SUPERCACHE			31
 int g_ParticleFuserData[MAX_PARTICLEFUSER_DATA][MAX_UTILKEYS];
 
-function void InitParticleFuserData (void) {
+function void InitParticleFuserData (void)
+{
 	if (g_ParticleFuserData[0][0] != 0)
 		return;
 
@@ -130,8 +131,10 @@ function void PF_AddDef (int i, int j, int id, str name, int cost, int health,
 	g_ParticleFuserData[id][UK_MENUELEMENT] = j;
 }
 
-function int PF_FindDefByMenuCoords (int i, int j) {
-	for (int x = 0; x < MAX_PARTICLEFUSER_DATA; x++) {
+function int PF_FindDefByMenuCoords (int i, int j)
+{
+	for (int x = 0; x < MAX_PARTICLEFUSER_DATA; x++)
+	{
 		if (g_ParticleFuserData[x][UK_NAME] == 0)
 			continue;
 
@@ -148,7 +151,8 @@ function int PF_FindDefByMenuCoords (int i, int j) {
 	return -1;
 }
 
-function int PF_FindDef (str label) {
+function int PF_FindDef (str label)
+{
 	for (int x = 0; x < MAX_PARTICLEFUSER_DATA; x++)
 		if (g_ParticleFuserData[x][UK_NAME] == label)
 			return x;
@@ -159,7 +163,8 @@ function int PF_FindDef (str label) {
 
 // =============================================================================
 // MENU INIT
-script 700 (void) CLIENTSIDE {
+Script 700 (void) CLIENTSIDE
+{
 	// Top-level name
 	MenuName = "UTILITY GUN";
 
@@ -182,7 +187,8 @@ script 700 (void) CLIENTSIDE {
 
 // =============================================================================
 // MENU DRAW
-script 701 (int m0, int m1, int y) CLIENTSIDE {
+Script 701 (int m0, int m1, int y) CLIENTSIDE
+{
 	int x = PF_FindDefByMenuCoords (m0, m1);
 
 	// Description
@@ -208,31 +214,33 @@ script 701 (int m0, int m1, int y) CLIENTSIDE {
 
 	// Display the limit, if there is any
 	int lcur, lmax;
-	switch (x) {
-	case PF_KLAXONTURRET:
-	case PF_RIFLETURRET:
-	case PF_REPAIRTURRET:
-	case PF_ARTILLERYTURRET:
-	case PF_GUNTURRET:
-	case PF_MECHTURRET:
-		lcur = CountTurrets ();
-		lmax = GetConfig (CONFIG_MAXTURRETS_BLUE + ConsoleTeam ());
-		break;
-	case PF_PROXYMINE:
-		lcur = MineLimit ();
-		lmax = MAX_PROXYMINE;
-		break;
-	case PF_MINIRAVEN:
-		lcur = MiniRavenLimit ();
-		lmax = MAX_MINIRAVENS;
-		break;
-	case PF_RAZORWIRE:
-		lcur = CountRazorWire ();
-		lmax = MAX_RAZORWIRE;
-		break;
+	switch (x)
+	{
+		case PF_KLAXONTURRET:
+		case PF_RIFLETURRET:
+		case PF_REPAIRTURRET:
+		case PF_ARTILLERYTURRET:
+		case PF_GUNTURRET:
+		case PF_MECHTURRET:
+			lcur = CountTurrets ();
+			lmax = GetConfig (CONFIG_MAXTURRETS_BLUE + ConsoleTeam ());
+			break;
+		case PF_PROXYMINE:
+			lcur = MineLimit ();
+			lmax = MAX_PROXYMINE;
+			break;
+		case PF_MINIRAVEN:
+			lcur = MiniRavenLimit ();
+			lmax = MAX_MINIRAVENS;
+			break;
+		case PF_RAZORWIRE:
+			lcur = CountRazorWire ();
+			lmax = MAX_RAZORWIRE;
+			break;
 	}
 
-	if (lmax != 0) {
+	if (lmax != 0)
+	{
 		str c1 = FractionColor (lmax-lcur, lmax);
 
 		int c2 = CR_White;
@@ -242,14 +250,17 @@ script 701 (int m0, int m1, int y) CLIENTSIDE {
 		HudMessage (s:"Limit: ", s:c1, d:lcur, s:"\c-/", s:c1, d:lmax;
 			HUDMSG_PLAIN, MENU_HID + 50, c2, UMENU_X4, y, 0.0);
 		y -= MENU_SPACING;
-	} else
+	}
+	else
 		ClearHudMessage (MENU_HID + 50);
 
 	// Display a limit error in case it's outstanding.
-	if (!PF_CheckLimits (x)) {
+	if (!PF_CheckLimits (x))
+	{
 		HudMessage (s:g_Error; HUDMSG_PLAIN, MENU_HID + 51, CR_Red, UMENU_X4, y, 0.0);
 		y -= MENU_SPACING;
-	} else
+	}
+	else
 		ClearHudMessage (MENU_HID + 51);
 
 	SetResultValue (y);
@@ -257,12 +268,14 @@ script 701 (int m0, int m1, int y) CLIENTSIDE {
 
 // =============================================================================
 // MENU SELECT
-script 708 (int m0, int m1) {
+Script 708 (int m0, int m1)
+{
 	// Utility-specific stuff
 	int x = PF_FindDefByMenuCoords (m0, m1);
 
 	// Check limit
-	if (!PF_CheckLimits (x)) {
+	if (!PF_CheckLimits (x))
+	{
 		MenuResponse (MSGTYPE_ERROR, g_Error);
 		terminate;
 	}
@@ -281,7 +294,8 @@ script 708 (int m0, int m1) {
 
 // =============================================================================
 // MENU LIMIT
-script 712 (int m0, int m1) CLIENTSIDE {
+Script 712 (int m0, int m1) CLIENTSIDE
+{
 	int x = PF_FindDefByMenuCoords (m0, m1);
 	SetResultValue (!PF_CheckLimits (x));
 }

@@ -238,7 +238,7 @@
 #define MUI_ITEMS_Y             0.3
 #define MUI_ITEMS_Y_INC         0.02
 
-#define MIL_DELAY               3
+#define MIL_DELAY               4
 
 int playerSelection[65][2];
 int playerSide[65];
@@ -480,6 +480,7 @@ int TeamResearches[2] = {0, 0};
 
 /************************ RESEARCHES ************************/
 
+#include "gitcommit.acs" // [SB] auto-generated
 #include "a_functions.acs"
 #include "a_armor.acs"
 #include "a_monies.acs"

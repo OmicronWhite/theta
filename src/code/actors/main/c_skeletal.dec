@@ -54,3 +54,11 @@ actor InventoryItem : CustomInventory {
 		fail
 	}
 }
+
+actor Boolean : Inventory {
+	Inventory.MaxAmount 1
+}
+
+actor UBoolean : Boolean {
+	//+INVENTORY.UNTOSSABLE // <-- Hm.
+}

@@ -83,6 +83,7 @@
 #include "actors/mechs/m_orca.dec"
 #include "actors/mechs/m_raven.dec"
 #include "actors/mechs/m_titan.dec"
+#include "actors/weapons/utility/u_baseturret.dec"
 #include "actors/weapons/utility/u_utilitygun.dec"
 #include "actors/weapons/utility/u_caches.dec"
 #include "actors/weapons/utility/u_items.dec"

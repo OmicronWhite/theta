@@ -1,6 +1,7 @@
-str maps_menu[4] = {"AOW01", "AOW02", "AOW03", "AOW11"};
+str maps_menu[5] = {"AOW01", "AOW02", "AOW03", "AOW04", "AOW05"};
 
-Script SC_MenuGoMap (void) NET CLIENTSIDE {
+Script SC_MenuGoMap (void) NET CLIENTSIDE
+{
     if (PlayerNumber() != ConsolePlayerNumber()) { terminate; }
 
     int map = GetCVar("zz_cl_menutomap");
@@ -11,14 +12,16 @@ Script SC_MenuGoMap (void) NET CLIENTSIDE {
     ConsoleCommand(StrParam(s: "map ", s: maps_menu[map]));
 }
 
-Script SC_MenuGoneMap OPEN {
+Script SC_MenuGoneMap OPEN
+{
     if(!GetCVar("zz_cl_menutomap_going")) { terminate; }
     SetCVar("zz_cl_menutomap_going", false);
 
     int map = GetCVar("zz_cl_menutomap");
     int cbots = GetCVar("zz_cl_menutomap_bots");
 
-    for (int i = 0; i < cbots; i++){
+    for (int i = 0; i < cbots; i++)
+    {
         ConsoleCommand("addbot");
         Delay(random(1, 35));
     }

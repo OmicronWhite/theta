@@ -842,11 +842,6 @@ pointlight MarineBeaconBlinkRed
     size 45
 }
 
-object MarineBeacon
-{
-	Frame MBCNA { light MarineBeaconBlinkRed }
-}
-
 pointlight MarineBeaconBlinkBlue
 {
     color 0.3 0.8 1.0

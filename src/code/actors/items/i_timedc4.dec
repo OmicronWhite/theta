@@ -1,7 +1,7 @@
 // TIMED C4
 actor TimedC4 : InventoryItem {
 	Tag "Timed C4"
-	Inventory.MaxAmount 2
+	Inventory.MaxAmount 4
 	Inventory.PickupMessage "Picked up a Timed C4"
 	Inventory.Icon "TMC4ICON"
 
@@ -43,11 +43,11 @@ actor TimedC4Thrown {
 	Death:
 		TC4T A 0
 		TC4T A 0 A_SpawnItemEx("TimedC4Armed",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
-		TNT1 A 4 bright 
+		TNT1 A 4 bright
 		stop
 	Water:
 		TC4T A 35 A_PlaySound("c4/disarm")
-		TC4T A 1 A_Fadeout(0.1) 
+		TC4T A 1 A_Fadeout(0.1)
 		Wait
 	}
 }
@@ -81,7 +81,7 @@ actor TimedC4Armed {
 	DamageFactor "ChemicalSpecial",  0.0
 	DamageFactor "Mechstomp",        0.0
 	DamageFactor "Monster",          0.0
-	
+
 	States {
 	Spawn:
 		TC4T AA 0 A_JumpIf(waterlevel > 1, "Death.Disarm")
@@ -107,11 +107,11 @@ actor TimedC4Armed {
 		TC4T A 0 bright A_Explode (1350, 128)
 		TC4T A 0 bright A_Explode (750, 256)
 		TC4T AAAAAAAAAAAAAAAAAAAA 0 bright A_Explode (5, 16)
-		TNT1 A 4 bright 
+		TNT1 A 4 bright
 		stop
-	Death.Disarm:  
+	Death.Disarm:
 		TC4T R 35 A_PlaySound ("c4/disarm")
-		TC4T R 1 A_Fadeout (0.1) 
+		TC4T R 1 A_Fadeout (0.1)
 		wait
 	}
 }
@@ -121,7 +121,7 @@ actor TimedC4ThrownBlue : TimedC4Thrown {
 	Death:
 		TC4T A 0
 		TC4T A 0 A_SpawnItemEx("TimedC4ArmedBlue",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
-		TNT1 A 4 bright 
+		TNT1 A 4 bright
 		stop
 	}
 }
@@ -152,7 +152,7 @@ actor TimedC4ArmedBlue : TimedC4Armed {
 		TC4T A 0 bright A_Explode (1350, 128)
 		TC4T A 0 bright A_Explode (750, 256)
 		TC4T AAAAAAAAAAAAAAAAAAAA 0 bright A_Explode(5,16)
-		TNT1 A 4 bright 
+		TNT1 A 4 bright
 		stop
 	}
 }

@@ -1,25 +1,30 @@
 // SURRENDER SCRIPT
-script 342( void ) NET
-{	if( !PlayerInGame( PlayerNumber() ))
-	{	Error( "You can't surrender as a spectator!" );
+Script 342(void) NET
+{
+	if (!PlayerInGame(PlayerNumber()))
+	{
+		Error("You can't surrender as a spectator!");
 		terminate;
 	}
 
-	switch( GetCVAR( "aow_surrendermode" ))
-	{	case 1:
-			if(( PlayerTeam() == TEAM_RED && BaseLeft[0] >= 5 ) || ( PlayerTeam() == TEAM_BLUE && BaseLeft[1] >= 5 ))
-			{	Error( "It's too early to surrender!" );
+	switch (GetCVAR("theta_surrendermode"))
+	{
+		case 1:
+			if ((PlayerTeam() == TEAM_RED && BaseLeft[0] >= 5) || (PlayerTeam() == TEAM_BLUE && BaseLeft[1] >= 5))
+			{
+				Error("It's too early to surrender!");
 				terminate;
 			}
 			break;
 
 		case 2:
-			Error( "Surrender is disabled!" );
+			Error("Surrender is disabled!");
 			terminate;
 	}
 
-	if( Timer() - LastSurrenderTime[PlayerNumber()] < 35 * SurrenderWaitTime )
-	{	Error( "You cannot re-vote for surrender that quickly" );
+	if (Timer() - LastSurrenderTime[PlayerNumber()] < 35 * SurrenderWaitTime)
+	{
+		Error("You cannot re-vote for surrender that quickly");
 		terminate;
 	}
 
@@ -27,59 +32,62 @@ script 342( void ) NET
 
 	Surrender[PlayerNumber()] = !Surrender[PlayerNumber()];
 
-	if( PlayerTeam() == TEAM_RED )
-		IntelMessageBold( strparam( s: "\cD", d: SurrenderCount( TEAM_RED ), s: "\cQ/\cD", d: RedCount(), s: " ",
-			s: "\cJof \cGRed\cJ\n have voted to surrender" ));
+	if (PlayerTeam() == TEAM_RED)
+		IntelMessageBold(strparam(s: "\cD", d: SurrenderCount(TEAM_RED), s: "\cQ/\cD", d: RedCount(), s: " ",
+			s: "\cJof \cGRed\cJ\n have voted to surrender"));
 	else
-		IntelMessageBold( strparam( s: "\cD", d: SurrenderCount( TEAM_BLUE ), s: "\cQ/\cD", d: BlueCount(), s: " ",
-			s: "\cJof \cHBlue\cJ\n have voted to surrender" ));
+		IntelMessageBold(strparam(s: "\cD", d: SurrenderCount(TEAM_BLUE), s: "\cQ/\cD", d: BlueCount(), s: " ",
+			s: "\cJof \cHBlue\cJ\n have voted to surrender"));
 
-	delay( 35 * 2 );
-	ACS_Execute( 751, 0 );
+	delay(35 * 2);
+	ACS_Execute(751, 0);
 }
 
-script 751( void )
-{	SetActivator( -1 );
+Script 751 (void)
+{
+	SetActivator(-1);
 
-	int count = SurrenderCount( TEAM_BLUE );
+	int count = SurrenderCount(TEAM_BLUE);
 
-	if(( count > BlueCount() / 2 && BlueCount() <= 6 && RedCount() != 0 ) ||
-			( count >= BlueCount() - 3 && BlueCount() > 6 && RedCount() != 0 ))
-	{	BigMessageBold( "\cHBlue Team surrenders" );
+	if ((count > BlueCount() / 2 && BlueCount() <= 6 && RedCount() != 0) ||
+			(count >= BlueCount() - 3 && BlueCount() > 6 && RedCount() != 0))
+	{
+		BigMessageBold("\cHBlue Team surrenders");
 		FreezeBold();
-		delay( 35 * 2 );
-		Thing_Destroy( 101 );
-		delay( 5 );
-		Thing_Destroy( 103 );
-		delay( 5 );
-		Thing_Destroy( 105 );
-		delay( 5 );
-		Thing_Destroy( 107 );
-		delay( 5 );
-		Thing_Destroy( 109 );
-		delay( 5 );
-		Thing_Destroy( 114 );
-		Log( s: "Blue Team surrenders." );
+		delay(35 * 2);
+		Thing_Destroy(101);
+		delay(5);
+		Thing_Destroy(103);
+		delay(5);
+		Thing_Destroy(105);
+		delay(5);
+		Thing_Destroy(107);
+		delay(5);
+		Thing_Destroy(109);
+		delay(5);
+		Thing_Destroy(114);
+		Log(s: "Blue Team surrenders.");
 	}
 
-	count = SurrenderCount( TEAM_RED );
+	count = SurrenderCount(TEAM_RED);
 
-	if(( count > RedCount() / 2 && RedCount() <= 6 && BlueCount() != 0 ) ||
-		( count >= RedCount() - 3 && RedCount() > 6 && BlueCount() != 0 ))
-	{	BigMessageBold( "\cRed Team surrenders" );
+	if ((count > RedCount() / 2 && RedCount() <= 6 && BlueCount() != 0) ||
+		(count >= RedCount() - 3 && RedCount() > 6 && BlueCount() != 0))
+	{
+		BigMessageBold("\cRed Team surrenders");
 		FreezeBold();
-		delay( 35 * 2 );
-		Thing_Destroy( 201 );
-		delay( 5 );
-		Thing_Destroy( 203 );
-		delay( 5 );
-		Thing_Destroy( 205 );
-		delay( 5 );
-		Thing_Destroy( 207 );
-		delay( 5 );
-		Thing_Destroy( 209 );
-		delay( 5 );
-		Thing_Destroy( 214 );
-		Log( s: "Red surrenders." );
+		delay(35 * 2);
+		Thing_Destroy(201);
+		delay(5);
+		Thing_Destroy(203);
+		delay(5);
+		Thing_Destroy(205);
+		delay(5);
+		Thing_Destroy(207);
+		delay(5);
+		Thing_Destroy(209);
+		delay(5);
+		Thing_Destroy(214);
+		Log(s: "Red surrenders.");
 	}
 }

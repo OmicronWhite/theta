@@ -110,7 +110,7 @@ actor Sign_Class01 21421
   States
   {
   Spawn:
-    PTRM A -1 BRIGHT
+    TNT1 A -1 BRIGHT
     stop
   }
 }
@@ -123,7 +123,7 @@ actor Sign_Class02 21422
   States
   {
   Spawn:
-    PTRM A -1 BRIGHT
+    TNT1 A -1 BRIGHT
     stop
   }
 }
@@ -136,7 +136,7 @@ actor Sign_Class03 21423
   States
   {
   Spawn:
-    PTRM A -1 BRIGHT
+    TNT1 A -1 BRIGHT
     stop
   }
 }
@@ -149,7 +149,7 @@ actor Sign_Class04 21424
   States
   {
   Spawn:
-    PTRM A -1 BRIGHT
+    TNT1 A -1 BRIGHT
     stop
   }
 }
@@ -162,7 +162,7 @@ actor Sign_Class05 21425
   States
   {
   Spawn:
-    PTRM A -1 BRIGHT
+    TNT1 A -1 BRIGHT
     stop
   }
 }
@@ -175,7 +175,7 @@ actor Sign_Class06 21426
   States
   {
   Spawn:
-    PTRM A -1 BRIGHT
+    TNT1 A -1 BRIGHT
     stop
   }
 }
@@ -188,7 +188,7 @@ actor Sign_Class07 21427
   States
   {
   Spawn:
-    PTRM A -1 BRIGHT
+    TNT1 A -1 BRIGHT
     stop
   }
 }
@@ -201,7 +201,7 @@ actor Sign_Class08 21428
   States
   {
   Spawn:
-    PTRM A -1 BRIGHT
+    TNT1 A -1 BRIGHT
     stop
   }
 }
@@ -214,7 +214,7 @@ actor Sign_Class09 21429
   States
   {
   Spawn:
-    PTRM A -1 BRIGHT
+    TNT1 A -1 BRIGHT
     stop
   }
 }
@@ -227,7 +227,7 @@ actor Sign_Class10 21430
   States
   {
   Spawn:
-    PTRM A -1 BRIGHT
+    TNT1 A -1 BRIGHT
     stop
   }
 }
@@ -240,7 +240,7 @@ actor Sign_Class11 21431
   States
   {
   Spawn:
-    PTRM A -1 BRIGHT
+    TNT1 A -1 BRIGHT
     stop
   }
 }
@@ -253,7 +253,7 @@ actor Sign_Class12 21432
   States
   {
   Spawn:
-    PTRM A -1 BRIGHT
+    TNT1 A -1 BRIGHT
     stop
   }
 }
@@ -266,7 +266,7 @@ actor Sign_Class13 21433
   States
   {
   Spawn:
-    PTRM A -1 BRIGHT
+    TNT1 A -1 BRIGHT
     stop
   }
 }
@@ -279,7 +279,7 @@ actor Sign_Class14 21434
   States
   {
   Spawn:
-    PTRM A -1 BRIGHT
+    TNT1 A -1 BRIGHT
     stop
   }
 }
@@ -292,7 +292,7 @@ actor Sign_Class15 21435
   States
   {
   Spawn:
-    PTRM A -1 BRIGHT
+    TNT1 A -1 BRIGHT
     stop
   }
 }
@@ -305,7 +305,7 @@ actor Sign_Class16 21456 // was 21436
   States
   {
   Spawn:
-    PTRM A -1 BRIGHT
+    TNT1 A -1 BRIGHT
     stop
   }
 }
@@ -318,7 +318,7 @@ actor Sign_Class17 21437
   States
   {
   Spawn:
-    PTRM A -1 BRIGHT
+    TNT1 A -1 BRIGHT
     stop
   }
 }
@@ -331,7 +331,7 @@ actor Sign_Class18 21438
   States
   {
   Spawn:
-    PTRM A -1 BRIGHT
+    TNT1 A -1 BRIGHT
     stop
   }
 }
@@ -344,7 +344,7 @@ actor Sign_Class19 21439
   States
   {
   Spawn:
-    PTRM A -1 BRIGHT
+    TNT1 A -1 BRIGHT
     stop
   }
 }
@@ -357,7 +357,7 @@ actor Sign_Class20 21440
   States
   {
   Spawn:
-    PTRM A -1 BRIGHT
+    TNT1 A -1 BRIGHT
     stop
   }
 }
@@ -370,7 +370,7 @@ actor Sign_Class21 21441
   States
   {
   Spawn:
-    PTRM A -1 BRIGHT
+    TNT1 A -1 BRIGHT
     stop
   }
 }
@@ -383,7 +383,7 @@ actor Sign_Class22 21442
   States
   {
   Spawn:
-    PTRM A -1 BRIGHT
+    TNT1 A -1 BRIGHT
     stop
   }
 }
@@ -396,7 +396,7 @@ actor Sign_Class23 21443
   States
   {
   Spawn:
-    PTRM A -1 BRIGHT
+    TNT1 A -1 BRIGHT
     stop
   }
 }
@@ -409,7 +409,7 @@ actor Sign_Class24 21444
   States
   {
   Spawn:
-    PTRM A -1 BRIGHT
+    TNT1 A -1 BRIGHT
     stop
   }
 }
@@ -422,7 +422,7 @@ actor Sign_Class25 21445
   States
   {
   Spawn:
-    PTRM A -1 BRIGHT
+    TNT1 A -1 BRIGHT
     stop
   }
 }
@@ -448,7 +448,7 @@ actor Sign_Class26 21447
   States
   {
   Spawn:
-    PTRM A -1 BRIGHT
+    TNT1 A -1 BRIGHT
     stop
   }
 }
@@ -461,7 +461,7 @@ actor Sign_Class27 21448
   States
   {
   Spawn:
-    PTRM A -1 BRIGHT
+    TNT1 A -1 BRIGHT
     stop
   }
 }
@@ -552,7 +552,7 @@ actor Sign_Class28 21455
   States
   {
   Spawn:
-    PTRM A -1 BRIGHT
+    TNT1 A -1 BRIGHT
     stop
   }
 }
@@ -565,7 +565,7 @@ actor Sign_Class29 21436 // was 21456
   States
   {
   Spawn:
-    PTRM A -1 BRIGHT
+    TNT1 A -1 BRIGHT
     stop
   }
 }
@@ -578,7 +578,7 @@ actor Sign_Class30 21457
   States
   {
   Spawn:
-    PTRM A -1 BRIGHT
+    TNT1 A -1 BRIGHT
     stop
   }
 }
@@ -761,7 +761,7 @@ actor Sign_Class31 21471
   States
   {
   Spawn:
-    PTRM A -1 BRIGHT
+    TNT1 A -1 BRIGHT
     stop
   }
 }
@@ -774,7 +774,7 @@ actor Sign_Class32 21472
   States
   {
   Spawn:
-    PTRM A -1 BRIGHT
+    TNT1 A -1 BRIGHT
     stop
   }
 }

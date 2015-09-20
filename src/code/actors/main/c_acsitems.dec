@@ -64,3 +64,13 @@ actor StopAllSounds : CustomInventory
 
 actor PleaseRespawn : Inventory {}
 actor PleaseDoNothing : Inventory {}
+
+// [SB] not really ACS items, but w/e
+actor TeamSwitchedRB : Boolean {}
+actor TeamSwitchedBR : Boolean {}
+
+// [SB] Menu
+actor InMenu : Boolean {}
+actor PlayerSide : Boolean {}
+actor PlayerSelectionCategories : Inventory{}
+actor PlayerSelectionItems : Inventory{}

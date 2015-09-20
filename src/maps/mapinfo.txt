@@ -26,7 +26,7 @@ map AOW02 "Barrens" {
 }
 
 map AOW03 "Disk Defrag" {
-	next = "AOW12"
+	next = "AOW04"
 	music = "D_AOW03"
 	evenlighting
 	levelnum = 3
@@ -37,6 +37,33 @@ map AOW04 "Oasis" {
 	sky1 = "sky04", 0.1
 	music = "D_AOW04"
 	levelnum = 4
+}
+
+map AOW05 "Virtual Zone" {
+	next = "AOW06"
+	sky1 = "-"
+	music = "D_AOW05"
+	levelnum = 5
+}
+
+map AOW06 "Glacier" {
+	next = "AOW07"
+	sky1 = "stsky14"
+	music = "D_AOW06"
+	levelnum = 6
+}
+
+map AOW07 "Sand Canyon" {
+	next = "AOW01"
+	sky1 = "stsky14"
+	music = "D_AOW07"
+	levelnum = 7
+}
+
+map AOW99 "Test" {
+	next = "AOW01"
+	sky1 = "stsky14"
+	levelnum = 99
 }
 
 skill Normal {

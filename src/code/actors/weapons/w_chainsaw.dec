@@ -115,7 +115,7 @@ actor IsSawing : Inventory {}
 
 // Map Actor
 
-	actor EagerBeaverPickup : CustomInventory replaces Chainsaw {
+	actor EagerBeaverPickup : CustomInventory replaces Chainsaw 21098 {
 	//$Category Theta Weapons
 	inventory.pickupmessage "$GOTCHAINSAW"
 	inventory.maxamount 0
@@ -126,9 +126,8 @@ actor IsSawing : Inventory {}
 		CSAW A -1
 		stop
 	Pickup:
-		TNT1 A 0 A_JumpIfInventory ("ArtilleryCannon", 1, "Failure")
-		TNT1 A 0 A_GiveInventory ("ArtilleryCannon", 1)
-		TNT1 A 0 A_GiveInventory ("ArtilleryShellAmmo", 8)
+		TNT1 A 0 A_JumpIfInventory ("EagerBeaver", 1, "Failure")
+		TNT1 A 0 A_GiveInventory ("EagerBeaver", 1)
 		TNT1 A 0 A_GiveInventory ("Refunds", 83)
 		stop
 	Failure:

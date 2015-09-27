@@ -2,7 +2,7 @@
 // Credit to VoltlocK for originally creating the engine
 // With modifications by Eruanna, Dusk, the Omega Team, and the Theta
 
-// You may use portions of this Script in your project as long as you give credit where credit is
+// You may use portions of this script in your project as long as you give credit where credit is
 // due. Please don't be lame and just copy-paste any of this and call it your own. Thanks!
 // [Dusk] Rewritten pretty much entirely
 
@@ -10,14 +10,13 @@
 // Here is definied all data thats used in research centre
 
 // Barracks Upgrades: Cost 1750
-
-// Private Upgrade - Make all team player before master sergeant gain more 100% xp.
+// Intense Training - Increases all XP reward by 100-200%.
 script 20 ( void )
 {
 	int cost = 1750;
 
 	if( MitigateDoublePress() ) terminate;
-	if( GetResearchFlag(PlayerTeam(), TR_XP_MULTIPLY) )
+	if( GetResearchFlag(PlayerTeam(), TR_INTENSE_TRAINING) )
 	{
 		Error( "This has already been researched!" );
 		terminate;
@@ -28,11 +27,11 @@ script 20 ( void )
 	GiveInventory( "PurchaseToken", 1 );
 	SetFont( "BIGFONT" );
 	HudMessage( s: "
-			\cd----XP Multiply----
+			\cd----Intense Training----
 			\n\n\ciCost: \cf$1750
-			\n\ciPurpose: \cdIncreases XP gained.
+			\n\ciPurpose: \cdIncreases XP rewards
 			\n\tby objectives done.
-			\n\cd--- Your team will earn more XP when received.";
+			\n\cd--- Your team will earn more XP \cnmax:200%.";
 	HUDMSG_FADEOUT, 2100 + PlayerNumber(), CR_Green, 0.25, 0.25, 3.0, 2.0 );
 
 		ACS_ExecuteWithResult( 330, cost );
@@ -42,23 +41,23 @@ script 20 ( void )
 	}
 	if( !CheckCredits( cost )) terminate;
 
-	AddExperience(150);
-	GivePoints(POINTS_RESEARCH);
-	SpendCredits(cost);
+	AddExperience( 150 );
+	GivePoints( POINTS_RESEARCH );
+	SpendCredits( cost );
 	DisplayTick();
 
 	BigMessage( "\ciResearch Complete!" );
-	Log( s: pname( -1 ), s: " researches \cqXP Multiply\cd for ", s: TeamNames[PlayerTeam()] );
-	SetResearchFlag(PlayerTeam(), TR_XP_MULTIPLY);
+	Log( s: pname( -1 ), s: " researches \cqIntense Training\cd for ", s: TeamNames[PlayerTeam()] );
+	SetResearchFlag(PlayerTeam(), TR_INTENSE_TRAINING);
 }
 
-// Recicle arsenal - Sold weapons gives you back double the sale value, also in resing.
+// Arsenal Recycler - Sold weapons gives you back double the sale value, also in resing.
 script 21 ( void )
 {
 	int cost = 1750;
 
 	if( MitigateDoublePress() ) terminate;
-	if( GetResearchFlag(PlayerTeam(), TR_RECYCLE_ARSENAL) )
+	if( GetResearchFlag(PlayerTeam(), TR_ARSENAL_RECYCLER) )
 	{
 		Error( "This has already been researched!" );
 		terminate;
@@ -69,7 +68,7 @@ script 21 ( void )
 	GiveInventory( "PurchaseToken", 1 );
 	SetFont( "BIGFONT" );
 	HudMessage( s: "
-			\cd----Recycle Arsenal----
+			\cd----Arsenal Recycler----
 			\n\n\ciCost: \cf$1750
 			\n\ciPurpose: \cdBarracks now Recycle your sold
 			\n\tweapons.
@@ -83,23 +82,23 @@ script 21 ( void )
 	}
 	if( !CheckCredits( cost )) terminate;
 
-	AddExperience(150);
-	GivePoints(POINTS_RESEARCH);
-	SpendCredits(cost);
+	AddExperience( 150 );
+	GivePoints( POINTS_RESEARCH );
+	SpendCredits( cost );
 	DisplayTick();
 
 	BigMessage( "\ciResearch Complete!" );
-	Log( s: pname( -1 ), s: " researches \cqRecycle Arsenal\cd for ", s: TeamNames[PlayerTeam()] );
-	SetResearchFlag(PlayerTeam(), TR_RECYCLE_ARSENAL);
+	Log( s: pname( -1 ), s: " researches \cqArsenal Recycler\cd for ", s: TeamNames[PlayerTeam()] );
+	SetResearchFlag(PlayerTeam(), TR_ARSENAL_RECYCLER);
 }
 
-// Alsenal Expansion - Barracks terminal allow you to buy advanced armor and weapons.
+// Arsenal Upgrade - Barracks terminal allow you to buy advanced armor and weapons.
 script 22 ( void )
 {
 	int cost = 1750;
 
 	if( MitigateDoublePress() ) terminate;
-	if( GetResearchFlag(PlayerTeam(), TR_ADDONS_MENU) )
+	if( GetResearchFlag(PlayerTeam(), TR_ARSENAL_UPGRADE) )
 	{
 		Error( "This has already been researched!" );
 		terminate;
@@ -110,16 +109,16 @@ script 22 ( void )
 	GiveInventory( "PurchaseToken", 1 );
 	SetFont( "BIGFONT" );
 	HudMessage( s: "
-			\cd----Alsenal Expansion----
+			\cd----Alsenal Upgrade----
 			\n\n\ciCost: \cf$1750
 			\n\ciPurpose: \cdBarracks now produces better
 			\n\tweapons and armos to be buy.
 			\n\cd--- Barracks terminal now has everything\n    avaliable.";
 	HUDMSG_FADEOUT, 2100 + PlayerNumber(), CR_Green, 0.25, 0.25, 3.0, 2.0 );
 
-		ACS_ExecuteWithResult(330, cost);
-		Delay(35);
-		TakeInventory("PurchaseToken", 1);
+		ACS_ExecuteWithResult( 330, cost );
+		Delay( 35 );
+		TakeInventory( "PurchaseToken", 1 );
 		terminate;
 	}
 	if( !CheckCredits( cost )) terminate;
@@ -130,17 +129,18 @@ script 22 ( void )
 	DisplayTick();
 
 	BigMessage( "\ciResearch Complete!" );
-	Log( s: pname( -1 ), s: " researches \cqAlsenal Expansion\cd for ", s: TeamNames[PlayerTeam()] );
-	SetResearchFlag(PlayerTeam(), TR_ADDONS_MENU);
+	Log( s: pname( -1 ), s: " researches \cqAlsenal Upgrade\cd for ", s: TeamNames[PlayerTeam()] );
+	SetResearchFlag(PlayerTeam(), TR_ARSENAL_UPGRADE);
 }
 
-// Purificate - Gives more 125$ of credits by refining tiberium.
+// Refinary Upgrades: Cost 2000
+// Tiberium Purification  - Refining Tiberium awards an additional 125 credits.
 script 23 ( void )
 {
 	int cost = 2000;
 
 	if( MitigateDoublePress() ) terminate;
-	if( GetResearchFlag(PlayerTeam(), TR_PURIFICATE) )
+	if( GetResearchFlag(PlayerTeam(), TR_TIBERIUM_PURIFICATION) )
 	{
 		Error( "This has already been researched!" );
 		terminate;
@@ -151,7 +151,7 @@ script 23 ( void )
 	GiveInventory( "PurchaseToken", 1 );
 	SetFont( "BIGFONT" );
 	HudMessage( s: "
-			\cd----Purificate----
+			\cd----Tiberium Purification----
 			\n\n\ciCost: \cf$2000
 			\n\ciPurpose: \cdRefinary clean and produce a
 			\n\tbetter use of tiberium.
@@ -171,17 +171,17 @@ script 23 ( void )
 	DisplayTick();
 
 	BigMessage( "\ciResearch Complete!" );
-	Log( s: pname( -1 ), s: " researches \cqPurificate\cd for ", s: TeamNames[PlayerTeam()] );
-	SetResearchFlag(PlayerTeam(), TR_PURIFICATE);
+	Log( s: pname( -1 ), s: " researches \cqTiberium Purification\cd for ", s: TeamNames[PlayerTeam()] );
+	SetResearchFlag(PlayerTeam(), TR_TIBERIUM_PURIFICATION);
 }
 
-// Improved Pumps - Gives more $50 to team by refining tiberium.
+// Enhanced Processing - Refining Tiberium awards teammates an additional 50 credits.
 script 24 ( void )
 {
 	int cost = 2000;
 
 	if( MitigateDoublePress() ) terminate;
-	if( GetResearchFlag(PlayerTeam(), TR_IMPROVED_PUMPS) )
+	if( GetResearchFlag(PlayerTeam(), TR_ENHANCED_PROCESSING) )
 	{
 		Error( "This has already been researched!" );
 		terminate;
@@ -192,7 +192,7 @@ script 24 ( void )
 	GiveInventory( "PurchaseToken", 1 );
 	SetFont( "BIGFONT" );
 	HudMessage( s: "
-			\cd----Purificate----
+			\cd----Enhanced Processing----
 			\n\n\ciCost: \cf$2000
 			\n\ciPurpose: \cdGives to refinary better pumping
 			\n\ttecnology increasing the production.
@@ -206,23 +206,23 @@ script 24 ( void )
 	}
 	if( !CheckCredits( cost )) terminate;
 
-	AddExperience(150);
-	GivePoints(POINTS_RESEARCH);
-	SpendCredits(cost);
+	AddExperience( 150 );
+	GivePoints( POINTS_RESEARCH );
+	SpendCredits( cost );
 	DisplayTick();
 
 	BigMessage( "\ciResearch Complete!" );
-	Log( s: pname( -1 ), s: " researches \cqImproved Pumps\cd for ", s: TeamNames[PlayerTeam()] );
-	SetResearchFlag(PlayerTeam(), TR_IMPROVED_PUMPS);
+	Log( s: pname( -1 ), s: " researches \cqEnhanced Processing\cd for ", s: TeamNames[PlayerTeam()] );
+	SetResearchFlag(PlayerTeam(), TR_ENHANCED_PROCESSING);
 }
 
-// Enchanced Refinery - Increase the refinery credits production by 1.
+// Advanced Refinery - Increases refinery credits production by 1.
 script 25( void )
 {
 	int cost = 2000;
 
 	if( MitigateDoublePress() ) terminate;
-	if( GetResearchFlag(PlayerTeam(), TR_ENCHANCED_REFINERY) )
+	if( GetResearchFlag(PlayerTeam(), TR_ADVANCED_REFINARY) )
 	{
 		Error( "This has already been researched!" );
 		terminate;
@@ -233,7 +233,7 @@ script 25( void )
 	GiveInventory( "PurchaseToken", 1 );
 	SetFont( "BIGFONT" );
 	HudMessage( s: "
-			\cd----Enchanced Refinery----
+			\cd----Advanced Refinery----
 			\n\n\ciCost: \cf$2000
 			\n\ciPurpose: \cdUpgrade refinary credits
 			\n\tproduction.
@@ -247,12 +247,508 @@ script 25( void )
 	}
 	if( !CheckCredits( cost )) terminate;
 
-	AddExperience(150);
-	GivePoints(POINTS_RESEARCH);
-	SpendCredits(cost);
+	AddExperience( 150 );
+	GivePoints( POINTS_RESEARCH );
+	SpendCredits( cost );
 	DisplayTick();
 
 	BigMessage( "\ciResearch Complete!" );
 	Log( s: pname( -1 ), s: " researches \cqImproved Pumps\cd for ", s: TeamNames[PlayerTeam()] );
-	SetResearchFlag(PlayerTeam(), TR_IMPROVED_PUMPS);
+	SetResearchFlag(PlayerTeam(), TR_ADVANCED_REFINARY);
+}
+
+// Research Centre Upgrades: Cost 2500
+// Advanced Generators - Decrease the cost of power based class in 10%.
+script 26( void )
+{
+	int cost = 2500;
+
+	if( MitigateDoublePress() ) terminate;
+	if( GetResearchFlag(PlayerTeam(), TR_ADVANCED_GENERATORS) )
+	{
+		Error( "This has already been researched!" );
+		terminate;
+	}
+	if( !CheckPlant( PlayerTeam() )) terminate;
+	if( !CheckInventory( "PurchaseToken" ))
+	{
+	GiveInventory( "PurchaseToken", 1 );
+	SetFont( "BIGFONT" );
+	HudMessage( s: "
+			\cd----Advanced Generators----
+			\n\n\ciCost: \cf$2500
+			\n\ciPurpose: \cdCause Research Centre
+			\n\tto produce a costless energy power.
+			\n\cd--- RC classes price decrease by 10% \ci.";
+	HUDMSG_FADEOUT, 2100 + PlayerNumber(), CR_Green, 0.25, 0.25, 3.0, 2.0 );
+
+		ACS_ExecuteWithResult( 330, cost );
+		Delay( 35 );
+		TakeInventory( "PurchaseToken", 1 );
+		terminate;
+	}
+	if( !CheckCredits( cost )) terminate;
+
+	AddExperience( 150 );
+	GivePoints( POINTS_RESEARCH );
+	SpendCredits( cost );
+	DisplayTick();
+
+	BigMessage( "\ciResearch Complete!" );
+	Log( s: pname( -1 ), s: " researches \cqAdvanced Generators\cd for ", s: TeamNames[PlayerTeam()] );
+	SetResearchFlag(PlayerTeam(), TR_ADVANCED_GENERATORS);
+}
+
+// Obelisk Overdrive - Increase the damage of obelisk by 10 vs marines and 100 vs mechs.
+script 27( void )
+{
+	int cost = 2500;
+
+	if( MitigateDoublePress() ) terminate;
+	if( GetResearchFlag(PlayerTeam(), TR_OBELISK_OUVERDRIVER) )
+	{
+		Error( "This has already been researched!" );
+		terminate;
+	}
+	if( !CheckPlant( PlayerTeam() )) terminate;
+	if( !CheckInventory( "PurchaseToken" ))
+	{
+	GiveInventory( "PurchaseToken", 1 );
+	SetFont( "BIGFONT" );
+	HudMessage( s: "
+			\cd----Obelisk Overdrive----
+			\n\n\ciCost: \cf$2500
+			\n\ciPurpose: \cdOuverpower oblisk by
+			\n\tadding more charge in shots.
+			\n\cd--- Increase obleisk damage.\ci.";
+	HUDMSG_FADEOUT, 2100 + PlayerNumber(), CR_Green, 0.25, 0.25, 3.0, 2.0 );
+
+		ACS_ExecuteWithResult( 330, cost );
+		Delay( 35 );
+		TakeInventory( "PurchaseToken", 1 );
+		terminate;
+	}
+	if( !CheckCredits( cost )) terminate;
+
+	AddExperience( 150 );
+	GivePoints( POINTS_RESEARCH );
+	SpendCredits( cost );
+	DisplayTick();
+
+	BigMessage( "\ciResearch Complete!" );
+	Log( s: pname( -1 ), s: " researches \cqObelisk Overdrive\cd for ", s: TeamNames[PlayerTeam()] );
+	SetResearchFlag(PlayerTeam(), TR_OBELISK_OUVERDRIVER);
+}
+
+// Reserve Accumulators - If the barracks get destroyed, power based classes are still avaliable.
+script 28( void )
+{
+	int cost = 2500;
+
+	if( MitigateDoublePress() ) terminate;
+	if( GetResearchFlag(PlayerTeam(), TR_RESERVE_ACCUMULATORS) )
+	{
+		Error( "This has already been researched!" );
+		terminate;
+	}
+	if( !CheckPlant( PlayerTeam() )) terminate;
+	if( !CheckInventory( "PurchaseToken" ))
+	{
+	GiveInventory( "PurchaseToken", 1 );
+	SetFont( "BIGFONT" );
+	HudMessage( s: "
+			\cd----Reserve Accumulators----
+			\n\n\ciCost: \cf$2500
+			\n\ciPurpose: \cdIf barracks is destroyed
+			\n\tRC is going to produce energy guns.
+			\n\cd--- Power classes avaliable whitout BAR.\ci.";
+	HUDMSG_FADEOUT, 2100 + PlayerNumber(), CR_Green, 0.25, 0.25, 3.0, 2.0 );
+
+		ACS_ExecuteWithResult( 330, cost );
+		Delay( 35 );
+		TakeInventory( "PurchaseToken", 1 );
+		terminate;
+	}
+	if( !CheckCredits( cost )) terminate;
+
+	AddExperience( 150 );
+	GivePoints( POINTS_RESEARCH );
+	SpendCredits( cost );
+	DisplayTick();
+
+	BigMessage( "\ciResearch Complete!" );
+	Log( s: pname( -1 ), s: " researches \cqReserve Accumulators\cd for ", s: TeamNames[PlayerTeam()] );
+	SetResearchFlag(PlayerTeam(), TR_RESERVE_ACCUMULATORS);
+}
+
+// War Factory Upgrades: Cost 2200 each
+// Advanced Mechs - Enables the production of advanced mechs.
+script 29( void )
+{
+	int cost = 2200;
+
+	if( MitigateDoublePress() ) terminate;
+	if( GetResearchFlag(PlayerTeam(), TR_ADVANCED_MECHS) )
+	{
+		Error( "This has already been researched!" );
+		terminate;
+	}
+	if( !CheckPlant( PlayerTeam() )) terminate;
+	if( !CheckInventory( "PurchaseToken" ))
+	{
+	GiveInventory( "PurchaseToken", 1 );
+	SetFont( "BIGFONT" );
+	HudMessage( s: "
+			\cd----Advanced Mechs----
+			\n\n\ciCost: \cf$2200
+			\n\ciPurpose: \cd-----
+			\n\t-----
+			\n\cd--- -----\ci.";
+	HUDMSG_FADEOUT, 2100 + PlayerNumber(), CR_Green, 0.25, 0.25, 3.0, 2.0 );
+
+		ACS_ExecuteWithResult( 330, cost );
+		Delay( 35 );
+		TakeInventory( "PurchaseToken", 1 );
+		terminate;
+	}
+	if( !CheckCredits( cost )) terminate;
+
+	AddExperience( 150 );
+	GivePoints( POINTS_RESEARCH );
+	SpendCredits( cost );
+	DisplayTick();
+
+	BigMessage( "\ciResearch Complete!" );
+	Log( s: pname( -1 ), s: " researches \cqAdvanced Mechs\cd for ", s: TeamNames[PlayerTeam()] );
+	SetResearchFlag(PlayerTeam(), TR_ADVANCED_MECHS);
+}
+
+// Mass Production - Decreases the cost of mechs by 200 credits.
+script 30( void )
+{
+	int cost = 2200;
+
+	if( MitigateDoublePress() ) terminate;
+	if( GetResearchFlag(PlayerTeam(), TR_MASS_PRODUCTION) )
+	{
+		Error( "This has already been researched!" );
+		terminate;
+	}
+	if( !CheckPlant( PlayerTeam() )) terminate;
+	if( !CheckInventory( "PurchaseToken" ))
+	{
+	GiveInventory( "PurchaseToken", 1 );
+	SetFont( "BIGFONT" );
+	HudMessage( s: "
+			\cd----Mass Production----
+			\n\n\ciCost: \cf$2200
+			\n\ciPurpose: \cd-----
+			\n\t-----
+			\n\cd--- -----\ci.";
+	HUDMSG_FADEOUT, 2100 + PlayerNumber(), CR_Green, 0.25, 0.25, 3.0, 2.0 );
+
+		ACS_ExecuteWithResult( 330, cost );
+		Delay( 35 );
+		TakeInventory( "PurchaseToken", 1 );
+		terminate;
+	}
+	if( !CheckCredits( cost )) terminate;
+
+	AddExperience( 150 );
+	GivePoints( POINTS_RESEARCH );
+	SpendCredits( cost );
+	DisplayTick();
+
+	BigMessage( "\ciResearch Complete!" );
+	Log( s: pname( -1 ), s: " researches \cqMass Production\cd for ", s: TeamNames[PlayerTeam()] );
+	SetResearchFlag(PlayerTeam(), TR_MASS_PRODUCTION);
+}
+
+// Compact Warheads - Increase guardian max nukes to 3.
+script 31( void )
+{
+	int cost = 2200;
+
+	if( MitigateDoublePress() ) terminate;
+	if( GetResearchFlag(PlayerTeam(), TR_COMPACT_WARHEADS) )
+	{
+		Error( "This has already been researched!" );
+		terminate;
+	}
+	if( !CheckPlant( PlayerTeam() )) terminate;
+	if( !CheckInventory( "PurchaseToken" ))
+	{
+	GiveInventory( "PurchaseToken", 1 );
+	SetFont( "BIGFONT" );
+	HudMessage( s: "
+			\cd----Compact Warheads----
+			\n\n\ciCost: \cf$2200
+			\n\ciPurpose: \cd-----
+			\n\t-----
+			\n\cd--- -----\ci.";
+	HUDMSG_FADEOUT, 2100 + PlayerNumber(), CR_Green, 0.25, 0.25, 3.0, 2.0 );
+
+		ACS_ExecuteWithResult( 330, cost );
+		Delay( 35 );
+		TakeInventory( "PurchaseToken", 1 );
+		terminate;
+	}
+	if( !CheckCredits( cost )) terminate;
+
+	AddExperience( 150 );
+	GivePoints( POINTS_RESEARCH );
+	SpendCredits( cost );
+	DisplayTick();
+
+	BigMessage( "\ciResearch Complete!" );
+	Log( s: pname( -1 ), s: " researches \cqCompact Warheads\cd for ", s: TeamNames[PlayerTeam()] );
+	SetResearchFlag(PlayerTeam(), TR_COMPACT_WARHEADS);
+}
+
+// Turrets Upgrades: Cost 2100 each
+// Advanced Turrets - Allows construction of advanced turrets.
+script 32( void )
+{
+	int cost = 2100;
+
+	if( MitigateDoublePress() ) terminate;
+	if( GetResearchFlag(PlayerTeam(), TR_ADVANCED_TURRETS) )
+	{
+		Error( "This has already been researched!" );
+		terminate;
+	}
+	if( !CheckPlant( PlayerTeam() )) terminate;
+	if( !CheckInventory( "PurchaseToken" ))
+	{
+	GiveInventory( "PurchaseToken", 1 );
+	SetFont( "BIGFONT" );
+	HudMessage( s: "
+			\cd----Advanced Turrets----
+			\n\n\ciCost: \cf$2100
+			\n\ciPurpose: \cd-----
+			\n\t-----
+			\n\cd--- -----\ci.";
+	HUDMSG_FADEOUT, 2100 + PlayerNumber(), CR_Green, 0.25, 0.25, 3.0, 2.0 );
+
+		ACS_ExecuteWithResult( 330, cost );
+		Delay( 35 );
+		TakeInventory( "PurchaseToken", 1 );
+		terminate;
+	}
+	if( !CheckCredits( cost )) terminate;
+
+	AddExperience( 150 );
+	GivePoints( POINTS_RESEARCH );
+	SpendCredits( cost );
+	DisplayTick();
+
+	BigMessage( "\ciResearch Complete!" );
+	Log( s: pname( -1 ), s: " researches \cqAdvanced Turrets\cd for ", s: TeamNames[PlayerTeam()] );
+	SetResearchFlag(PlayerTeam(), TR_ADVANCED_TURRETS);
+}
+
+// Extra power - Increase turrets slots by 12.
+script 33( void )
+{
+	int cost = 2100;
+
+	if( MitigateDoublePress() ) terminate;
+	if( GetResearchFlag(PlayerTeam(), TR_EXTRA_POWER) )
+	{
+		Error( "This has already been researched!" );
+		terminate;
+	}
+	if( !CheckPlant( PlayerTeam() )) terminate;
+	if( !CheckInventory( "PurchaseToken" ))
+	{
+	GiveInventory( "PurchaseToken", 1 );
+	SetFont( "BIGFONT" );
+	HudMessage( s: "
+			\cd----Advanced Turrets----
+			\n\n\ciCost: \cf$2100
+			\n\ciPurpose: \cd-----
+			\n\t-----
+			\n\cd--- -----\ci.";
+	HUDMSG_FADEOUT, 2100 + PlayerNumber(), CR_Green, 0.25, 0.25, 3.0, 2.0 );
+
+		ACS_ExecuteWithResult( 330, cost );
+		Delay( 35 );
+		TakeInventory( "PurchaseToken", 1 );
+		terminate;
+	}
+	if( !CheckCredits( cost )) terminate;
+
+	AddExperience( 150 );
+	GivePoints( POINTS_RESEARCH );
+	SpendCredits( cost );
+	DisplayTick();
+
+	BigMessage( "\ciResearch Complete!" );
+	Log( s: pname( -1 ), s: " researches \cqExtra Power\cd for ", s: TeamNames[PlayerTeam()] );
+	SetResearchFlag(PlayerTeam(), TR_EXTRA_POWER);
+}
+
+// Turret optimization - Decrease advanced turrets slot cost by 1.
+script 34( void )
+{
+	int cost = 2100;
+
+	if( MitigateDoublePress() ) terminate;
+	if( GetResearchFlag(PlayerTeam(), TR_TURRET_OPTIMIZATION) )
+	{
+		Error( "This has already been researched!" );
+		terminate;
+	}
+	if( !CheckPlant( PlayerTeam() )) terminate;
+	if( !CheckInventory( "PurchaseToken" ))
+	{
+	GiveInventory( "PurchaseToken", 1 );
+	SetFont( "BIGFONT" );
+	HudMessage( s: "
+			\cd----Turret optimization----
+			\n\n\ciCost: \cf$2100
+			\n\ciPurpose: \cd-----
+			\n\t-----
+			\n\cd--- -----\ci.";
+	HUDMSG_FADEOUT, 2100 + PlayerNumber(), CR_Green, 0.25, 0.25, 3.0, 2.0 );
+
+		ACS_ExecuteWithResult( 330, cost );
+		Delay( 35 );
+		TakeInventory( "PurchaseToken", 1 );
+		terminate;
+	}
+	if( !CheckCredits( cost )) terminate;
+
+	AddExperience( 150 );
+	GivePoints( POINTS_RESEARCH );
+	SpendCredits( cost );
+	DisplayTick();
+
+	BigMessage( "\ciResearch Complete!" );
+	Log( s: pname( -1 ), s: " researches \cqTurret optimization\cd for ", s: TeamNames[PlayerTeam()] );
+	SetResearchFlag(PlayerTeam(), TR_TURRET_OPTIMIZATION);
+}
+
+// Caches Upgrades: Cost 1900 each
+// Health Cache - Slowly regenerates the HP of your team.
+script 35( void )
+{
+	int cost = 1900;
+
+	if( MitigateDoublePress() ) terminate;
+	if( GetResearchFlag(PlayerTeam(), TR_HEALTH_CACHE) )
+	{
+		Error( "This has already been researched!" );
+		terminate;
+	}
+	if( !CheckPlant( PlayerTeam() )) terminate;
+	if( !CheckInventory( "PurchaseToken" ))
+	{
+	GiveInventory( "PurchaseToken", 1 );
+	SetFont( "BIGFONT" );
+	HudMessage( s: "
+			\cd----Health Cache----
+			\n\n\ciCost: \cf$1900
+			\n\ciPurpose: \cd-----
+			\n\t-----
+			\n\cd--- -----\ci.";
+	HUDMSG_FADEOUT, 2100 + PlayerNumber(), CR_Green, 0.25, 0.25, 3.0, 2.0 );
+
+		ACS_ExecuteWithResult( 330, cost );
+		Delay( 35 );
+		TakeInventory( "PurchaseToken", 1 );
+		terminate;
+	}
+	if( !CheckCredits( cost )) terminate;
+
+	AddExperience( 150 );
+	GivePoints( POINTS_RESEARCH );
+	SpendCredits( cost );
+	DisplayTick();
+
+	BigMessage( "\ciResearch Complete!" );
+	Log( s: pname( -1 ), s: " researches \cqHealth Cache\cd for ", s: TeamNames[PlayerTeam()] );
+	SetResearchFlag(PlayerTeam(), TR_HEALTH_CACHE);
+}
+
+// Ammo Cache - Slowly regenerates the ammo of your team.
+script 36 ( void )
+{
+	int cost = 1900;
+
+	if( MitigateDoublePress() ) terminate;
+	if( GetResearchFlag(PlayerTeam(), TR_AMMO_CACHE) )
+	{
+		Error( "This has already been researched!" );
+		terminate;
+	}
+	if( !CheckPlant( PlayerTeam() )) terminate;
+	if( !CheckInventory( "PurchaseToken" ))
+	{
+	GiveInventory( "PurchaseToken", 1 );
+	SetFont( "BIGFONT" );
+	HudMessage( s: "
+			\cd----Ammo Cache----
+			\n\n\ciCost: \cf$1900
+			\n\ciPurpose: \cd-----
+			\n\t-----
+			\n\cd--- -----\ci.";
+	HUDMSG_FADEOUT, 2100 + PlayerNumber(), CR_Green, 0.25, 0.25, 3.0, 2.0 );
+
+		ACS_ExecuteWithResult( 330, cost );
+		Delay( 35 );
+		TakeInventory( "PurchaseToken", 1 );
+		terminate;
+	}
+	if( !CheckCredits( cost )) terminate;
+
+	AddExperience( 150 );
+	GivePoints( POINTS_RESEARCH );
+	SpendCredits( cost );
+	DisplayTick();
+
+	BigMessage( "\ciResearch Complete!" );
+	Log( s: pname( -1 ), s: " researches \cqAmmo Cache\cd for ", s: TeamNames[PlayerTeam()] );
+	SetResearchFlag(PlayerTeam(), TR_AMMO_CACHE);
+}
+
+// Reinforced Caches - Give all caches (Global) + 10% resistance.
+script 37 ( void )
+{
+	int cost = 1900;
+
+	if( MitigateDoublePress() ) terminate;
+	if( GetResearchFlag(PlayerTeam(), TR_REINFORCED_CACHES) )
+	{
+		Error( "This has already been researched!" );
+		terminate;
+	}
+	if( !CheckPlant( PlayerTeam() )) terminate;
+	if( !CheckInventory( "PurchaseToken" ))
+	{
+	GiveInventory( "PurchaseToken", 1 );
+	SetFont( "BIGFONT" );
+	HudMessage( s: "
+			\cd----Reinforced Caches----
+			\n\n\ciCost: \cf$1900
+			\n\ciPurpose: \cd-----
+			\n\t-----
+			\n\cd--- -----\ci.";
+	HUDMSG_FADEOUT, 2100 + PlayerNumber(), CR_Green, 0.25, 0.25, 3.0, 2.0 );
+
+		ACS_ExecuteWithResult( 330, cost );
+		Delay( 35 );
+		TakeInventory( "PurchaseToken", 1 );
+		terminate;
+	}
+	if( !CheckCredits( cost )) terminate;
+
+	AddExperience( 150 );
+	GivePoints( POINTS_RESEARCH );
+	SpendCredits( cost );
+	DisplayTick();
+
+	BigMessage( "\ciResearch Complete!" );
+	Log( s: pname( -1 ), s: " researches \cqReinforced Caches\cd for ", s: TeamNames[PlayerTeam()] );
+	SetResearchFlag(PlayerTeam(), TR_REINFORCED_CACHES);
 }

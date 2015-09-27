@@ -17,62 +17,61 @@ str rsch_categories[R_CATEGORIES_AMOUNT] = { "Barracks", "Refinery", "Research C
 
 #define R_ITEMS_AMOUNT            3
 str rsch_items[R_CATEGORIES_AMOUNT][R_ITEMS_AMOUNT] = {
-    { "XP Multiply", "Recycle Arsenal", "\clArsenal Expansion" },
-    { "Purify", "Improved Pumps", "\clEnhanced Refinery" },
-    { "-----", "-----", "-----" },
-    { "-----", "-----", "-----" },
-    { "-----", "-----", "-----" },
-    { "-----", "-----", "-----" },
+    { "Intense Training", "Arsenal Recycler", "\clArsenal Upgrade" },
+    { "Tiberium Purification", "Enhanced Processing", "\clAdvanced Refinery" },
+    { "\clAdvanced Generators", "\clObelisk Overdrive", "\clReserve Accumulators" },
+    { "Advanced Mechs", "\clMass Production", "\clCompact Warheads" },
+    { "Advanced Turrets", "Extra power", "\clTurret optimization" },
+    { "Health Cache", "Ammo Cache", "\clReinforced Caches" },
 };
 
 // This function is called when the player has chosen an item.
 function void MR_InputReceived(int category, int item) { ACS_Execute(MSCR_INPUTRECV, 0, category, item, 0); }
-Script MSCR_INPUTRECV (int category, int item)
-{
+Script MSCR_INPUTRECV (int category, int item) {
     bool shouldExit = false;
 
     if (category == 0) { // Barracks related upgrades
         switch (item) {
-            case 0: shouldExit = true; ACS_ExecuteAlways(20, 0); break; // XP Multiply
-            case 1: shouldExit = true; ACS_ExecuteAlways(21, 0); break; // Recycle Arsenal
-            case 2: shouldExit = true; ACS_ExecuteAlways(22, 0); break; // Arsenal Expansion
+            case 0: shouldExit = true; ACS_ExecuteAlways(20, 0); break; // Intense Training
+            case 1: shouldExit = true; ACS_ExecuteAlways(21, 0); break; // Arsenal Recycler
+            case 2: shouldExit = true; ACS_ExecuteAlways(22, 0); break; // Arsenal Upgrade
         }
     }
 
     if (category == 1) { // Refinery related upgrades
         switch (item) {
-            case 0: shouldExit = true; ACS_ExecuteAlways(23, 0); break; // Purify
-            case 1: shouldExit = true; ACS_ExecuteAlways(24, 0); break; // Improved Pumps
-            case 2: shouldExit = true; ACS_ExecuteAlways(25, 0); break; // Enchanced Refinery
+            case 0: shouldExit = true; ACS_ExecuteAlways(23, 0); break; // Tiberium Purification
+            case 1: shouldExit = true; ACS_ExecuteAlways(24, 0); break; // Enhanced Processing
+            case 2: shouldExit = true; ACS_ExecuteAlways(25, 0); break; // Advanced Refinery
         }
     }
 
     if (category == 2) { // Research Centre related upgrades
         switch (item) {
-            case 0: shouldExit = true; ACS_ExecuteAlways(23, 0); break; // Purify
-            case 1: shouldExit = true; ACS_ExecuteAlways(24, 0); break; // Improved Pumps
-            case 2: shouldExit = true; ACS_ExecuteAlways(25, 0); break; // Enchanced Refinery
+            case 0: shouldExit = true; ACS_ExecuteAlways(26, 0); break; // Advanced Generators
+            case 1: shouldExit = true; ACS_ExecuteAlways(27, 0); break; // Obelisk Overdrive
+            case 2: shouldExit = true; ACS_ExecuteAlways(28, 0); break; // Reserve Accumulators
         }
     }
     if (category == 3) { // War Factory related upgrades
         switch (item) {
-            case 0: shouldExit = true; ACS_ExecuteAlways(23, 0); break; // Purify
-            case 1: shouldExit = true; ACS_ExecuteAlways(24, 0); break; // Improved Pumps
-            case 2: shouldExit = true; ACS_ExecuteAlways(25, 0); break; // Enchanced Refinery
+            case 0: shouldExit = true; ACS_ExecuteAlways(29, 0); break; // Advanced Mechs
+            case 1: shouldExit = true; ACS_ExecuteAlways(30, 0); break; // Mass Production
+            case 2: shouldExit = true; ACS_ExecuteAlways(31, 0); break; // Compact Warheads
         }
     }
     if (category == 4) { // Turrets related upgrades
         switch (item) {
-            case 0: shouldExit = true; ACS_ExecuteAlways(23, 0); break; // Purify
-            case 1: shouldExit = true; ACS_ExecuteAlways(24, 0); break; // Improved Pumps
-            case 2: shouldExit = true; ACS_ExecuteAlways(25, 0); break; // Enchanced Refinery
+            case 0: shouldExit = true; ACS_ExecuteAlways(32, 0); break; // Advanced Turrets
+            case 1: shouldExit = true; ACS_ExecuteAlways(33, 0); break; // Extra power
+            case 2: shouldExit = true; ACS_ExecuteAlways(34, 0); break; // Turret optimization
         }
     }
     if (category == 5) { // Caches related upgrades
         switch (item) {
-            case 0: shouldExit = true; ACS_ExecuteAlways(23, 0); break; // Purify
-            case 1: shouldExit = true; ACS_ExecuteAlways(24, 0); break; // Improved Pumps
-            case 2: shouldExit = true; ACS_ExecuteAlways(25, 0); break; // Enchanced Refinery
+            case 0: shouldExit = true; ACS_ExecuteAlways(35, 0); break; // Health Cache
+            case 1: shouldExit = true; ACS_ExecuteAlways(36, 0); break; // Ammo Cache
+            case 2: shouldExit = true; ACS_ExecuteAlways(37, 0); break; // Reinforced Caches
         }
     }
 
@@ -83,11 +82,9 @@ Script MSCR_INPUTRECV (int category, int item)
 
 // User enters menu.
 function void MR_Enter(void) { ACS_ExecuteAlways(MSCR_Enter, 0, 0, 0, 0); }
-Script MSCR_Enter (void)
-{
+Script MSCR_Enter (void) {
     int player = PlayerNumber();
-    if(!inMenu[player])
-    {
+    if(!inMenu[player]) {
         inMenu[player] = true;
         MR_Freeze();
         MR_Draw();
@@ -97,8 +94,7 @@ Script MSCR_Enter (void)
 }
 
 function void MR_Exit(void) { ACS_ExecuteAlways(MSCR_EXIT, 0, 0, 0, 0); }
-Script MSCR_Exit (void)
-{
+Script MSCR_Exit (void) {
     int player = PlayerNumber();
     inMenu[player] = false;
     //MC_InputLoop_Stop(); // Its now stopped by inMenu being false.
@@ -110,22 +106,24 @@ Script MSCR_Exit (void)
     playerSide[player] = 0;
 }
 
-function str MR_ItemString(int side, int category, int item)
-{
+function str MR_ItemString(int side, int category, int item) {
     int player = PlayerNumber();
     str value = "";
 
-    if(playerSide[player] == MSIDE_CATEGORIES)
+    if(playerSide[player] == MSIDE_CATEGORIES) {
         if(side == MSIDE_ITEMS)
             value = StrParam(s: "\cm", s: rsch_items[category][item]);
 
-        if(playerSelection[player][MSIDE_CATEGORIES] == item && side == MSIDE_CATEGORIES)
+        if(playerSelection[player][MSIDE_CATEGORIES] == item && side == MSIDE_CATEGORIES) {
                 value = StrParam(s: "\cd", s: rsch_categories[item]);
+        }
 
-        if(playerSelection[player][MSIDE_CATEGORIES] != item && side == MSIDE_CATEGORIES)
+        if(playerSelection[player][MSIDE_CATEGORIES] != item && side == MSIDE_CATEGORIES) {
                 value = StrParam(s: "\cq", s: rsch_categories[item]);
+        }
+    }
 
-    else if(playerSide[player] == MSIDE_ITEMS)
+    else if(playerSide[player] == MSIDE_ITEMS) {
         if(side == MSIDE_CATEGORIES)
             value = StrParam(s: "\cm", s: rsch_categories[item]);
 
@@ -138,32 +136,29 @@ function str MR_ItemString(int side, int category, int item)
             && playerSelection[player][MSIDE_CATEGORIES] == category
             && side == MSIDE_ITEMS)
                 value = StrParam(s: "\cq", s: rsch_items[category][item]);
+    }
 
     return value;
 }
 
-function void MR_Freeze(void)
-{
+function void MR_Freeze(void) {
     SetPlayerProperty(0, ON, PROP_TOTALLYFROZEN);
 }
 
-function void MR_Unfreeze(void)
-{
+function void MR_Unfreeze(void) {
     SetPlayerProperty(0, OFF, PROP_TOTALLYFROZEN);
 }
 
 // Draws the menu.
 function void MR_Draw(void) { ACS_ExecuteAlways(MSCR_Draw, 0, 0, 0, 0); }
-Script MSCR_Draw (void)
-{
+Script MSCR_Draw (void) {
     int player = PlayerNumber();
 
     // Draw categories
     int c_startY = 0.45;
     int c_incY = 0.02;
 
-    for (int i = 0; i < R_CATEGORIES_AMOUNT; i++)
-    {
+    for (int i = 0; i < R_CATEGORIES_AMOUNT; i++) {
         HudMessage(s: MR_ItemString(MSIDE_CATEGORIES, 0, i);
                 HUDMSG_PLAIN, 600 + i, CR_GREY, MUI_CATEGORIES_X, c_startY, 0);
         c_startY += c_incY;
@@ -173,8 +168,7 @@ Script MSCR_Draw (void)
     int i_startY = 0.45;
     int i_incY = 0.02;
 
-    for (int i1 = 0; i1 < R_ITEMS_AMOUNT; i1++)
-    {
+    for (int i1 = 0; i1 < R_ITEMS_AMOUNT; i1++) {
         HudMessage(s: MR_ItemString(MSIDE_ITEMS, playerSelection[player][MSIDE_CATEGORIES], i1);
                 HUDMSG_PLAIN, 700 + i1, CR_GREY, MUI_ITEMS_X, i_startY, 0);
         i_startY += i_incY;
@@ -190,42 +184,40 @@ Script MSCR_Draw (void)
                 HUDMSG_PLAIN, 599, CR_GREEN, 1.5, 0.7, 0);
 }
 
-function void MR_ClearHudMsg(int id)
-{
+function void MR_ClearHudMsg(int id) {
         HudMessage(s: ""; HUDMSG_PLAIN, id, CR_GREY, 0, 0, 0);
 }
 
 function void MR_Clear(void) { ACS_ExecuteAlways(MSCR_Clear, 0, 0, 0, 0); }
-Script MSCR_Clear (void)
-{
-    for (int i = 0; i < R_CATEGORIES_AMOUNT; i++)
+Script MSCR_Clear (void) {
+    for (int i = 0; i < R_CATEGORIES_AMOUNT; i++) {
         MR_ClearHudMsg(600 + i);
+    }
 
-    for (int i1 = 0; i1 < R_ITEMS_AMOUNT; i1++)
+    for (int i1 = 0; i1 < R_ITEMS_AMOUNT; i1++) {
         MR_ClearHudMsg(700 + i1);
+    }
 
     MR_ClearHudMsg(599);
 }
 
 function void MR_InputLoop_Start(void) { ACS_ExecuteAlways(MSCR_Input_Loop, 0, 0, 0, 0); }
 function void MR_InputLoop_Stop(void) { ACS_Terminate(MSCR_Input_Loop, 0); }
-Script MSCR_Input_Loop (void)
-{
+Script MSCR_Input_Loop (void) {
     int input = GetPlayerInput(-1, INPUT_BUTTONS);
     int player = PlayerNumber();
     bool inputUsed = false; // This is to stop us from drawing the menu again if nothing changed.
 
-    if (input & BT_FORWARD)
-    {
+    if (input & BT_FORWARD) {
         inputUsed = true;
 
         if(playerSide[player] == MSIDE_CATEGORIES
-            && playerSelection[player][MSIDE_CATEGORIES] == 0)
+            && playerSelection[player][MSIDE_CATEGORIES] == 0) {
                 playerSelection[player][MSIDE_CATEGORIES] = R_CATEGORIES_AMOUNT - 1;
-        else if(playerSide[player] == MSIDE_ITEMS
-            && playerSelection[player][MSIDE_ITEMS] == 0)
+        } else if(playerSide[player] == MSIDE_ITEMS
+            && playerSelection[player][MSIDE_ITEMS] == 0) {
                 playerSelection[player][MSIDE_ITEMS] = R_ITEMS_AMOUNT - 1;
-        else
+        } else
             playerSelection[player][playerSide[player]]--;
 
         LocalAmbientSound("menu/cursor", 127);
@@ -233,8 +225,7 @@ Script MSCR_Input_Loop (void)
         Log(d:playerSelection[player][0], s:", ", d: playerSelection[player][1]);
     }
 
-    if (input & BT_BACK)
-    {
+    if (input & BT_BACK) {
         inputUsed = true;
 
         if(playerSide[player] == MSIDE_CATEGORIES
@@ -251,23 +242,21 @@ Script MSCR_Input_Loop (void)
         Log(d:playerSelection[player][0], s:", ", d: playerSelection[player][1]);
     }
 
-    if (input & BT_MOVELEFT || input & BT_LEFT)
-    {
+    if (input & BT_MOVELEFT || input & BT_LEFT) {
         inputUsed = true;
         playerSide[player] = MSIDE_CATEGORIES;
     }
 
-    if (input & BT_MOVERIGHT || input & BT_RIGHT)
-    {
+    if (input & BT_MOVERIGHT || input & BT_RIGHT) {
         inputUsed = true;
         playerSide[player] = MSIDE_ITEMS;
     }
 
-    if (input & BT_ALTATTACK)
+    if (input & BT_ALTATTACK) {
         MR_Exit();
+    }
 
-    if (input & BT_USE || input & BT_ATTACK)
-    {
+    if (input & BT_USE || input & BT_ATTACK) {
         inputUsed = true;
 
         if(playerSide[player] == MSIDE_CATEGORIES)

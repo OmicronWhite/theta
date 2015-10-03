@@ -508,7 +508,7 @@ script 31( void )
 
 // Turrets Upgrades: Cost 2100 each
 // Advanced Turrets - Allows construction of advanced turrets.
-script 32( void )
+script 33( void )
 {
 	int cost = 2100;
 
@@ -549,7 +549,7 @@ script 32( void )
 }
 
 // Extra power - Increase turrets slots by 12.
-script 33( void )
+script 34( void )
 {
 	int cost = 2100;
 
@@ -590,7 +590,7 @@ script 33( void )
 }
 
 // Turret optimization - Decrease advanced turrets slot cost by 1.
-script 34( void )
+script 35( void )
 {
 	int cost = 2100;
 
@@ -632,7 +632,7 @@ script 34( void )
 
 // Caches Upgrades: Cost 1900 each
 // Health Cache - Slowly regenerates the HP of your team.
-script 35( void )
+script 36( void )
 {
 	int cost = 1900;
 
@@ -673,7 +673,7 @@ script 35( void )
 }
 
 // Ammo Cache - Slowly regenerates the ammo of your team.
-script 36 ( void )
+script 38 ( void )
 {
 	int cost = 1900;
 
@@ -714,7 +714,7 @@ script 36 ( void )
 }
 
 // Reinforced Caches - Give all caches (Global) + 10% resistance.
-script 37 ( void )
+script 39 ( void )
 {
 	int cost = 1900;
 

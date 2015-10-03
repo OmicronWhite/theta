@@ -8,7 +8,7 @@ function void AddExperience (int XP)
 	if (IsAdmin[PlayerNumber()] || Experience[PlayerNumber()] == MAX_XP)
 		return;
 
-	bool HasMultiplyXP = GetResearchFlag(PlayerTeam(), TR_XP_MULTIPLY);
+	bool HasMultiplyXP = GetResearchFlag(PlayerTeam(), TR_INTENSE_TRAINING);
 
 	int XPInc = XP;
 	int mult = 1.0;

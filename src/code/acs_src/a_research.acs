@@ -442,8 +442,9 @@ script 30( void )
 	HudMessage( s: "
 			\cd----Mass Production----
 			\n\n\ciCost: \cf$2200
-			\n\ciPurpose: \cd-----
-			\n\t-----
+			\n\ciPurpose: \cdImproved mass-production
+			\n\ttechnology allows for
+			\n\tcheaper mech purchases.
 			\n\cd--- -----\ci.";
 	HUDMSG_FADEOUT, 2100 + PlayerNumber(), CR_Green, 0.25, 0.25, 3.0, 2.0 );
 
@@ -483,9 +484,9 @@ script 31( void )
 	HudMessage( s: "
 			\cd----Compact Warheads----
 			\n\n\ciCost: \cf$2200
-			\n\ciPurpose: \cd-----
-			\n\t-----
-			\n\cd--- -----\ci.";
+			\n\ciPurpose: \cdImproved warheads allow for smaller
+			\n\tpayloads with equal explosive potential.
+			\n\cd--- Guardian may carry 3 nukes.\ci.";
 	HUDMSG_FADEOUT, 2100 + PlayerNumber(), CR_Green, 0.25, 0.25, 3.0, 2.0 );
 
 		ACS_ExecuteWithResult( 330, cost );
@@ -607,8 +608,8 @@ script 34( void )
 	HudMessage( s: "
 			\cd----Turret optimization----
 			\n\n\ciCost: \cf$2100
-			\n\ciPurpose: \cd-----
-			\n\t-----
+			\n\ciPurpose: \cdOptimized turret power usage allows for less costly advanced turrets
+			\n\tless costly advanced turrets.
 			\n\cd--- -----\ci.";
 	HUDMSG_FADEOUT, 2100 + PlayerNumber(), CR_Green, 0.25, 0.25, 3.0, 2.0 );
 
@@ -731,8 +732,8 @@ script 37 ( void )
 	HudMessage( s: "
 			\cd----Reinforced Caches----
 			\n\n\ciCost: \cf$1900
-			\n\ciPurpose: \cd-----
-			\n\t-----
+			\n\ciPurpose: \cdImproved metal alloys allow
+			\n\tfor more resilient caches.
 			\n\cd--- -----\ci.";
 	HUDMSG_FADEOUT, 2100 + PlayerNumber(), CR_Green, 0.25, 0.25, 3.0, 2.0 );
 

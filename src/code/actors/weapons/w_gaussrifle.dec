@@ -187,7 +187,7 @@ actor GaussPuff : HHBulletPuff {
 }
 
 actor GaussPuffBlue : GaussPuff {
-//	Translation "" // If we dont need translation so why we have it?
+	Translation "1:2=1:2" // 1:2=1:2 create the translator but does nothing.
 }
 
 actor AntiArmorPuff : ExplosionPuff {damagetype "AntiArmor"}

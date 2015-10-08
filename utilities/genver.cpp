@@ -12,12 +12,13 @@
 # error "Please use C++ to compile this tool."
 #endif
 
-enum {
+enum
+{
 	LANG_UNKNOWN = -1,
 	LANG_CLIKE,
 	LANG_BATCH,
 	LANG_BASH
-}
+};
 
 using std::string;
 using std::ofstream;

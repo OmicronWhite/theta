@@ -18,6 +18,7 @@ a_changelog.acs
 a_version.acs
 acsconstants.dec
 gitcommit.acs
+version.acs
 
 *.tmp
 

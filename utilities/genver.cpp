@@ -81,7 +81,7 @@ int main (int argc, char *argv[])
         fstr << "#define VERSION_MAJOR " << VERSION_MAJOR << "\n";
         fstr << "#define VERSION_MINOR " << VERSION_MINOR << "\n";
         fstr << "#define VERSION_PATCH " << VERSION_PATCH << "\n";
-        fstr << "#define VERSION_STRING " << VERSION_MAJOR << "." << VERSION_MINOR << "." << VERSION_PATCH << "\n";
+        fstr << "#define VERSION_STRING \"" << VERSION_MAJOR << "." << VERSION_MINOR << "." << VERSION_PATCH << "\"\n";
     }
 	else if (language == LANG_BATCH)
     {

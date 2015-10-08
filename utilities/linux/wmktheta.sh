@@ -50,7 +50,7 @@ x() {
             success " okay "
 		fi
     fi
-                
+
 }
 
 err() {
@@ -69,6 +69,7 @@ if [[ -d "out" && "$jenkins" != true ]]; then
 fi
 
 x "utilities/linux/gitcommit c src/code/acs_src/gitcommit.acs --silent" "Making gitcommit.acs"
+x "utilities/linux/genver c src/code/acs_src/version.acs --silent" "Making version.acs"
 x "mkdir -p src/code/acs" "Making acs output folder"
 x "utilities/linux/acc src/code/acs_src/aow2scrp.acs src/code/acs/aow2scrp.o" "Compiling ACS ${reset}"
 x "utilities/linux/acsconstants src/code/acs_src/aow2scrp.acs src/code/actors/acsconstants.dec ${s}" "Generating ACS -> Decorate constants"
@@ -94,4 +95,4 @@ echo
 echo The PK3 files are to be found in:
 echo Commit:
 echo -e "$(git log -1 --format="\t%Cred%H%Creset%n\t%Cgreen%s%Creset %n\t%Cblue%aN <%aE>")"
-echo Build number \#${no}
+echo -e "\tBuild number \#${no}"

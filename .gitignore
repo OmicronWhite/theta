@@ -10,7 +10,7 @@ out/
 *.bak*
 *.bac*
 
-# Doom Builder configuration files  
+# Doom Builder configuration files
 *.dbs
 
 # Extra stuff
@@ -42,4 +42,5 @@ utilities/linux/acc
 utilities/linux/acschangelog
 utilities/linux/gitcommit
 utilities/linux/acsconstants
+utilities/linux/genver
 utilities/linux/*.acs

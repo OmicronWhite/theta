@@ -27,7 +27,7 @@ x() {
             success " okay "
 		fi
     fi
-                
+
 }
 
 err() {
@@ -45,6 +45,7 @@ echo "Initialising enviroment for Theta building."
 x "g++ utilities/gitcommit.cpp -o utilities/linux/gitcommit" "Compiling gitcommit   "
 x "gcc utilities/acsconstants.c -o utilities/linux/acsconstants" "Compiling acsconstants"
 x "g++ utilities/acschangelog.cpp -o utilities/linux/acschangelog" "Compiling acschangelog"
+x "g++ utilities/genver.cpp -o utilities/linux/genver" "Compiling genver      "
 x "cd utilities/linux"
 if [[ -d "acc" || -f "acc" ]]; then
 	x "rm -rf acc ${ss}"
@@ -61,4 +62,3 @@ x "mv acc.tmp acc"
 echo
 success "You should now have a working Theta build enviroment"
 success "          You may now run the build script          "
-

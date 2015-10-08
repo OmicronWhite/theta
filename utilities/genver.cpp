@@ -40,7 +40,7 @@ int main (int argc, char *argv[])
     if (argc != 2 + 1 && !silent)
     {
         printf("Expected two arguments.\n");
-        printf("Syntax: gitcommit <language: c | batch> <output file> [--silent]\n");
+        printf("Syntax: genver <language: c | batch> <output file> [--silent]\n");
 		printf("Got %d arguments instead.\n", argc);
 		for (int i = 0; i < argc; i++)
 		{

@@ -15,7 +15,8 @@
 enum {
 	LANG_UNKNOWN = -1,
 	LANG_CLIKE,
-	LANG_BATCH
+	LANG_BATCH,
+	LANG_BASH
 }
 
 using std::string;
@@ -58,6 +59,11 @@ int main (int argc, char *argv[])
 		language = LANG_BATCH;
 		comment = "::";
 	}
+	else if (string(argv[1]) == "bash")
+	{
+		language = LANG_BASH;
+		comment = "#";
+	}
     else
     {
         language = LANG_UNKNOWN;
@@ -91,6 +97,13 @@ int main (int argc, char *argv[])
         fstr << "SET VERSION_MINOR=" << VERSION_MINOR << "\n";
         fstr << "SET VERSION_PATCH=" << VERSION_PATCH << "\n";
         fstr << "SET VERSION_STRING=" << VERSION_MAJOR << "." << VERSION_MINOR << "." << VERSION_PATCH << "\n";
+    }
+	else if (language == LANG_BASH)
+    {
+        fstr << "export VERSION_MAJOR=" << VERSION_MAJOR << "\n";
+        fstr << "export VERSION_MINOR=" << VERSION_MINOR << "\n";
+        fstr << "export VERSION_PATCH=" << VERSION_PATCH << "\n";
+        fstr << "export VERSION_STRING=" << VERSION_MAJOR << "." << VERSION_MINOR << "." << VERSION_PATCH << "\n";
     }
 	if (!silent) printf("Closing file.\n");
 	fstr.close();

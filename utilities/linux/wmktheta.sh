@@ -61,18 +61,17 @@ fi
 x "utilities/linux/gitcommit c src/code/acs_src/gitcommit.acs --silent" "Making gitcommit.acs"
 x "utilities/linux/genver c src/code/acs_src/version.acs --silent" "Making version.acs"
 x "utilities/linux/genver bash utilities/version.sh --silent"
-eval "$(cat utilities/version.h)"
+eval "$(cat utilities/version.sh)"
 
 if [[ "$1" == "--no-version" || "$1" == "-n" || "$2" == "--no-version" || "$2" == "-n" ]]; then
 	typeset no=""
 else
-	if [[ git == true ]]; then
+	if [[ $git == true ]]; then
 		typeset no="-${VERSION_STRING}-$(git log -1 --format=%h)"
 	else
 		typeset no="-${VERSION_STRING}"
 	fi
 fi
-
 
 x "mkdir -p src/code/acs" "Making acs output folder"
 x "utilities/linux/acc src/code/acs_src/aow2scrp.acs src/code/acs/aow2scrp.o" "Compiling ACS ${reset}"

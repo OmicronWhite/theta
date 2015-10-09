@@ -834,3 +834,11 @@ function void IdiotProofCvar(str cvar, int expected, int new)
 	if (GetCVAR(cvar) != expected)
 		ConsoleCommand(StrParam(s: cvar, s: " ", d: new));
 }
+
+// [SB] easier wrappers for strcmp/stricmp
+function bool StringIs(str first, str second) {
+	return (StrCmp(first, second) == 0);
+}
+function bool StringIsI(str first, str second) {
+	return (StrICmp(first, second) == 0);
+}

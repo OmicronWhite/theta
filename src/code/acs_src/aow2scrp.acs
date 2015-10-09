@@ -88,24 +88,34 @@
 #define CLASS_TIMECOP 27
 #define CLASS_HARVESTER 28
 #define CLASS_ADVHARVESTER 29
-#define NUM_CLASSES 30
+#define ADDON_CHAINSAW 30
+#define ADDON_TIBRIFLE 31
+#define ADDON_ARTILLERY 32
+#define ADDON_BEACON 33
+#define ADDON_PLASCAN 34
+#define ADDON_ARMOUR 35
+#define NUM_CLASSES 36
 
 // classes menu stuff
 #define CMS_GENERIC 0
 #define CMS_SUPPORT 1
 #define CMS_COMBAT 2
 #define CMS_POWER 3
-#define CMS_NUM 4
+#define CMS_ADDONS 4
+#define CMS_RESIGN 5
+#define CMS_NUM 6 // +1 for resign
 
 str menuCategoryNames[CMS_NUM] = {
 	"Generic",
 	"Support",
 	"Combat",
-	"Power"
+	"Power",
+	"Add-ons",
+	"Resign"
 };
 
 #define MAX_ITEMS 9
-int menuItems[4][MAX_ITEMS] = {
+int menuItems[CMS_NUM][MAX_ITEMS] = {
 	{
 		CLASS_GUNMAN,
 		CLASS_SHOTGUNNER,
@@ -146,6 +156,28 @@ int menuItems[4][MAX_ITEMS] = {
 		CLASS_GAUSSGUNNER,
 		CLASS_DEMOEXPERT,
 		CLASS_ARTILLERY,
+		-1,
+		-1,
+		-1,
+	},
+	{
+		ADDON_CHAINSAW,
+		ADDON_TIBRIFLE,
+		ADDON_ARTILLERY,
+		ADDON_BEACON,
+		ADDON_PLASCAN,
+		ADDON_ARMOUR,
+		-1,
+		-1,
+		-1,
+	},
+	{
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
 		-1,
 		-1,
 		-1,
@@ -270,6 +302,7 @@ int menuItems[4][MAX_ITEMS] = {
 #define SC_CL_TimeGunHUD          959
 #define SC_MARINE_STATS           967
 #define SC_MARINE_DEATH           968
+#define SC_GetPlayerTeam		  738
 
 #define INVITEM_Beacon              0
 #define INVITEM_RefillC4            1
@@ -483,7 +516,8 @@ int Classes[NUM_CLASSES][64];
 #define CF_CANTPILOT	(1 << 2)
 #define CF_HEALTHREGEN	(1 << 3)
 #define CF_HARVESTER	(1 << 4)
-
+#define CF_ADDON		(1 << 5)
+#define CF_NOMENUEXIT	(1 << 6)
 // CK_DEP
 #define DEP_NONE        0
 #define DEP_BARRACKS    1

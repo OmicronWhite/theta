@@ -371,4 +371,40 @@ function void LoadClassDefinitions (void)
 	Classes[c][CK_ARMORMOD] = ARMOD_CHEM;
 	Classes[c][CK_FLAGS] = (CF_HARVESTER | CF_SUPPORT);
 	AddClassItem(c, "SubMachineGun", 1);
+
+	c = ADDON_CHAINSAW;
+	Classes[c][CK_NAME] = "Chainsaw";
+	Classes[c][CK_FLAGS] = (CF_ADDON | CF_NOMENUEXIT);
+	Classes[c][CK_COST] = 250;
+	AddClassItem(c, "EagerBeaver", 1);
+
+	c = ADDON_TIBRIFLE;
+	Classes[c][CK_NAME] = "Tiberium Rifle";
+	Classes[c][CK_FLAGS] = (CF_ADDON | CF_NOMENUEXIT);
+	Classes[c][CK_COST] = 300;
+	AddClassItem(c, "TiberiumAutorifleWeak", 1);
+
+	c = ADDON_ARTILLERY;
+	Classes[c][CK_NAME] = "Artillery Cannon";
+	Classes[c][CK_FLAGS] = (CF_ADDON | CF_NOMENUEXIT);
+	Classes[c][CK_COST] = 550;
+	AddClassItem(c, "ArtilleryCannon", 1);
+
+	c = ADDON_BEACON;
+	Classes[c][CK_NAME] = "Team Beacon";
+	Classes[c][CK_FLAGS] = (CF_ADDON | CF_NOMENUEXIT);
+	Classes[c][CK_COST] = 1750;
+	AddClassItem(c, "TeamBeaconGiver", 1);
+
+	c = ADDON_PLASCAN;
+	Classes[c][CK_NAME] = "Plasma Cannon";
+	Classes[c][CK_FLAGS] = (CF_ADDON | CF_NOMENUEXIT);
+	Classes[c][CK_COST] = 1500;
+	AddClassItem(c, "PlasmaCannon", 1);
+
+	c = ADDON_ARMOUR;
+	Classes[c][CK_NAME] = "Armour Upgrade";
+	Classes[c][CK_FLAGS] = (CF_ADDON | CF_NOMENUEXIT);
+	Classes[c][CK_COST] = 250;
+	AddClassItem(c, "HasArmorUpgrade", 1); //useless
 }

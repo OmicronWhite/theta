@@ -112,31 +112,35 @@ function str MC_ItemString(int side, int category, int item)
             && menuItems[category][item] == -1)
             return "\cm----";
 
-        // SELECTED     INSUFFICIENT FUNDS
+        // SELECTED     ALREADY OWNED ADDON
         if (CheckInventory("PlayerSelectionItems") == item
             && CheckInventory("PlayerSelectionCategories") == category
             && side == MSIDE_ITEMS
-            && creds < Classes[menuItems[category][item]][CK_COST] )
-                return StrParam(s: "\cc", s: cond(item  == 3&& category == 4, cond(PlayerTeam(), "Ion Cannon Beacon", "Nuclear Strike Beacon"), Classes[menuItems[category][item]][CK_NAME]));
+            && (creds < Classes[menuItems[category][item]][CK_COST]
+                || (Classes[menuItems[category][item]][CK_FLAGS] & CF_ADDON
+                    && CheckInventory(GetClassItemName(menuItems[category][item], 0)) > 0)))
+                return StrParam(s: "\cc", s: cond(item  == 3 && category == 4, cond(!PlayerTeam(), "Ion Cannon Beacon", "Nuclear Strike Beacon"), Classes[menuItems[category][item]][CK_NAME]));
 
-        // UNSELECTED   INSUFFICIENT FUNDS
+        // UNSELECTED   ALREADY OWNED ADDON
         if (CheckInventory("PlayerSelectionItems") != item
             && CheckInventory("PlayerSelectionCategories") == category
             && side == MSIDE_ITEMS
-            && creds < Classes[menuItems[category][item]][CK_COST] )
-                return StrParam(s: "\cm", s: cond(item  == 3&& category == 4, cond(PlayerTeam(), "Ion Cannon Beacon", "Nuclear Strike Beacon"), Classes[menuItems[category][item]][CK_NAME]));
+            && (creds < Classes[menuItems[category][item]][CK_COST]
+                || (Classes[menuItems[category][item]][CK_FLAGS] & CF_ADDON
+                    && CheckInventory(GetClassItemName(menuItems[category][item], 0)) > 0)))
+                return StrParam(s: "\cm", s: cond(item  == 3 && category == 4, cond(!PlayerTeam(), "Ion Cannon Beacon", "Nuclear Strike Beacon"), Classes[menuItems[category][item]][CK_NAME]));
 
         // SELECTED
         if (CheckInventory("PlayerSelectionItems") == item
             && CheckInventory("PlayerSelectionCategories") == category
             && side == MSIDE_ITEMS)
-                return StrParam(s: "\cd", s: cond(item  == 3&& category == 4, cond(PlayerTeam(), "Ion Cannon Beacon", "Nuclear Strike Beacon"), Classes[menuItems[category][item]][CK_NAME]));
+                return StrParam(s: "\cd", s: cond(item  == 3 && category == 4, cond(!PlayerTeam(), "Ion Cannon Beacon", "Nuclear Strike Beacon"), Classes[menuItems[category][item]][CK_NAME]));
 
         // UNSELECTED
         if (CheckInventory("PlayerSelectionItems") != item
             && CheckInventory("PlayerSelectionCategories") == category
             && side == MSIDE_ITEMS)
-                return StrParam(s: "\cq", s: cond(item == 3 && category == 4, cond(PlayerTeam(), "Ion Cannon Beacon", "Nuclear Strike Beacon"), Classes[menuItems[category][item]][CK_NAME]));
+                return StrParam(s: "\cq", s: cond(item == 3 && category == 4, cond(!PlayerTeam(), "Ion Cannon Beacon", "Nuclear Strike Beacon"), Classes[menuItems[category][item]][CK_NAME]));
     }
 
     return "\cg!!ERROR!!";
@@ -164,7 +168,7 @@ Script MSCC_Draw (void) CLIENTSIDE
 
     for (int i = 0; i < CMS_NUM; i++)
     {
-        if ((!drawResign[player] || IsResignedN()) && i == 5) continue;
+        if ((IsResignedN()) && i == 5) continue;
         SetFont("BIGFONT");
         HudMessage(s: MC_ItemString(MSIDE_CATEGORIES, 0, i);
                 HUDMSG_PLAIN, 600 + i, CR_GREY, MUI_CATEGORIES_X, c_startY, 0);
@@ -239,9 +243,9 @@ Script MSCC_Draw (void) CLIENTSIDE
     int creds = Credits[PlayerNumber()];
 
     // Draw class information
-    HudMessage(s: "\cf", s: Classes[classno][CK_NAME], s: "\n",
+    HudMessage(s: cond((Classes[classno][CK_FLAGS] & CF_ADDON), "\cn", "\cf"), s: Classes[classno][CK_NAME], s: "\n",
                 s: "\cdCost: \cq$", s: cond((Classes[classno][CK_COST] == 0), "Free", StrParam(s: cond((creds < Classes[classno][CK_COST]), "\cc", ""), d: Classes[classno][CK_COST])), s: "\n",
-                s: "\cdSpeed: \cq", f: Classes[classno][CK_SPEED], s: "\n",
+                s: cond((Classes[classno][CK_FLAGS] & CF_ADDON), "", StrParam(s: "\cdSpeed: \cq", f: Classes[classno][CK_SPEED], s: "\n")),
                 s: "\cdDependency: \cq", s: depStr, s: "\n";
                 HUDMSG_PLAIN, 598, CR_GREEN, 0.4, 0.65, 0);
 }
@@ -281,7 +285,7 @@ Script MSCC_Input_Loop (void) CLIENTSIDE
         if (CheckInventory("PlayerSide") == MSIDE_CATEGORIES
             && CheckInventory("PlayerSelectionCategories") == 0)
 //              CheckInventory("PlayerSelectionCategories") == CATEGORIES_AMOUNT - cond((!drawResign[player] || IsResignedN()), 2, 1);
-                SetInventory("PlayerSelectionCategories", CMS_NUM - 1);
+                SetInventory("PlayerSelectionCategories", (CMS_NUM - IsResignedN() - 1));
         else if (CheckInventory("PlayerSide") == MSIDE_ITEMS
             && CheckInventory("PlayerSelectionItems") == 0)
                 SetInventory("PlayerSelectionItems", MAX_ITEMS - 1);
@@ -297,7 +301,9 @@ Script MSCC_Input_Loop (void) CLIENTSIDE
     {
         inputUsed = true;
 
-        if (CheckInventory("PlayerSide") == MSIDE_CATEGORIES && CheckInventory("PlayerSelectionCategories") == CMS_NUM - 1)
+        if (CheckInventory("PlayerSide") == MSIDE_CATEGORIES && CheckInventory("PlayerSelectionCategories") == CMS_NUM - 2 && IsResignedN())
+                SetInventory("PlayerSelectionCategories", 0);
+        else if (CheckInventory("PlayerSide") == MSIDE_CATEGORIES && CheckInventory("PlayerSelectionCategories") == CMS_NUM - 1)
                 SetInventory("PlayerSelectionCategories", 0);
         else if (CheckInventory("PlayerSide") == MSIDE_ITEMS
             && CheckInventory("PlayerSelectionItems") == MAX_ITEMS - 1)
@@ -426,6 +432,8 @@ function void PurchaseClass (int c)
     int team = PlayerTeam();
 	int cost = Classes[c][CK_COST];
 
+    bool addon = Classes[c][CK_FLAGS] & CF_ADDON;
+
 	// [SP] This is to fix the "double cost" bug
 	if (Timer() - LastMenu[PlayerNumber()] < 5)
 		return;
@@ -469,11 +477,18 @@ function void PurchaseClass (int c)
 		return;
 	}
 
-	if (CheckInventory("HasClass"))
+	if (CheckInventory("HasClass") && !addon)
 	{
         ErrorTop("You need to resign first!");
 		return;
 	}
+
+    if (addon
+        && CheckInventory(GetClassItemName(c, 0)) > 0)
+    {
+        ErrorTop("You already have this add-on.");
+        return;
+    }
 
 	// Show class information on the first press.
     // [SB] useless now we have a menu
@@ -502,34 +517,37 @@ function void PurchaseClass (int c)
 	if (!CheckCredits(cost))
 		return;
 
-    MC_Exit2(); // If we're in the menu, leave it.
+    if(!(Classes[c][CK_FLAGS] & CF_NOMENUEXIT)) MC_Exit2(); // If we're in the menu, leave it.
 
 	int cflags = Classes[c][CK_FLAGS];
 
 	TakeInventory("PurchaseToken", 1);
 	DisplayTick();
 	SpendCredits(cost);
-    BigMessage(StrParam(s: "You are a \cf", s: Classes[c][CK_NAME], s: "!"));
+    if (!addon) BigMessage(StrParam(s: "You are a \cf", s: Classes[c][CK_NAME], s: "!"));
 
-	// The essentials
-	SetActorProperty(0, APROP_SPEED, Classes[c][CK_SPEED]);
-	SetArmorGrade(Classes[c][CK_ARMORNUM], Classes[c][CK_ARMORMOD]);
-	GiveInventory("HasClass", 1);
-	GiveInventory("NewClipAmmo", 160);
-	GiveInventory("Handgun", 1);
-	GiveInventory("SpawnInvulnerability", 1);
-	GiveInventory("ClassID", c);
-	GiveInventory("Refunds", cost / 2);
+    if (!addon)
+    {
+    	// The essentials
+    	SetActorProperty(0, APROP_SPEED, Classes[c][CK_SPEED]);
+    	SetArmorGrade(Classes[c][CK_ARMORNUM], Classes[c][CK_ARMORMOD]);
+    	GiveInventory("HasClass", 1);
+    	GiveInventory("NewClipAmmo", 160);
+    	GiveInventory("Handgun", 1);
+    	GiveInventory("SpawnInvulnerability", 1);
+    	GiveInventory("ClassID", c);
+    	GiveInventory("Refunds", cost / 2);
 
-	if (Classes[c][CK_C4] > 0)
-	{
-        GiveInventory("TimedC4", Classes[c][CK_C4]);
-		GiveInventory("TimedC4Count", Classes[c][CK_C4]);
-	}
+    	if (Classes[c][CK_C4] > 0)
+    	{
+            GiveInventory("TimedC4", Classes[c][CK_C4]);
+    		GiveInventory("TimedC4Count", Classes[c][CK_C4]);
+    	}
 
-	// Give the self heal item here so timed C4 takes precedence in the inventory
-	GiveInventory("SelfHealItem", 1);
-	SetFragGrenades(Classes[c][CK_GERNADES]);
+    	// Give the self heal item here so timed C4 takes precedence in the inventory
+    	GiveInventory("SelfHealItem", 1);
+    	SetFragGrenades(Classes[c][CK_GERNADES]);
+    }
 
 	// Give the class-specific items now
 	for (int i = 0; i < Classes[c][CK_NUMITEMS]; ++i)
@@ -539,88 +557,102 @@ function void PurchaseClass (int c)
 		GiveInventory(itemname, itemamount);
 	}
 
-	// Set the weapon now
-	if (Classes[c][CK_NUMITEMS] > 0)
-		SetWeapon(GetClassItemName(c, 0));
+    if (!addon) {
+    	// Set the weapon now
+    	if (Classes[c][CK_NUMITEMS] > 0)
+    		SetWeapon(GetClassItemName(c, 0));
 
-	// Handle flags:
-	if (cflags & CF_CANTPILOT)
-		GiveInventory("HighUpgrade", 1);
+    	// Handle flags:
+    	if (cflags & CF_CANTPILOT)
+    		GiveInventory("HighUpgrade", 1);
 
-	// Medic regeneration
-	if (cflags & CF_HEALTHREGEN)
-	{
-        GiveInventory("IsMedic", 1);
-		ACS_ExecuteAlways(SC_MedicHealthRegen, 0);
-	}
+    	// Medic regeneration
+    	if (cflags & CF_HEALTHREGEN)
+    	{
+            GiveInventory("IsMedic", 1);
+    		ACS_ExecuteAlways(SC_MedicHealthRegen, 0);
+    	}
 
-	if (cflags & CF_SUPPORT)
-		GiveInventory("Grade0Damage", 1);
+    	if (cflags & CF_SUPPORT)
+    		GiveInventory("Grade0Damage", 1);
 
-	// Class-specific behavior:
-	switch (c)
-	{
-        case CLASS_STEALTH:
-			// Stealth trooper sounds
-			SetActorProperty(0, APROP_DeathSound, "stealth/death");
-			ACS_ExecuteAlways(918, 0, 0);
-			break;
+    	// Class-specific behavior:
+    	switch (c)
+    	{
+            case CLASS_STEALTH:
+    			// Stealth trooper sounds
+    			SetActorProperty(0, APROP_DeathSound, "stealth/death");
+    			ACS_ExecuteAlways(918, 0, 0);
+    			break;
 
-		case CLASS_CHEMWARRIOR:
-		case CLASS_HARVESTER:
-		case CLASS_ADVHARVESTER:
-			ACS_ExecuteAlways(918, 0, 1);
-			break;
+    		case CLASS_CHEMWARRIOR:
+    		case CLASS_HARVESTER:
+    		case CLASS_ADVHARVESTER:
+    			ACS_ExecuteAlways(918, 0, 1);
+    			break;
 
-		case CLASS_SHOCKTROOPER:
-			ACS_ExecuteAlways(918, 0, 2);
-			break;
+    		case CLASS_SHOCKTROOPER:
+    			ACS_ExecuteAlways(918, 0, 2);
+    			break;
 
-		case CLASS_SUICIDEBOMBER:
-            HudMessage(s: "Use the switch to detonate violently";
-						HUDMSG_FADEOUT, 1840, CR_GREEN, 0.5, 0.5, 2.0, 1.0);
+    		case CLASS_SUICIDEBOMBER:
+                HudMessage(s: "Use the switch to detonate violently";
+    						HUDMSG_FADEOUT, 1840, CR_GREEN, 0.5, 0.5, 2.0, 1.0);
 
-		case CLASS_COMMANDO:
-		case CLASS_TIMECOP:
-			ACS_ExecuteAlways(918, 0, 3);
-			break;
+    		case CLASS_COMMANDO:
+    		case CLASS_TIMECOP:
+    			ACS_ExecuteAlways(918, 0, 3);
+    			break;
 
-		case CLASS_SNIPER:
-			GiveInventory("IsSniper", 1);
-			break;
+    		case CLASS_SNIPER:
+    			GiveInventory("IsSniper", 1);
+    			break;
 
-		case CLASS_UTILITYGUY:
-            HudMessage(s: "Use \cFAlt-Fire\cD for \cNitem selection menu!";
-						HUDMSG_FADEOUT, 1840, CR_GREEN, 0.5, 0.5, 2.0, 1.0);
-			break;
+    		case CLASS_UTILITYGUY:
+                HudMessage(s: "Use \cFAlt-Fire\cD for \cNitem selection menu!";
+    						HUDMSG_FADEOUT, 1840, CR_GREEN, 0.5, 0.5, 2.0, 1.0);
+    			break;
 
-		case CLASS_JUMPJET:
-            HudMessage(s: "Use Inventory to activate JumpJet";
-						HUDMSG_FADEOUT, 1840, CR_GREEN, 0.5, 0.5, 2.0, 1.0);
-			break;
+    		case CLASS_JUMPJET:
+                HudMessage(s: "Use Inventory to activate JumpJet";
+    						HUDMSG_FADEOUT, 1840, CR_GREEN, 0.5, 0.5, 2.0, 1.0);
+    			break;
 
-		case CLASS_ARTILLERY:
-			GiveInventory("IsArtillerySoldier", 1);
-			break;
-	}
+    		case CLASS_ARTILLERY:
+    			GiveInventory("IsArtillerySoldier", 1);
+    			break;
+    	}
 
-	if (cflags & CF_HARVESTER)
-	{
-        HudMessage(s: "Pick up \cctiberium crystals \cdand";
-					HUDMSG_FADEOUT, 1840, CR_GREEN, 0.5, 0.6, 2.0, 1.0);
+    	if (cflags & CF_HARVESTER)
+    	{
+            HudMessage(s: "Pick up \cctiberium crystals \cdand";
+    					HUDMSG_FADEOUT, 1840, CR_GREEN, 0.5, 0.6, 2.0, 1.0);
 
-        HudMessage(s: "return them to your \ccrefinery \cdfor cash!";
-					HUDMSG_FADEOUT, 1880, CR_GREEN, 0.5, 0.65, 2.0, 1.0);
+            HudMessage(s: "return them to your \ccrefinery \cdfor cash!";
+    					HUDMSG_FADEOUT, 1880, CR_GREEN, 0.5, 0.65, 2.0, 1.0);
 
-		// Harvester-specific immunity against tib crystal damage
-		GiveInventory("TiberiumProof", 1);
-		GiveInventory("IsHarvester", 1);
-	}
+    		// Harvester-specific immunity against tib crystal damage
+    		GiveInventory("TiberiumProof", 1);
+    		GiveInventory("IsHarvester", 1);
+    	}
 
-	ACS_ExecuteAlways(91, 0);
-	ACS_ExecuteAlways(961, 0, Team);
-	PlayerSpeeds[PlayerNumber()] = Classes[c][CK_SPEED];
-    Log(s: pname(-1), s: " becomes ", s: Classes[c][CK_NAME]);
+    	ACS_ExecuteAlways(91, 0);
+    	ACS_ExecuteAlways(961, 0, Team);
+    	PlayerSpeeds[PlayerNumber()] = Classes[c][CK_SPEED];
+        Log(s: pname(-1), s: " becomes ", s: Classes[c][CK_NAME]);
+    }
+    else
+    {
+        MC_Draw(); // update the menu
+        Log(s: pname(-1), s: " buys addon ", s: Classes[c][CK_NAME]);
+
+        if (c == ADDON_ARMOUR)
+        {
+        	GiveInventory("HasArmorUpgrade", 1);
+        	GiveInventory("HighUpgrade", 1);
+        	SetArmorGrade(1, AGF_ADDITIVE);
+        }
+    }
 }
 // -----------------------------------------------------------------------------
 // [Dusk] Delayed class sounds - in a Script since functions cannot have latency.

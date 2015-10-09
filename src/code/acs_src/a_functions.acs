@@ -855,3 +855,9 @@ function bool StringIs(str first, str second) {
 function bool StringIsI(str first, str second) {
 	return (StrICmp(first, second) == 0);
 }
+
+// [SB] for DECORATE
+Script SC_GetPlayerTeam (void)
+{
+	SetResultValue(PlayerTeam());
+}

@@ -22,66 +22,9 @@ Script MSCC_INPUTRECV (int category, int item) NET
     int player = PlayerNumber();
     bool shouldExit = false;
 
-    if (category == 0) { // Generic
-        switch (item) {
-            case 0: shouldExit = true; PurchaseClass(CLASS_GUNMAN); break; // Gunman
-            case 1: shouldExit = true; PurchaseClass(CLASS_SHOTGUNNER); break; // Shotgunner
-            case 2: shouldExit = true; PurchaseClass(CLASS_RIFLEMAN); break; // Rifleman
-            case 3: shouldExit = true; PurchaseClass(CLASS_DOUBLESHOTGUNNER); break; // Double Shotgunner
-            case 4: shouldExit = true; PurchaseClass(CLASS_MACHINEGUNNER); break; // Machine Gunner
-            case 5: shouldExit = true; PurchaseClass(CLASS_TIBRIFLE); break; // Tiberium Autorifleman
-        }
-    }
-
-    if (category == 1) { // Support
-        switch (item) {
-            case 0: shouldExit = true; PurchaseClass(CLASS_ENGINEER); break; // Engineer
-            case 1: shouldExit = true; PurchaseClass(CLASS_TECHNICIAN); break; // Technician
-            case 2: shouldExit = true; PurchaseClass(CLASS_UTILITYGUY); break; // Utility Guy
-            case 3: shouldExit = true; PurchaseClass(CLASS_MEDIC); break; // Medic
-            case 4: shouldExit = true; PurchaseClass(CLASS_HARVESTER); break; // Tiberium Harvester
-            case 5: shouldExit = true; PurchaseClass(CLASS_ADVHARVESTER); break; // Adv. Tib. Harvester
-            case 6: shouldExit = true; PurchaseClass(CLASS_STEALTH); break; // Stealth Trooper - Generic?
-            case 7: shouldExit = true; PurchaseClass(CLASS_TIMECOP); break; // Time Cop
-        }
-    }
-
-    if (category == 2) { // Combat
-        switch (item) {
-            case 0: shouldExit = true; PurchaseClass(CLASS_FLAMER); break; // Flamer
-            case 1: shouldExit = true; PurchaseClass(CLASS_GRENADIER); break; // Grenadier
-            case 2: shouldExit = true; PurchaseClass(CLASS_ROCKETEER); break; // Rocketeer
-            case 3: shouldExit = true; PurchaseClass(CLASS_CHEMWARRIOR); break; // Chem Warrior
-            case 4: shouldExit = true; PurchaseClass(CLASS_SHOCKTROOPER); break; // Shock Trooper <- res centre?
-            case 5: shouldExit = true; PurchaseClass(CLASS_MINIGUNNER); break; // Minigunner - Generic?
-            case 6: shouldExit = true; PurchaseClass(CLASS_LASERCHAINGUNNER); break; // Laser Chaingunner <- res centre?
-            case 7: shouldExit = true; PurchaseClass(CLASS_JUMPJET); break; // Jumpjet Soldier
-            case 8: shouldExit = true; PurchaseClass(CLASS_PLASMAGUNNER); break; // Plasma Gunner <- res centre?
-        }
-    }
-
-    if (category == 3) { // Power
-        switch (item) {
-            case 0: shouldExit = true; PurchaseClass(CLASS_COMMANDO); break; // Commando
-            case 1: shouldExit = true; PurchaseClass(CLASS_SNIPER); break; // Sniper
-            case 2: shouldExit = true; PurchaseClass(CLASS_SUICIDEBOMBER); break; // Suicide Bomber - Suport?
-            case 3: shouldExit = true; PurchaseClass(CLASS_GAUSSGUNNER); break; // Gauss Gunner
-            case 4: shouldExit = true; PurchaseClass(CLASS_DEMOEXPERT); break; // Demo. Expert - Suport?
-            case 5: shouldExit = true; PurchaseClass(CLASS_ARTILLERY); break; // Artillery Soldier - Combat?
-        }
-    }
-
-    if (category == 4) { // Addons
-        switch (item) {
-            case 0: ACS_ExecuteAlways(50, 0); break; // Chainsaw
-            case 1: ACS_ExecuteAlways(49, 0); break; // Tiberium Autorifle
-            case 2: ACS_ExecuteAlways(51, 0); break; // Artillery Cannon
-            case 3: ACS_ExecuteAlways(55 + PlayerTeam(), 0, PlayerTeam()); break; // Team Beacon
-            case 4: ACS_ExecuteAlways(37, 0); break; // Plasma Cannon
-            case 5: ACS_ExecuteAlways(57, 0); break; // Armour Upgrade
-        }
-    }
-
+    if (category <= CMS_NUM)
+        PurchaseClass(menuItems[CheckInventory("PlayerSelectionCategories")][CheckInventory("PlayerSelectionItems")]);
+        
     if (category == 5) { // Resign
         ACS_ExecuteAlways(95, 0, 0, true); // arg1 is unused
         SetInventory("PlayerSelection", 0);

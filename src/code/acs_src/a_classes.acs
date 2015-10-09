@@ -24,7 +24,7 @@ Script MSCC_INPUTRECV (int category, int item) NET
 
     if (category <= CMS_NUM)
         PurchaseClass(menuItems[CheckInventory("PlayerSelectionCategories")][CheckInventory("PlayerSelectionItems")]);
-        
+
     if (category == 5) { // Resign
         ACS_ExecuteAlways(95, 0, 0, true); // arg1 is unused
         SetInventory("PlayerSelection", 0);
@@ -143,12 +143,12 @@ Script MSCC_Draw (void) CLIENTSIDE
 
     // Draw categories
     int c_startY = 0.45;
-    int c_incY = 0.02;
+    int c_incY = 0.03;
 
     for (int i = 0; i < CMS_NUM; i++)
     {
         if ((!drawResign[player] || IsResignedN()) && i == 5) continue;
-        SetFont("SMALLFONT");
+        SetFont("BIGFONT");
         HudMessage(s: MC_ItemString(MSIDE_CATEGORIES, 0, i);
                 HUDMSG_PLAIN, 600 + i, CR_GREY, MUI_CATEGORIES_X, c_startY, 0);
         SetFont("DOOMFONT");
@@ -157,7 +157,7 @@ Script MSCC_Draw (void) CLIENTSIDE
 
     // Draw items
     int i_startY = 0.45;
-    int i_incY = 0.02;
+    int i_incY = 0.03;
 
     for (int i1 = 0; i1 < MAX_ITEMS; i1++)
     {
@@ -167,7 +167,7 @@ Script MSCC_Draw (void) CLIENTSIDE
             continue;
         }
 
-        SetFont("SMALLFONT");
+        SetFont("BIGFONT");
         HudMessage(s: MC_ItemString(MSIDE_ITEMS, CheckInventory("PlayerSelectionCategories"), i1);
                 HUDMSG_PLAIN, 700 + i1, CR_GREY, MUI_ITEMS_X, i_startY, 0);
         SetFont("DOOMFONT");
@@ -181,7 +181,51 @@ Script MSCC_Draw (void) CLIENTSIDE
                 s: "\n\cdSwitch side: \cq", k: "+left", s: "\cd and \cq ", k: "+right",
                 s: "\n\cdSelect: \cq", k: "+use", s: "\cd or \cq", k: "+attack",
                 s: "\n\cdExit: \cq", k: "+altattack";
-                HUDMSG_PLAIN, 599, CR_GREEN, 1.5, 0.7, 0);
+                HUDMSG_PLAIN, 599, CR_GREEN, 1.5, 0.8, 0);
+
+    int classno = menuItems[CheckInventory("PlayerSelectionCategories")][CheckInventory("PlayerSelectionItems")];
+
+    // don't draw this next bit if
+    if (classno == -1)
+    {
+        MC_ClearHudMsg(598);
+        terminate;
+    }
+
+    str depStr = "";
+    switch(Classes[classno][CK_DEP])
+    {
+        case DEP_CENTRE:
+        {
+            depStr = "Research Centre";
+            break;
+        }
+
+        case DEP_BARRACKS:
+        {
+            depStr = "Barracks";
+            break;
+        }
+
+        case DEP_REFINERY:
+        {
+            depStr = "Refinery";
+            break;
+        }
+
+        default:
+        {
+            depStr = "None";
+            break;
+        }
+    }
+
+    // Draw class information
+    HudMessage(s: "\cf", s: Classes[classno][CK_NAME], s: "\n",
+                s: "\cdCost: \cq$", s: cond((Classes[classno][CK_COST] == 0), "Free", StrParam(d: Classes[classno][CK_COST])), s: "\n",
+                s: "\cdSpeed: \cq", f: Classes[classno][CK_SPEED], s: "\n",
+                s: "\cdDependency: \cq", s: depStr, s: "\n";
+                HUDMSG_PLAIN, 598, CR_GREEN, 0.4, 0.65, 0);
 }
 
 function void MC_ClearHudMsg(int id)
@@ -201,6 +245,7 @@ Script MSCC_Clear (void) CLIENTSIDE
     }
 
     MC_ClearHudMsg(599);
+    MC_ClearHudMsg(598);
 }
 
 function void MC_InputLoop_Start (void) { ACS_ExecuteAlways(MSCC_Input_Loop, 0, 0, 0, 0); }

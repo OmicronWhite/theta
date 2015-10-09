@@ -21,8 +21,7 @@ Script MSCC_INPUTRECV (int category, int item) NET
 {
     int player = PlayerNumber();
     bool shouldExit = false;
-
-    if (category <= CMS_NUM)
+    if (category <= CMS_NUM && menuItems[category][item] != -1)
         PurchaseClass(menuItems[CheckInventory("PlayerSelectionCategories")][CheckInventory("PlayerSelectionItems")]);
 
     if (category == 5) { // Resign

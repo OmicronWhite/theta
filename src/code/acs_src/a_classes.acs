@@ -74,7 +74,7 @@ function str MC_ItemString(int side, int category, int item)
     if (CheckInventory("PlayerSide") == MSIDE_CATEGORIES)
     {
         if (side == MSIDE_ITEMS)
-            return StrParam(s: "\cm", s: Classes[menuItems[category][item]][CK_NAME]);
+            return StrParam(s: "\cm", s: cond((menuItems[category][item] == -1), "----", Classes[menuItems[category][item]][CK_NAME]));
 
         if (item == 5)
         {

@@ -284,7 +284,7 @@ Script MSCC_Input_Loop (void) CLIENTSIDE
 
         LocalAmbientSound("menu/cursor", 127);
 
-                DebugLog(StrParam(d: CheckInventory("PlayerSelectionCategories"), s:", ", d: CheckInventory("PlayerSelectionItems")));
+        DebugLog(StrParam(d: CheckInventory("PlayerSelectionCategories"), s:", ", d: CheckInventory("PlayerSelectionItems")));
     }
 
     if (input & BT_BACK)

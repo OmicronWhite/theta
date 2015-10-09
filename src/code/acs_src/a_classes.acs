@@ -121,10 +121,10 @@ function str MC_ItemString(int side, int category, int item)
 
         // UNSELECTED   INSUFFICIENT FUNDS
         if (CheckInventory("PlayerSelectionItems") != item
-        && CheckInventory("PlayerSelectionCategories") == category
-        && side == MSIDE_ITEMS
-        && creds < Classes[menuItems[category][item]][CK_COST] )
-            return StrParam(s: "\cm", s: cond(item  == 3&& category == 4, cond(PlayerTeam(), "Ion Cannon Beacon", "Nuclear Strike Beacon"), Classes[menuItems[category][item]][CK_NAME]));
+            && CheckInventory("PlayerSelectionCategories") == category
+            && side == MSIDE_ITEMS
+            && creds < Classes[menuItems[category][item]][CK_COST] )
+                return StrParam(s: "\cm", s: cond(item  == 3&& category == 4, cond(PlayerTeam(), "Ion Cannon Beacon", "Nuclear Strike Beacon"), Classes[menuItems[category][item]][CK_NAME]));
 
         // SELECTED
         if (CheckInventory("PlayerSelectionItems") == item

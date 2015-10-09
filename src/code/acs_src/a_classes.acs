@@ -71,6 +71,9 @@ function str MC_ItemString(int side, int category, int item)
     int player = PlayerNumber();
     str value = "";
 
+    // some useful variables
+    int creds = Credits[PlayerNumber()];
+
     if (CheckInventory("PlayerSide") == MSIDE_CATEGORIES)
     {
         if (side == MSIDE_ITEMS)
@@ -108,6 +111,20 @@ function str MC_ItemString(int side, int category, int item)
         if (CheckInventory("PlayerSelectionItems") != item && CheckInventory("PlayerSelectionCategories") == category
             && menuItems[category][item] == -1)
             return "\cm----";
+
+        // SELECTED     INSUFFICIENT FUNDS
+        if (CheckInventory("PlayerSelectionItems") == item
+            && CheckInventory("PlayerSelectionCategories") == category
+            && side == MSIDE_ITEMS
+            && creds < Classes[menuItems[category][item]][CK_COST] )
+                return StrParam(s: "\cc", s: cond(item  == 3&& category == 4, cond(PlayerTeam(), "Ion Cannon Beacon", "Nuclear Strike Beacon"), Classes[menuItems[category][item]][CK_NAME]));
+
+        // UNSELECTED   INSUFFICIENT FUNDS
+        if (CheckInventory("PlayerSelectionItems") != item
+        && CheckInventory("PlayerSelectionCategories") == category
+        && side == MSIDE_ITEMS
+        && creds < Classes[menuItems[category][item]][CK_COST] )
+            return StrParam(s: "\cm", s: cond(item  == 3&& category == 4, cond(PlayerTeam(), "Ion Cannon Beacon", "Nuclear Strike Beacon"), Classes[menuItems[category][item]][CK_NAME]));
 
         // SELECTED
         if (CheckInventory("PlayerSelectionItems") == item
@@ -173,7 +190,6 @@ Script MSCC_Draw (void) CLIENTSIDE
         SetFont("DOOMFONT");
         i_startY += i_incY;
     }
-
     // Draw help
     HudMessage(s: "\cfHelp\n",
                 s: "\cdMove up: \cq", k: "+forward",
@@ -220,9 +236,11 @@ Script MSCC_Draw (void) CLIENTSIDE
         }
     }
 
+    int creds = Credits[PlayerNumber()];
+
     // Draw class information
     HudMessage(s: "\cf", s: Classes[classno][CK_NAME], s: "\n",
-                s: "\cdCost: \cq$", s: cond((Classes[classno][CK_COST] == 0), "Free", StrParam(d: Classes[classno][CK_COST])), s: "\n",
+                s: "\cdCost: \cq$", s: cond((Classes[classno][CK_COST] == 0), "Free", StrParam(s: cond((creds < Classes[classno][CK_COST]), "\cc", ""), d: Classes[classno][CK_COST])), s: "\n",
                 s: "\cdSpeed: \cq", f: Classes[classno][CK_SPEED], s: "\n",
                 s: "\cdDependency: \cq", s: depStr, s: "\n";
                 HUDMSG_PLAIN, 598, CR_GREEN, 0.4, 0.65, 0);

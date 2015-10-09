@@ -439,19 +439,19 @@ function void PurchaseClass (int c)
 	{
         if ((dep == DEP_BARRACKS || dep == DEP_CENTRE) && !GotBarracks[Team])
 		{
-            Error("Your \cFbarracks\c- has been destroyed!");
+            ErrorTop("Your \cFbarracks\c- has been destroyed!");
 			return;
 		}
 
 		if (dep == DEP_CENTRE && !GotPlant[Team])
 		{
-            Error("Your \cFresearch centre\c- has been destroyed!");
+            ErrorTop("Your \cFresearch centre\c- has been destroyed!");
 			return;
 		}
 
 		if (dep == DEP_REFINERY && !GotRefinery[Team])
 		{
-            Error("Your \cFrefinery\c- has been destroyed!");
+            ErrorTop("Your \cFrefinery\c- has been destroyed!");
 			return;
 		}
 	}
@@ -462,20 +462,22 @@ function void PurchaseClass (int c)
 	if (c == CLASS_TIMECOP && maxtimecops > 0 && NumTimeCops[team] >= maxtimecops)
 	{
         if (maxtimecops == 1)
-			Error("You already have a time cop in-field!");
+			ErrorTop("You already have a time cop in-field!");
 		else
-			Error(StrParam(s: "You already have ", d: NumTimeCops[team], s: " time cops in-field!"));
+			ErrorTop(StrParam(s: "You already have ", d: NumTimeCops[team], s: " time cops in-field!"));
 
 		return;
 	}
 
 	if (CheckInventory("HasClass"))
 	{
-        Error("You need to resign first!");
+        ErrorTop("You need to resign first!");
 		return;
 	}
 
 	// Show class information on the first press.
+    // [SB] useless now we have a menu
+    /*
 	if ((GetLevelInfo(LEVELINFO_LEVELNUM) != 20 && GetLevelInfo(LEVELINFO_LEVELNUM) != 21))
 	{
         if (!CheckInventory("PurchaseToken"))
@@ -494,6 +496,7 @@ function void PurchaseClass (int c)
 			ClearHudMessage(HID_CLASSTEXT + 1);
 		}
 	}
+    */
 
 	// Check monies
 	if (!CheckCredits(cost))
@@ -619,7 +622,6 @@ function void PurchaseClass (int c)
 	PlayerSpeeds[PlayerNumber()] = Classes[c][CK_SPEED];
     Log(s: pname(-1), s: " becomes ", s: Classes[c][CK_NAME]);
 }
-
 // -----------------------------------------------------------------------------
 // [Dusk] Delayed class sounds - in a Script since functions cannot have latency.
 // These sounds are only played locally now.

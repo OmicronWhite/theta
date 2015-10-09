@@ -280,7 +280,7 @@ Script 301 ENTER CLIENTSIDE
 					HUDMSG_FADEINOUT, HID_ENTER + 2, CR_GOLD, 0.5, 0.6, 7.0);
 
 	SetFont("SMALLFONT");
-	HudMessage(s: "\cfYou are playing \cdThe Theta Project\cf commit \cd", s: COMMIT_HASH, s:"\cf!\n",
+	HudMessage(s: "\cfYou are playing \cdThe Theta Project\cf version ", s: VERSION_STRING, s: " (commit \cd", s: COMMIT_HASH, s:"\cf)!\n",
 				s: "\cfJoin the \cd#theta\cf channel on \cdZandronum IRC\cf!\n",
 				s: "\cfDeveloped by \c[c9]S\c[c1]e\c[c9]a\c[c1]n\cf and \cdProtox\cf.",
 				s: "\n\n",

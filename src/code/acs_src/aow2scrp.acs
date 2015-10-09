@@ -564,6 +564,7 @@ str NormalWeaponNames[MAX_NORMAL_WEAPONS] =
 };
 
 #include "gitcommit.acs" // [SB] Auto generated
+#include "version.acs" // [SB] Auto generated
 
 #include "a_functions.acs"
 #include "a_armor.acs"

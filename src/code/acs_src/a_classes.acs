@@ -21,9 +21,10 @@ Script MSCC_INPUTRECV (int category, int item)
 {
     int player = PlayerNumber();
     bool shouldExit = false;
-    DebugLog(StrParam(d: playerSelection[PlayerNumber()][MSIDE_CATEGORIES], s: ":", d: playerSelection[PlayerNumber()][MSIDE_ITEMS]));
-    DebugLog(StrParam(d: category, s: ";", d: category));
-    DebugLog(StrParam(s: Classes[menuItems[category][item]][CK_NAME]));
+
+    playerSelection[PlayerNumber()][MSIDE_CATEGORIES] = 0;
+    playerSelection[PlayerNumber()][MSIDE_ITEMS] = 0;
+
     if (category <= CMS_NUM && menuItems[category][item] != -1)
         PurchaseClass(menuItems[category][item]);
 
@@ -370,7 +371,6 @@ Script MSCC_Input_Loop (void)
                     playerSelection[PlayerNumber()][MSIDE_ITEMS]);
     }
 
-    DebugLog(StrParam(d: playerSelection[PlayerNumber()][MSIDE_CATEGORIES], s: "/", d: playerSelection[PlayerNumber()][MSIDE_ITEMS]));
     if (inputUsed) { MC_Draw(); }
     Delay(MIL_DELAY);
     if (CheckInventory("InMenu")) restart;

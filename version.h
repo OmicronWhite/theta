@@ -2,4 +2,4 @@
 # It is just for genver.
 # The version format is extremely simple:
 
-0.99.1
+0.99.2

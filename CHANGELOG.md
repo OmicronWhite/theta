@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## 0.99.1
+ - New `Researches` array, serves similar purpose as `Classes` but for researches (duh)
+ - Rework the Research Centre menu
+ - The buttons in the Research Centre now enter the menu.
+
 ## 0.99.0
  - New versioning system.
  - Huge class menu rework:

@@ -365,3 +365,13 @@ Script MSCR_DEATHRESET DEATH { MR_Exit(); }
 
 function void MR_QuitReset (void) { ACS_ExecuteAlways(MSCR_QUITRESET, 0, 0, 0, 0); }
 Script MSCR_QUITRESET (int gone) DISCONNECT { if (PlayerNumber() == gone) MR_Exit(); }
+
+Script 65 (void) MR_Enter();
+Script 66 (void) MR_Enter();
+Script 67 (void) MR_Enter();
+Script 68 (void) MR_Enter();
+Script 69 (void) MR_Enter();
+Script 70 (void) MR_Enter();
+Script 71 (void) MR_Enter();
+Script 72 (void) MR_Enter();
+Script 73 (void) MR_Enter();

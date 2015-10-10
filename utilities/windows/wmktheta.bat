@@ -57,10 +57,10 @@ IF %NOGIT%==0 (
     call "%START%\utilities\commit.bat"
 )
 
-"%START%\utilities\windows\win%ARCH%\genver.exe" batch "%START%\utilities\version.bat" --silent
+"%START%\utilities\windows\win%ARCH%\genver.exe" "%START%\version.h" batch "%START%\utilities\version.bat" --silent
 if not %errorlevel%==0 goto exefail
 CALL "%START%\utilities\version.bat"
-"%START%\utilities\windows\win%ARCH%\genver.exe" c "%START%\src\code\acs_src\version.acs" --silent
+"%START%\utilities\windows\win%ARCH%\genver.exe" "%START%\version.h" c "%START%\src\code\acs_src\version.acs" --silent
 if not %errorlevel%==0 goto exefail
 
 echo You are building %VERSION_STRING%.

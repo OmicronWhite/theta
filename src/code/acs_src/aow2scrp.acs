@@ -184,6 +184,66 @@ int menuItems[CMS_NUM][MAX_ITEMS] = {
 	}
 };
 
+// research
+#define RES_ENHANCEDREF 0
+#define RES_ADVMECHS 1
+#define RES_OBBYRES 2
+#define RES_HPREGEN 3
+#define RES_AMMOREGEN 4
+#define RES_TIMEDC4 5
+#define RES_REPAIRGUN 6
+#define RES_ADVTURR 7
+#define RES_MORETURR 8
+#define NUM_RESEARCHES 9
+
+// classes menu stuff
+#define RMS_BASE 0
+#define RMS_ENHANCEMENTS 1
+#define RMS_PERSONAL 2
+#define RMS_NUM 3
+
+str resMenuCategoryNames[RMS_NUM] = {
+	"Base",
+	"Enhancements",
+	"Personal"
+};
+
+int resMenuItems[RMS_NUM][MAX_ITEMS] = {
+	{
+		RES_HPREGEN,
+		RES_AMMOREGEN,
+		RES_OBBYRES,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1
+	},
+	{
+		RES_ENHANCEDREF,
+		RES_ADVMECHS,
+		RES_ADVTURR,
+		RES_MORETURR,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1
+	},
+	{
+		RES_TIMEDC4,
+		RES_REPAIRGUN,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1
+	}
+};
+
 // mech ids
 #define MECH_ORCA 0
 #define MECH_RAVEN 1
@@ -497,6 +557,7 @@ int lastPlayerToJoin = 0;
 
 // =============================================================================
 int Classes[NUM_CLASSES][64];
+int Researches[NUM_RESEARCHES][64];
 
 // Keys to the Classes array
 #define CK_NAME         0
@@ -508,7 +569,8 @@ int Classes[NUM_CLASSES][64];
 #define CK_ARMORNUM     6
 #define CK_ARMORMOD     7
 #define CK_FLAGS        8
-#define CK_NUMITEMS     9 // last key - item info follows
+#define CK_DESC			9
+#define CK_NUMITEMS     10 // last key - item info follows
 
 // CK_FLAGS
 //						(1 << 0)

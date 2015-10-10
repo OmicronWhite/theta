@@ -15,6 +15,7 @@ Script 999 OPEN
 	delay(1);
 
 	InitClasses();
+	LoadResearchDefinitions();
 
 	RankTitles[0] = "Private";
 	RankTitles[1] = "Corporal";

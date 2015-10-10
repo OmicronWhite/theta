@@ -93,7 +93,11 @@ int main (int argc, char *argv[])
 	string line, major, minor, patch;
 	bool done = false;
 	ifstream infile;
+#if _MSC_VER
 	infile.open(string(argv[1]));
+#else
+	infile.open(argv[1]);
+#endif
 	if (infile.is_open())
 	{
 		while (getline(infile, line))

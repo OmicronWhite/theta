@@ -45,7 +45,7 @@ echo "Initialising enviroment for Theta building."
 x "g++ utilities/gitcommit.cpp -o utilities/linux/gitcommit" "Compiling gitcommit   "
 x "gcc utilities/acsconstants.c -o utilities/linux/acsconstants" "Compiling acsconstants"
 x "g++ utilities/acschangelog.cpp -o utilities/linux/acschangelog" "Compiling acschangelog"
-x "g++ utilities/genver.cpp -o utilities/linux/genver" "Compiling genver      "
+x "g++ utilities/genver.cpp -std=c++11 -o utilities/linux/genver" "Compiling genver      "
 x "cd utilities/linux"
 if [[ -d "acc" || -f "acc" ]]; then
 	x "rm -rf acc ${ss}"

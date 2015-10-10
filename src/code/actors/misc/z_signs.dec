@@ -591,7 +591,7 @@ actor Sign_Upgrade01 21458
   States
   {
   Spawn:
-    UPGR A -1 BRIGHT
+    TNT1 A 0 BRIGHT
     stop
   }
 }
@@ -604,7 +604,7 @@ actor Sign_Upgrade02 21459
   States
   {
   Spawn:
-    UPGR B -1 BRIGHT
+    TNT1 A 0 BRIGHT
     stop
   }
 }
@@ -617,7 +617,7 @@ actor Sign_Upgrade03 21460
   States
   {
   Spawn:
-    UPGR C -1 BRIGHT
+    TNT1 A 0 BRIGHT
     stop
   }
 }
@@ -630,7 +630,7 @@ actor Sign_Upgrade04 21461
   States
   {
   Spawn:
-    UPGR D -1 BRIGHT
+    TNT1 A 0 BRIGHT
     stop
   }
 }
@@ -644,7 +644,7 @@ actor Sign_Upgrade05 21462 {
   {
   Spawn:
     TNT1 A 0
-    // UPGR E -1 BRIGHT
+    // TNT1 A 0 BRIGHT
     stop
   }
 }
@@ -657,7 +657,7 @@ actor Sign_Upgrade06 21463
   States
   {
   Spawn:
-    UPGR F -1 BRIGHT
+    TNT1 A 0 BRIGHT
     stop
   }
 }
@@ -670,7 +670,7 @@ actor Sign_Upgrade07 21464
   States
   {
   Spawn:
-    UPGR G -1 BRIGHT
+    TNT1 A 0 BRIGHT
     stop
   }
 }
@@ -683,7 +683,7 @@ actor Sign_Upgrade08 21465
   States
   {
   Spawn:
-    UPGR H -1 BRIGHT
+    TNT1 A 0 BRIGHT
     stop
   }
 }
@@ -696,7 +696,7 @@ actor Sign_Upgrade09 21466
   States
   {
   Spawn:
-    UPGR I -1 BRIGHT
+    TNT1 A 0 BRIGHT
     stop
   }
 }
@@ -709,7 +709,7 @@ actor Sign_Upgrade10 21467
   States
   {
   Spawn:
-    UPGR J -1 BRIGHT
+    TNT1 A 0 BRIGHT
     stop
   }
 }
@@ -722,7 +722,7 @@ actor Sign_Upgrade11 21468
   States
   {
   Spawn:
-    UPGR K -1 BRIGHT
+    TNT1 A 0 BRIGHT
     stop
   }
 }
@@ -735,7 +735,7 @@ actor Sign_Upgrade12 21469
   States
   {
   Spawn:
-    UPGR L -1 BRIGHT
+    TNT1 A 0 BRIGHT
     stop
   }
 }
@@ -748,7 +748,7 @@ actor Sign_Upgrade13 21470
   States
   {
   Spawn:
-    UPGR M -1 BRIGHT
+    TNT1 A 0 BRIGHT
     stop
   }
 }
@@ -787,7 +787,7 @@ actor Sign_Upgrade14 21473
   States
   {
   Spawn:
-    UPGR N -1 BRIGHT
+    TNT1 A 0 BRIGHT
     stop
   }
 }
@@ -800,7 +800,7 @@ actor Sign_Upgrade15 21474
   States
   {
   Spawn:
-    UPGR O -1 BRIGHT
+    TNT1 A 0 BRIGHT
     stop
   }
 }
@@ -813,7 +813,7 @@ actor Sign_Upgrade16 21475
   States
   {
   Spawn:
-    UPGR P -1 BRIGHT
+    TNT1 A 0 BRIGHT
     stop
   }
 }

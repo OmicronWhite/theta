@@ -6,8 +6,20 @@ actor ClassID : Counter {}
 
 actor SelfHealCooldown : Inventory {}
 actor Ingame : Inventory {} // DEPRECATED
-actor IsRed : Inventory {}
-actor IsBlue : Inventory {}
+//actor IsRed : Inventory {}
+//actor IsBlue : Inventory {}
+// Protox Test
+actor IsRed : InventoryItem {
+	Inventory.MaxAmount 1
+	Inventory.PickupMessage "Picked up a isRed... WHAT!?"
+	Inventory.Icon "ISREIC"
+}
+actor IsBlue : Inventory {
+	Inventory.MaxAmount 1
+	Inventory.PickupMessage "Picked up a isBlue... WHAT!?"
+	Inventory.Icon "ISBLIC"
+}
+// End of test
 actor IsFemale : Inventory {}
 actor PurchaseToken : Inventory {}
 actor InRepairs : Inventory {}

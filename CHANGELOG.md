@@ -5,6 +5,11 @@ Changelog
  - New `Researches` array, serves similar purpose as `Classes` but for researches (duh)
  - Rework the Research Centre menu
  - The buttons in the Research Centre now enter the menu.
+ - Show the version of Theta when the player joins
+ - Change the default of the `theta_startcredits` CVar to `300`
+
+### Bugs Fixed
+ - [#2](https://github.com/PlusGit/theta/issues/2) Autobalance Obelisk and Tesla don't aim on player after switch (fix needs testing)
 
 ## 0.99.0
  - New versioning system.

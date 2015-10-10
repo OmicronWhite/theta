@@ -53,6 +53,28 @@ function int SpendCredits (int amount)
 	return amount;
 }
 
+function int SpendCreditsTop (int amount)
+{
+	if (IsAdmin[PlayerNumber()])
+		return -1;
+
+	int delta = Discount(amount);
+	amount -= delta;
+
+	DecrCredits(PlayerNumber(), amount);
+
+	SETFONT("BigFont");
+
+	if (delta == 0)
+		HudMessage(s: "\cJYou have spent \cQ$\cD", d: amount;
+					HUDMSG_FADEOUT, 480 + PlayerNumber(), CR_Green, 0.5, 0.45, 2.0, 1.0);
+	else
+		HudMessage(s: "\cJYou have spent \cQ$\cD", d: amount, s: " \cF[\cQ-$\cD", d: delta, s: "\cF]";
+					HUDMSG_FADEOUT, 480 + PlayerNumber(), CR_Green, 0.5, 0.45, 2.0, 1.0);
+
+	return amount;
+}
+
 function void AwardCredits(int amount)
 {
 	int p = PlayerNumber();

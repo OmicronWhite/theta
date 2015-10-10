@@ -45,7 +45,7 @@ function void PurchaseResearch (int c)
 	}
 
 	// Check monies
-	if (!CheckCredits(cost))
+	if (!CheckCreditsTop(cost))
 		return;
 
 	int cflags = Researches[c][CK_FLAGS];
@@ -220,6 +220,6 @@ function void PurchaseResearch (int c)
 
 	TakeInventory("PurchaseToken", 1);
 	DisplayTick();
-	SpendCredits(cost);
+	SpendCreditsTop(cost);
 	GivePoints(POINTS_RESEARCH);
 }

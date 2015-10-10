@@ -513,7 +513,7 @@ function void PurchaseClass (int c)
     */
 
 	// Check monies
-	if (!CheckCredits(cost))
+	if (!CheckCreditsTop(cost))
 		return;
 
     if(!(Classes[c][CK_FLAGS] & CF_NOMENUEXIT)) MC_Exit2(); // If we're in the menu, leave it.
@@ -522,7 +522,7 @@ function void PurchaseClass (int c)
 
 	TakeInventory("PurchaseToken", 1);
 	DisplayTick();
-	SpendCredits(cost);
+	SpendCreditsTop(cost);
     if (!addon) BigMessage(StrParam(s: "You are a \cf", s: Classes[c][CK_NAME], s: "!"));
 
     if (!addon)

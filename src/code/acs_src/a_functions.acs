@@ -50,7 +50,7 @@ function int msqr(int n)
 
 // [Dusk] returns 1 if player has $price money, discount taken into account
 // if not, prints the error message and returns 0
-function int CheckCredits(int price)
+function int _CheckCredits(int price, bool top)
 {
 	if (IsAdmin[PlayerNumber()]) return 1;
 
@@ -60,8 +60,10 @@ function int CheckCredits(int price)
 	{
 		TakeInventory("PurchaseToken", 1);
 		LocalAmbientSound("misc/funds", 255);
-		Error(strparam(s: "You need \cQ$\cD", d: price - GetCredits(PlayerNumber()),
-				 s: "\c- more to purchase this!"));
+		if (top) ErrorTop(strparam(s: "You need \cQ$\cD", d: price - GetCredits(PlayerNumber()),
+				 					s: "\c- more to purchase this!"));
+		else Error(strparam(s: "You need \cQ$\cD", d: price - GetCredits(PlayerNumber()),
+				 			s: "\c- more to purchase this!"));
 
 		if (GetLevelInfo(LEVELINFO_LEVELNUM) == 20 || GetLevelInfo(LEVELINFO_LEVELNUM) == 21)
 			ThrustThing((VectorAngle(GetActorVelX(0), GetActorVelY(0)) >> 8) + 128, 25, 0, 0);
@@ -70,6 +72,16 @@ function int CheckCredits(int price)
 	}
 
 	return 1;
+}
+
+function int CheckCredits(int price)
+{
+	return _CheckCredits(price, false);
+}
+
+function int CheckCreditsTop(int price)
+{
+	return _CheckCredits(price, true);
 }
 
 // [Dusk] returns 1 if player has no class, 0 of they have, along with error message
@@ -809,7 +821,7 @@ Script SC_ChangePlayerTeam (int player, int team)
 	SetInventory("IsRed", (team == TEAM_RED));
 	SetInventory("TeamSwitchedRB", (team == TEAM_BLUE));
 	SetInventory("TeamSwitchedBR", (team == TEAM_RED));
-	
+
 	if (CheckInventory("IsInSpawnRoom"))
 		Teleport(70 + (team == TEAM_RED));
 	else

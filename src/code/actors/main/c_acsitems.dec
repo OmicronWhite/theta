@@ -79,3 +79,5 @@ actor InMenu : Boolean {}
 actor PlayerSide : Boolean {}
 actor PlayerSelectionCategories : EndlessItem {}
 actor PlayerSelectionItems : EndlessItem {}
+actor MenuClassesInitd : Boolean{} // systemd > init.d
+actor MenuResearchesInitd : Boolean{} // systemd > init.d

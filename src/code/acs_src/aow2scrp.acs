@@ -339,6 +339,8 @@ int resMenuItems[RMS_NUM][MAX_ITEMS] = {
 #define SC_CL_ObeliskTrail        822
 #define SC_UpdateCreditDisplay    827
 #define SC_MedicHealthRegen       835
+#define SC_MenuSetSel			  843
+#define SC_MenuGetSel			  844
 #define SC_SpawnMarkerDestroyed   852
 #define SC_CL_Changelog           853
 #define SC_HUDTicker              854
@@ -395,9 +397,8 @@ int resMenuItems[RMS_NUM][MAX_ITEMS] = {
 
 #define MIL_DELAY               4
 
-int playerSelection[65][2];
-int playerSide[65];
-int inMenu[65];
+int playerSelection[MAXPLAYERS][2];
+int playerSide[MAXPLAYERS];
 
 /********************* Menus *********************/
 
@@ -653,6 +654,7 @@ str NormalWeaponNames[MAX_NORMAL_WEAPONS] =
 #include "a_mechs.acs"
 #include "a_menu.acs"
 #include "a_menu_research.acs"
+#include "a_menu_shared.acs"
 #include "a_menudef.acs"
 #include "a_misc.acs"
 #include "a_netscripts.acs"

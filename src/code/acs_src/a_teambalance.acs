@@ -45,7 +45,7 @@ function void CheckTeamBalance (void)
 			for(i = 0; i < MAXPLAYERS; i++)
 			{
 				// [SB] last check here shouldn't happen, but who knows?
-				if (!PlayerInGame(i) || IsAdmin[i] || GetPlayerTeam(i) == lesserteam || i != lastPlayerToJoin)
+				if (!PlayerInGame(i) || IsAdmin[i] || GetPlayerTeam(i) == lesserteam || i == lastPlayerToJoin)
 					continue; // not a player on the greater team
 
 				// Find the player with least start time. The player also must have been in

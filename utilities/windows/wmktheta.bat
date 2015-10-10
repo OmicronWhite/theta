@@ -2,8 +2,6 @@
 title All Out War: Theta Build Script
 
 SET START=%CD%
-for /F "usebackq tokens=1,2 delims==" %%i in (`wmic os get LocalDateTime /VALUE 2^>NUL`) do if '.%%i.'=='.LocalDateTime.' set ldt=%%je
-SET no=-%ldt:~2,6%
 
 IF /I "%PROCESSOR_ARCHITECTURE%"=="x32" (
     IF NOT DEFINED PROCESSOR_ARCHITEW6432 (
@@ -49,10 +47,6 @@ IF /I "%3"=="/NOGIT" (
     )
 )
 
-IF /I "%1"=="/NOVERSION" (
-    SET no=
-)
-
 echo All Out War "Theta" Build Script
 echo Written by Sean
 echo.
@@ -63,8 +57,22 @@ IF %NOGIT%==0 (
     call "%START%\utilities\commit.bat"
 )
 
-echo The build number is %no%.
+"%START%\utilities\windows\win%ARCH%\genver.exe" batch "%START%\utilities\version.bat" --silent
+if not %errorlevel%==0 goto exefail
+CALL "%START%\utilities\version.bat"
+"%START%\utilities\windows\win%ARCH%\genver.exe" c "%START%\src\code\acs_src\version.acs" --silent
+if not %errorlevel%==0 goto exefail
+
+echo You are building %VERSION_STRING%.
 IF %NOGIT%==0 echo You are building commit %COMMIT_HASH%.
+
+IF %NOGIT%==0 SET no=-%VERSION_STRING%-%COMMIT_HASH%
+IF NOT %NOGIT%==0 SET no=-%VERSION_STRING%
+
+IF /I "%1"=="/NOVERSION" (
+    SET no=
+)
+
 echo.
 
 if not exist src\code\acs\ (
@@ -140,10 +148,11 @@ IF EXIST "%START%\utilities\commit.bat" del /F /Q "%START%\utilities\commit.bat"
 
 cd %start%
 echo.
+IF %NOGIT%==0 echo Built Theta %VERSION_STRING%-%COMMIT_HASH% successfully!
+IF NOT %NOGIT%==0 echo Built Theta %VERSION_STRING% successfully!
+echo.
 echo The PK3 files are to be found in:
 echo %START%\out
-echo Build number #%no%.
-IF %NOGIT%==0 echo Commit hash: %COMMIT_HASH%.
 
 title All Out War: Theta Build Success
 echo.

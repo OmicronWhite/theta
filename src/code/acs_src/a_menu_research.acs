@@ -276,7 +276,7 @@ Script MSCR_Input_Loop (void) CLIENTSIDE
             && CheckInventory("PlayerSelectionCategories") == 0)
         {
             SetInventory("PlayerSelectionItems", 0);
-            SetInventory("PlayerSelectionCategories", RMS_NUM);
+            SetInventory("PlayerSelectionCategories", RMS_NUM - 1);
         }
         else if (CheckInventory("PlayerSide") == MSIDE_ITEMS
             && CheckInventory("PlayerSelectionItems") == 0)

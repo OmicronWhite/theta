@@ -14,7 +14,7 @@ actor IsRed : InventoryItem {
 	Inventory.PickupMessage "Picked up a isRed... WHAT!?"
 	Inventory.Icon "ISREIC"
 }
-actor IsBlue : Inventory {
+actor IsBlue : InventoryItem {
 	Inventory.MaxAmount 1
 	Inventory.PickupMessage "Picked up a isBlue... WHAT!?"
 	Inventory.Icon "ISBLIC"

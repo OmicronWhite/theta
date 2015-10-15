@@ -1210,12 +1210,16 @@ texture crateli5, 64, 128 {
 // ============================================================================
 // Testing Inventory Icons
 
-graphic "ISBLIC", 32, 32 {
-	offset -32, -20
-	patch "ISBLUA0", 0, 0
+sprite "ISBLIC", 32, 32 {
+	xscale 1.5
+	yscale 1.5
+	//offset -32, -20
+	patch "ISBLA0", 0, 0
 }
 
-graphic "ISREIC", 32, 32 {
-	offset -32, -20
-	patch "IREDA0", 0, 0
+sprite "ISREIC", 32, 32 {
+	xscale 1.5
+	yscale 1.5
+	//offset -32, -20
+	patch "ISREA0", 0, 0
 }

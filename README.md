@@ -15,6 +15,7 @@ Also check out our forums at [theta.plussean.co.uk](http://theta.plussean.co.uk)
  * __AOW05__ - Virtual Zone
  * __AOW06__ - Glacier
  * __AOW07__ - Sand Canyon
+ * __AOW08__ - Valley
 
 ## Get
 The [releases page](https://github.com/PlusGit/theta/releases) is the most up-to-date source of *stable* releases of Theta. For development builds, see the [Building](https://github.com/PlusGit/theta#building) section below.

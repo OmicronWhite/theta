@@ -9,12 +9,14 @@ actor Ingame : Inventory {} // DEPRECATED
 //actor IsRed : Inventory {}
 //actor IsBlue : Inventory {}
 // Protox Test
-actor IsRed : InventoryItem {
+actor IsRed : Inventory {
+	+INVBAR
 	Inventory.MaxAmount 1
 	Inventory.PickupMessage "Picked up a isRed... WHAT!?"
 	Inventory.Icon "ISREIC"
 }
-actor IsBlue : InventoryItem {
+actor IsBlue : Inventory {
+	+INVBAR
 	Inventory.MaxAmount 1
 	Inventory.PickupMessage "Picked up a isBlue... WHAT!?"
 	Inventory.Icon "ISBLIC"

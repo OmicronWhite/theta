@@ -60,6 +60,13 @@ map AOW07 "Sand Canyon" {
 	levelnum = 7
 }
 
+map AOW08 "Valley" {
+	next = "AOW09"
+	music = "D_AOW08"
+	sky1 = "skyFOG0", 0.1
+	levelnum = 5
+}
+
 map AOW99 "Test" {
 	next = "AOW01"
 	sky1 = "stsky14"

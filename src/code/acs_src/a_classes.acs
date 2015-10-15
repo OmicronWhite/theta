@@ -16,14 +16,15 @@
 int drawResign[32];
 
 // This function is called when the player has chosen an item.
-function void MC_InputReceived(int category, int item) { RequestScriptPuke(MSCC_INPUTRECV, 0, category, item); }
-Script MSCC_INPUTRECV (int category, int item) NET
+function void MC_InputReceived(int category, int item) { ACS_ExecuteAlways(MSCC_INPUTRECV, 0, category, item); }
+Script MSCC_INPUTRECV (int category, int item)
 {
     int player = PlayerNumber();
     bool shouldExit = false;
-    DebugLog(StrParam(d: playerSelection[PlayerNumber()][MSIDE_CATEGORIES], s: ":", d: playerSelection[PlayerNumber()][MSIDE_ITEMS]));
-    DebugLog(StrParam(d: category, s: ";", d: category));
-    DebugLog(StrParam(s: Classes[menuItems[category][item]][CK_NAME]));
+
+    playerSelection[PlayerNumber()][MSIDE_CATEGORIES] = 0;
+    playerSelection[PlayerNumber()][MSIDE_ITEMS] = 0;
+
     if (category <= CMS_NUM && menuItems[category][item] != -1)
         PurchaseClass(menuItems[category][item]);
 
@@ -54,9 +55,9 @@ Script MSCC_Enter (void)
     }
 }
 
-function void MC_Exit (void) { RequestScriptPuke(MSCC_EXIT, 0, 0, 0); }
+function void MC_Exit (void) { ACS_ExecuteAlways(MSCC_EXIT, 0, 0, 0); }
 function void MC_Exit2 (void) { ACS_ExecuteAlways(MSCC_EXIT, 0, 0, 0, 0); }
-Script MSCC_Exit (void) NET
+Script MSCC_Exit (void)
 {
     int player = PlayerNumber();
     SetInventory("InMenu", 0);
@@ -70,8 +71,6 @@ Script MSCC_Exit (void) NET
 
 function str MC_ItemString(int side, int category, int item)
 {
-    InitClasses();
-
     int player = PlayerNumber();
     str value = "";
 
@@ -162,10 +161,8 @@ function void MC_Unfreeze (void)
 
 // Draws the menu.
 function void MC_Draw (void) { ACS_ExecuteAlways(MSCC_Draw, 0, 0, 0, 0); }
-Script MSCC_Draw (void) CLIENTSIDE
+Script MSCC_Draw (void)
 {
-    InitClasses();
-
     int player = PlayerNumber();
 
     // Draw categories
@@ -262,7 +259,7 @@ function void MC_ClearHudMsg(int id)
 }
 
 function void MC_Clear (void) { ACS_ExecuteAlways(MSCC_Clear, 0, 0, 0, 0); }
-Script MSCC_Clear (void) CLIENTSIDE
+Script MSCC_Clear (void)
 {
     for (int i = 0; i < CMS_NUM; i++) {
         MC_ClearHudMsg(600 + i);
@@ -278,7 +275,7 @@ Script MSCC_Clear (void) CLIENTSIDE
 
 function void MC_InputLoop_Start (void) { ACS_ExecuteAlways(MSCC_Input_Loop, 0, 0, 0, 0); }
 function void MC_InputLoop_Stop (void) { ACS_Terminate(MSCC_Input_Loop, 0); }
-Script MSCC_Input_Loop (void) CLIENTSIDE
+Script MSCC_Input_Loop (void)
 {
     int input = GetPlayerInput(-1, INPUT_BUTTONS);
     int player = PlayerNumber();
@@ -374,7 +371,6 @@ Script MSCC_Input_Loop (void) CLIENTSIDE
                     playerSelection[PlayerNumber()][MSIDE_ITEMS]);
     }
 
-    DebugLog(StrParam(d: playerSelection[PlayerNumber()][MSIDE_CATEGORIES], s: "/", d: playerSelection[PlayerNumber()][MSIDE_ITEMS]));
     if (inputUsed) { MC_Draw(); }
     Delay(MIL_DELAY);
     if (CheckInventory("InMenu")) restart;

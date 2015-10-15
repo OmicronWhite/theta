@@ -1,6 +1,15 @@
 Changelog
 =========
 
+## 0.99.3
+ - Add AOW08 - Valley (imported from AOW 2.1)
+
+## 0.99.2
+ - Fix building `genver` on Linux
+ - Update `build.sh` for new `genver` syntax
+ - AOW02 updates
+ - Lots of menu stuff (per usual)
+
 ## 0.99.1
  - New `Researches` array, serves similar purpose as `Classes` but for researches (duh)
  - Rework the Research Centre menu

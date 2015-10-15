@@ -14,13 +14,17 @@
 
 
 // This function is called when the player has chosen an item.
-function void MR_InputReceived(int category, int item) { RequestScriptPuke(MSCR_INPUTRECV, 0, category, item); }
-Script MSCR_INPUTRECV (int category, int item) NET
+function void MR_InputReceived(int category, int item) { ACS_ExecuteAlways(MSCR_INPUTRECV, 0, category, item); }
+Script MSCR_INPUTRECV (int category, int item)
 {
     int player = PlayerNumber();
     bool shouldExit = false;
-    if (category <= RMS_NUM && resMenuItems[CheckInventory("PlayerSelectionCategories")][CheckInventory("PlayerSelectionItems")] != -1)
-        PurchaseResearch(resMenuItems[CheckInventory("PlayerSelectionCategories")][CheckInventory("PlayerSelectionItems")]);
+
+    playerSelection[PlayerNumber()][MSIDE_CATEGORIES] = 0;
+    playerSelection[PlayerNumber()][MSIDE_ITEMS] = 0;
+
+    if (category <= RMS_NUM && resMenuItems[playerSelection[PlayerNumber()][MSIDE_CATEGORIES]][playerSelection[PlayerNumber()][MSIDE_ITEMS]] != -1)
+        PurchaseResearch(resMenuItems[playerSelection[PlayerNumber()][MSIDE_CATEGORIES]][playerSelection[PlayerNumber()][MSIDE_ITEMS]]);
 
     LocalAmbientSound("menu/choose", 127);
 
@@ -41,9 +45,9 @@ Script MSCR_Enter (void)
     }
 }
 
-function void MR_Exit (void) { RequestScriptPuke(MSCR_EXIT, 0, 0, 0); }
+function void MR_Exit (void) { ACS_ExecuteAlways(MSCR_EXIT, 0, 0, 0); }
 function void MR_Exit2 (void) { ACS_ExecuteAlways(MSCR_EXIT, 0, 0, 0, 0); }
-Script MSCR_Exit (void) NET
+Script MSCR_Exit (void)
 {
     int player = PlayerNumber();
     SetInventory("InMenu", 0);
@@ -63,47 +67,47 @@ function str MR_ItemString(int side, int category, int item)
     // some useful variables
     int creds = Credits[PlayerNumber()];
 
-    if (CheckInventory("PlayerSide") == MSIDE_CATEGORIES)
+    if (playerSide[PlayerNumber()] == MSIDE_CATEGORIES)
     {
         if (side == MSIDE_ITEMS)
             return StrParam(s: "\cm", s: cond((resMenuItems[category][item] == -1), "----", Researches[resMenuItems[category][item]][CK_NAME]));
 
         if (item == 5)
         {
-            if (CheckInventory("PlayerSelectionCategories") == item && side == MSIDE_CATEGORIES)
+            if (playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == item && side == MSIDE_CATEGORIES)
                     return StrParam(s: "\cf", s: resMenuCategoryNames[item]);
 
-            if (CheckInventory("PlayerSelectionCategories") != item && side == MSIDE_CATEGORIES)
+            if (playerSelection[PlayerNumber()][MSIDE_CATEGORIES] != item && side == MSIDE_CATEGORIES)
                     return StrParam(s: "\ci", s: resMenuCategoryNames[item]);
         }
         else
         {
-            if (CheckInventory("PlayerSelectionCategories") == item && side == MSIDE_CATEGORIES)
+            if (playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == item && side == MSIDE_CATEGORIES)
                     return StrParam(s: "\cd", s: resMenuCategoryNames[item]);
 
-            if (CheckInventory("PlayerSelectionCategories") != item && side == MSIDE_CATEGORIES)
+            if (playerSelection[PlayerNumber()][MSIDE_CATEGORIES] != item && side == MSIDE_CATEGORIES)
                     return StrParam(s: "\cq", s: resMenuCategoryNames[item]);
         }
     }
 
-    else if (CheckInventory("PlayerSide") == MSIDE_ITEMS)
+    else if (playerSide[PlayerNumber()] == MSIDE_ITEMS)
     {
         if (side == MSIDE_CATEGORIES)
             return StrParam(s: "\cm", s: resMenuCategoryNames[item]);
 
         // selected empty
-        if (CheckInventory("PlayerSelectionItems") == item && CheckInventory("PlayerSelectionCategories") == category
+        if (playerSelection[PlayerNumber()][MSIDE_ITEMS] == item && playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == category
             && resMenuItems[category][item] == -1)
             return "\cc----";
 
         // unselected empty
-        if (CheckInventory("PlayerSelectionItems") != item && CheckInventory("PlayerSelectionCategories") == category
+        if (playerSelection[PlayerNumber()][MSIDE_ITEMS] != item && playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == category
             && resMenuItems[category][item] == -1)
             return "\cm----";
 
         // SELECTED     ALREADY OWNED ADDON
-        if (CheckInventory("PlayerSelectionItems") == item
-            && CheckInventory("PlayerSelectionCategories") == category
+        if (playerSelection[PlayerNumber()][MSIDE_ITEMS] == item
+            && playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == category
             && side == MSIDE_ITEMS
             && (creds < Researches[resMenuItems[category][item]][CK_COST]
                 || (Researches[resMenuItems[category][item]][CK_FLAGS] & CF_ADDON
@@ -111,8 +115,8 @@ function str MR_ItemString(int side, int category, int item)
                 return StrParam(s: "\cc", s: cond(item  == 3 && category == 4, cond(!PlayerTeam(), "Ion Cannon Beacon", "Nuclear Strike Beacon"), Researches[resMenuItems[category][item]][CK_NAME]));
 
         // UNSELECTED   ALREADY OWNED ADDON
-        if (CheckInventory("PlayerSelectionItems") != item
-            && CheckInventory("PlayerSelectionCategories") == category
+        if (playerSelection[PlayerNumber()][MSIDE_ITEMS] != item
+            && playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == category
             && side == MSIDE_ITEMS
             && (creds < Researches[resMenuItems[category][item]][CK_COST]
                 || (Researches[resMenuItems[category][item]][CK_FLAGS] & CF_ADDON
@@ -120,14 +124,14 @@ function str MR_ItemString(int side, int category, int item)
                 return StrParam(s: "\cm", s: cond(item  == 3 && category == 4, cond(!PlayerTeam(), "Ion Cannon Beacon", "Nuclear Strike Beacon"), Researches[resMenuItems[category][item]][CK_NAME]));
 
         // SELECTED
-        if (CheckInventory("PlayerSelectionItems") == item
-            && CheckInventory("PlayerSelectionCategories") == category
+        if (playerSelection[PlayerNumber()][MSIDE_ITEMS] == item
+            && playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == category
             && side == MSIDE_ITEMS)
                 return StrParam(s: "\cd", s: cond(item  == 3 && category == 4, cond(!PlayerTeam(), "Ion Cannon Beacon", "Nuclear Strike Beacon"), Researches[resMenuItems[category][item]][CK_NAME]));
 
         // UNSELECTED
-        if (CheckInventory("PlayerSelectionItems") != item
-            && CheckInventory("PlayerSelectionCategories") == category
+        if (playerSelection[PlayerNumber()][MSIDE_ITEMS] != item
+            && playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == category
             && side == MSIDE_ITEMS)
                 return StrParam(s: "\cq", s: cond(item == 3 && category == 4, cond(!PlayerTeam(), "Ion Cannon Beacon", "Nuclear Strike Beacon"), Researches[resMenuItems[category][item]][CK_NAME]));
     }
@@ -147,7 +151,7 @@ function void MR_Unfreeze (void)
 
 // Draws the menu.
 function void MR_Draw (void) { ACS_ExecuteAlways(MSCR_Draw, 0, 0, 0, 0); }
-Script MSCR_Draw (void) CLIENTSIDE
+Script MSCR_Draw (void)
 {
     int player = PlayerNumber();
 
@@ -171,14 +175,14 @@ Script MSCR_Draw (void) CLIENTSIDE
 
     for (int i1 = 0; i1 < MAX_ITEMS; i1++)
     {
-        if (CheckInventory("PlayerSelectionCategories") == 5)
+        if (playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == 5)
         {
             MR_ClearHudMsg(700 + i1);
             continue;
         }
 
         SetFont("BIGFONT");
-        HudMessage(s: MR_ItemString(MSIDE_ITEMS, CheckInventory("PlayerSelectionCategories"), i1);
+        HudMessage(s: MR_ItemString(MSIDE_ITEMS, playerSelection[PlayerNumber()][MSIDE_CATEGORIES], i1);
                 HUDMSG_PLAIN, 700 + i1, CR_GREY, MUI_ITEMS_X, i_startY, 0);
         SetFont("DOOMFONT");
         i_startY += i_incY;
@@ -192,7 +196,7 @@ Script MSCR_Draw (void) CLIENTSIDE
                 s: "\n\cdExit: \cq", k: "+altattack";
                 HUDMSG_PLAIN, 599, CR_GREEN, 1.5, 0.8, 0);
 
-    int classno = resMenuItems[CheckInventory("PlayerSelectionCategories")][CheckInventory("PlayerSelectionItems")];
+    int classno = resMenuItems[playerSelection[PlayerNumber()][MSIDE_CATEGORIES]][playerSelection[PlayerNumber()][MSIDE_ITEMS]];
 
     // don't draw this next bit if
     if (classno == -1)
@@ -246,7 +250,7 @@ function void MR_ClearHudMsg(int id)
 }
 
 function void MR_Clear (void) { ACS_ExecuteAlways(MSCR_Clear, 0, 0, 0, 0); }
-Script MSCR_Clear (void) CLIENTSIDE
+Script MSCR_Clear (void)
 {
     for (int i = 0; i < RMS_NUM; i++) {
         MR_ClearHudMsg(600 + i);
@@ -262,7 +266,7 @@ Script MSCR_Clear (void) CLIENTSIDE
 
 function void MR_InputLoop_Start (void) { ACS_ExecuteAlways(MSCR_Input_Loop, 0, 0, 0, 0); }
 function void MR_InputLoop_Stop (void) { ACS_Terminate(MSCR_Input_Loop, 0); }
-Script MSCR_Input_Loop (void) CLIENTSIDE
+Script MSCR_Input_Loop (void)
 {
     int input = GetPlayerInput(-1, INPUT_BUTTONS);
     int player = PlayerNumber();
@@ -272,61 +276,63 @@ Script MSCR_Input_Loop (void) CLIENTSIDE
     {
         inputUsed = true;
 
-        if (CheckInventory("PlayerSide") == MSIDE_CATEGORIES
-            && CheckInventory("PlayerSelectionCategories") == 0)
-        {
-            SetInventory("PlayerSelectionItems", 0);
-            SetInventory("PlayerSelectionCategories", RMS_NUM - 1);
-        }
-        else if (CheckInventory("PlayerSide") == MSIDE_ITEMS
-            && CheckInventory("PlayerSelectionItems") == 0)
-                SetInventory("PlayerSelectionItems", MAX_ITEMS - 1);
+        if (playerSide[PlayerNumber()] == MSIDE_CATEGORIES
+            && playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == 0)
+//              playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == CATEGORIES_AMOUNT - cond((!drawResign[player] || IsResignedN()), 2, 1);
+                playerSelection[PlayerNumber()][MSIDE_CATEGORIES] = (RMS_NUM - IsResignedN() - 1);
+        else if (playerSide[PlayerNumber()] == MSIDE_ITEMS
+            && playerSelection[PlayerNumber()][MSIDE_ITEMS] == 0)
+                playerSelection[PlayerNumber()][MSIDE_CATEGORIES] = MAX_ITEMS - 1;
         else
-            TakeInventory(cond(CheckInventory("PlayerSide"), "PlayerSelectionItems", "PlayerSelectionCategories"), 1);
+            if (playerSide[PlayerNumber()] == MSIDE_CATEGORIES)
+                playerSelection[PlayerNumber()][MSIDE_CATEGORIES] -= 1;
+            else
+                playerSelection[PlayerNumber()][MSIDE_ITEMS] -= 1;
 
         LocalAmbientSound("menu/cursor", 127);
 
-        DebugLog(StrParam(d: CheckInventory("PlayerSelectionCategories"), s:", ", d: CheckInventory("PlayerSelectionItems")));
+        DebugLog(StrParam(d: playerSelection[PlayerNumber()][MSIDE_CATEGORIES], s:", ", d: playerSelection[PlayerNumber()][MSIDE_ITEMS]));
     }
 
     if (input & BT_BACK)
     {
         inputUsed = true;
-        if (CheckInventory("PlayerSide") == MSIDE_CATEGORIES && CheckInventory("PlayerSelectionCategories") == RMS_NUM - 1)
-        {
-            SetInventory("PlayerSelectionItems", 0);
-            SetInventory("PlayerSelectionCategories", 0);
-        }
-        else if (CheckInventory("PlayerSide") == MSIDE_ITEMS
-            && CheckInventory("PlayerSelectionItems") == MAX_ITEMS - 1)
-                SetInventory("PlayerSelectionItems", 0);
+
+        if (playerSide[PlayerNumber()] == MSIDE_CATEGORIES && playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == RMS_NUM - 1)
+            playerSelection[PlayerNumber()][MSIDE_CATEGORIES] = 0;
+        else if (playerSide[PlayerNumber()] == MSIDE_ITEMS
+            && playerSelection[PlayerNumber()][MSIDE_ITEMS] == MAX_ITEMS - 1)
+                playerSelection[PlayerNumber()][MSIDE_ITEMS] = 0;
         else
-            GiveInventory(cond(CheckInventory("PlayerSide"), "PlayerSelectionItems", "PlayerSelectionCategories"), 1);
+            if (playerSide[PlayerNumber()] == MSIDE_CATEGORIES)
+                playerSelection[PlayerNumber()][MSIDE_CATEGORIES] += 1;
+            else
+                playerSelection[PlayerNumber()][MSIDE_ITEMS] += 1;
 
         LocalAmbientSound("menu/cursor", 127);
 
-        DebugLog(StrParam(d: CheckInventory("PlayerSelectionCategories"), s:", ", d: CheckInventory("PlayerSelectionItems")));
+        DebugLog(StrParam(d: playerSelection[PlayerNumber()][MSIDE_CATEGORIES], s:", ", d: playerSelection[PlayerNumber()][MSIDE_ITEMS]));
     }
 
     if (input & BT_MOVELEFT || input & BT_LEFT)
     {
-        if (CheckInventory("PlayerSide") != MSIDE_CATEGORIES)
+        if (playerSide[PlayerNumber()] != MSIDE_CATEGORIES)
         {
             inputUsed = true;
-            SetInventory("PlayerSide", MSIDE_CATEGORIES);
+            playerSide[PlayerNumber()] = MSIDE_CATEGORIES;
             LocalAmbientSound("menu/activate", 127);
         }
     }
 
     if (input & BT_MOVERIGHT || input & BT_RIGHT)
     {
-        if (CheckInventory("PlayerSide") != MSIDE_ITEMS)
+        if (playerSide[PlayerNumber()] != MSIDE_ITEMS)
         {
             inputUsed = true;
 
-            if (CheckInventory("PlayerSelectionCategories") != 5)
+            if (playerSelection[PlayerNumber()][MSIDE_CATEGORIES] != 5)
             {
-                SetInventory("PlayerSide", MSIDE_ITEMS);
+                playerSide[PlayerNumber()] = MSIDE_ITEMS;
                 LocalAmbientSound("menu/activate", 127);
             }
         }
@@ -341,17 +347,17 @@ Script MSCR_Input_Loop (void) CLIENTSIDE
     {
         inputUsed = true;
 
-        if (CheckInventory("PlayerSide") == MSIDE_CATEGORIES)
-            if (CheckInventory("PlayerSelectionCategories") == 5 && (drawResign[player] || !IsResignedN()))
-                MR_InputReceived(CheckInventory("PlayerSelectionCategories"),
-                    CheckInventory("PlayerSelectionItems"));
+        if (playerSide[PlayerNumber()] == MSIDE_CATEGORIES)
+            if (playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == 5 && (drawResign[player] || !IsResignedN()))
+                MR_InputReceived(playerSelection[PlayerNumber()][MSIDE_CATEGORIES],
+                    playerSelection[PlayerNumber()][MSIDE_ITEMS]);
             else {
                 SetInventory("PlayerSide", MSIDE_ITEMS);
                 LocalAmbientSound("menu/activate", 127);
             }
         else
-            MR_InputReceived(CheckInventory("PlayerSelectionCategories"),
-                    CheckInventory("PlayerSelectionItems"));
+            MR_InputReceived(playerSelection[PlayerNumber()][MSIDE_CATEGORIES],
+                    playerSelection[PlayerNumber()][MSIDE_ITEMS]);
     }
 
 

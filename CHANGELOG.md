@@ -1,6 +1,9 @@
 Changelog
 =========
 
+## 0.99.3
+ - Add AOW08 - Valley (imported from AOW 2.1)
+
 ## 0.99.2
  - Fix building `genver` on Linux
  - Update `build.sh` for new `genver` syntax

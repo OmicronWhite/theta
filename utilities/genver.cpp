@@ -105,7 +105,7 @@ int main (int argc, char *argv[])
 			if (done)
 				continue;
 
-			if (line.front() == '#')
+			if (line.substr(0, 1) == string("//"))
 				continue;
 
 			vector<string> spl = split(line, '.');
@@ -118,6 +118,7 @@ int main (int argc, char *argv[])
 			patch = spl.at(2);
 			done = true;
 		}
+		
 		infile.close();
 	}
 

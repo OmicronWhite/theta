@@ -23,7 +23,7 @@ Also check out our forums at [theta.plussean.co.uk/forum](http://theta.plussean.
 ## Get
 The [releases page](https://github.com/PlusGit/theta/releases) is the most up-to-date source of *stable* releases of Theta. For development builds, we have each commit be built automatically by a [Jenkins server](http://jenkins.plussean.co.uk/), and they are available [here](http://theta.plussean.co.uk/builds).  Also see the [Building](https://github.com/PlusGit/theta#building) section below, to build manually.
 
-You can also get some stable releases from our [ModDB page](http://www.moddb.com/mods/theta/downloads) and [TSPG Britsteel](http://britsteel.allfearthesentinel.net/wads), but these may be outdated.
+You can also get some stable releases from our [ModDB page](http://www.moddb.com/mods/theta/downloads), but these may be outdated.
 
 ## Hosting
 __IWAD:__ `doom2.wad`

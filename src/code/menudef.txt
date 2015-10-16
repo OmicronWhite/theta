@@ -43,6 +43,7 @@ OptionValue "AOWMaps" {
     6,              "AOW06 - Glacier"
     7,		        "AOW07 - Sand Canyon"
     8,              "AOW08 - Valley"
+    9,              "AOW08 - Infected"
 }
 
 OptionMenu "AOWPlayOffline" {

@@ -168,6 +168,7 @@ int main (int argc, char *argv[])
         fstr << "#define VERSION_PATCH " << patch << "\n";
         fstr << "str VERSION_STRING = \"" << major << "." << minor << "." << patch << "\";\n";
 	}
+	
 	if (!silent) printf("Closing file.\n");
 	fstr.close();
 	return 0;

@@ -18,7 +18,8 @@ enum
 	LANG_UNKNOWN = -1,
 	LANG_CLIKE,
 	LANG_BATCH,
-	LANG_BASH
+	LANG_BASH,
+	LANG_ACS
 };
 
 using std::string;
@@ -82,6 +83,11 @@ int main (int argc, char *argv[])
 		language = LANG_BASH;
 		comment = "#";
 	}
+	else if (string(argv[2]) == "acs")
+	{
+		language = LANG_ACS;
+		comment = "//";
+	}
     else
     {
         language = LANG_UNKNOWN;
@@ -118,7 +124,7 @@ int main (int argc, char *argv[])
 			patch = spl.at(2);
 			done = true;
 		}
-		
+
 		infile.close();
 	}
 
@@ -155,6 +161,13 @@ int main (int argc, char *argv[])
         fstr << "export VERSION_PATCH=" << patch << "\n";
         fstr << "export VERSION_STRING=" << major << "." << minor << "." << patch << "\n";
     }
+	else if (language == LANG_ACS)
+	{
+        fstr << "#define VERSION_MAJOR " << major << "\n";
+        fstr << "#define VERSION_MINOR " << minor << "\n";
+        fstr << "#define VERSION_PATCH " << patch << "\n";
+        fstr << "str VERSION_STRING = \"" << major << "." << minor << "." << patch << "\";\n";
+	}
 	if (!silent) printf("Closing file.\n");
 	fstr.close();
 	return 0;

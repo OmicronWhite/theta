@@ -18,6 +18,8 @@ Also check out our forums at [theta.plussean.co.uk](http://theta.plussean.co.uk)
  * __AOW08__ - Valley
  * __AOW09__ - Infected
 
+ To see the status of maps and what maps are coming, see [this issue tracker ticket](https://github.com/PlusGit/theta/issues/42).
+
 ## Get
 The [releases page](https://github.com/PlusGit/theta/releases) is the most up-to-date source of *stable* releases of Theta. For development builds, see the [Building](https://github.com/PlusGit/theta#building) section below.
 

@@ -59,7 +59,7 @@ if [[ -d "out" && "$jenkins" != true ]]; then
 fi
 
 x "utilities/linux/gitcommit c src/code/acs_src/gitcommit.acs --silent" "Making gitcommit.acs"
-x "utilities/linux/genver version.h c src/code/acs_src/version.acs --silent" "Making version.acs"
+x "utilities/linux/genver version.h acs src/code/acs_src/version.acs --silent" "Making version.acs"
 x "utilities/linux/genver version.h bash utilities/version.sh --silent"
 eval "$(cat utilities/version.sh)"
 

@@ -224,6 +224,11 @@ Script 599 OPEN
 //Setting Player scripts
 Script 10 RESPAWN
 {
+	// [SB] don't execute if we're the server
+	if (PlayerNumber() == -1)
+		terminate;
+		
+	DebugLog(StrParam(s: "Player respawned. Their team is ", s: cond(PlayerTeam() == TEAM_RED, "Red", "Blue")));
 	if (StartTime[PlayerNumber()] == 0)
 		InitPlayer();
 

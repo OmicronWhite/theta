@@ -21,6 +21,18 @@ actor IsBlue : Inventory {
 	Inventory.PickupMessage "Picked up a isBlue... WHAT!?"
 	Inventory.Icon "ISBLIC"
 }
+
+actor TeamSwitchedRB : Inventory {
+	+INVBAR
+	Inventory.MaxAmount 1
+	Inventory.Icon "TSRBIC"
+}
+actor TeamSwitchedBR : Inventory {
+	+INVBAR
+	Inventory.MaxAmount 1
+	Inventory.Icon "TSBRIC"
+}
+
 // End of test
 actor IsFemale : Inventory {}
 actor PurchaseToken : Inventory {}

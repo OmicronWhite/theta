@@ -1223,3 +1223,18 @@ sprite "ISREIC", 32, 32 {
 	//offset -32, -20
 	patch "ISREA0", 0, 0
 }
+
+
+sprite "TSRBIC", 32, 32 {
+	xscale 1.5
+	yscale 1.5
+	//offset -32, -20
+	patch "TSRBA0", 0, 0
+}
+
+sprite "TSBRIC", 32, 32 {
+	xscale 1.5
+	yscale 1.5
+	//offset -32, -20
+	patch "TSBRA0", 0, 0
+}

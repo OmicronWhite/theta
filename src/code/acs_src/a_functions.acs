@@ -862,7 +862,6 @@ function void DebugLog(str string)
 		Log(s: "DEBUG | ", s: "#", d: PlayerNumber(), s: " | ", n: 0, s: " | ", s: string);
 	else
 		Log(s: "DEBUG | ", s: string);
-
 }
 
 function bool IsLevel(int num)

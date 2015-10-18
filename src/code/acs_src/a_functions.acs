@@ -817,10 +817,6 @@ Script SC_ChangePlayerTeam (int player, int team)
 	Log(s: pname(player), s: " is being switched to team #", d: team);
 
 	Player_SetTeam(team);
-	SetInventory("IsBlue", (team == TEAM_BLUE));
-	SetInventory("IsRed", (team == TEAM_RED));
-	SetInventory("TeamSwitchedRB", (team == TEAM_BLUE));
-	SetInventory("TeamSwitchedBR", (team == TEAM_RED));
 
 	if (CheckInventory("IsInSpawnRoom"))
 		Teleport(70 + (team == TEAM_RED));
@@ -842,6 +838,11 @@ Script SC_ChangePlayerTeam (int player, int team)
 		ACS_ExecuteAlways(697, 0);
 
 	RemoveSpawnMarker(player);
+
+	SetInventory("IsBlue", (team == TEAM_BLUE));
+	SetInventory("IsRed", (team == TEAM_RED));
+	SetInventory("TeamSwitchedRB", (team == TEAM_BLUE));
+	SetInventory("TeamSwitchedBR", (team == TEAM_RED));
 }
 
 // [SB]

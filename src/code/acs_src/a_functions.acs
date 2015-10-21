@@ -818,7 +818,7 @@ function void ChangePlayerTeam(int p, int newteam)
 	ACS_ExecuteWithResult(SC_ChangePlayerTeam, p, newteam);
 }
 
-// [SB] Rewritten for Theta.
+// [ZB] Rewritten for Theta.
 Script SC_ChangePlayerTeam (int player, int team)
 {
 	Log(s: pname(player), s: " is being switched to team #", d: team);
@@ -852,7 +852,7 @@ Script SC_ChangePlayerTeam (int player, int team)
 	RemoveSpawnMarker(player);
 }
 
-// [SB]
+// [ZB]
 function void DebugLog(str string)
 {
 	if (!GetCVar("theta_debug"))
@@ -875,7 +875,7 @@ function void IdiotProofCvar(str cvar, int expected, int new)
 		ConsoleCommand(StrParam(s: cvar, s: " ", d: new));
 }
 
-// [SB] easier wrappers for strcmp/stricmp
+// [ZB] easier wrappers for strcmp/stricmp
 function bool StringIs(str first, str second) {
 	return (StrCmp(first, second) == 0);
 }
@@ -883,7 +883,7 @@ function bool StringIsI(str first, str second) {
 	return (StrICmp(first, second) == 0);
 }
 
-// [SB] for DECORATE
+// [ZB] for DECORATE
 Script SC_GetPlayerTeam (void)
 {
 	SetResultValue(PlayerTeam());

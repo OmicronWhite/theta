@@ -499,7 +499,7 @@ function void PurchaseClass (int c)
     }
 
 	// Show class information on the first press.
-    // [SB] useless now we have a menu
+    // [ZB] useless now we have a menu
     /*
 	if ((GetLevelInfo(LEVELINFO_LEVELNUM) != 20 && GetLevelInfo(LEVELINFO_LEVELNUM) != 21))
 	{

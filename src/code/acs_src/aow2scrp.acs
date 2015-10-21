@@ -553,7 +553,7 @@ int CrateNumber = 0;
 // [Dusk] for spawn markers
 int HasSpawnMarker[MAXPLAYERS];
 
-// [SB] For the team balance.
+// [ZB] For the team balance.
 int lastPlayerToJoin = 0;
 
 // =============================================================================
@@ -626,8 +626,8 @@ str NormalWeaponNames[MAX_NORMAL_WEAPONS] =
 	"TimeGun"
 };
 
-#include "gitcommit.acs" // [SB] Auto generated
-#include "version.acs" // [SB] Auto generated
+#include "gitcommit.acs" // [ZB] Auto generated
+#include "version.acs" // [ZB] Auto generated
 
 #include "a_functions.acs"
 #include "a_armor.acs"

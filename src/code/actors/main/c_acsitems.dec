@@ -42,7 +42,7 @@ actor UtilityMenuActivator : DonationMessage {
 	}
 }
 
-// [SB]
+// [ZB]
 actor EndlessItem : Inventory {
 	Inventory.MaxAmount 0x7FFFFFFD
 }
@@ -70,7 +70,7 @@ actor StopAllSounds : CustomInventory
 actor PleaseRespawn : Inventory {}
 actor PleaseDoNothing : Inventory {}
 
-// [SB] Menu
+// [ZB] Menu
 actor InMenu : Boolean {}
 actor PlayerSide : Boolean {}
 actor PlayerSelectionCategories : EndlessItem {}

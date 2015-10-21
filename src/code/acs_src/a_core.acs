@@ -102,7 +102,7 @@ Script 999 OPEN
 		SetActorSpeed(TID_TICKETCOUNTER_RED, 0);
 	}
 
-	// [SB] Idiot proofing
+	// [ZB] Idiot proofing
 	/*
 	while (true)
 	{
@@ -224,7 +224,7 @@ Script 599 OPEN
 //Setting Player scripts
 Script 10 RESPAWN
 {
-	// [SB] don't execute if we're the server
+	// [ZB] don't execute if we're the server
 	if (PlayerNumber() == -1)
 		terminate;
 		
@@ -250,7 +250,7 @@ Script 10 RESPAWN
 
 Script 11 ENTER
 {
-	// [SB] We give this now, so team balance works right.
+	// [ZB] We give this now, so team balance works right.
 	GiveInventory("IsInSpawnRoom", 1);
 	// [Dusk] This player's joining might throw off team balance, so check that now.
 	CheckTeamBalance();

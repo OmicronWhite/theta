@@ -1192,7 +1192,7 @@ graphic jeticon, 25, 29 {
 	Patch fuelicon, 0, 0
 }*/
 
-//[SB]
+//[ZB]
 texture crateli2, 64, 128 {
 	patch sgcrate2, 0, 0 {}
 	patch sgcrate2, 32, 0 {}

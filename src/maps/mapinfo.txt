@@ -74,6 +74,13 @@ map AOW09 "Infected" {
 	levelnum = 9
 }
 
+map AOW10 "Mining Site" {
+	next = "AOW11"
+	sky1 = "SKY1"
+	music = "D_AOW10"
+	levelnum = 10
+}
+
 map AOW99 "Test" {
 	next = "AOW01"
 	sky1 = "stsky14"

@@ -96,7 +96,7 @@ int main (int argc, char *argv[])
 		return 2;
     }
 
-	string line, major, minor, patch;
+	string line, major, minor, patch, codename;
 	bool done = false;
 	ifstream infile;
 #if _MSC_VER
@@ -114,15 +114,43 @@ int main (int argc, char *argv[])
 			if (line.substr(0, 1) == string("//"))
 				continue;
 
-			vector<string> spl = split(line, '.');
-
-			if (spl.size() != 3)
+			if (line.find(string("=")) == string::npos)
 				continue;
 
-			major = spl.at(0);
-			minor = spl.at(1);
-			patch = spl.at(2);
-			done = true;
+			vector<string> kv = split(line, '=');
+			if (kv.size() == 0)
+				continue; // This line is useless.
+
+							printf("Seg?\n");
+			string key = kv[0];
+									printf("Seg.\n");
+			string value = kv[1];
+
+
+			if (key == "version")
+			{
+				vector<string> spl = split(value, '.');
+
+				if (spl.size() != 3)
+					continue;
+
+				major = spl.at(0);
+				minor = spl.at(1);
+				patch = spl.at(2);
+			}
+
+			else if (key == "codename")
+			{
+				codename = value;
+			}
+
+			else
+			{
+				printf("Unknown key '%s'!\n", key.c_str());
+				exit(1);
+				break;
+			}
+
 		}
 
 		infile.close();
@@ -147,13 +175,14 @@ int main (int argc, char *argv[])
         fstr << "#define VERSION_MINOR " << minor << "\n";
         fstr << "#define VERSION_PATCH " << patch << "\n";
         fstr << "#define VERSION_STRING \"" << major << "." << minor << "." << patch << "\"\n";
+        fstr << "#define VERSION_CODENAME \"" << codename << "\"\n";
     }
 	else if (language == LANG_BATCH)
     {
         fstr << "SET VERSION_MAJOR=" << major << "\n";
         fstr << "SET VERSION_MINOR=" << minor << "\n";
         fstr << "SET VERSION_PATCH=" << patch << "\n";
-        fstr << "SET VERSION_STRING=" << major << "." << minor << "." << patch << "\n";
+        fstr << "SET VERSION_CODENAME=\"" << codename << "\"\n";
     }
 	else if (language == LANG_BASH)
     {
@@ -161,6 +190,7 @@ int main (int argc, char *argv[])
         fstr << "export VERSION_MINOR=" << minor << "\n";
         fstr << "export VERSION_PATCH=" << patch << "\n";
         fstr << "export VERSION_STRING=" << major << "." << minor << "." << patch << "\n";
+        fstr << "export VERSION_CODENAME=\"" << codename << "\"\n";
     }
 	else if (language == LANG_ACS)
 	{
@@ -168,6 +198,7 @@ int main (int argc, char *argv[])
         fstr << "#define VERSION_MINOR " << minor << "\n";
         fstr << "#define VERSION_PATCH " << patch << "\n";
         fstr << "str VERSION_STRING = \"" << major << "." << minor << "." << patch << "\";\n";
+        fstr << "str VERSION_CODENAME = \"" << codename << "\";\n";
 	}
 
 	if (!silent) printf("Closing file.\n");

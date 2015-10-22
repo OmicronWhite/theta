@@ -1,6 +1,9 @@
 Changelog
 =========
 
+## 0.99.4
+ - Add AOW10 - Mining Site (imported from AOW 2.1)
+ - 
 ## 0.99.3
  - Add AOW08 - Valley (imported from AOW 2.1)
  - Add AOW09 - Infected (import from AOW 2.1)

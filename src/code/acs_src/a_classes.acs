@@ -291,7 +291,7 @@ Script MSCC_Input_Loop (void)
                 playerSelection[PlayerNumber()][MSIDE_CATEGORIES] = (CMS_NUM - IsResignedN() - 1);
         else if (playerSide[PlayerNumber()] == MSIDE_ITEMS
             && playerSelection[PlayerNumber()][MSIDE_ITEMS] == 0)
-                playerSelection[PlayerNumber()][MSIDE_CATEGORIES] = MAX_ITEMS - 1;
+                playerSelection[PlayerNumber()][MSIDE_ITEMS] = MAX_ITEMS - 1;
         else
             if (playerSide[PlayerNumber()] == MSIDE_CATEGORIES)
                 playerSelection[PlayerNumber()][MSIDE_CATEGORIES] -= 1;

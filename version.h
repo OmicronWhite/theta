@@ -2,5 +2,5 @@
 // It is just for genver.
 // The version format is extremely simple:
 
-version=0.99.4
+version=0.99.5
 codename=Actinium

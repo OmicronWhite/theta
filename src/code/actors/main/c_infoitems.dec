@@ -6,32 +6,10 @@ actor ClassID : Counter {}
 
 actor SelfHealCooldown : Inventory {}
 actor Ingame : Inventory {} // DEPRECATED
-//actor IsRed : Inventory {}
-//actor IsBlue : Inventory {}
-// Protox Test
-actor IsRed : Inventory {
-	+INVBAR
-	Inventory.MaxAmount 1
-	Inventory.PickupMessage "Picked up a isRed... WHAT!?"
-	Inventory.Icon "ISREIC"
-}
-actor IsBlue : Inventory {
-	+INVBAR
-	Inventory.MaxAmount 1
-	Inventory.PickupMessage "Picked up a isBlue... WHAT!?"
-	Inventory.Icon "ISBLIC"
-}
-
-actor TeamSwitchedRB : Inventory {
-	+INVBAR
-	Inventory.MaxAmount 1
-	Inventory.Icon "TSRBIC"
-}
-actor TeamSwitchedBR : Inventory {
-	+INVBAR
-	Inventory.MaxAmount 1
-	Inventory.Icon "TSBRIC"
-}
+actor IsRed : Boolean {}
+actor IsBlue : Boolean {}
+actor TeamSwitchedRB : Boolean {}
+actor TeamSwitchedBR : Boolean {}
 
 // End of test
 actor IsFemale : Inventory {}

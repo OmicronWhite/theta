@@ -121,9 +121,7 @@ int main (int argc, char *argv[])
 			if (kv.size() == 0)
 				continue; // This line is useless.
 
-							printf("Seg?\n");
 			string key = kv[0];
-									printf("Seg.\n");
 			string value = kv[1];
 
 

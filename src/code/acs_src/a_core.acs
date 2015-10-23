@@ -228,8 +228,8 @@ Script 10 RESPAWN
 	if (PlayerNumber() == -1)
 		terminate;
 
-	Delay(1);
-	
+	Delay(1); // [ZB] ensures everything happens correctly; especially if we just got team swtiched via autobalance
+
 	DebugLog(StrParam(s: "Player respawned. Their team is ", s: cond(PlayerTeam() == TEAM_RED, "Red", "Blue")));
 	if (StartTime[PlayerNumber()] == 0)
 		InitPlayer();

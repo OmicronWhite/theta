@@ -180,6 +180,7 @@ int main (int argc, char *argv[])
         fstr << "SET VERSION_MAJOR=" << major << "\n";
         fstr << "SET VERSION_MINOR=" << minor << "\n";
         fstr << "SET VERSION_PATCH=" << patch << "\n";
+        fstr << "SET VERSION_STRING=\"" << major << "." << minor << "." << patch << "\"\n";
         fstr << "SET VERSION_CODENAME=\"" << codename << "\"\n";
     }
 	else if (language == LANG_BASH)

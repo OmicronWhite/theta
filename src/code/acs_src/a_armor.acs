@@ -148,7 +148,7 @@ function void SetArmorGrade(int n, int mod)
 }
 
 // For testing and DECORATE purposes (e.g. AI marines)
-Script 985(int grade, int mod)
+Script SC_ArmourDebug(int grade, int mod)
 {
 	SetArmorGrade(grade, mod);
 }
@@ -187,7 +187,7 @@ int ArmorValuesLaser[13] = {0.9, 0.8, 0.7, 0.6, 0.5, 1.2,
 							1.0, 1.0, 2.0, 0.5, 2.0, 1.0, 0.9
 						   };
 
-Script 981(void) NET CLIENTSIDE
+Script SC_ShowArmour(void) NET CLIENTSIDE
 {
 	int fist, bullet, explo, antiarmor, fire, chem, laser;
 
@@ -240,7 +240,7 @@ Script 981(void) NET CLIENTSIDE
 		 s: " \ci", f: antiarmor);
 }
 
-Script 920(int modtype)
+Script SC_ChangeArmour(int modtype)
 {
 	TakeInventory("ArmorChangeProgress", 175);
 	GiveInventory("IsChangingArmor", 1);

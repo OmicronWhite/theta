@@ -1,7 +1,7 @@
 // because linguist -*- mode: c;-*-
 
 // [SP] NOTICE: This is an administrator 'puke' script. USE WITH CARE! This can be abused very easily.
-Script 401 (int Player, int Action, int arg)
+Script SC_AdminPuke (int Player, int Action, int arg)
 {
 	SetActivator(TID_Player + Player);
 
@@ -79,7 +79,7 @@ Script 401 (int Player, int Action, int arg)
 	}
 }
 
-Script 402 (int Arg1, int Arg2, int Arg3) NET
+Script SC_GameMasterCmds (int Arg1, int Arg2, int Arg3) NET
 {
 	if (IsAdmin[PlayerNumber()] == false)
 		terminate;
@@ -264,7 +264,7 @@ Log(s: "Unknown action!");
 }
 
 // [Dusk] TEAM SHUFFLE
-Script 403 (void)
+Script SC_AdminTeamShuffle (void)
 {
 	AmbientSound("nuke/boom", 127);
 	int max = PlayerCount() / 2;

@@ -333,6 +333,18 @@ int resMenuItems[RMS_NUM][MAX_ITEMS] = {
 #define TARGETINFO_Name			13 // Name (akin to print (n:0))
 
 // TODO: populate this list
+#define SC_BlueBarracksDie	      101
+#define SC_BlueRefineryDie	      102
+#define SC_BluePowerPlantDie      103
+#define SC_BlueFactoryDie         104
+#define SC_BlueRepairDie          105
+#define SC_BlueObeliskDie         114
+#define SC_RedBarracksDie	 	  201
+#define SC_RedRefineryDie	 	  202
+#define SC_RedPowerPlantDie	 	  203
+#define SC_RedFactoryDie	 	  204
+#define SC_RedRepairDie	 	  	  205
+#define SC_RedObelsikDie	 	  214
 #define SC_AdminPuke			  401
 #define SC_GameMasterCmds         402
 #define SC_AdminTeamShuffle		  403

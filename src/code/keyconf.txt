@@ -65,3 +65,7 @@ alias a_fly "puke 402 18"
 // MENUDEF commands
 
 alias aowmenu_gomap "puke 780"
+
+
+// thetastat
+alias ts_timer "puke 500"

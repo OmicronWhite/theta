@@ -1,0 +1,3 @@
+Script TS_TIMER (void) NET {
+    Log(s: "TSTMR", d: Timer());
+}

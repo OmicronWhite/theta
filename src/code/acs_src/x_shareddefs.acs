@@ -8,6 +8,7 @@
  ****************************************************************************************************/
 
 // TODO: populate this list
+#define TS_TIMER                  500
 #define SC_MenuGoMap              780
 #define SC_MenuGoneMap            781
 #define SC_SelfHealHealth         816

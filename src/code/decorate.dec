@@ -1,5 +1,6 @@
 // [Dusk] Don't edit the load order unless you know what you're doing
 #include "actors/acsconstants.dec" // [Dusk] auto-generated
+#include "actors/acsconstants_xsdef.dec"
 #include "actors/main/c_constants.dec"
 #include "actors/main/c_skeletal.dec"
 

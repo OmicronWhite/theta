@@ -97,6 +97,8 @@ echo Compiling ACS.
 cd "%START%"
 "%START%\utilities\windows\acc\acc.exe" "%START%\src\code\acs_src\aow2scrp.acs" "%START%\src\code\acs\aow2scrp.o"
 if not %errorlevel%==0 goto exefail
+"%START%\utilities\windows\acc\acc.exe" "%START%\src\code\acs_src\thtastat.acs" "%START%\src\code\acs\thtastat.o"
+if not %errorlevel%==0 goto exefail
 
 if not %ERRORLEVEL%==0 (
     SET ACSError=%ERRORLEVEL%
@@ -110,6 +112,7 @@ if not %ERRORLEVEL%==0 (
 )
 
 "%START%\utilities\windows\win%ARCH%\acsconstants.exe" "%START%\src\code\acs_src\aow2scrp.acs" "%START%\src\code\actors\acsconstants.dec"
+"%START%\utilities\windows\win%ARCH%\acsconstants.exe" "%START%\src\code\acs_src\x_shareddefs.acs" "%START%\src\code\actors\acsconstants_xsdef.dec"
 if not %errorlevel%==0 goto exefail
 
 if not exist out\ (

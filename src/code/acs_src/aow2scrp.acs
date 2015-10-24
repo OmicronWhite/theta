@@ -1,643 +1,1124 @@
 // because linguist -*- mode: c;-*-
 
-/****************************************************************************************************
- ** All Out War 2: The Second Coming ACS script                                                    **
- ** Credit to VoltlocK for originally creating the engine                                          **
- ** With modifications by Eruanna, Dusk and the Omega team                                         **
- **                                                                                                **
- ** You may use portions of this script in your project as long as you give credit where credit is **
- ** due. Please don't be lame and just copy-paste any of this and call it your own. Thanks!        **
- ****************************************************************************************************/
+// ACS Menu Thing by +Sean
+// Feel free to use this as long as you give credit.
 
-// Tag legend:
-// [SP] == Eruanna
-// [NG] == Tiger
+#define MSCC_ENTER               480
+#define MSCC_DRAW                481
+#define MSCC_CLEAR               482
+#define MSCC_INPUT_LOOP          483
+#define MSCC_EXIT                484
+#define MSCC_INPUTRECV           485
+#define MSCC_DEATHRESET          486
+#define MSCC_QUITRESET           487
 
-#include "zcommon.acs"
-#library "aow2scrp.acs"
 
-#define MAX_NORMAL_WEAPONS 22
+int drawResign[32];
 
-#define TEAM_NONE 255
-#define MAXPLAYERS 64
-#define TICRATE 35
-#define MINUTETICS (60 * 35)
+// This function is called when the player has chosen an item.
+function void MC_InputReceived(int category, int item) { ACS_ExecuteAlways(MSCC_INPUTRECV, 0, category, item); }
+Script MSCC_INPUTRECV (int category, int item)
+{
+    int player = PlayerNumber();
+    bool shouldExit = false;
 
-#define SELFHEALHEALTH 50
+    playerSelection[PlayerNumber()][MSIDE_CATEGORIES] = 0;
+    playerSelection[PlayerNumber()][MSIDE_ITEMS] = 0;
 
-// [Dusk] Intel HudMessage coords
-#define INTEL_XPOS 0.5
-#define INTEL_YPOS 0.055
-#define INTEL_YPOS2 0.0475
+    if (category <= CMS_NUM && menuItems[category][item] != -1)
+        PurchaseClass(menuItems[category][item]);
 
-#define HID_ENTER         1000 // 1000 - 1001
-#define HID_BIGMESSAGE    1080
-#define HID_CLASSTEXT     1090 // 1090 - 1091
+    if (category == 5) { // Resign
+        ACS_ExecuteAlways(95, 0, 0, true); // arg1 is unused
+        SetInventory("PlayerSelection", 0);
+        drawResign[player] = false;
+        MC_ClearHudMsg(600 + 5);
+    }
 
-// [Dusk] Spacing between SMALLFONT rows, in HUDMessage units
-#define SMALLSPACE 0.015
+    LocalAmbientSound("menu/choose", 127);
 
-// [Dusk] Rank stuff
-#define RANK_PRIVATE 0
-#define RANK_CORPORAL 1
-#define RANK_SERGEANT 2
-#define RANK_MASTERSGT 3
-#define RANK_OFFICER 4
-#define RANK_LIEUTENANT 5
-#define RANK_MAJOR 6
-#define RANK_COMMANDO 7
+    //if (shouldExit) { MC_Exit2(); }
+}
 
-// [Dusk] Experience numbers
-#define MAX_XP 3250
-#define XPREQ_CORPORAL      250
-#define XPREQ_SERGEANT      500
-#define XPREQ_MASTERSGT    1000
-#define XPREQ_OFFICER      1500
-#define XPREQ_LIEUTENANT   2000
-#define XPREQ_MAJOR        2500
-#define XPREQ_COMMANDO   MAX_XP
+// User enters menu.
+function void MC_Enter (void) { ACS_ExecuteAlways(MSCC_Enter, 0, 0, 0, 0); }
+Script MSCC_Enter (void)
+{
+    int player = PlayerNumber();
+    if (!CheckInventory("InMenu")) {
+        drawResign[player] = !IsResignedN();
+        SetInventory("InMenu", 1);
+        MC_Freeze();
+        MC_Draw();
+        Delay(MIL_DELAY); // prevents accidentally selecting an option
+        MC_InputLoop_Start();
+    }
+}
 
-// class ids
-#define CLASS_NONE 0
-#define CLASS_GUNMAN 1
-#define CLASS_ENGINEER 2
-#define CLASS_MINIGUNNER 3
-#define CLASS_TECHNICIAN 4
-#define CLASS_FLAMER 5
-#define CLASS_RIFLEMAN 6
-#define CLASS_MACHINEGUNNER 7
-#define CLASS_GRENADIER 8
-#define CLASS_ROCKETEER 9
-#define CLASS_STEALTH 10
-#define CLASS_GAUSSGUNNER 11
-#define CLASS_CHEMWARRIOR 12
-#define CLASS_SHOCKTROOPER 13
-#define CLASS_COMMANDO 14
-#define CLASS_SHOTGUNNER 15
-#define CLASS_SUICIDEBOMBER 16
-#define CLASS_SNIPER 17
-#define CLASS_UTILITYGUY 18
-#define CLASS_DEMOEXPERT 19
-#define CLASS_MEDIC 20
-#define CLASS_LASERCHAINGUNNER 21
-#define CLASS_JUMPJET 22
-#define CLASS_TIBRIFLE 23
-#define CLASS_DOUBLESHOTGUNNER 24
-#define CLASS_PLASMAGUNNER 25
-#define CLASS_ARTILLERY 26
-#define CLASS_TIMECOP 27
-#define CLASS_HARVESTER 28
-#define CLASS_ADVHARVESTER 29
-#define ADDON_CHAINSAW 30
-#define ADDON_TIBRIFLE 31
-#define ADDON_ARTILLERY 32
-#define ADDON_BEACON 33
-#define ADDON_PLASCAN 34
-#define ADDON_ARMOUR 35
-#define NUM_CLASSES 36
+function void MC_Exit (void) { ACS_ExecuteAlways(MSCC_EXIT, 0, 0, 0); }
+function void MC_Exit2 (void) { ACS_ExecuteAlways(MSCC_EXIT, 0, 0, 0, 0); }
+Script MSCC_Exit (void)
+{
+    int player = PlayerNumber();
+    SetInventory("InMenu", 0);
+    //MC_InputLoop_Stop(); // Its now stopped by inMenu being false.
+    MC_Clear();
+    MC_Unfreeze();
 
-// classes menu stuff
-#define CMS_GENERIC 0
-#define CMS_SUPPORT 1
-#define CMS_COMBAT 2
-#define CMS_POWER 3
-#define CMS_ADDONS 4
-#define CMS_RESIGN 5
-#define CMS_NUM 6 // +1 for resign
+    SetInventory("PlayerSelection", 0);
+    SetInventory("PlayerSide", 0);
+}
 
-str menuCategoryNames[CMS_NUM] = {
-	"Generic",
-	"Support",
-	"Combat",
-	"Power",
-	"Add-ons",
-	"Resign"
-};
+function str MC_ItemString(int side, int category, int item)
+{
+    int player = PlayerNumber();
+    str value = "";
 
-#define MAX_ITEMS 9
-int menuItems[CMS_NUM][MAX_ITEMS] = {
-	{
-		CLASS_GUNMAN,
-		CLASS_SHOTGUNNER,
-		CLASS_RIFLEMAN,
-		CLASS_DOUBLESHOTGUNNER,
-		CLASS_MACHINEGUNNER,
-		CLASS_TIBRIFLE,
-		-1,
-		-1,
-		-1
-	},
-	{
-		CLASS_ENGINEER,
-		CLASS_TECHNICIAN,
-		CLASS_UTILITYGUY,
-		CLASS_MEDIC,
-		CLASS_HARVESTER,
-		CLASS_ADVHARVESTER,
-		CLASS_STEALTH,
-		CLASS_TIMECOP,
-		-1
-	},
-	{
-		CLASS_FLAMER,
-		CLASS_GRENADIER,
-		CLASS_ROCKETEER,
-		CLASS_CHEMWARRIOR,
-		CLASS_SHOCKTROOPER,
-		CLASS_MINIGUNNER,
-		CLASS_LASERCHAINGUNNER,
-		CLASS_JUMPJET,
-		CLASS_PLASMAGUNNER,
-	},
-	{
-		CLASS_COMMANDO,
-		CLASS_SNIPER,
-		CLASS_SUICIDEBOMBER,
-		CLASS_GAUSSGUNNER,
-		CLASS_DEMOEXPERT,
-		CLASS_ARTILLERY,
-		-1,
-		-1,
-		-1,
-	},
-	{
-		ADDON_CHAINSAW,
-		ADDON_TIBRIFLE,
-		ADDON_ARTILLERY,
-		ADDON_BEACON,
-		ADDON_PLASCAN,
-		ADDON_ARMOUR,
-		-1,
-		-1,
-		-1,
-	},
-	{
-		-1,
-		-1,
-		-1,
-		-1,
-		-1,
-		-1,
-		-1,
-		-1,
-		-1,
+    // some useful variables
+    int creds = Credits[PlayerNumber()];
+
+    if (playerSide[PlayerNumber()] == MSIDE_CATEGORIES)
+    {
+        if (side == MSIDE_ITEMS)
+            return StrParam(s: "\cm", s: cond((menuItems[category][item] == -1), "----", Classes[menuItems[category][item]][CK_NAME]));
+
+        if (item == 5)
+        {
+            if (playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == item && side == MSIDE_CATEGORIES)
+                    return StrParam(s: "\cf", s: menuCategoryNames[item]);
+
+            if (playerSelection[PlayerNumber()][MSIDE_CATEGORIES] != item && side == MSIDE_CATEGORIES)
+                    return StrParam(s: "\ci", s: menuCategoryNames[item]);
+        }
+        else
+        {
+            if (playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == item && side == MSIDE_CATEGORIES)
+                    return StrParam(s: "\cd", s: menuCategoryNames[item]);
+
+            if (playerSelection[PlayerNumber()][MSIDE_CATEGORIES] != item && side == MSIDE_CATEGORIES)
+                    return StrParam(s: "\cq", s: menuCategoryNames[item]);
+        }
+    }
+
+    else if (playerSide[PlayerNumber()] == MSIDE_ITEMS)
+    {
+        if (side == MSIDE_CATEGORIES)
+            return StrParam(s: "\cm", s: menuCategoryNames[item]);
+
+        // selected empty
+        if (playerSelection[PlayerNumber()][MSIDE_ITEMS] == item && playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == category
+            && menuItems[category][item] == -1)
+            return "\cc----";
+
+        // unselected empty
+        if (playerSelection[PlayerNumber()][MSIDE_ITEMS] != item && playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == category
+            && menuItems[category][item] == -1)
+            return "\cm----";
+
+        // SELECTED     ALREADY OWNED ADDON
+        if (playerSelection[PlayerNumber()][MSIDE_ITEMS] == item
+            && playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == category
+            && side == MSIDE_ITEMS
+            && (creds < Classes[menuItems[category][item]][CK_COST]
+                || (Classes[menuItems[category][item]][CK_FLAGS] & CF_ADDON
+                    && CheckInventory(GetClassItemName(menuItems[category][item], 0)) > 0)))
+                return StrParam(s: "\cc", s: cond(item  == 3 && category == 4, cond(!PlayerTeam(), "Ion Cannon Beacon", "Nuclear Strike Beacon"), Classes[menuItems[category][item]][CK_NAME]));
+
+        // UNSELECTED   ALREADY OWNED ADDON
+        if (playerSelection[PlayerNumber()][MSIDE_ITEMS] != item
+            && playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == category
+            && side == MSIDE_ITEMS
+            && (creds < Classes[menuItems[category][item]][CK_COST]
+                || (Classes[menuItems[category][item]][CK_FLAGS] & CF_ADDON
+                    && CheckInventory(GetClassItemName(menuItems[category][item], 0)) > 0)))
+                return StrParam(s: "\cm", s: cond(item  == 3 && category == 4, cond(!PlayerTeam(), "Ion Cannon Beacon", "Nuclear Strike Beacon"), Classes[menuItems[category][item]][CK_NAME]));
+
+        // SELECTED
+        if (playerSelection[PlayerNumber()][MSIDE_ITEMS] == item
+            && playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == category
+            && side == MSIDE_ITEMS)
+                return StrParam(s: "\cd", s: cond(item  == 3 && category == 4, cond(!PlayerTeam(), "Ion Cannon Beacon", "Nuclear Strike Beacon"), Classes[menuItems[category][item]][CK_NAME]));
+
+        // UNSELECTED
+        if (playerSelection[PlayerNumber()][MSIDE_ITEMS] != item
+            && playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == category
+            && side == MSIDE_ITEMS)
+                return StrParam(s: "\cq", s: cond(item == 3 && category == 4, cond(!PlayerTeam(), "Ion Cannon Beacon", "Nuclear Strike Beacon"), Classes[menuItems[category][item]][CK_NAME]));
+    }
+
+    return "\cg!!ERROR!!";
+}
+
+function void MC_Freeze (void)
+{
+    SetPlayerProperty(0, ON, PROP_TOTALLYFROZEN);
+}
+
+function void MC_Unfreeze (void)
+{
+    SetPlayerProperty(0, OFF, PROP_TOTALLYFROZEN);
+}
+
+// Draws the menu.
+function void MC_Draw (void) { ACS_ExecuteAlways(MSCC_Draw, 0, 0, 0, 0); }
+Script MSCC_Draw (void)
+{
+    int player = PlayerNumber();
+
+    // Draw categories
+    int c_startY = 0.45;
+    int c_incY = 0.03;
+
+    for (int i = 0; i < CMS_NUM; i++)
+    {
+        if ((IsResignedN()) && i == 5) continue;
+        SetFont("BIGFONT");
+        HudMessage(s: MC_ItemString(MSIDE_CATEGORIES, 0, i);
+                HUDMSG_PLAIN, 600 + i, CR_GREY, MUI_CATEGORIES_X, c_startY, 0);
+        SetFont("DOOMFONT");
+        c_startY += c_incY;
+    }
+
+    // Draw items
+    int i_startY = 0.45;
+    int i_incY = 0.03;
+
+    for (int i1 = 0; i1 < MAX_ITEMS; i1++)
+    {
+        if (playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == 5)
+        {
+            MC_ClearHudMsg(700 + i1);
+            continue;
+        }
+
+        SetFont("BIGFONT");
+        HudMessage(s: MC_ItemString(MSIDE_ITEMS, playerSelection[PlayerNumber()][MSIDE_CATEGORIES], i1);
+                HUDMSG_PLAIN, 700 + i1, CR_GREY, MUI_ITEMS_X, i_startY, 0);
+        SetFont("DOOMFONT");
+        i_startY += i_incY;
+    }
+    // Draw help
+    HudMessage(s: "\cfHelp\n",
+                s: "\cdMove up: \cq", k: "+forward",
+                s: "\n\cdMove down: \cq", k: "+back",
+                s: "\n\cdSwitch side: \cq", k: "+left", s: "\cd and \cq ", k: "+right",
+                s: "\n\cdSelect: \cq", k: "+use", s: "\cd or \cq", k: "+attack",
+                s: "\n\cdExit: \cq", k: "+altattack";
+                HUDMSG_PLAIN, 599, CR_GREEN, 1.5, 0.8, 0);
+
+    int classno = menuItems[playerSelection[PlayerNumber()][MSIDE_CATEGORIES]][playerSelection[PlayerNumber()][MSIDE_ITEMS]];
+
+    // don't draw this next bit if
+    if (classno == -1)
+    {
+        MC_ClearHudMsg(598);
+        terminate;
+    }
+
+    str depStr = "";
+    switch(Classes[classno][CK_DEP])
+    {
+        case DEP_CENTRE:
+        {
+            depStr = "Research Centre";
+            break;
+        }
+
+        case DEP_BARRACKS:
+        {
+            depStr = "Barracks";
+            break;
+        }
+
+        case DEP_REFINERY:
+        {
+            depStr = "Refinery";
+            break;
+        }
+
+        default:
+        {
+            depStr = "None";
+            break;
+        }
+    }
+
+    int creds = Credits[PlayerNumber()];
+
+    // Draw class information
+    HudMessage(s: cond((Classes[classno][CK_FLAGS] & CF_ADDON), "\cn", "\cf"), s: Classes[classno][CK_NAME], s: "\n",
+                s: "\cdCost: \cq$", s: cond((Classes[classno][CK_COST] == 0), "Free", StrParam(s: cond((creds < Classes[classno][CK_COST]), "\cc", ""), d: Classes[classno][CK_COST])), s: "\n",
+                s: cond((Classes[classno][CK_FLAGS] & CF_ADDON), "", StrParam(s: "\cdSpeed: \cq", f: Classes[classno][CK_SPEED], s: "\n")),
+                s: "\cdDependency: \cq", s: depStr, s: "\n";
+                HUDMSG_PLAIN, 598, CR_GREEN, 0.4, 0.65, 0);
+}
+
+function void MC_ClearHudMsg(int id)
+{
+        HudMessage(s: ""; HUDMSG_PLAIN, id, CR_GREY, 0, 0, 0);
+}
+
+function void MC_Clear (void) { ACS_ExecuteAlways(MSCC_Clear, 0, 0, 0, 0); }
+Script MSCC_Clear (void)
+{
+    for (int i = 0; i < CMS_NUM; i++) {
+        MC_ClearHudMsg(600 + i);
+    }
+
+    for (int i1 = 0; i1 < MAX_ITEMS; i1++) {
+        MC_ClearHudMsg(700 + i1);
+    }
+
+    MC_ClearHudMsg(599);
+    MC_ClearHudMsg(598);
+}
+
+function void MC_InputLoop_Start (void) { ACS_ExecuteAlways(MSCC_Input_Loop, 0, 0, 0, 0); }
+function void MC_InputLoop_Stop (void) { ACS_Terminate(MSCC_Input_Loop, 0); }
+Script MSCC_Input_Loop (void)
+{
+    int input = GetPlayerInput(-1, INPUT_BUTTONS);
+    int player = PlayerNumber();
+    bool inputUsed = false; // This is to stop us from drawing the menu again if nothing changed.
+
+    if (input & BT_FORWARD)
+    {
+        inputUsed = true;
+
+        if (playerSide[PlayerNumber()] == MSIDE_CATEGORIES
+            && playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == 0)
+//              playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == CATEGORIES_AMOUNT - cond((!drawResign[player] || IsResignedN()), 2, 1);
+                playerSelection[PlayerNumber()][MSIDE_CATEGORIES] = (CMS_NUM - IsResignedN() - 1);
+        else if (playerSide[PlayerNumber()] == MSIDE_ITEMS
+            && playerSelection[PlayerNumber()][MSIDE_ITEMS] == 0)
+                playerSelection[PlayerNumber()][MSIDE_ITEMS] = MAX_ITEMS - 1;
+        else
+            if (playerSide[PlayerNumber()] == MSIDE_CATEGORIES)
+                playerSelection[PlayerNumber()][MSIDE_CATEGORIES] -= 1;
+            else
+                playerSelection[PlayerNumber()][MSIDE_ITEMS] -= 1;
+
+        LocalAmbientSound("menu/cursor", 127);
+
+        DebugLog(StrParam(d: playerSelection[PlayerNumber()][MSIDE_CATEGORIES], s:", ", d: playerSelection[PlayerNumber()][MSIDE_ITEMS]));
+    }
+
+    if (input & BT_BACK)
+    {
+        inputUsed = true;
+
+        if (playerSide[PlayerNumber()] == MSIDE_CATEGORIES && playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == CMS_NUM - 2 && IsResignedN())
+            playerSelection[PlayerNumber()][MSIDE_CATEGORIES] = 0;
+        else if (playerSide[PlayerNumber()] == MSIDE_CATEGORIES && playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == CMS_NUM - 1)
+            playerSelection[PlayerNumber()][MSIDE_CATEGORIES] = 0;
+        else if (playerSide[PlayerNumber()] == MSIDE_ITEMS
+            && playerSelection[PlayerNumber()][MSIDE_ITEMS] == MAX_ITEMS - 1)
+                playerSelection[PlayerNumber()][MSIDE_ITEMS] = 0;
+        else
+            if (playerSide[PlayerNumber()] == MSIDE_CATEGORIES)
+                playerSelection[PlayerNumber()][MSIDE_CATEGORIES] += 1;
+            else
+                playerSelection[PlayerNumber()][MSIDE_ITEMS] += 1;
+
+        LocalAmbientSound("menu/cursor", 127);
+
+        DebugLog(StrParam(d: playerSelection[PlayerNumber()][MSIDE_CATEGORIES], s:", ", d: playerSelection[PlayerNumber()][MSIDE_ITEMS]));
+    }
+
+    if (input & BT_MOVELEFT || input & BT_LEFT)
+    {
+        if (playerSide[PlayerNumber()] != MSIDE_CATEGORIES)
+        {
+            inputUsed = true;
+            playerSide[PlayerNumber()] = MSIDE_CATEGORIES;
+            LocalAmbientSound("menu/activate", 127);
+        }
+    }
+
+    if (input & BT_MOVERIGHT || input & BT_RIGHT)
+    {
+        if (playerSide[PlayerNumber()] != MSIDE_ITEMS)
+        {
+            inputUsed = true;
+
+            if (playerSelection[PlayerNumber()][MSIDE_CATEGORIES] != 5)
+            {
+                playerSide[PlayerNumber()] = MSIDE_ITEMS;
+                LocalAmbientSound("menu/activate", 127);
+            }
+        }
+    }
+
+    if (input & BT_ALTATTACK)
+    {
+        MC_Exit();
+    }
+
+    if (input & BT_USE || input & BT_ATTACK)
+    {
+        inputUsed = true;
+
+        if (playerSide[PlayerNumber()] == MSIDE_CATEGORIES)
+            if (playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == 5 && (drawResign[player] || !IsResignedN()))
+                MC_InputReceived(playerSelection[PlayerNumber()][MSIDE_CATEGORIES],
+                    playerSelection[PlayerNumber()][MSIDE_ITEMS]);
+            else {
+                playerSide[PlayerNumber()] = MSIDE_ITEMS;
+                LocalAmbientSound("menu/activate", 127);
+            }
+        else
+            MC_InputReceived(playerSelection[PlayerNumber()][MSIDE_CATEGORIES],
+                    playerSelection[PlayerNumber()][MSIDE_ITEMS]);
+    }
+
+    if (inputUsed) { MC_Draw(); }
+    Delay(MIL_DELAY);
+    if (CheckInventory("InMenu")) restart;
+}
+
+function void MC_DeathReset (void) { ACS_ExecuteAlways(MSCC_DEATHRESET, 0, 0, 0, 0); }
+Script MSCC_DEATHRESET DEATH { MC_Exit(); }
+
+function void MC_QuitReset (void) { ACS_ExecuteAlways(MSCC_QUITRESET, 0, 0, 0, 0); }
+Script MSCC_QUITRESET (int gone) DISCONNECT { if (PlayerNumber() == gone) MC_Exit(); }
+
+// All Out War 2 Class purchase scripts
+// Credit to VoltlocK for originally creating the engine
+// With modifications by Eruanna, Dusk and the Omega Team
+
+// You may use portions of this Script in your project as long as you give credit where credit is
+// due. Please don't be lame and just copy-paste any of this and call it your own. Thanks!
+// [Dusk] Rewritten pretty much entirely
+
+// -----------------------------------------------------------------------------
+// [Dusk] Adds an item to a class definition and bumps up CK_NUMITEMS
+function void AddClassItem (int class, str item, int amount)
+{
+    // Get the amount of current items, from this we can figure
+	// where in the array do we insert the new item
+	int n = Classes[class][CK_NUMITEMS];
+	int p = CK_NUMITEMS + 1 + (n * 2);
+
+	// Add in the stuff
+	Classes[class][p] = item;
+	Classes[class][p + 1] = amount;
+	Classes[class][CK_NUMITEMS]++;
+}
+
+// -----------------------------------------------------------------------------
+function str GetClassItemName (int class, int inum)
+{
+    int p = CK_NUMITEMS + 1 + (inum * 2);
+	return Classes[class][p];
+}
+
+// -----------------------------------------------------------------------------
+function int GetClassItemAmount (int class, int inum)
+{
+    int p = CK_NUMITEMS + 1 + (inum * 2);
+	return Classes[class][p + 1];
+}
+
+// -----------------------------------------------------------------------------
+function void InitClasses (void)
+{
+    int c;
+
+	// Init C4 and grenades to 1 globally
+	for(c = 0; c < NUM_CLASSES; c++)
+	{	Classes[c][CK_C4] = 1;
+		Classes[c][CK_GERNADES] = 1;
+		Classes[c][CK_SPEED] = 1.0;
 	}
-};
 
-// research
-#define RES_ENHANCEDREF 0
-#define RES_ADVMECHS 1
-#define RES_OBBYRES 2
-#define RES_HPREGEN 3
-#define RES_AMMOREGEN 4
-#define RES_TIMEDC4 5
-#define RES_REPAIRGUN 6
-#define RES_ADVTURR 7
-#define RES_MORETURR 8
-#define NUM_RESEARCHES 9
+	LoadClassDefinitions();
+}
 
-// classes menu stuff
-#define RMS_BASE 0
-#define RMS_ENHANCEMENTS 1
-#define RMS_PERSONAL 2
-#define RMS_NUM 3
+// -----------------------------------------------------------------------------
+function void PurchaseClass (int c)
+{
+    int team = PlayerTeam();
+	int cost = Classes[c][CK_COST];
 
-str resMenuCategoryNames[RMS_NUM] = {
-	"Base",
-	"Enhancements",
-	"Personal"
-};
+    bool addon = Classes[c][CK_FLAGS] & CF_ADDON;
 
-int resMenuItems[RMS_NUM][MAX_ITEMS] = {
+	// [SP] This is to fix the "double cost" bug
+	if (Timer() - LastMenu[PlayerNumber()] < 5)
+		return;
+
+	LastMenu[PlayerNumber()] = Timer();
+
+	// Check dependencies
+	int dep = Classes[c][CK_DEP];
+
+	if (!IsAdmin[PlayerNumber()])
 	{
-		RES_HPREGEN,
-		RES_AMMOREGEN,
-		RES_OBBYRES,
-		-1,
-		-1,
-		-1,
-		-1,
-		-1,
-		-1
-	},
-	{
-		RES_ENHANCEDREF,
-		RES_ADVMECHS,
-		RES_ADVTURR,
-		RES_MORETURR,
-		-1,
-		-1,
-		-1,
-		-1,
-		-1
-	},
-	{
-		RES_TIMEDC4,
-		RES_REPAIRGUN,
-		-1,
-		-1,
-		-1,
-		-1,
-		-1,
-		-1,
-		-1
+        if ((dep == DEP_BARRACKS || dep == DEP_CENTRE) && !GotBarracks[Team])
+		{
+            ErrorTop("Your \cFbarracks\c- has been destroyed!");
+			return;
+		}
+
+		if (dep == DEP_CENTRE && !GotPlant[Team])
+		{
+            ErrorTop("Your \cFresearch centre\c- has been destroyed!");
+			return;
+		}
+
+		if (dep == DEP_REFINERY && !GotRefinery[Team])
+		{
+            ErrorTop("Your \cFrefinery\c- has been destroyed!");
+			return;
+		}
 	}
-};
 
-// mech ids
-#define MECH_ORCA 0
-#define MECH_RAVEN 1
-#define MECH_WOLVERINE 2
-#define MECH_MADCAT 3
-#define MECH_TITAN 4
-#define MECH_GUARDIAN 5
+	// Check time cops
+	int maxtimecops = GetCVAR("theta_maxtimecopsperteam");
 
-// event scripts
-#define ACTION_DESTROY_BARRACKS 0
-#define ACTION_DESTROY_REFINERY 1
-#define ACTION_DESTROY_PLANT 2
-#define ACTION_DESTROY_FACTORY 3
-#define ACTION_DESTROY_OBELISK 4
-#define ACTION_DESTROY_REPAIR 5
-#define ACTION_SUDDENDEATH 6
+	if (c == CLASS_TIMECOP && maxtimecops > 0 && NumTimeCops[team] >= maxtimecops)
+	{
+        if (maxtimecops == 1)
+			ErrorTop("You already have a time cop in-field!");
+		else
+			ErrorTop(StrParam(s: "You already have ", d: NumTimeCops[team], s: " time cops in-field!"));
 
-#define HM_1TIC  1872 // (1/35) * 2^16
-#define HM_2TICS 3745 // (2/35) * 2^16
-#define HM_3TICS 5617 // (3/35) * 2^16
-#define HM_4TICS 7489 // (4/35) * 2^16
-#define HM_5TICS 9362 // (5/35) * 2^16
+		return;
+	}
 
-#define BUILDING_ALL            -1
-#define BUILDING_BARRACKS        0
-#define BUILDING_REFINERY        1
-#define BUILDING_RESCENTRE       2
-#define BUILDING_FACTORY         3
-#define BUILDING_OBELISK         4
-#define BUILDING_REPAIR          5
-#define BUILDING_MINIREF         6
-#define BUILDING_HEALTHREGEN     7
-#define BUILDING_AMMOREGEN       8
-#define BUILDING_PORTAL          9
-#define BUILDING_PORTAL_2       10
+	if (CheckInventory("HasClass") && !addon)
+	{
+        ErrorTop("You need to resign first!");
+		return;
+	}
 
-#define NUM_BUILDINGS            9 // [Dusk] we don't count portals, do we?
+    if (addon
+        && CheckInventory(GetClassItemName(c, 0)) > 0)
+    {
+        ErrorTop("You already have this add-on.");
+        return;
+    }
 
-// TODO: move these to 1000+ range
-#define TID_BARRACKS_BLUE 101
-#define TID_BARRACKS_RED 201
-#define TID_REFINERY_BLUE 103
-#define TID_REFINERY_RED 203
-#define TID_RESCENTRE_BLUE 105
-#define TID_RESCENTRE_RED 205
-#define TID_FACTORY_BLUE 107
-#define TID_FACTORY_RED 207
-#define TID_REPAIR_BLUE 109
-#define TID_REPAIR_RED 209
-#define TID_TESLACOIL 114
-#define TID_OBELISK 214
-#define TID_CRATE 401
-#define TID_TIBERIUM 402
-#define TID_TICKETCOUNTER_BLUE 410
-#define TID_TICKETCOUNTER_RED 411
-#define TID_MINIREF_BLUE 901
-#define TID_MINIREF_RED 900
-#define TID_HEALTHREGEN_BLUE 903
-#define TID_HEALTHREGEN_RED 902
-#define TID_AMMOREGEN_BLUE 905
-#define TID_AMMOREGEN_RED 904
+	// Show class information on the first press.
+    // [ZB] useless now we have a menu
+    /*
+	if ((GetLevelInfo(LEVELINFO_LEVELNUM) != 20 && GetLevelInfo(LEVELINFO_LEVELNUM) != 21))
+	{
+        if (!CheckInventory("PurchaseToken"))
+		{
+            // [Dusk] Instead of a static graphic class card, draw dynamic info text
+			// This will always be accurate, while the class cards were hopelessly outdated.
+			ACS_ExecuteWithResult(330, cost);
+			DrawClassInfoText(c);
+			ACS_ExecuteAlways(956, 0);
+			return;
+		}
+		else
+		{
+            // [Dusk] Clear the info text out once the class is purchased
+			ClearHudMessage(HID_CLASSTEXT);
+			ClearHudMessage(HID_CLASSTEXT + 1);
+		}
+	}
+    */
 
-// new tids
-#define TID_PORTAL_BLUE1				1500
-#define TID_PORTAL_BLUE2				1501
-#define TID_PORTAL_RED1					1502
-#define TID_PORTAL_RED2     		    1503
-#define TID_PORTAL_TELEDEST 		    1504 // - 1507
-#define TID_PORTAL_FX					1508 // - 1511
-#define TID_MARINE						1520 // - 1544
-#define TID_TESLACOIL_ORB				1600
-#define TID_TESLACOIL_EYE				1700
-#define TID_OBELISK_EYE					1701
-#define TID_Player						2000 // - 2063
-#define TID_SpawnMarker					2064 // - 2127
+	// Check monies
+	if (!CheckCreditsTop(cost))
+		return;
 
-#define TARGETINFO_X			0  // X-coordinate
-#define TARGETINFO_Y			1  // Y-coordinate
-#define TARGETINFO_Z			2  // Z-coordinate
-#define TARGETINFO_Health		3  // Health
-#define TARGETINFO_Angle		4  // Angle
-#define TARGETINFO_TID			5  // Thing ID
-#define TARGETINFO_PlayerNum	9  // Player number
-#define TARGETINFO_SpawnHealth	10 // Spawn health
-#define TARGETINFO_Team			11 // Affiliated team
-#define TARGETINFO_WeaponCheck	12 // for CheckTargetWeapon
-#define TARGETINFO_Name			13 // Name (akin to print (n:0))
+    if(!(Classes[c][CK_FLAGS] & CF_NOMENUEXIT)) MC_Exit2(); // If we're in the menu, leave it.
 
-#define INVITEM_Beacon              0
-#define INVITEM_RefillC4            1
-#define INVITEM_MarineBeacon        2
-#define INVITEM_SelfHeal            3
-#define INVITEM_SpawnMarker			4
+	int cflags = Classes[c][CK_FLAGS];
 
-// How many points does researching stuff give you?
-// Also used for miniref and utility-built ammo/health regens
-#define POINTS_RESEARCH 12
+	TakeInventory("PurchaseToken", 1);
+	DisplayTick();
+	SpendCreditsTop(cost);
+    if (!addon) BigMessage(StrParam(s: "You are a \cf", s: Classes[c][CK_NAME], s: "!"));
 
-// largest crate number, bump this every time new crates are added
-#define MAX_CRATE 68
+    if (!addon)
+    {
+    	// The essentials
+    	SetActorProperty(0, APROP_SPEED, Classes[c][CK_SPEED]);
+    	SetArmorGrade(Classes[c][CK_ARMORNUM], Classes[c][CK_ARMORMOD]);
+    	GiveInventory("HasClass", 1);
+    	GiveInventory("NewClipAmmo", 160);
+    	GiveInventory("Handgun", 1);
+    	GiveInventory("SpawnInvulnerability", 1);
+    	GiveInventory("ClassID", c);
+    	GiveInventory("Refunds", cost / 2);
 
-#define MAX_MARINES 24
+    	if (Classes[c][CK_C4] > 0)
+    	{
+            GiveInventory("TimedC4", Classes[c][CK_C4]);
+    		GiveInventory("TimedC4Count", Classes[c][CK_C4]);
+    	}
 
-/********************* Menus *********************/
+    	// Give the self heal item here so timed C4 takes precedence in the inventory
+    	GiveInventory("SelfHealItem", 1);
+    	SetFragGrenades(Classes[c][CK_GERNADES]);
+    }
 
-// ****** Shared
-#define MSIDE_CATEGORIES        0
-#define MSIDE_ITEMS             1
+	// Give the class-specific items now
+	for (int i = 0; i < Classes[c][CK_NUMITEMS]; ++i)
+	{
+        str itemname = GetClassItemName(c, i);
+		int itemamount = GetClassItemAmount(c, i);
+		GiveInventory(itemname, itemamount);
+	}
 
-#define MUI_CATEGORIES_X        0.4
-#define MUI_CATEGORIES_Y        0.3
-#define MUI_CATEGORIES_Y_INC    0.02
+    if (!addon) {
+    	// Set the weapon now
+    	if (Classes[c][CK_NUMITEMS] > 0)
+    		SetWeapon(GetClassItemName(c, 0));
 
-#define MUI_ITEMS_X             0.65
-#define MUI_ITEMS_Y             0.3
-#define MUI_ITEMS_Y_INC         0.02
+    	// Handle flags:
+    	if (cflags & CF_CANTPILOT)
+    		GiveInventory("HighUpgrade", 1);
 
-#define MIL_DELAY               4
+    	// Medic regeneration
+    	if (cflags & CF_HEALTHREGEN)
+    	{
+            GiveInventory("IsMedic", 1);
+    		ACS_ExecuteAlways(SC_MedicHealthRegen, 0);
+    	}
 
-int playerSelection[65][2];
-int playerSide[65];
-int inMenu[65];
+    	if (cflags & CF_SUPPORT)
+    		GiveInventory("Grade0Damage", 1);
 
-/********************* Menus *********************/
+    	// Class-specific behavior:
+    	switch (c)
+    	{
+            case CLASS_STEALTH:
+    			// Stealth trooper sounds
+    			SetActorProperty(0, APROP_DeathSound, "stealth/death");
+    			ACS_ExecuteAlways(918, 0, 0);
+    			break;
 
-bool Bots[MAX_MARINES];
+    		case CLASS_CHEMWARRIOR:
+    		case CLASS_HARVESTER:
+    		case CLASS_ADVHARVESTER:
+    			ACS_ExecuteAlways(918, 0, 1);
+    			break;
 
-int BaseTIDs[18] =
-{	TID_BARRACKS_BLUE, TID_BARRACKS_RED,
-	TID_REFINERY_BLUE, TID_REFINERY_RED,
-	TID_RESCENTRE_BLUE, TID_RESCENTRE_RED,
-	TID_FACTORY_BLUE, TID_FACTORY_RED,
-	TID_TESLACOIL, TID_OBELISK,
-	TID_REPAIR_BLUE, TID_REPAIR_RED,
-	TID_MINIREF_BLUE, TID_MINIREF_RED,
-	TID_HEALTHREGEN_BLUE, TID_HEALTHREGEN_RED,
-	TID_AMMOREGEN_BLUE, TID_AMMOREGEN_RED
-};
+    		case CLASS_SHOCKTROOPER:
+    			ACS_ExecuteAlways(918, 0, 2);
+    			break;
 
-str BuildingNames[11] =
-{	"Barracks",
-	"Refinery",
-	"Research Centre",
-	"War Factory",
-	"Obelisk of Light",
-	"Repair Facility",
-	"Mini-Refinery",
-	"Health Regen.",
-	"Ammo Regen.",
-	"Teleporter #1",
-	"Teleporter #2"
-};
+    		case CLASS_SUICIDEBOMBER:
+                HudMessage(s: "Use the switch to detonate violently";
+    						HUDMSG_FADEOUT, 1840, CR_GREEN, 0.5, 0.5, 2.0, 1.0);
 
-str TeamNames[2] =
-{	"Blue",
-	"Red"
-};
+    		case CLASS_COMMANDO:
+    		case CLASS_TIMECOP:
+    			ACS_ExecuteAlways(918, 0, 3);
+    			break;
 
-int EventScripts;
-int Credits[MAXPLAYERS];
-int Experience[MAXPLAYERS];
-int Rank[MAXPLAYERS];
-str RankTitles[8] =
-{	"Private",
-	"Corporal",
-	"Sergeant",
-	"Master Sgt.",
-	"Officer",
-	"Lieutenant",
-	"Major",
-	"General",
-};
+    		case CLASS_SNIPER:
+    			GiveInventory("IsSniper", 1);
+    			break;
 
-int PlayersTeam[MAXPLAYERS];
-bool IsAdmin[MAXPLAYERS];
-bool Surrender[MAXPLAYERS];
-int LastSurrenderTime[MAXPLAYERS];
+    		case CLASS_UTILITYGUY:
+                HudMessage(s: "Use \cFAlt-Fire\cD for \cNitem selection menu!";
+    						HUDMSG_FADEOUT, 1840, CR_GREEN, 0.5, 0.5, 2.0, 1.0);
+    			break;
 
-// [Dusk]
-int FirstBlood;
+    		case CLASS_JUMPJET:
+                HudMessage(s: "Use Inventory to activate JumpJet";
+    						HUDMSG_FADEOUT, 1840, CR_GREEN, 0.5, 0.5, 2.0, 1.0);
+    			break;
 
-// [SP] Keep track of when player joins game for purposes of team balance
-int StartTime[MAXPLAYERS];
-int PlayerNeedsSwitched;
+    		case CLASS_ARTILLERY:
+    			GiveInventory("IsArtillerySoldier", 1);
+    			break;
+    	}
 
-// [SP] Plasma cannon tracking
-int LastPurchasedCannon[MAXPLAYERS];
-int LastPurchasedBeacon[3];
-int NumPlasmaCannons[3];
+    	if (cflags & CF_HARVESTER)
+    	{
+            HudMessage(s: "Pick up \cctiberium crystals \cdand";
+    					HUDMSG_FADEOUT, 1840, CR_GREEN, 0.5, 0.6, 2.0, 1.0);
 
-// [SP] Time Cop tracking
-int LastPurchasedTimeCop[MAXPLAYERS];
-int NumTimeCops[3];
+            HudMessage(s: "return them to your \ccrefinery \cdfor cash!";
+    					HUDMSG_FADEOUT, 1880, CR_GREEN, 0.5, 0.65, 2.0, 1.0);
 
-int UsePortals = 1;
-// [Dusk] This is used to determine which portal is alive *and* active
-// a portal is considered inactive when it has no destinaton
-int Portals[4] = {0};
+    		// Harvester-specific immunity against tib crystal damage
+    		GiveInventory("TiberiumProof", 1);
+    		GiveInventory("IsHarvester", 1);
+    	}
 
-// [Dusk] Used to determine when a player has teleported in the last 18
-// tics, preventing teleporting multiple times.
-// TODO: make a `powerup`
-int HasTeleported[MAXPLAYERS];
+    	ACS_ExecuteAlways(91, 0);
+    	ACS_ExecuteAlways(961, 0, Team);
+    	PlayerSpeeds[PlayerNumber()] = Classes[c][CK_SPEED];
+        Log(s: pname(-1), s: " becomes ", s: Classes[c][CK_NAME]);
+    }
+    else
+    {
+        MC_Draw(); // update the menu
+        Log(s: pname(-1), s: " buys addon ", s: Classes[c][CK_NAME]);
 
-int LastMenu[MAXPLAYERS] = {0}; // [SP] This is to fix double-pressing on mech switches, causing a huge cost to the buyer.
+        if (c == ADDON_ARMOUR)
+        {
+        	GiveInventory("HasArmorUpgrade", 1);
+        	GiveInventory("HighUpgrade", 1);
+        	SetArmorGrade(1, AGF_ADDITIVE);
+        }
+    }
+}
+// -----------------------------------------------------------------------------
+// [Dusk] Delayed class sounds - in a Script since functions cannot have latency.
+// These sounds are only played locally now.
+Script 918 (int n)
+{
+    delay(6 * TICRATE);
 
-// [SP] Current Console Player IDX (client-side only)
-// Defaults to -1, this will be the "server" - anytime ConsolePlayer is -1
-// it means the client-side script did not execute, therefore this is the server.
-int ConsolePlayer = -1;
+	switch (n)
+	{
+        case 0:
+			LocalAmbientSound("misc/stealth", 127);
+			break;
 
-//Bases
-bool GotRefinery[2];
-bool GotBarracks[2];
-bool GotFactory[2];
-bool GotPlant[2];
-bool GotRepair[2];
-bool GotObelisk[2];
-int MiniRefinery[2];
-int BaseLeft[2];
+		case 1:
+			LocalAmbientSound("misc/chem", 127);
+			break;
 
-int LastAttackMessage;
-int MaxTurretDistance = 2500;
-int MinEnemyTurretDistance = 1500;
+		case 2:
+			LocalAmbientSound("misc/volt", 127);
+			break;
 
-int SurrenderWaitTime = 20;
+		case 3:
+			LocalAmbientSound("misc/commando", 127);
+			break;
+	}
+}
 
-// [Dusk]
-int RestoringObelisk[2];
+// -----------------------------------------------------------------------------
+Script 20 (void) MC_Enter();
+Script 21 (void) MC_Enter();
+Script 22 (void) MC_Enter();
+Script 23 (void) MC_Enter();
+Script 24 (void) MC_Enter();
+Script 25 (void) MC_Enter();
+Script 26 (void) MC_Enter();
+Script 27 (void) MC_Enter();
+Script 28 (void) MC_Enter();
+Script 29 (void) MC_Enter();
+Script 33 (void) MC_Enter();
+Script 34 (void) MC_Enter();
+Script 35 (void) MC_Enter();
+Script 36 (void) MC_Enter();
+Script 38 (void) MC_Enter();
+Script 62 (void) MC_Enter();
+Script 40 (void) MC_Enter();
+Script 41 (void) MC_Enter();
+Script 42 (void) MC_Enter();
+Script 43 (void) MC_Enter();
+Script 44 (void) MC_Enter();
+Script 52 (void) MC_Enter();
+Script 53 (void) MC_Enter();
+Script 54 (void) MC_Enter();
+Script 60 (void) MC_Enter();
+Script 61 (void) MC_Enter();
+Script 39 (void) MC_Enter();
+Script 63 (void) MC_Enter();
+Script 64 (void) MC_Enter();
 
-//RESEARCHES!!!!!!!!
-bool EnhancedRefining[2]; //Increases profits from harvesting by $50 //Costs $2000
-bool AdvancedMechResearch[2]; //Enables purchase of Juggernaut, Titan and MadCat //Costs $2000
-int GlobalMedic[2]; //Builds a Team Health Regeneration Cache //Costs $2250
-int GlobalAmmo[2]; //Builds a Team Ammo Regeneration Cache //Costs $2250
-bool AdvancedTurrets[2]; //Allows construction of high level Turrets //Costs $2000
-bool MoreTurrets[2]; //Increases Turret cap by 10 //Costs $2000
-int MaxTurrets[2] = {15, 15};
+//---------------------------PLASMA CANNON
+Script 37 (void)
+{
+    int cost = 1500;
 
-bool GettingMech[2];
-bool SuddenDeath = False;
-bool TicketPool = False;
-int Tickets[2];
-int StartingTickets;
+	if (MitigateDoublePress()) terminate;
 
-bool RedBeaconCooldown = False;
-bool BlueBeaconCooldown = False;
-int RedBeaconTime = 300;
-int BlueBeaconTime = 300;
+	if (!CheckBarracks(PlayerTeam())) terminate;
 
-int GameOver;
+	if (!CheckPlant(PlayerTeam())) terminate;
 
-bool CrateTime = True;
+	if (!CheckPlasmaCooldown()) terminate;
 
-int PlayerSpeeds[MAXPLAYERS]; // [Dusk] Keep track of speeds of individual players to work around a bug
-int MechGetter[2]; // [Dusk] Who is in the hanger?
+	if (CheckInventory("PlasmaCannon"))
+	{
+        Error("You already have a \cnPlasma Cannon\cr!");
+		terminate;
+	}
 
-int PlasmaCooldown[MAXPLAYERS]; // [Dusk] Time until players can buy another plasma cannon
+	int maxcannons = GetCVar("theta_maxcannonsperteam");
 
-int MaxRazorWire = 20;
-int MaxProxy = 50;
-int MaxMechs = 5; // mini-ravens
-int MaxCrates = 15;
+	if (maxcannons != -1 && NumPlasmaCannons[PlayerTeam()] >= maxcannons)
+	{
+        Error("Your team already has too many of those!");
+		terminate;
+	}
 
-int RepairBonus[MAXPLAYERS];
-int MedicBonus[MAXPLAYERS];
-int AIMarines[2] = {0}; // compensation-spawned only
+	int delaytime = GetCVAR("theta_plasmapurchasedelay") * 35 * 60;
 
-int AIMarineCount = 0; // how many AI marines are there overall?
+	if (Timer() < delaytime)
+	{
+        Error(StrParam(s: "You must wait \cF", d: (delaytime - Timer()) / 60,
+				 s: " seconds\nbefore you can get one of these!"));
+		terminate;
+	}
 
-// [Dusk] for crate logic
-int CrateNumber = 0;
+	if (!IsSecondPress("WEAP01", cost)) terminate;
 
-// [Dusk] for spawn markers
-int HasSpawnMarker[MAXPLAYERS];
+	if (!CheckCredits(cost)) terminate;
 
-// [ZB] For the team balance.
-int lastPlayerToJoin = 0;
+	TakeInventory("PurchaseToken", 1);
+	SpendCredits(cost);
+	LastPurchasedCannon[PlayerNumber() + 1] = Timer();
+	NumPlasmaCannons[PlayerTeam()]++;
 
-// =============================================================================
-int Classes[NUM_CLASSES][64];
-int Researches[NUM_RESEARCHES][64];
+	DisplayTick();
+	BigMessage("You got \cnPlasma Cannon!");
 
-// Keys to the Classes array
-#define CK_NAME         0
-#define CK_COST         1
-#define CK_SPEED        2
-#define CK_DEP          3
-#define CK_C4           4
-#define CK_GERNADES     5
-#define CK_ARMORNUM     6
-#define CK_ARMORMOD     7
-#define CK_FLAGS        8
-#define CK_DESC			9
-#define CK_NUMITEMS     10 // last key - item info follows
+	GiveInventory("PlasmaCannon", 1);
+	GiveInventory("PlasmaCannonAmmo", 10);
+	SetWeapon("PlasmaCannon");
+    Log(s: pname(-1), s: " purchases Plasma Cannon.");
+	RecountPlasma();
+}
 
-// CK_FLAGS
-//						(1 << 0)
-#define CF_SUPPORT		(1 << 1)
-#define CF_CANTPILOT	(1 << 2)
-#define CF_HEALTHREGEN	(1 << 3)
-#define CF_HARVESTER	(1 << 4)
-#define CF_ADDON		(1 << 5)
-#define CF_NOMENUEXIT	(1 << 6)
-// CK_DEP
-#define DEP_NONE        0
-#define DEP_BARRACKS    1
-#define DEP_CENTRE      2
-#define DEP_REFINERY    3
+//---------------------------T-E 21cal RIFLE
+Script 49 (void)
+{
+    int cost = 300;
 
-// [Dusk] Armor stuff
-#define NOCHANGE 255
-#define ARMOD_NOCHANGE 0
-#define ARMOD_FIRE 1
-#define ARMOD_CHEM 2
-#define ARMOD_LASER 3
-#define ARMOD_EXPLO 4
-#define ARMOD_BULLET 5
-#define ARMOD_NONE 7
-#define AGF_ADDITIVE 8
-#define AGF_DONTSUBTRACT 16
-#define AGF_DONTADD 32
+	if (MitigateDoublePress()) terminate;
 
-// =============================================================================
-str NormalWeaponNames[MAX_NORMAL_WEAPONS] =
-{	"ArtilleryCannon",
-	"ChemicalSprayer",
-	"DoubleShotgun",
-	"EagerBeaver",
-	"Flamer",
-	"GatlingGun",
-	"GaussRifle",
-	"GrenadeLauncher",
-	"Knife",
-	"LaserChaingun",
-	"LaserRifle",
-	"MachineGun",
-	"MissileLauncher",
-	"PlasmaCannon",
-	"PlasmaGun",
-	"Rifle",
-	"ShockRifle",
-	"Boomstick",
-	"SniperRifle",
-	"SubMachineGun",
-	"TiberiumAutorifle",
-	"TimeGun"
-};
+	if (CheckInventory("TiberiumAutorifleWeak") || CheckInventory("TiberiumAutorifle"))
+	{
+        Error("You already have a \cdTiberium Autorifle!");
+		terminate;
+	}
 
-#include "x_shareddefs.acs"
+	if (!IsSecondPress("WEAP02", cost)) terminate;
 
-#include "gitcommit.acs" // [SB] Auto generated
-#include "version.acs" // [SB] Auto generated
+	if (!CheckCredits(cost)) terminate;
 
-#include "a_functions.acs"
-#include "a_armor.acs"
-#include "a_monies.acs"
-#include "a_xp.acs"
-#include "a_defs.acs"
+	TakeInventory("PurchaseToken", 1);
+	SpendCredits(300);
+	DisplayTick();
 
-#include "a_admin.acs"
-#include "a_basehud.acs"
-#include "a_bases.acs"
-#include "a_botmarines.acs"
-#include "a_bots.acs"
-//#include "a_changelog.acs" // auto-generated
-#include "a_client.acs"
-#include "a_classes.acs"
-#include "a_core.acs"
-#include "a_crate.acs"
-#include "a_death.acs"
-#include "a_dmgovertime.acs"
-#include "a_donate.acs"
-#include "a_hud.acs"
-#include "a_items.acs"
-#include "a_jetpack.acs"
-#include "a_mechs.acs"
-#include "a_menu.acs"
-#include "a_menu_research.acs"
-#include "a_menudef.acs"
-#include "a_misc.acs"
-#include "a_netscripts.acs"
-#include "a_opendeck.acs"
-#include "a_portal.acs"
-#include "a_regen.acs"
-#include "a_repfac.acs"
-#include "a_repair.acs"
-#include "a_research.acs"
-#include "a_spawnroom.acs"
-#include "a_stealth.acs"
-#include "a_surrender.acs"
-#include "a_suddendeath.acs"
-#include "a_teambalance.acs"
-#include "a_timegun.acs"
-#include "a_tiberium.acs"
-#include "a_util.acs"
-#include "a_wchk.acs"
+	SETFONT("BigFont");
+    HudMessage(s: "You got the \cqTiberium Autorifle!";
+				HUDMSG_FADEOUT, 1800 + PlayerNumber(), CR_GREEN, 0.5, 0.45, 2.0, 1.0);
+
+	// GiveInventory("Refunds", 100);
+	GiveInventory("TiberiumAutorifleWeak", 1);
+	GiveInventory("TE21CalAmmo", 200);
+	SetWeapon("TiberiumAutorifleWeak");
+    Log(s: pname(-1), s: " purchases Tiberium Autorifle.");
+}
+
+//---------------------------CHAINSAW (was flashbangs)
+Script 50 (void)
+{
+    int cost = 250;
+
+	if (MitigateDoublePress()) terminate;
+
+	if (CheckInventory("EagerBeaver"))
+	{
+        Error("You already have the \cfChainsaw!");
+		terminate;
+	}
+
+	if (!IsSecondPress("WEAP03", cost)) terminate;
+
+	if (!CheckCredits(cost)) terminate;
+
+	TakeInventory("PurchaseToken", 1);
+	SpendCredits(cost);
+	DisplayTick();
+
+	SetFont("BIGFONT");
+    HudMessage(s: "You got the \cfChainsaw!";
+				HUDMSG_FADEOUT, 1800 + PlayerNumber(), CR_GREEN, 0.5, 0.45, 2.0, 1.0);
+                HudMessage(s: "Use Alt-Fire to launch the chainsaw!";
+				HUDMSG_FADEOUT, 1840 + PlayerNumber(), CR_GREEN, 0.5, 0.5, 2.0, 1.0);
+
+	GiveInventory("EagerBeaver", 1);
+	SetWeapon("EagerBeaver");
+    Log(s: pname(-1), s: " purchases Chainsaw.");
+}
+
+// ARTILLERY CANNON
+Script 51 (void)
+{
+    int cost = 550;
+
+	if (MitigateDoublePress()) terminate;
+
+	if (CheckInventory("ArtilleryCannon"))
+	{
+        Error("You already have an \cKArtillery Cannon!");
+		terminate;
+	}
+
+	if (!IsSecondPress("WEAP04", cost)) terminate;
+
+	if (!CheckCredits(cost)) terminate;
+
+	TakeInventory("PurchaseToken", 1);
+	SpendCredits(cost);
+
+	DisplayTick();
+	SETFONT("BigFont");
+    HudMessage(s: "You got the \ckArtillery Cannon!";
+				HUDMSG_FADEOUT, 1800 + PlayerNumber(), CR_GREEN, 0.5, 0.45, 2.0, 1.0);
+                HudMessage(s: "Use Alt-Fire for \cFAnti-Mech shells!";
+				HUDMSG_FADEOUT, 1840 + PlayerNumber(), CR_GREEN, 0.5, 0.5, 2.0, 1.0);
+
+	// GiveInventory("Refunds", 200);
+	GiveInventory("ArtilleryCannon", 1);
+	GiveInventory("ArtilleryShellAmmo", 40);
+	SetWeapon("ArtilleryCannon");
+    Log(s: pname(-1), s: " purchases artillery cannon.");
+}
+
+//-------------------- BLUE TEAM SUPERWEAPON
+//---------------------------ION CANNON BEACON
+Script 55 (int Team)
+{
+    if (PlayerTeam() == TEAM_RED)
+		terminate;
+
+	int cost = 1750;
+
+	if (MitigateDoublePress()) terminate;
+
+	if (CheckInventory("IonCannonBeacon"))
+	{
+        DisplayCross();
+		SETFONT("BigFont");
+        HudMessage(s: "You already have the \cnIon Cannon Beacon\cr!";
+					HUDMSG_FADEOUT, 240 + PlayerNumber(), CR_RED, 0.5, 0.45, 2.0, 1.0);
+		terminate;
+	}
+
+	BlueBeaconTime = (GetCVAR("theta_beaconpurchasedelay") * 60) - (Timer() - LastPurchasedBeacon[1]) / 35;
+
+	if (BlueBeaconTime <= 0)
+		BlueBeaconCooldown = false;
+	else
+		BlueBeaconCooldown = true;
+
+	if (BlueBeaconCooldown)
+	{
+        int mins = BlueBeaconTime / 60 - Timer() / (35 * 60);
+		int secs = 59 - (Timer() / 35) % 60;
+
+        Error(StrParam(s: "You must wait \cF", d: BlueBeaconTime, s: " seconds\nbefore you can get one of these!"));
+		terminate;
+	}
+
+	if (!IsSecondPress("WEAP05", cost)) terminate;
+
+	if (!CheckCredits(cost)) terminate;
+
+	LastPurchasedBeacon[1] = Timer();
+	TakeInventory("PurchaseToken", 1);
+	SpendCredits(1750);
+
+	DisplayTick();
+	SETFONT("BigFont");
+    HudMessage(s: "You got the \cnIon Cannon Beacon!";
+				HUDMSG_FADEOUT, 1800 + PlayerNumber(), CR_WHITE, 0.5, 0.45, 2.0, 1.0);
+	SetFont("SMALLFONT");
+    HudMessage(s: "Place this in front of an \cAenemy MCT\cJ and guard";
+				HUDMSG_FADEOUT, 1840 + PlayerNumber(), CR_WHITE, 0.5, 0.6, 5.0, 1.0);
+                HudMessage(s: "it for \cU60 seconds\cJ for \cKcertain destruction!";
+				HUDMSG_FADEOUT, 1880 + PlayerNumber(), CR_WHITE, 0.5, 0.625, 5.0, 1.0);
+
+	GiveInventory("IonCannonBeacon", 1);
+	SetWeapon("IonCannonBeacon");
+
+	BlueBeaconCooldown = True;
+    Log(s: pname(-1), s: " purchases Ion Cannon Beacon.");
+}
+
+//-------------------- RED TEAM SUPERWEAPON
+//---------------------------NUCLEAR STRIKE BEACON
+Script 56 (int Team)
+{
+    if (PlayerTeam() == TEAM_BLUE)
+		terminate;
+
+	int cost = 1750;
+
+	if (MitigateDoublePress()) terminate;
+
+	RedBeaconCooldown = true;
+	RedBeaconTime = (GetCVAR("theta_beaconpurchasedelay") * 60) - (Timer() - LastPurchasedBeacon[2]) / 35;
+
+	if (RedBeaconTime <= 0)
+		RedBeaconCooldown = false;
+
+	if (CheckInventory("NuclearStrikeBeacon"))
+	{
+        Error("You already have the \ckNuclear Strike Beacon\cr!");
+		terminate;
+	}
+
+	if (RedBeaconCooldown)
+	{
+        Error(StrParam(s: "You must wait \cF", d: RedBeaconTime, s: " seconds\nbefore you can get one of these!"));
+		terminate;
+	}
+
+	if (!IsSecondPress("WEAP06", cost)) terminate;
+
+	if (!CheckCredits(cost)) terminate;
+
+	LastPurchasedBeacon[2] = Timer();
+	TakeInventory("PurchaseToken", 1);
+	SpendCredits(1750);
+	DisplayTick();
+
+	SetFont("BIGFONT");
+    HudMessage(s: "You got the \cANuclear Strike Beacon!"; HUDMSG_FADEOUT, 1800 + PlayerNumber(), CR_WHITE, 0.5, 0.45, 2.0, 1.0);
+	SetFont("SMALLFONT");
+    HudMessage(s: "Place this in front of an \cAenemy MCT\cJ and guard";
+				HUDMSG_FADEOUT, 1840 + PlayerNumber(), CR_WHITE, 0.5, 0.6, 5.0, 1.0);
+                HudMessage(s: "it for \cU60 seconds\cJ for \cKcertain destruction!";
+				HUDMSG_FADEOUT, 1880 + PlayerNumber(), CR_WHITE, 0.5, 0.625, 5.0, 1.0);
+
+	GiveInventory("NuclearStrikeBeacon", 1);
+	SetWeapon("NuclearStrikeBeacon");
+
+	RedBeaconCooldown = True;
+    Log(s: pname(-1), s: " purchases Nuclear Strike Beacon.");
+}
+
+//---------------------------ARMOUR/DAMAGE UPGRADE
+Script 57 (int Team)
+{
+    int cost = 250;
+
+	if (MitigateDoublePress()) terminate;
+
+	if (CheckInventory("IsCommando"))
+	{
+        Error("no u :I");
+		terminate;
+	}
+
+	if (CheckInventory("HasArmorUpgrade"))
+	{
+        Error("You already have this \ccupgrade!");
+		terminate;
+	}
+
+	if (!IsSecondPress("UPGR01", cost)) terminate;
+
+	if (!CheckCredits(cost)) terminate;
+
+	TakeInventory("PurchaseToken", 1);
+	SpendCredits(cost);
+
+	DisplayTick();
+
+	SETFONT("BigFont");
+    HudMessage(s: "You got the \ckarmor upgrade!";
+				HUDMSG_FADEOUT, 1800 + PlayerNumber(), CR_GREEN, 0.5, 0.45, 2.0, 1.0);
+                HudMessage(s: "You can no longer pilot mechs.";
+				HUDMSG_FADEOUT, 1840 + PlayerNumber(), CR_GREEN, 0.5, 0.5, 2.0, 1.0);
+
+	GiveInventory("Refunds", 200);
+	GiveInventory("HasArmorUpgrade", 1);
+	GiveInventory("HighUpgrade", 1);
+	SetArmorGrade(1, AGF_ADDITIVE);
+    Log(s: pname(-1), s: " purchases armour/damage upgrade.");
+}
+
+// [Dusk] Attempt to teleport to field. Try multiple times so that if someone (or something)
+// is blocking one destination, we can still reach another.
+// TODO: ... or does Zandronum already do this?
+Script 961 (int team)
+{
+    int tries, i;
+	bool failed = true;
+
+	// [Dusk] If we have a spawn marker, use that.
+	if (HasSpawnMarker[PlayerNumber()])
+	{
+		if (Teleport (TID_SpawnMarker + PlayerNumber()))
+			TakeInventory ("IsInSpawnRoom", 1);
+		else
+			IntelMessage ("Could not teleport to spawn marker.\nTry again or clear the marker.");
+
+		terminate;
+	}
+
+	for(i = 0; i <= 9; i++)
+	{
+        if (Teleport(1 + team))
+		{
+            failed = false;
+			break;
+		}
+	}
+
+	if (failed)
+	{
+        IntelMessage("In-field teleportation \cAfailed\cJ - use the\n\cDTeleport back to Field\cJ -terminal");
+		terminate;
+	}
+	else
+		TakeInventory("IsInSpawnRoom", 1);
+}
+
+// [Dusk] Helper function for DrawClassInfoText
+function str GetSpeedMeter (int c)
+{
+    int speed = Classes[c][CK_SPEED];
+	str msg = StrParam(s: "\cU[", s: FractionColor(speed - 0.5, 0.5));
+	bool darkened = false;
+
+	for (int i = 0; i < 10; ++i)
+	{
+        int step = 0.5 + (i * 0.05);
+
+		if (step > Classes[c][CK_SPEED] && !darkened)
+		{
+            msg = StrParam(s: msg, s: "\cM");
+			darkened = true;
+		}
+
+		msg = StrParam(s: msg, s: "I");
+	}
+
+	msg = StrParam(s: msg, s: "\cU]");
+	return msg;
+}
+
+function void DrawClassInfoText(int c)
+{
+    // Clear the entry messages if they're still there.
+	ClearHudMessage(HID_ENTER);
+	ClearHudMessage(HID_ENTER + 1);
+	ClearHudMessage(HID_BIGMESSAGE);
+
+	int cflags = Classes[c][CK_FLAGS];
+	int cspeed = Classes[c][CK_SPEED];
+
+	SetFont("BIGFONT");
+    HUDMessage(s: Classes[c][CK_NAME];
+				HUDMSG_FADEOUT, HID_CLASSTEXT, CR_WHITE, -0.3, -0.3, 5.0, 1.0);
+
+	SetFont("SMALLFONT");
+	str body = StrParam(
+		s: "Cost: \cQ$\cD", d: Classes[c][CK_COST],
+		s: "\nSpeed:", s: GetSpeedMeter(c), s: " ", s: FractionColor(cspeed - 0.5, 0.5), d: (cspeed * 100) >> 16, s: "\cJ%",
+		s: "\nArmor: Grade ", d: Classes[c][CK_ARMORNUM], s: " ", s: ArmorModifierName(Classes[c][CK_ARMORMOD]),
+		s: "\nC4: ", d: Classes[c][CK_C4],
+		s: "\nGrenades:", d: Classes[c][CK_GERNADES], s: "\n"
+	);
+
+	for(int i = 0; i < Classes[c][CK_NUMITEMS]; ++i)
+	{
+        str item = GetClassItemName(c, i);
+		int amount = GetClassItemAmount(c, i);
+
+        body = StrParam(s: body, s: "\n- ", d: amount, s: "x ", s: item);
+	}
+
+    HUDMessage(s: body; HUDMSG_FADEOUT, HID_CLASSTEXT + 1, CR_WHITE, -0.3, -0.35, 5.0, 1.0);
+}

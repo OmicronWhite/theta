@@ -1,11 +1,11 @@
 // because linguist -*- mode: c;-*-
 
 //---------------------------BLUE BARRACKS DEATH
-Script 101 (void)
+Script SC_BlueBarracksDie (void)
 {
 	Thing_Destroy(100, 0);
 	Thing_Destroy(101, 0);
-	ACS_ExecuteAlways(99, 0, TEAM_BLUE);
+	ACS_ExecuteAlways(SC_CL_BuildingDieSound, 0, TEAM_BLUE);
 	GotBarracks[TEAM_BLUE] = False;
 	BaseLeft[TEAM_BLUE]--;
 	SetLineTexture(1, SIDE_FRONT, TEXTURE_BOTTOM, "MCT2");
@@ -25,11 +25,11 @@ Script 101 (void)
 }
 
 //---------------------------BLUE REFINERY DEATH
-Script 102 (void)
+Script SC_BlueRefineryDie (void)
 {
 	Thing_Destroy(102, 0);
 	Thing_Destroy(103, 0);
-	ACS_ExecuteAlways(99, 0, TEAM_BLUE);
+	ACS_ExecuteAlways(SC_CL_BuildingDieSound, 0, TEAM_BLUE);
 	GotRefinery[TEAM_BLUE] = False;
 	BaseLeft[TEAM_BLUE]--;
 	SetLineTexture(5, SIDE_FRONT, TEXTURE_BOTTOM, "MCT2");
@@ -48,12 +48,12 @@ Script 102 (void)
 }
 
 //---------------------------BLUE POWERPLANT DEATH
-Script 103(void)
+Script SC_BluePowerPlantDie(void)
 {
 	Thing_Destroy(104, 0);
 	Thing_Remove(104);
 	Thing_Destroy(105, 0);
-	ACS_ExecuteAlways(99, 0, TEAM_BLUE);
+	ACS_ExecuteAlways(SC_CL_BuildingDieSound, 0, TEAM_BLUE);
 	GotPlant[TEAM_BLUE] = False;
 	BaseLeft[TEAM_BLUE]--;
 	SetLineTexture(7, SIDE_FRONT, TEXTURE_BOTTOM, "MCT2");
@@ -74,11 +74,11 @@ Script 103(void)
 }
 
 //---------------------------BLUE WAR FACTORY DEATH
-Script 104(void)
+Script SC_BlueFactoryDie(void)
 {
 	Thing_Destroy(106, 0);
 	Thing_Destroy(107, 0);
-	ACS_ExecuteAlways(99, 0, TEAM_BLUE);
+	ACS_ExecuteAlways(SC_CL_BuildingDieSound, 0, TEAM_BLUE);
 	GotFactory[TEAM_BLUE] = False;
 	BaseLeft[TEAM_BLUE]--;
 	SetLineTexture(9, SIDE_FRONT, TEXTURE_BOTTOM, "MCT2");
@@ -98,7 +98,7 @@ Script 104(void)
 }
 
 //---------------------------BLUE REPAIR FACILITY DEATH
-Script 105(void)
+Script SC_BlueRepairDie(void)
 {
 	//Thing_Remove(109);
 	GotRepair[TEAM_BLUE] = False;
@@ -119,12 +119,12 @@ Script 105(void)
 }
 
 //---------------------------TESLA COIL DEATH
-Script 114(void)
+Script SC_BlueObeliskDie(void)
 {
 	Thing_Destroy(114, 1);
 	Thing_Destroy(115, 1);
 	Thing_Destroy(TID_TESLACOIL_EYE, 1);
-	ACS_ExecuteAlways(99, 0, TEAM_BLUE);
+	ACS_ExecuteAlways(SC_CL_BuildingDieSound, 0, TEAM_BLUE);
 	GotObelisk[TEAM_BLUE] = False;
 	BaseLeft[TEAM_BLUE]--;
 	ReddenSector(19);
@@ -144,11 +144,11 @@ Script 114(void)
 }
 
 //---------------------------RED BARRACKS DEATH
-Script 201(void)
+Script SC_RedBarracksDie(void)
 {
 	Thing_Destroy(200, 0);
 	Thing_Destroy(201, 0);
-	ACS_ExecuteAlways(99, 0, TEAM_RED);
+	ACS_ExecuteAlways(SC_CL_BuildingDieSound, 0, TEAM_RED);
 
 	GotBarracks[TEAM_RED] = False;
 	BaseLeft[TEAM_RED]--;
@@ -170,11 +170,11 @@ Script 201(void)
 }
 
 //---------------------------RED REFINERY DEATH
-Script 202(void)
+Script SC_RedRefineryDie(void)
 {
 	Thing_Destroy(202, 0);
 	Thing_Destroy(203, 0);
-	ACS_ExecuteAlways(99, 0, TEAM_RED);
+	ACS_ExecuteAlways(SC_CL_BuildingDieSound, 0, TEAM_RED);
 	GotRefinery[TEAM_RED] = False;
 	BaseLeft[TEAM_RED]--;
 	SetLineTexture(6, SIDE_FRONT, TEXTURE_BOTTOM, "MCT2");
@@ -192,11 +192,11 @@ Script 202(void)
 }
 
 //---------------------------RED POWERPLANT DEATH
-Script 203(void)
+Script SC_RedPowerPlantDie(void)
 {
 	Thing_Destroy(204, 0);
 	Thing_Destroy(205, 0);
-	ACS_ExecuteAlways(99, 0, TEAM_RED);
+	ACS_ExecuteAlways(SC_CL_BuildingDieSound, 0, TEAM_RED);
 	GotPlant[TEAM_RED] = False;
 	BaseLeft[TEAM_RED]--;
 	SetLineTexture(8, SIDE_FRONT, TEXTURE_BOTTOM, "MCT2");
@@ -216,11 +216,11 @@ Script 203(void)
 }
 
 //---------------------------RED WAR FACTORY DEATH
-Script 204(void)
+Script SC_RedFactoryDie(void)
 {
 	Thing_Destroy(206, 0);
 	Thing_Destroy(207, 0);
-	ACS_ExecuteAlways(99, 0, TEAM_RED);
+	ACS_ExecuteAlways(SC_CL_BuildingDieSound, 0, TEAM_RED);
 	GotFactory[TEAM_RED] = False;
 	BaseLeft[TEAM_RED]--;
 	SetLineTexture(10, SIDE_FRONT, TEXTURE_BOTTOM, "MCT2");
@@ -239,7 +239,7 @@ Script 204(void)
 }
 
 //---------------------------RED REPAIR FACILITY DEATH
-Script 205(void)
+Script SC_RedRepairDie(void)
 {
 	GotRepair[TEAM_RED] = False;
 	ReddenSector(15);
@@ -264,7 +264,7 @@ Script 214(void)
 	Thing_Destroy(214, 1);
 	Thing_Destroy(215, 1);
 	Thing_Destroy(TID_OBELISK_EYE, 1);
-	ACS_ExecuteAlways(99, 0, TEAM_RED);
+	ACS_ExecuteAlways(SC_CL_BuildingDieSound, 0, TEAM_RED);
 	GotObelisk[TEAM_RED] = False;
 	BaseLeft[TEAM_RED]--;
 	ReddenSector(20);
@@ -280,7 +280,7 @@ Script 214(void)
 		ACS_ExecuteAlways(960, 0, ACTION_DESTROY_OBELISK, TEAM_RED);
 }
 
-Script 97(int Structure, int Team) CLIENTSIDE
+Script SC_CL_BuildingHurtSound(int Structure, int Team) CLIENTSIDE
 {
 	if (Timer() > LastAttackMessage + 35 * 15)
 	{
@@ -318,7 +318,7 @@ Script 97(int Structure, int Team) CLIENTSIDE
 	}
 }
 
-Script 99(int team) NET CLIENTSIDE
+Script SC_CL_BuildingDieSound(int team) NET CLIENTSIDE
 {
 	if (team == TEAM_RED)
 	{

@@ -102,7 +102,7 @@ Script 999 OPEN
 		SetActorSpeed(TID_TICKETCOUNTER_RED, 0);
 	}
 
-	// [SB] Idiot proofing
+	// [ZB] Idiot proofing
 	/*
 	while (true)
 	{
@@ -224,6 +224,13 @@ Script 599 OPEN
 //Setting Player scripts
 Script 10 RESPAWN
 {
+	// [ZB] don't execute if we're the server
+	if (PlayerNumber() == -1)
+		terminate;
+
+	Delay(1); // [ZB] ensures everything happens correctly; especially if we just got team swtiched via autobalance
+
+	DebugLog(StrParam(s: "Player respawned. Their team is ", s: cond(PlayerTeam() == TEAM_RED, "Red", "Blue")));
 	if (StartTime[PlayerNumber()] == 0)
 		InitPlayer();
 
@@ -245,7 +252,7 @@ Script 10 RESPAWN
 
 Script 11 ENTER
 {
-	// [SB] We give this now, so team balance works right.
+	// [ZB] We give this now, so team balance works right.
 	GiveInventory("IsInSpawnRoom", 1);
 	// [Dusk] This player's joining might throw off team balance, so check that now.
 	CheckTeamBalance();
@@ -281,12 +288,12 @@ Script 301 ENTER CLIENTSIDE
 					HUDMSG_FADEINOUT, HID_ENTER + 2, CR_GOLD, 0.5, 0.6, 7.0);
 
 	SetFont("SMALLFONT");
-	HudMessage(s: "\cfYou are playing \cdThe Theta Project\cf version \cd", s: VERSION_STRING, s: "\cf (commit \cd", s: COMMIT_HASH, s:"\cf)!\n",
+	HudMessage(s: "\cfYou are playing \cdThe Theta Project\cf version \cd", s: VERSION_STRING, s: "\cf codename \cd", s: VERSION_CODENAME, s:"\cf!\n",
 				s: "\cfJoin the \cd#theta\cf channel on \cdZandronum IRC\cf!\n",
 				s: "\cfDeveloped by \c[c9]S\c[c1]e\c[c9]a\c[c1]n\cf and \cdProtox\cf.",
 				s: "\n\n",
 				s: "See \cFOptions \cN-> \cFCustomise Controls\c- for keybinds";
-				HUDMSG_FADEOUT, HID_ENTER + 1, CR_WHITE, 0.5, 0.5, 7.0, 1.0);
+				HUDMSG_FADEOUT, HID_ENTER + 1, CR_WHITE, 1.5, 0.5, 7.0, 1.0);
 
 	delay(20);
 	LocalAmbientSound("voltlock/welcome", 127);

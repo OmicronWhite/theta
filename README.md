@@ -3,7 +3,7 @@ Theta
 *Theta* is a continuation of All Out War 2: The Omega Project.
 
 Come join our IRC channel! We're at `irc.zandronum.com #theta`.  
-Also check out our forums at [theta.plussean.co.uk](http://theta.plussean.co.uk).
+Also check out our forums at [theta.plussean.co.uk/forum](http://theta.plussean.co.uk/forum).
 
 [![Support us on ModDB](http://button.moddb.com/popularity/medium/mods/28018.png)](http://www.moddb.com/mods/theta)
 
@@ -16,21 +16,24 @@ Also check out our forums at [theta.plussean.co.uk](http://theta.plussean.co.uk)
  * __AOW06__ - Glacier
  * __AOW07__ - Sand Canyon
  * __AOW08__ - Valley
+ * __AOW09__ - Infected
+
+ To see the status of maps and what maps are coming, see [this issue tracker ticket](https://github.com/PlusGit/theta/issues/42).
 
 ## Get
-The [releases page](https://github.com/PlusGit/theta/releases) is the most up-to-date source of *stable* releases of Theta. For development builds, see the [Building](https://github.com/PlusGit/theta#building) section below.
+The [releases page](https://github.com/PlusGit/theta/releases) is the most up-to-date source of *stable* releases of Theta. For development builds, we have each commit be built automatically by a [Jenkins server](http://jenkins.plussean.co.uk/), and they are available [here](http://theta.plussean.co.uk/builds).  Also see the [Building](https://github.com/PlusGit/theta#building) section below, to build manually.
 
-You can also get some stable releases from our [ModDB page](http://www.moddb.com/mods/theta/downloads) and [TSPG Britsteel](http://britsteel.allfearthesentinel.net/wads), but these may be outdated.
+You can also get some stable releases from our [ModDB page](http://www.moddb.com/mods/theta/downloads), but these may be outdated.
 
 ## Hosting
 __IWAD:__ `doom2.wad`
 
 __WADs:__ (must be loaded in this order)
  - `skulltag_content_2.1a.pk3` - [Download](http://grandvoid.sickedwick.net/wads/skulltag_content2.1a.pk3) - While Theta is mostly independant of Skulltag, it still needs some bits and bobs.
- - `theta_base_YYMMDD.pk3` - [Check for Latest Release](https://github.com/PlusGit/theta/releases)
- - `theta_code_YYMMDD.pk3` - [Check for Latest Release](https://github.com/PlusGit/theta/releases)
- - `theta_maps_YYMMDD.pk3` - [Check for Latest Release](https://github.com/PlusGit/theta/releases)
- - `theta_music_YYMMDD.pk3` - [Check for Latest Release](https://github.com/PlusGit/theta/releases)
+ - `theta_base_X.XX.X.pk3` - [Check for Latest Release](https://github.com/PlusGit/theta/releases)
+ - `theta_code_X.XX.X.pk3` - [Check for Latest Release](https://github.com/PlusGit/theta/releases)
+ - `theta_maps_X.XX.X.pk3` - [Check for Latest Release](https://github.com/PlusGit/theta/releases)
+ - `theta_music_X.XX.X.pk3` - [Check for Latest Release](https://github.com/PlusGit/theta/releases)
 
 ## Building
 ### Windows

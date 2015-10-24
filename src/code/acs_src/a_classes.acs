@@ -281,13 +281,13 @@ Script MSCC_Input_Loop (void)
     {
         inputUsed = true;
 
-        if (CheckInventory("PlayerSide") == MSIDE_CATEGORIES
-            && CheckInventory("PlayerSelectionCategories") == 0)
-//              CheckInventory("PlayerSelectionCategories") == CATEGORIES_AMOUNT - cond((!drawResign[player] || IsResignedN()), 2, 1);
-                SetInventory("PlayerSelectionCategories", (CMS_NUM - IsResignedN() - 1));
-        else if (CheckInventory("PlayerSide") == MSIDE_ITEMS
-            && CheckInventory("PlayerSelectionItems") == 0)
-                SetInventory("PlayerSelectionItems", MAX_ITEMS - 1);
+        if (playerSide[PlayerNumber()] == MSIDE_CATEGORIES
+            && playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == 0)
+//              playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == CATEGORIES_AMOUNT - cond((!drawResign[player] || IsResignedN()), 2, 1);
+                playerSelection[PlayerNumber()][MSIDE_CATEGORIES] = (CMS_NUM - IsResignedN() - 1);
+        else if (playerSide[PlayerNumber()] == MSIDE_ITEMS
+            && playerSelection[PlayerNumber()][MSIDE_ITEMS] == 0)
+                playerSelection[PlayerNumber()][MSIDE_ITEMS] = MAX_ITEMS - 1;
         else
             TakeInventory(cond(CheckInventory("PlayerSide"), "PlayerSelectionItems", "PlayerSelectionCategories"), 1);
 
@@ -490,7 +490,7 @@ function void PurchaseClass (int c)
     }
 
 	// Show class information on the first press.
-    // [SB] useless now we have a menu
+    // [ZB] useless now we have a menu
     /*
 	if ((GetLevelInfo(LEVELINFO_LEVELNUM) != 20 && GetLevelInfo(LEVELINFO_LEVELNUM) != 21))
 	{

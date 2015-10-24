@@ -1,4 +1,4 @@
-str maps_menu[5] = {"AOW01", "AOW02", "AOW03", "AOW04", "AOW05"};
+str maps_menu[9] = {"AOW01", "AOW02", "AOW03", "AOW04", "AOW05", "AOW06", "AOW07", "AOW08", "AOW09"};
 
 Script SC_MenuGoMap (void) NET CLIENTSIDE
 {

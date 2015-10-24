@@ -1,8 +1,17 @@
 Changelog
 =========
 
+## 0.99.4 *"Actinium"*
+ - Add AOW10 - Mining Site (imported from AOW 2.1)
+   - Update the base designs for Theta.
+ - Add codenames to versioning system
+ - Update the entry message
+   - Now shows codename too!
+   - Truly centred.
+
 ## 0.99.3
  - Add AOW08 - Valley (imported from AOW 2.1)
+ - Add AOW09 - Infected (import from AOW 2.1)
 
 ## 0.99.2
  - Fix building `genver` on Linux

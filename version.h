@@ -1,5 +1,6 @@
-# This is not an actual header file
-# It is just for genver.
-# The version format is extremely simple:
+// This is not an actual header file
+// It is just for genver.
+// The version format is extremely simple:
 
-0.99.3
+version=0.99.5
+codename=Actinium

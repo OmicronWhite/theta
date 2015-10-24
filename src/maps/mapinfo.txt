@@ -67,6 +67,20 @@ map AOW08 "Valley" {
 	levelnum = 5
 }
 
+map AOW09 "Infected" {
+	next = "AOW10"
+	sky1 = "sky7", 0.1
+	music = "D_AOW09"
+	levelnum = 9
+}
+
+map AOW10 "Mining Site" {
+	next = "AOW11"
+	sky1 = "SKY1"
+	music = "D_AOW10"
+	levelnum = 10
+}
+
 map AOW99 "Test" {
 	next = "AOW01"
 	sky1 = "stsky14"

@@ -1,7 +1,7 @@
 // because linguist -*- mode: c;-*-
 
 // BUILDING HUD CODE
-Script 930(int what, int team)
+Script SC_UpdateBuildingHUD(int what, int team)
 {
 	if (ActivatorTID() == 0)
 		terminate;

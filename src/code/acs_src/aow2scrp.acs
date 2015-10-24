@@ -357,6 +357,7 @@ int resMenuItems[RMS_NUM][MAX_ITEMS] = {
 #define SC_CL_SniperZoom          916
 #define SC_CL_JetpackQuake        919
 #define SC_ChangeArmour			  920
+#define SC_UpdateBuildingHUD      930
 #define SC_PORTAL_TIDREQUEST      935
 #define SC_PORTAL_INIT            936
 #define SC_PORTAL_FUNCTION        937

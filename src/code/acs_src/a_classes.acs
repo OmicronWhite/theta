@@ -11,8 +11,6 @@
 #define MSCC_INPUTRECV           485
 #define MSCC_DEATHRESET          486
 #define MSCC_QUITRESET           487
-#define MSCC_ENTERLOCAL          479
-
 
 int drawResign[32];
 
@@ -51,9 +49,6 @@ Script MSCC_Enter (void)
         Delay(MIL_DELAY); // prevents accidentally selecting an option
         MC_InputLoop_Start();
     }
-}
-
-Script MSCC_ENTERLOCAL (void) {
 }
 
 function void MC_Exit (void) { RequestScriptPuke(MSCC_EXIT, 0, 0, 0); }

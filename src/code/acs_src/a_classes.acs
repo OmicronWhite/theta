@@ -11,18 +11,20 @@
 #define MSCC_INPUTRECV           485
 #define MSCC_DEATHRESET          486
 #define MSCC_QUITRESET           487
+#define MSCC_ENTERLOCAL          479
 
 
 int drawResign[32];
 
 // This function is called when the player has chosen an item.
-function void MC_InputReceived(int category, int item) { ACS_ExecuteAlways(MSCC_INPUTRECV, 0, category, item); }
-Script MSCC_INPUTRECV (int category, int item)
+function void MC_InputReceived(int category, int item) { RequestScriptPuke(MSCC_INPUTRECV, category, item, 0); }
+Script MSCC_INPUTRECV (int category, int item) NET
 {
+    DebugLog(StrParam(s: "Got input: ", d: category, s: "; ", d: item));
     int player = PlayerNumber();
     bool shouldExit = false;
-    if (category <= CMS_NUM && menuItems[CheckInventory("PlayerSelectionCategories")][CheckInventory("PlayerSelectionItems")] != -1)
-        PurchaseClass(menuItems[CheckInventory("PlayerSelectionCategories")][CheckInventory("PlayerSelectionItems")]);
+    if (category <= CMS_NUM && menuItems[category][item] != -1)
+        PurchaseClass(menuItems[category][item]);
 
     if (category == 5) { // Resign
         ACS_ExecuteAlways(95, 0, 0, true); // arg1 is unused
@@ -51,9 +53,12 @@ Script MSCC_Enter (void)
     }
 }
 
-function void MC_Exit (void) { ACS_ExecuteAlways(MSCC_EXIT, 0, 0, 0); }
+Script MSCC_ENTERLOCAL (void) {
+}
+
+function void MC_Exit (void) { RequestScriptPuke(MSCC_EXIT, 0, 0, 0); }
 function void MC_Exit2 (void) { ACS_ExecuteAlways(MSCC_EXIT, 0, 0, 0, 0); }
-Script MSCC_Exit (void)
+Script MSCC_Exit (void) NET
 {
     int player = PlayerNumber();
     SetInventory("InMenu", 0);
@@ -157,8 +162,9 @@ function void MC_Unfreeze (void)
 
 // Draws the menu.
 function void MC_Draw (void) { ACS_ExecuteAlways(MSCC_Draw, 0, 0, 0, 0); }
-Script MSCC_Draw (void)
+Script MSCC_Draw (void) CLIENTSIDE
 {
+    InitClasses();
     int player = PlayerNumber();
 
     // Draw categories
@@ -188,7 +194,9 @@ Script MSCC_Draw (void)
         }
 
         SetFont("BIGFONT");
-        HudMessage(s: MC_ItemString(MSIDE_ITEMS, CheckInventory("PlayerSelectionCategories"), i1);
+        str s = MC_ItemString(MSIDE_ITEMS, CheckInventory("PlayerSelectionCategories"), i1);
+        //DebugLog(StrParam(s: "Draw: ", s: s));
+        HudMessage(s: s;
                 HUDMSG_PLAIN, 700 + i1, CR_GREY, MUI_ITEMS_X, i_startY, 0);
         SetFont("DOOMFONT");
         i_startY += i_incY;
@@ -255,7 +263,7 @@ function void MC_ClearHudMsg(int id)
 }
 
 function void MC_Clear (void) { ACS_ExecuteAlways(MSCC_Clear, 0, 0, 0, 0); }
-Script MSCC_Clear (void)
+Script MSCC_Clear (void) CLIENTSIDE
 {
     for (int i = 0; i < CMS_NUM; i++) {
         MC_ClearHudMsg(600 + i);
@@ -271,7 +279,7 @@ Script MSCC_Clear (void)
 
 function void MC_InputLoop_Start (void) { ACS_ExecuteAlways(MSCC_Input_Loop, 0, 0, 0, 0); }
 function void MC_InputLoop_Stop (void) { ACS_Terminate(MSCC_Input_Loop, 0); }
-Script MSCC_Input_Loop (void)
+Script MSCC_Input_Loop (void) CLIENTSIDE
 {
     int input = GetPlayerInput(-1, INPUT_BUTTONS);
     int player = PlayerNumber();
@@ -361,17 +369,17 @@ Script MSCC_Input_Loop (void)
                     CheckInventory("PlayerSelectionItems"));
     }
 
-
+    DebugLog(StrParam(s: "Inv: ", d: CheckInventory("PlayerSelectionCategories"), s: "; ", d: CheckInventory("PlayerSelectionItems")));
     if (inputUsed) { MC_Draw(); }
     Delay(MIL_DELAY);
     if (CheckInventory("InMenu")) restart;
 }
 
 function void MC_DeathReset (void) { ACS_ExecuteAlways(MSCC_DEATHRESET, 0, 0, 0, 0); }
-Script MSCC_DEATHRESET DEATH { MC_Exit(); }
+Script MSCC_DEATHRESET DEATH CLIENTSIDE { MC_Exit(); }
 
 function void MC_QuitReset (void) { ACS_ExecuteAlways(MSCC_QUITRESET, 0, 0, 0, 0); }
-Script MSCC_QUITRESET (int gone) DISCONNECT { if (PlayerNumber() == gone) MC_Exit(); }
+Script MSCC_QUITRESET (int gone) DISCONNECT CLIENTSIDE { if (PlayerNumber() == gone) MC_Exit(); }
 
 // All Out War 2 Class purchase scripts
 // Credit to VoltlocK for originally creating the engine

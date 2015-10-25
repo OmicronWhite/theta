@@ -42,12 +42,14 @@ function void LoadClassDefinitions (void)
 
 	c = CLASS_GUNMAN;
 	Classes[c][CK_NAME] = "Gunman";
+	Classes[c][CK_COST] = 0;
 	AddClassItem(c, "SubMachineGun", 1);
 
 	c = CLASS_ENGINEER;
 	Classes[c][CK_NAME] = "Engineer";
 	Classes[c][CK_SPEED] = 0.8;
 	Classes[c][CK_FLAGS] = (CF_SUPPORT);
+	Classes[c][CK_COST] = 0;
 	AddClassItem(c, "RepairGun", 1);
 
 	c = CLASS_MINIGUNNER;
@@ -203,6 +205,7 @@ function void LoadClassDefinitions (void)
 	c = CLASS_SHOTGUNNER;
 	Classes[c][CK_NAME] = "Shotgunner";
 	Classes[c][CK_SPEED] = 0.8;
+	Classes[c][CK_COST] = 0;
 	AddClassItem(c, "Boomstick", 1);
 	AddClassItem(c, "ShotgunAmmo", 50);
 

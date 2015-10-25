@@ -1,11 +1,11 @@
 // Plasma Gun
-// Energy - Class: Power - Price:800
+// Energy - Best in small areas - Research Centre - Price:800
 
 ACTOR PlasmaGun : AOWWeapon replaces PlasmaRifle {
 	Inventory.PickupMessage "You got the plasma gun!"
 	Obituary "%o was incinerated by %k's plasma gun."
-	Weapon.AmmoType "PlasmaRifleAmmo"
-	Weapon.AmmoGive 100
+	Weapon.AmmoType "EnergyAmmo"
+	Weapon.AmmoGive 80
 	Weapon.AmmoUse 1
 	Weapon.AmmoType2 "PlasmaHeat"
 	Weapon.AmmoUse2 0
@@ -122,18 +122,6 @@ ACTOR PlasmaGun : AOWWeapon replaces PlasmaRifle {
 	}
 }
 
-actor PlasmaRifleAmmo : Ammo {
-	inventory.amount 50
-	inventory.maxamount 300
-	ammo.backpackamount 50
-	ammo.backpackmaxamount 300
-	states {
-	Spawn:
-		TNT1 A 0
-		stop
-	}
-}
-
 actor PlasmaShot {
 	PROJECTILE
 	-RANDOMIZE
@@ -166,19 +154,6 @@ actor PlasmaShotBlue : PlasmaShot {
 	Translation "1:2=1:2" // 1:2=1:2 create the translator but does nothing.
 }
 
-actor PlasmaHeat : Ammo {
-	+IGNORESKILL
-	inventory.amount 0
-	inventory.maxamount 100
-	ammo.backpackamount 0
-	ammo.backpackmaxamount 100
-	states {
-	Spawn:
-		TNT1 A 0
-		stop
-	}
-}
-
 actor WarningChecker : Inventory {}
 
 ACTOR OverheatSmokeSpawner {
@@ -204,12 +179,12 @@ actor PlasmaGunPickup : CustomInventory 21087 {
 
 	states {
 	Spawn:
-		PLAS X -1
+		PLAS A -1
 		stop
 	Pickup:
 		TNT1 A 0 A_JumpIfInventory ("PlasmaGun", 1, "Failure")
 		TNT1 A 0 A_GiveInventory ("PlasmaGun", 1)
-		TNT1 A 0 A_GiveInventory ("PlasmaRifleAmmo", 100)
+		TNT1 A 0 A_GiveInventory ("PlasmaRifleAmmo", 80)
 		TNT1 A 0 A_GiveInventory ("Refunds", 266)
 		stop
 	Failure:

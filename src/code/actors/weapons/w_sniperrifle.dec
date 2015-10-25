@@ -1,4 +1,6 @@
 // Sniper rifle
+// This one is Delayed for a little
+
 actor SniperRifle : AOWWeapon {
 	Obituary "$OB_SNIPER"
 	AttackSound "rc50/fire"
@@ -6,7 +8,7 @@ actor SniperRifle : AOWWeapon {
 	Weapon.Kickback 80
 	Weapon.AmmoType "SniperAmmo"
 	Weapon.AmmoUse 1
-	Weapon.AmmoGive 5
+	Weapon.AmmoGive 8
 	DropItem "SniperRifleWeak"
 	Inventory.PickupMessage "You got the sniper rifle!"
 	Weapon.PreferredSkin "MarineSniper"
@@ -107,18 +109,6 @@ actor SniperRifleWeak : SniperRifle 21081 {
 
 	Spawn:
 		SNIP X -1
-		stop
-	}
-}
-
-actor SniperAmmo : Ammo {
-	inventory.amount 4
-	inventory.maxamount 40
-	ammo.backpackamount 4
-	ammo.backpackmaxamount 40
-	states {
-	Spawn:
-		TNT1 A 0
 		stop
 	}
 }

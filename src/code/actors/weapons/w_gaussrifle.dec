@@ -1,5 +1,5 @@
 // Gauss Rifle
-// Energy - Class: Power - Price:600
+// Energy - Good against mechs - Rescearch Centre - Price:600
 
 actor GaussRifle : AOWWeapon {
 	Inventory.PickupMessage "You got the gauss rifle!"
@@ -7,11 +7,11 @@ actor GaussRifle : AOWWeapon {
 //	AttackSound "gauss/fire"
 	Weapon.Selectionorder 2
 	Weapon.Kickback 50
-	Weapon.AmmoType "GaussRifleAmmo"
-	Weapon.AmmoUse 1
-	Weapon.AmmoGive 10
-	Weapon.AmmoType2 "GaussRifleAmmo"
-	Weapon.AmmoUse2 2
+	Weapon.AmmoType "EnergyAmmo"
+	Weapon.AmmoUse 30
+	Weapon.AmmoGive 80
+	Weapon.AmmoType2 "EnergyAmmo"
+	Weapon.AmmoUse2 45
 	Weapon.PreferredSkin "MarineRailgun"
 	Decal "GaussScorch"
 	Tag "Gauss Rifle"
@@ -162,13 +162,6 @@ actor GaussRifle : AOWWeapon {
 	}
 }
 
-actor GaussRifleAmmo : Ammo {
-	inventory.amount 5
-	inventory.maxamount 40
-	ammo.backpackamount 5
-	ammo.backpackmaxamount 40
-}
-
 actor GaussPuff : HHBulletPuff {
 	-ALLOWPARTICLES
 	+PUFFONACTORS
@@ -208,7 +201,7 @@ actor GaussRiflePickup : CustomInventory 21049 {
 	Pickup:
 		TNT1 A 0 A_JumpIfInventory ("GaussRifle", 1, "Failure")
 		TNT1 A 0 A_GiveInventory ("GaussRifle", 1)
-		TNT1 A 0 A_GiveInventory ("GaussRifleAmmo", 10)
+		TNT1 A 0 A_GiveInventory ("EnergyAmmo", 80)
 		TNT1 A 0 A_GiveInventory ("Refunds", 200)
 		stop
 	Failure:

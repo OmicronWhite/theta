@@ -1,4 +1,5 @@
-// Fists
+// Fists and Beserk
+// Meele - Good for punching... - No dependency - Cost: If hands has costs...
 
 actor Unarmed : AOWWeapon {
 	+WIMPY_WEAPON

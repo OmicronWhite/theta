@@ -1,6 +1,7 @@
-// Grenade launcher
-// achtung achtung bloax is a faggot
-actor GrenadeLauncher : AOWWeapon 21046 {
+// Grenade Launcher
+// Explosive - Close combat - Barracks - Price:650
+
+actor GrenadeLauncher : AOWWeapon {
 	+WEAPON.NOAUTOAIM
 	Obituary "$OB_GRENADE"
 	Inventory.PickupMessage "You got the grenade launcher!"
@@ -10,7 +11,7 @@ actor GrenadeLauncher : AOWWeapon 21046 {
 	Weapon.AmmoUse 1
 	Weapon.AmmoType2 "GrenadeAmmo"
 	Weapon.AmmoUse2 1
-	Weapon.AmmoGive 2
+	Weapon.AmmoGive 12
 	Weapon.PreferredSkin "MarineAssaultGrenade"
 	Tag "Grenade Launcher"
 	States {
@@ -111,21 +112,6 @@ actor GrenadeBounce : GrenadeGrenade {
 	}
 }
 
-actor GrenadeAmmo : Ammo
-{
-	Inventory.Amount 6
-	Inventory.MaxAmount 40
-	Ammo.BackpackAmount 5
-	Ammo.BackpackMaxAmount 40
-
-	States
-	{
-	Spawn:
-		TNT1 A 0
-		stop
-	}
-}
-
 // Select/Deselect offset-animations
 /*
 	Select:
@@ -160,3 +146,28 @@ actor GrenadeAmmo : Ammo
 		TNT1 A 1 A_Lower
 		Wait
 */
+
+// Map Actor
+
+actor GrenadeLauncherPickup : CustomInventory 21046 {
+	//$Category Theta Weapons
+	inventory.pickupmessage "You got the grenade launcher!"
+	inventory.maxamount 0
+	inventory.respawntics 2100
+	inventory.pickupsound "misc/w_pkup"
+	states {
+
+	Spawn:
+		GREN X -1
+		stop
+	Pickup:
+		TNT1 A 0 A_JumpIfInventory ("GrenadeLauncher", 1, "Failure")
+		TNT1 A 0 A_GiveInventory("GrenadeLauncher", 1)
+		TNT1 A 0 A_GiveInventory("GrenadeAmmo", 12)
+//		TNT1 A 0 A_GiveInventory("Refunds", 100) Missing Price
+		stop
+	Failure:
+		TNT1 A 0
+		fail
+	}
+}

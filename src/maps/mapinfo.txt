@@ -89,6 +89,7 @@ map AOW99 "Test" {
 
 skill Normal {
 	name = "Normal"
+	AmmoFactor = 1
 	damagefactor = 1.0
 	aggressiveness = 1.0
 	spawnfilter = 1

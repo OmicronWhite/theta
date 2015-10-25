@@ -462,7 +462,7 @@ Generator Boomstick BulletChip
 Generator DoubleShotgun BulletChip
 Generator SubMachineGun BulletChip
 Generator GatlingGun BulletChip
-Generator MachineGun BulletChip
+Generator AssaultRifle BulletChip
 Generator LaserRifle BulletChip
 Generator LaserChaingun BulletChip
 Generator Rifle BigBulletChip

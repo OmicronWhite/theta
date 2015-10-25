@@ -1,0 +1,28 @@
+// i_class.dec is itens definitions based in their classes.
+// This itens is give when you buy a class it allow to have 
+// the max potential of the gun.
+// Ability position is placed in hub to be more easy to see your advantages.
+
+// Class Sniper - 1st Ability
+// Cause more damage in shoting.
+actor ClassSniper : Inventory {}
+
+// Class Artillery - 1st Ability
+// Fast reload delay.
+actor ClassArtillery : Inventory {}
+
+// Class Plasma - 1st Ability
+// Decrease fire rate by 1(tic) and increase damage by 1.
+actor ClassPlasma : Inventory {}
+
+// Class Rocketer - 1st Ability
+// Blasting radius increased by 20% also give ability to use heat seekers.
+actor ClassRocketer : Inventory {}
+
+// Class Gausser - 1st Ability
+// Reduce alt fire ammo cost and increade damage by 5 against marines.
+actor ClassGauss : Inventory {}
+
+// Class Stealth - 2st Ability
+// Give to lazer rifle ability to use stealth.
+actor  ClassStealth : Inventory {}

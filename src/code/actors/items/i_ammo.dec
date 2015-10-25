@@ -1,0 +1,174 @@
+//--- Bullet Type ammo ---
+//--------------------------------
+// Handgun Ammo
+// Used by: Handgun
+
+actor HandgunAmmo : Ammo {
+	inventory.amount 12
+	inventory.maxamount 48
+	ammo.backpackamount 12
+	ammo.backpackmaxamount 48 }
+
+//--------------------------------
+// Light machine Ammo
+// Used by: Sub-Machinegun
+
+actor SubAmmo : Ammo {
+	inventory.amount 45
+	inventory.maxamount 225
+	ammo.backpackamount 45
+	ammo.backpackmaxamount 225 }
+
+//--------------------------------
+// Assault Rifle Ammo
+// Used by: Assault Rifle
+
+actor ARAmmo : Ammo {
+	inventory.amount 30
+	inventory.maxamount 150
+	ammo.backpackamount 30
+	ammo.backpackmaxamount 150 }
+
+//--------------------------------
+// Shells Ammo
+// Used by: Boomstick and Double Shotgun
+
+actor ShellsAmmo : Ammo {
+	inventory.amount 8
+	inventory.maxamount 32
+	ammo.backpackamount 8
+	ammo.backpackmaxamount 32 }
+
+//--------------------------------
+// Gatling Chain Ammo
+// Used by: Gatling Gun
+
+actor ChainAmmo : Ammo {
+	inventory.amount 25
+	inventory.maxamount 250
+	ammo.backpackamount 25
+	ammo.backpackmaxamount 250 }
+
+//--------------------------------
+// Rifle Ammo
+// Used by: Rifle
+actor RifleAmmo : Ammo {
+	inventory.amount 8
+	inventory.maxamount 40
+	ammo.backpackamount 8
+	ammo.backpackmaxamount 40 }
+
+actor RifleGrenadeAmmo : Ammo {
+	inventory.amount 1
+	inventory.maxamount 8
+	ammo.backpackamount 1
+	ammo.backpackmaxamount 8 }
+
+//--------------------------------
+// Sniper Rifle Ammo
+// Used by: Sniper Rifle
+actor SniperAmmo : Ammo {
+	inventory.amount 4
+	inventory.maxamount 40
+	ammo.backpackamount 4
+	ammo.backpackmaxamount 40 }
+
+//--- Fire/Chem Type ammo ---
+//--------------------------------
+// TE21 Ammo
+// Used by: Tiberium Auto Rifle
+actor TE21Burst : Ammo {
+	+IGNORESKILL
+	inventory.amount 4
+	inventory.maxamount 4
+	ammo.backpackamount 4
+	ammo.backpackmaxamount 4 }
+
+actor TE21Burst6 : Ammo {
+	+IGNORESKILL
+	inventory.amount 6
+	inventory.maxamount 6
+	ammo.backpackamount 6
+	ammo.backpackmaxamount 6 }
+
+actor TE21CalAmmo : Ammo {
+	+IGNORESKILL
+	inventory.amount 18
+	inventory.maxamount 120
+	ammo.backpackamount 18
+	ammo.backpackmaxamount 120 }
+
+//--------------------------------
+// Chemical Ammo
+// Used by: Chemical Sprayer
+actor ChemicalAmmo : Ammo {
+	inventory.amount 35
+	inventory.maxamount 200
+	ammo.backpackamount 35
+	ammo.backpackmaxamount 200 }
+
+actor ChemicalGrenadeAmmo : Ammo {
+	inventory.amount 1
+	inventory.maxamount 4
+	ammo.backpackamount 1 // Lucky ammo
+	ammo.backpackmaxamount 4 }
+
+//--------------------------------
+// Flamer Ammo
+// Used by: Flame Thrower
+actor FlamerAmmo : Ammo {
+	inventory.amount 35
+	inventory.maxamount 300
+	ammo.backpackamount 35
+	ammo.backpackmaxamount 300 }
+
+actor PhosphorusGrenadeAmmo : Ammo {
+	inventory.amount 1
+	inventory.maxamount 4
+	ammo.backpackamount 1 // Lucky ammo
+	ammo.backpackmaxamount 4 }
+
+//--- Explosive ammo ---
+//--------------------------------
+// Grenade Ammo
+// Used by: Grenade Launcher
+actor GrenadeAmmo : Ammo {
+	Inventory.Amount 6
+	Inventory.MaxAmount 42
+	Ammo.BackpackAmount 6
+	Ammo.BackpackMaxAmount 42 }
+
+//--------------------------------
+// Missile Ammo
+// Used by: Artilery Cannon
+actor MissileAmmo : Ammo {
+	inventory.amount 2
+	inventory.maxamount 20
+	ammo.backpackamount 2
+	ammo.backpackmaxamount 20 }
+
+//--------------------------------
+// Artilery Shell Ammo
+// Used by: Artilery Cannon
+actor ArtilleryShellAmmo : Ammo {
+	inventory.amount 5
+	inventory.maxamount 30
+	ammo.backpackamount 5
+	ammo.backpackmaxamount 30 }
+
+//--- Eletric ammo ---
+//--------------------------------
+// Energy Ammo
+// Used by: Lazer Rifle, Lazer Chaingun, PlasmaRifle, Shock Rifle, Gauss rifle
+actor EnergyAmmo : Ammo {
+	inventory.amount 40
+	inventory.maxamount 300
+	ammo.backpackamount 40
+	ammo.backpackmaxamount 300 }
+
+//--- Other ammos ---
+actor PlasmaHeat : Ammo {
+	inventory.amount 0
+	inventory.maxamount 100
+	ammo.backpackamount 0
+	ammo.backpackmaxamount 100 }

@@ -124,7 +124,7 @@ Script 599 OPEN
 
 	// ==================================
 	// DMFLAGS
-	if (!GetCVAR("sv_doubleammo")) ConsoleCommand("sv_doubleammo 1");
+	if (!GetCVAR("sv_doubleammo") >= 1) ConsoleCommand("sv_doubleammo 0");
 
 	if (!GetCVAR("sv_nofov")) ConsoleCommand("sv_nofov 1");
 

@@ -540,7 +540,7 @@ function void PurchaseClass (int c)
     	SetActorProperty(0, APROP_SPEED, Classes[c][CK_SPEED]);
     	SetArmorGrade(Classes[c][CK_ARMORNUM], Classes[c][CK_ARMORMOD]);
     	GiveInventory("HasClass", 1);
-    	GiveInventory("NewClipAmmo", 160);
+    	GiveInventory("HandgunAmmo", 48);
     	GiveInventory("Handgun", 1);
     	GiveInventory("SpawnInvulnerability", 1);
     	GiveInventory("ClassID", c);

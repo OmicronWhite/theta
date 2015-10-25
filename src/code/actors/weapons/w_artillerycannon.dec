@@ -170,13 +170,6 @@ actor ArtilleryCannon : AOWWeapon {
 	}
 }
 
-actor ArtilleryShellAmmo : Ammo {
-	inventory.amount 4
-	inventory.maxamount 30
-	ammo.backpackamount 4
-	ammo.backpackmaxamount 30
-}
-
 actor ArtilleryShell {
 	PROJECTILE
 	-RANDOMIZE

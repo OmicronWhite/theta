@@ -145,32 +145,6 @@ actor Flamer : AOWWeapon {
 	}
 }
 
-actor FlamerAmmo : Ammo {
-	inventory.amount 60
-	inventory.maxamount 400
-	ammo.backpackamount 60
-	ammo.backpackmaxamount 400
-
-	states {
-	Spawn:
-		TNT1 A 0
-		stop
-	}
-}
-
-actor PhosphorusGrenadeAmmo : Ammo {
-	inventory.amount 1
-	inventory.maxamount 4
-	ammo.backpackamount 1
-	ammo.backpackmaxamount 4
-
-	states {
-	Spawn:
-		TNT1 A 0
-		stop
-	}
-}
-
 actor FlameThrowerFire {
 	PROJECTILE
 	+NODAMAGETHRUST

@@ -64,30 +64,6 @@ actor ChemicalSprayer : AOWWeapon {
 	}
 }
 
-actor ChemicalAmmo : Ammo {
-	inventory.amount 40
-	inventory.maxamount 200
-	ammo.backpackamount 40
-	ammo.backpackmaxamount 200
-	states {
-	Spawn:
-		TNT1 A 0
-		stop
-	}
-}
-
-actor ChemicalGrenadeAmmo : Ammo {
-	inventory.amount 1
-	inventory.maxamount 4
-	ammo.backpackamount 1
-	ammo.backpackmaxamount 4
-	states {
-	Spawn:
-		TNT1 A 0
-		stop
-	}
-}
-
 actor ChemicalShot {
 	PROJECTILE
 	+FORCEXYBILLBOARD

@@ -7,7 +7,7 @@ actor DoubleShotgun : AOWWeapon {
 	attacksound "weapons/sshotf"
 	weapon.selectionorder 16
 	weapon.kickback 30
-	weapon.ammotype "ShotgunAmmo"
+	weapon.ammotype "ShellsAmmo"
 	weapon.ammouse 2
 	weapon.ammogive 16
 	weapon.preferredskin "MarineSSG"
@@ -49,6 +49,7 @@ actor DoubleShotgun : AOWWeapon {
 // Map Actor
 
 actor DoubleShotgunPickup : CustomInventory replaces SuperShotgun 21086 {
+	//$Category Theta Weapons
 	inventory.pickupmessage "You got the double shotgun!"
 	inventory.maxamount 0
 	inventory.respawntics 2100
@@ -61,7 +62,7 @@ actor DoubleShotgunPickup : CustomInventory replaces SuperShotgun 21086 {
 	Pickup:
 		TNT1 A 0 A_JumpIfInventory ("DoubleShotgun", 1, "Failure")
 		TNT1 A 0 A_GiveInventory("DoubleShotgun", 1)
-		TNT1 A 0 A_GiveInventory("ShotgunAmmo", 8)
+		TNT1 A 0 A_GiveInventory("ShellsAmmo", 16)
 		TNT1 A 0 A_GiveInventory("Refunds", 66)
 		stop
 	Failure:

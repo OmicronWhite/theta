@@ -1,5 +1,7 @@
 // Rifle
-actor Rifle : AOWWeapon 21042 {
+// Bullet - Far distance assault - No dependency - Price:200
+
+actor Rifle : AOWWeapon {
 	+NOEXTREMEDEATH
 	+ALT_AMMO_OPTIONAL
 	obituary "$OB_RIFLE" // "%o was crippled by %k's rifle."
@@ -8,7 +10,7 @@ actor Rifle : AOWWeapon 21042 {
 	weapon.kickback 150
 	weapon.ammotype "RifleAmmo"
 	weapon.ammouse 1
-	weapon.ammogive 10
+	weapon.ammogive 16
 	weapon.ammotype2 "RifleGrenadeAmmo"
 	weapon.ammouse2 1
 	weapon.ammogive2 2
@@ -69,24 +71,35 @@ actor Rifle : AOWWeapon 21042 {
 	}
 }
 
-actor RifleAmmo : Ammo {
-	inventory.amount 8
-	inventory.maxamount 50
-	ammo.backpackamount 10
-	ammo.backpackmaxamount 50
-}
-
-actor RifleGrenadeAmmo : Ammo {
-	inventory.amount 1
-	inventory.maxamount 8
-	ammo.backpackamount 1
-	ammo.backpackmaxamount 8
-}
-
 actor RifleGrenade : GrenadeGrenade {
 	Obituary "%o was popped by %k's rifle grenade."
 }
 
 actor RiflePuff : HHBulletPuff {
 	DamageType "Rifle"
+}
+
+// Map Actor
+
+actor RiflePickup : CustomInventory 21042 {
+	//$Category Theta Weapons
+	inventory.pickupmessage "You got the Rifle!"
+	inventory.maxamount 0
+	inventory.respawntics 2100
+	inventory.pickupsound "misc/w_pkup"
+
+	states {
+	Spawn:
+		RIFL X -1
+		stop
+	Pickup:
+		TNT1 A 0 A_JumpIfInventory ("Rifle", 1, "Failure")
+		TNT1 A 0 A_GiveInventory ("Rifle", 1)
+		TNT1 A 0 A_GiveInventory ("RifleAmmo", 80)
+//		TNT1 A 0 A_GiveInventory ("Refunds", 66) ?
+		stop
+	Failure:
+		TNT1 A 0
+		fail
+	}
 }

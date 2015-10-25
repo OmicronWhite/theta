@@ -519,8 +519,6 @@ function void PurchaseClass (int c)
 	if (!CheckCreditsTop(cost))
 		return;
 
-    if(!(Classes[c][CK_FLAGS] & CF_NOMENUEXIT)) MC_Exit2(); // If we're in the menu, leave it.
-
 	int cflags = Classes[c][CK_FLAGS];
 
 	TakeInventory("PurchaseToken", 1);
@@ -530,6 +528,13 @@ function void PurchaseClass (int c)
 
     if (!addon)
     {
+        // [ZB] If we're in the menu, leave it.
+        if(!(Classes[c][CK_FLAGS] & CF_NOMENUEXIT))
+        {
+            MC_Exit();
+            MC_Exit2();
+        }
+        
     	// The essentials
     	SetActorProperty(0, APROP_SPEED, Classes[c][CK_SPEED]);
     	SetArmorGrade(Classes[c][CK_ARMORNUM], Classes[c][CK_ARMORMOD]);

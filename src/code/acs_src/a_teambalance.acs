@@ -44,7 +44,7 @@ function void CheckTeamBalance (void)
 			notLast = true;
 			for(i = 0; i < MAXPLAYERS; i++)
 			{
-				// [SB] last check here shouldn't happen, but who knows?
+				// [ZB] last check here shouldn't happen, but who knows?
 				if (!PlayerInGame(i) || IsAdmin[i] || GetPlayerTeam(i) == lesserteam || i == lastPlayerToJoin)
 					continue; // not a player on the greater team
 
@@ -78,6 +78,6 @@ function void CheckTeamBalance (void)
 		}
 
 		SetActivator(-1);
-		return; // [SB] just in case we might need this to actually loop later...
+		return; // [ZB] just in case we might need this to actually loop later...
 	}
 }

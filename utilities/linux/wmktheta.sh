@@ -59,8 +59,8 @@ if [[ -d "out" && "$jenkins" != true ]]; then
 fi
 
 x "utilities/linux/gitcommit c src/code/acs_src/gitcommit.acs --silent" "Making gitcommit.acs"
-x "utilities/linux/genver c src/code/acs_src/version.acs --silent" "Making version.acs"
-x "utilities/linux/genver bash utilities/version.sh --silent"
+x "utilities/linux/genver version.h acs src/code/acs_src/version.acs --silent" "Making version.acs"
+x "utilities/linux/genver version.h bash utilities/version.sh --silent"
 eval "$(cat utilities/version.sh)"
 
 if [[ "$1" == "--no-version" || "$1" == "-n" || "$2" == "--no-version" || "$2" == "-n" ]]; then

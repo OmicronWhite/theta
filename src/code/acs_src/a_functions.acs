@@ -68,7 +68,7 @@ function int msqr(int n)
 
 // [Dusk] returns 1 if player has $price money, discount taken into account
 // if not, prints the error message and returns 0
-function int CheckCredits(int price)
+function int _CheckCredits(int price, bool top)
 {
 	if (IsAdmin[PlayerNumber()]) return 1;
 
@@ -78,8 +78,10 @@ function int CheckCredits(int price)
 	{
 		TakeInventory("PurchaseToken", 1);
 		LocalAmbientSound("misc/funds", 255);
-		Error(strparam(s: "You need \cQ$\cD", d: price - GetCredits(PlayerNumber()),
-				 s: "\c- more to purchase this!"));
+		if (top) ErrorTop(strparam(s: "You need \cQ$\cD", d: price - GetCredits(PlayerNumber()),
+				 					s: "\c- more to purchase this!"));
+		else Error(strparam(s: "You need \cQ$\cD", d: price - GetCredits(PlayerNumber()),
+				 			s: "\c- more to purchase this!"));
 
 		if (GetLevelInfo(LEVELINFO_LEVELNUM) == 20 || GetLevelInfo(LEVELINFO_LEVELNUM) == 21)
 			ThrustThing((VectorAngle(GetActorVelX(0), GetActorVelY(0)) >> 8) + 128, 25, 0, 0);
@@ -88,6 +90,16 @@ function int CheckCredits(int price)
 	}
 
 	return 1;
+}
+
+function int CheckCredits(int price)
+{
+	return _CheckCredits(price, false);
+}
+
+function int CheckCreditsTop(int price)
+{
+	return _CheckCredits(price, true);
 }
 
 // [Dusk] returns 1 if player has no class, 0 of they have, along with error message
@@ -499,6 +511,13 @@ function str DisplayName(int pn)
 // No-op if no change is necessary.
 function int SetInventory(str item, int count)
 {
+	if (PlayerNumber() == -1) {
+		DebugLog("Server (IDX -1) tried to SetInventory.");
+		return -1;
+	}
+
+	DebugLog(StrParam(s: "Setting amount of ", s: item, s: " to ", d: count));
+
 	int n = count - CheckInventory(item);
 
 	if (n > 0)
@@ -817,14 +836,17 @@ function void ChangePlayerTeam(int p, int newteam)
 	ACS_ExecuteWithResult(SC_ChangePlayerTeam, p, newteam);
 }
 
-// [SB] Rewritten for Theta.
+// [ZB] Rewritten for Theta.
 Script SC_ChangePlayerTeam (int player, int team)
 {
 	Log(s: pname(player), s: " is being switched to team #", d: team);
 
 	Player_SetTeam(team);
+
 	SetInventory("IsBlue", (team == TEAM_BLUE));
 	SetInventory("IsRed", (team == TEAM_RED));
+	SetInventory("TeamSwitchedRB", (team == TEAM_BLUE));
+	SetInventory("TeamSwitchedBR", (team == TEAM_RED));
 
 	if (CheckInventory("IsInSpawnRoom"))
 		Teleport(70 + (team == TEAM_RED));
@@ -848,11 +870,16 @@ Script SC_ChangePlayerTeam (int player, int team)
 	RemoveSpawnMarker(player);
 }
 
-// [SB]
+// [ZB]
 function void DebugLog(str string)
 {
-	if (GetCVar("theta_debug"))
-		Log(s: "DEBUG | ", s: "#", d: PlayerNumber(), s: " | ", s: string);
+	if (!GetCVar("theta_debug"))
+		return;
+
+	if (PlayerNumber() != -1)
+		Log(s: "DEBUG | ", s: "#", d: PlayerNumber(), s: " | ", n: 0, s: " | ", s: string);
+	else
+		Log(s: "DEBUG | ", s: string);
 }
 
 function bool IsLevel(int num)
@@ -866,7 +893,7 @@ function void IdiotProofCvar(str cvar, int expected, int new)
 		ConsoleCommand(StrParam(s: cvar, s: " ", d: new));
 }
 
-// [SB] easier wrappers for strcmp/stricmp
+// [ZB] easier wrappers for strcmp/stricmp
 function bool StringIs(str first, str second) {
 	return (StrCmp(first, second) == 0);
 }
@@ -874,7 +901,7 @@ function bool StringIsI(str first, str second) {
 	return (StrICmp(first, second) == 0);
 }
 
-// [SB] for DECORATE
+// [ZB] for DECORATE
 Script SC_GetPlayerTeam (void)
 {
 	SetResultValue(PlayerTeam());

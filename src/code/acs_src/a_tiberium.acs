@@ -51,7 +51,7 @@ Script 110 (int Team)
 	GivePoints(1);
 	int amount = 75;
 
-	// [SB] why not use an if?
+	// [ZB] why not use an if?
 	switch (GetCVAR("theta_economy_mode"))
 	{
 		case 0:

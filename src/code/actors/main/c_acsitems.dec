@@ -42,7 +42,7 @@ actor UtilityMenuActivator : DonationMessage {
 	}
 }
 
-// [SB]
+// [ZB]
 actor EndlessItem : Inventory {
 	Inventory.MaxAmount 0x7FFFFFFD
 }
@@ -70,12 +70,10 @@ actor StopAllSounds : CustomInventory
 actor PleaseRespawn : Inventory {}
 actor PleaseDoNothing : Inventory {}
 
-// [SB] not really ACS items, but w/e
-actor TeamSwitchedRB : Boolean {}
-actor TeamSwitchedBR : Boolean {}
-
-// [SB] Menu
+// [ZB] Menu
 actor InMenu : Boolean {}
 actor PlayerSide : Boolean {}
 actor PlayerSelectionCategories : EndlessItem {}
 actor PlayerSelectionItems : EndlessItem {}
+actor MenuClassesInitd : Boolean{} // systemd > init.d
+actor MenuResearchesInitd : Boolean{} // systemd > init.d

@@ -408,3 +408,53 @@ function void LoadClassDefinitions (void)
 	Classes[c][CK_COST] = 250;
 	AddClassItem(c, "HasArmorUpgrade", 1); //useless
 }
+
+function void LoadResearchDefinitions (void)
+{
+	int c;
+
+	c = RES_ENHANCEDREF;
+	Researches[c][CK_NAME] = "Enhanced Refining";
+	Researches[c][CK_COST] = 2000;
+	Researches[c][CK_DESC] = "Uses new technology to\nincrease the value\nof Tiberium.";
+
+	c = RES_ADVMECHS;
+	Researches[c][CK_NAME] = "Advanced Mechs";
+	Researches[c][CK_COST] = 2000;
+	Researches[c][CK_DESC] = "New Mech chassis and \nhardened metal plating.\nEnables construction of\nlarger Mechs.";
+
+	c = RES_OBBYRES;
+	Researches[c][CK_NAME] = "Obelisk/Telsa Restore";
+	Researches[c][CK_COST] = 8000;
+	Researches[c][CK_DESC] = "Restores the Obelisk/Tesla Coil\nif it is destroyed.";
+
+	c = RES_HPREGEN;
+	Researches[c][CK_NAME] = "Health Regen";
+	Researches[c][CK_COST] = 2250;
+	Researches[c][CK_DESC] = "Gives your team 1hp/s\nHP regeneration.";
+
+	c = RES_AMMOREGEN;
+	Researches[c][CK_NAME] = "Ammo Regen";
+	Researches[c][CK_COST] = 2250;
+	Researches[c][CK_DESC] = "Gives your team slow\nammo regeneration.";
+
+	c = RES_TIMEDC4;
+	Researches[c][CK_NAME] = "+1 Timed C4";
+	Researches[c][CK_COST] = 150;
+	Researches[c][CK_DESC] = "An additional Timed C4\nexplosive.";
+
+	c = RES_REPAIRGUN;
+	Researches[c][CK_NAME] = "Adv. Repair Gun";
+	Researches[c][CK_COST] = 200;
+	Researches[c][CK_DESC] = "Upgrades your Repair\nGun to make it\nfaster.";
+
+	c = RES_ADVTURR;
+	Researches[c][CK_NAME] = "Adv. Turrets";
+	Researches[c][CK_COST] = 2000;
+	Researches[c][CK_DESC] = "Enables use of higher\nlevel turrets.";
+
+	c = RES_MORETURR;
+	Researches[c][CK_NAME] = "More Turrets";
+	Researches[c][CK_COST] = 2000;
+	Researches[c][CK_DESC] = "Increases turret cap\nby 10.";
+}

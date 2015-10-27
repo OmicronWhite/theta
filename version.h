@@ -1,11 +1,6 @@
-// This file contains versioning info for Theta.
-// It is only to be used by genver.
+// This is not an actual header file
+// It is just for genver.
+// The version format is extremely simple:
 
-#ifndef __THETA_VERSION_TEMPLATE__
-# define __THETA_VERSION_TEMPLATE__
-
-# define VERSION_MAJOR 0
-# define VERSION_MINOR 99
-# define VERSION_PATCH 1
-
-#endif
+version=0.99.4
+codename=Actinium

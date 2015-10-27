@@ -10,23 +10,23 @@ ListMenu "MainMenu" {
     IfOption(ReadThis){
         Position    97,                 64
     }
-    
+
     TextItem        "Play Offline",     "n",                        "AOWPlayOffline"
-    TextItem        "All Out War 2",    "a",                        "AOWMenu" 
-    
+    TextItem        "All Out War 2",    "a",                        "AOWMenu"
+
     TextItem        "Options",          "o",                        "OptionsMenu"
-    
+
     IfOption(ReadThis) {
         TextItem    "Read this!",       "r",                        "ReadThisMenu"
     }
-    
+
     TextItem        "Quit",             "q",                        "AOWQuitMenu"
 }
 
 // Custom quit menu.
 OptionMenu "AOWQuitMenu" {
     Title           "Quit"
-    
+
     StaticText      "Are you sure you want to quit?"
     StaticText      " "
     SafeCommand     "Disconnect",       "disconnect"
@@ -41,12 +41,14 @@ OptionValue "AOWMaps" {
     3,              "AOW04 - Oasis"
     4,              "AOW05 - Virtual Zone"
     6,              "AOW06 - Glacier"
-    7,		    "AOW07 - Sand Canyon"
+    7,		        "AOW07 - Sand Canyon"
+    8,              "AOW08 - Valley"
+    9,              "AOW08 - Infected"
 }
 
 OptionMenu "AOWPlayOffline" {
     Title           "Play Offline"
-    
+
     StaticText      "Note: For the map to change, you must exit the menu."
     StaticText      " "
     Option          "Map",              "zz_cl_menutomap",          "AOWMaps",          1
@@ -64,7 +66,7 @@ ListMenu "AOWMenu" {
 
 OptionMenu "AOWCommands" {
     Title           "Commands"
-    
+
     SafeCommand     "Join Weaker Team", "teamswitch"
     //SafeCommand     "Sell Weapon",      "sellweapon"
     SafeCommand     "Surrender",        "surrender"
@@ -74,7 +76,7 @@ OptionMenu "AOWCommands" {
 
 OptionMenu "AOWDonations" {
     Title           "Donate"
-    
+
     PlayerField     "Player",           "zz_cl_donateto",           notself
     NumberField     "Amount",           "zz_cl_donateamt",          100,        1000,       100
     Command         "Send Donation",    "aow_donate"
@@ -82,7 +84,7 @@ OptionMenu "AOWDonations" {
 
 OptionMenu "AOWClientOptions" {
     Title "Client Options"
-    
+
     Option "No HUD",                    "aow_cl_nohud",             "YesNo"
     Option "Always have radar",         "aow_cl_alwaysradar",       "YesNo"
     Option "Console font HUD",          "aow_cl_confonthud",        "YesNo"

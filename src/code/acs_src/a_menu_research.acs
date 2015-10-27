@@ -12,80 +12,32 @@
 #define MSCR_DEATHRESET          494
 #define MSCR_QUITRESET           495
 
-#define R_CATEGORIES_AMOUNT       6
-str rsch_categories[R_CATEGORIES_AMOUNT] = { "Barracks", "Refinery", "Research Centre", "War Factory", "Turrets", "Caches" };
-
-#define R_ITEMS_AMOUNT            3
-str rsch_items[R_CATEGORIES_AMOUNT][R_ITEMS_AMOUNT] = {
-    { "Intense Training", "Arsenal Recycler", "\clArsenal Upgrade" },
-    { "Tiberium Purification", "Enhanced Processing", "\clAdvanced Refinery" },
-    { "\clAdvanced Generators", "\clObelisk Overdrive", "\clReserve Accumulators" },
-    { "Advanced Mechs", "\clMass Production", "\clCompact Warheads" },
-    { "Advanced Turrets", "Extra power", "\clTurret optimization" },
-    { "Health Cache", "Ammo Cache", "\clReinforced Caches" },
-};
 
 // This function is called when the player has chosen an item.
-function void MR_InputReceived(int category, int item) { ACS_Execute(MSCR_INPUTRECV, 0, category, item, 0); }
-Script MSCR_INPUTRECV (int category, int item) {
+function void MR_InputReceived(int category, int item) { ACS_ExecuteAlways(MSCR_INPUTRECV, 0, category, item); }
+Script MSCR_INPUTRECV (int category, int item)
+{
+    int player = PlayerNumber();
     bool shouldExit = false;
 
-    if (category == 0) { // Barracks related upgrades
-        switch (item) {
-            case 0: shouldExit = true; ACS_ExecuteAlways(20, 0); break; // Intense Training
-            case 1: shouldExit = true; ACS_ExecuteAlways(21, 0); break; // Arsenal Recycler
-            case 2: shouldExit = true; ACS_ExecuteAlways(22, 0); break; // Arsenal Upgrade
-        }
-    }
+    playerSelection[PlayerNumber()][MSIDE_CATEGORIES] = 0;
+    playerSelection[PlayerNumber()][MSIDE_ITEMS] = 0;
 
-    if (category == 1) { // Refinery related upgrades
-        switch (item) {
-            case 0: shouldExit = true; ACS_ExecuteAlways(23, 0); break; // Tiberium Purification
-            case 1: shouldExit = true; ACS_ExecuteAlways(24, 0); break; // Enhanced Processing
-            case 2: shouldExit = true; ACS_ExecuteAlways(25, 0); break; // Advanced Refinery
-        }
-    }
-
-    if (category == 2) { // Research Centre related upgrades
-        switch (item) {
-            case 0: shouldExit = true; ACS_ExecuteAlways(26, 0); break; // Advanced Generators
-            case 1: shouldExit = true; ACS_ExecuteAlways(27, 0); break; // Obelisk Overdrive
-            case 2: shouldExit = true; ACS_ExecuteAlways(28, 0); break; // Reserve Accumulators
-        }
-    }
-    if (category == 3) { // War Factory related upgrades
-        switch (item) {
-            case 0: shouldExit = true; ACS_ExecuteAlways(29, 0); break; // Advanced Mechs
-            case 1: shouldExit = true; ACS_ExecuteAlways(30, 0); break; // Mass Production
-            case 2: shouldExit = true; ACS_ExecuteAlways(31, 0); break; // Compact Warheads
-        }
-    }
-    if (category == 4) { // Turrets related upgrades
-        switch (item) {
-            case 0: shouldExit = true; ACS_ExecuteAlways(32, 0); break; // Advanced Turrets
-            case 1: shouldExit = true; ACS_ExecuteAlways(33, 0); break; // Extra power
-            case 2: shouldExit = true; ACS_ExecuteAlways(34, 0); break; // Turret optimization
-        }
-    }
-    if (category == 5) { // Caches related upgrades
-        switch (item) {
-            case 0: shouldExit = true; ACS_ExecuteAlways(35, 0); break; // Health Cache
-            case 1: shouldExit = true; ACS_ExecuteAlways(36, 0); break; // Ammo Cache
-            case 2: shouldExit = true; ACS_ExecuteAlways(37, 0); break; // Reinforced Caches
-        }
-    }
+    if (category <= RMS_NUM && resMenuItems[playerSelection[PlayerNumber()][MSIDE_CATEGORIES]][playerSelection[PlayerNumber()][MSIDE_ITEMS]] != -1)
+        PurchaseResearch(resMenuItems[playerSelection[PlayerNumber()][MSIDE_CATEGORIES]][playerSelection[PlayerNumber()][MSIDE_ITEMS]]);
 
     LocalAmbientSound("menu/choose", 127);
 
-    //if (shouldExit) { MR_Exit(); }
+    //if (shouldExit) { MR_Exit2(); }
 }
 
 // User enters menu.
-function void MR_Enter(void) { ACS_ExecuteAlways(MSCR_Enter, 0, 0, 0, 0); }
-Script MSCR_Enter (void) {
+function void MR_Enter (void) { ACS_ExecuteAlways(MSCR_Enter, 0, 0, 0, 0); }
+Script MSCR_Enter (void)
+{
     int player = PlayerNumber();
-    if(!inMenu[player]) {
-        inMenu[player] = true;
+    if (!CheckInventory("InMenu")) {
+        SetInventory("InMenu", 1);
         MR_Freeze();
         MR_Draw();
         Delay(MIL_DELAY); // prevents accidentally selecting an option
@@ -93,87 +45,147 @@ Script MSCR_Enter (void) {
     }
 }
 
-function void MR_Exit(void) { ACS_ExecuteAlways(MSCR_EXIT, 0, 0, 0, 0); }
-Script MSCR_Exit (void) {
+function void MR_Exit (void) { ACS_ExecuteAlways(MSCR_EXIT, 0, 0, 0); }
+function void MR_Exit2 (void) { ACS_ExecuteAlways(MSCR_EXIT, 0, 0, 0, 0); }
+Script MSCR_Exit (void)
+{
     int player = PlayerNumber();
-    inMenu[player] = false;
-    //MC_InputLoop_Stop(); // Its now stopped by inMenu being false.
-    MC_Clear();
-    MC_Unfreeze();
+    SetInventory("InMenu", 0);
+    //MR_InputLoop_Stop(); // Its now stopped by inMenu being false.
+    MR_Clear();
+    MR_Unfreeze();
 
-    playerSelection[player][0] = 0;
-    playerSelection[player][1] = 0;
-    playerSide[player] = 0;
+    SetInventory("PlayerSelection", 0);
+    SetInventory("PlayerSide", 0);
 }
 
 function str MR_ItemString(int side, int category, int item) {
     int player = PlayerNumber();
     str value = "";
 
-    if(playerSide[player] == MSIDE_CATEGORIES) {
-        if(side == MSIDE_ITEMS)
-            value = StrParam(s: "\cm", s: rsch_items[category][item]);
+    // some useful variables
+    int creds = Credits[PlayerNumber()];
 
-        if(playerSelection[player][MSIDE_CATEGORIES] == item && side == MSIDE_CATEGORIES) {
-                value = StrParam(s: "\cd", s: rsch_categories[item]);
+    if (playerSide[PlayerNumber()] == MSIDE_CATEGORIES)
+    {
+        if (side == MSIDE_ITEMS)
+            return StrParam(s: "\cm", s: cond((resMenuItems[category][item] == -1), "----", Researches[resMenuItems[category][item]][CK_NAME]));
+
+        if (item == 5)
+        {
+            if (playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == item && side == MSIDE_CATEGORIES)
+                    return StrParam(s: "\cf", s: resMenuCategoryNames[item]);
+
+            if (playerSelection[PlayerNumber()][MSIDE_CATEGORIES] != item && side == MSIDE_CATEGORIES)
+                    return StrParam(s: "\ci", s: resMenuCategoryNames[item]);
         }
+        else
+        {
+            if (playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == item && side == MSIDE_CATEGORIES)
+                    return StrParam(s: "\cd", s: resMenuCategoryNames[item]);
 
-        if(playerSelection[player][MSIDE_CATEGORIES] != item && side == MSIDE_CATEGORIES) {
-                value = StrParam(s: "\cq", s: rsch_categories[item]);
+            if (playerSelection[PlayerNumber()][MSIDE_CATEGORIES] != item && side == MSIDE_CATEGORIES)
+                    return StrParam(s: "\cq", s: resMenuCategoryNames[item]);
         }
     }
 
-    else if(playerSide[player] == MSIDE_ITEMS) {
-        if(side == MSIDE_CATEGORIES)
-            value = StrParam(s: "\cm", s: rsch_categories[item]);
+    else if (playerSide[PlayerNumber()] == MSIDE_ITEMS)
+    {
+        if (side == MSIDE_CATEGORIES)
+            return StrParam(s: "\cm", s: resMenuCategoryNames[item]);
 
-        if(playerSelection[player][MSIDE_ITEMS] == item
-            && playerSelection[player][MSIDE_CATEGORIES] == category
-            && side == MSIDE_ITEMS)
-                value = StrParam(s: "\cd", s: rsch_items[category][item]);
+        // selected empty
+        if (playerSelection[PlayerNumber()][MSIDE_ITEMS] == item && playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == category
+            && resMenuItems[category][item] == -1)
+            return "\cc----";
 
-        if(playerSelection[player][MSIDE_ITEMS] != item
-            && playerSelection[player][MSIDE_CATEGORIES] == category
+        // unselected empty
+        if (playerSelection[PlayerNumber()][MSIDE_ITEMS] != item && playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == category
+            && resMenuItems[category][item] == -1)
+            return "\cm----";
+
+        // SELECTED     ALREADY OWNED ADDON
+        if (playerSelection[PlayerNumber()][MSIDE_ITEMS] == item
+            && playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == category
+            && side == MSIDE_ITEMS
+            && (creds < Researches[resMenuItems[category][item]][CK_COST]
+                || (Researches[resMenuItems[category][item]][CK_FLAGS] & CF_ADDON
+                    && CheckInventory(GetClassItemName(resMenuItems[category][item], 0)) > 0)))
+                return StrParam(s: "\cc", s: cond(item  == 3 && category == 4, cond(!PlayerTeam(), "Ion Cannon Beacon", "Nuclear Strike Beacon"), Researches[resMenuItems[category][item]][CK_NAME]));
+
+        // UNSELECTED   ALREADY OWNED ADDON
+        if (playerSelection[PlayerNumber()][MSIDE_ITEMS] != item
+            && playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == category
+            && side == MSIDE_ITEMS
+            && (creds < Researches[resMenuItems[category][item]][CK_COST]
+                || (Researches[resMenuItems[category][item]][CK_FLAGS] & CF_ADDON
+                    && CheckInventory(GetClassItemName(resMenuItems[category][item], 0)) > 0)))
+                return StrParam(s: "\cm", s: cond(item  == 3 && category == 4, cond(!PlayerTeam(), "Ion Cannon Beacon", "Nuclear Strike Beacon"), Researches[resMenuItems[category][item]][CK_NAME]));
+
+        // SELECTED
+        if (playerSelection[PlayerNumber()][MSIDE_ITEMS] == item
+            && playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == category
             && side == MSIDE_ITEMS)
-                value = StrParam(s: "\cq", s: rsch_items[category][item]);
+                return StrParam(s: "\cd", s: cond(item  == 3 && category == 4, cond(!PlayerTeam(), "Ion Cannon Beacon", "Nuclear Strike Beacon"), Researches[resMenuItems[category][item]][CK_NAME]));
+
+        // UNSELECTED
+        if (playerSelection[PlayerNumber()][MSIDE_ITEMS] != item
+            && playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == category
+            && side == MSIDE_ITEMS)
+                return StrParam(s: "\cq", s: cond(item == 3 && category == 4, cond(!PlayerTeam(), "Ion Cannon Beacon", "Nuclear Strike Beacon"), Researches[resMenuItems[category][item]][CK_NAME]));
     }
 
-    return value;
+    return "\cg!!ERROR!!";
 }
 
-function void MR_Freeze(void) {
+function void MR_Freeze (void)
+{
     SetPlayerProperty(0, ON, PROP_TOTALLYFROZEN);
 }
 
-function void MR_Unfreeze(void) {
+function void MR_Unfreeze (void)
+{
     SetPlayerProperty(0, OFF, PROP_TOTALLYFROZEN);
 }
 
 // Draws the menu.
-function void MR_Draw(void) { ACS_ExecuteAlways(MSCR_Draw, 0, 0, 0, 0); }
-Script MSCR_Draw (void) {
+function void MR_Draw (void) { ACS_ExecuteAlways(MSCR_Draw, 0, 0, 0, 0); }
+Script MSCR_Draw (void)
+{
     int player = PlayerNumber();
 
     // Draw categories
     int c_startY = 0.45;
-    int c_incY = 0.02;
+    int c_incY = 0.03;
 
-    for (int i = 0; i < R_CATEGORIES_AMOUNT; i++) {
+    for (int i = 0; i < RMS_NUM; i++)
+    {
+        if ((IsResignedN()) && i == 5) continue;
+        SetFont("BIGFONT");
         HudMessage(s: MR_ItemString(MSIDE_CATEGORIES, 0, i);
                 HUDMSG_PLAIN, 600 + i, CR_GREY, MUI_CATEGORIES_X, c_startY, 0);
+        SetFont("DOOMFONT");
         c_startY += c_incY;
     }
 
     // Draw items
     int i_startY = 0.45;
-    int i_incY = 0.02;
+    int i_incY = 0.03;
 
-    for (int i1 = 0; i1 < R_ITEMS_AMOUNT; i1++) {
-        HudMessage(s: MR_ItemString(MSIDE_ITEMS, playerSelection[player][MSIDE_CATEGORIES], i1);
+    for (int i1 = 0; i1 < MAX_ITEMS; i1++)
+    {
+        if (playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == 5)
+        {
+            MR_ClearHudMsg(700 + i1);
+            continue;
+        }
+
+        SetFont("BIGFONT");
+        HudMessage(s: MR_ItemString(MSIDE_ITEMS, playerSelection[PlayerNumber()][MSIDE_CATEGORIES], i1);
                 HUDMSG_PLAIN, 700 + i1, CR_GREY, MUI_ITEMS_X, i_startY, 0);
+        SetFont("DOOMFONT");
         i_startY += i_incY;
     }
-
     // Draw help
     HudMessage(s: "\cfHelp\n",
                 s: "\cdMove up: \cq", k: "+forward",
@@ -181,29 +193,79 @@ Script MSCR_Draw (void) {
                 s: "\n\cdSwitch side: \cq", k: "+left", s: "\cd and \cq ", k: "+right",
                 s: "\n\cdSelect: \cq", k: "+use", s: "\cd or \cq", k: "+attack",
                 s: "\n\cdExit: \cq", k: "+altattack";
-                HUDMSG_PLAIN, 599, CR_GREEN, 1.5, 0.7, 0);
+                HUDMSG_PLAIN, 599, CR_GREEN, 1.5, 0.8, 0);
+
+    int classno = resMenuItems[playerSelection[PlayerNumber()][MSIDE_CATEGORIES]][playerSelection[PlayerNumber()][MSIDE_ITEMS]];
+
+    // don't draw this next bit if
+    if (classno == -1)
+    {
+        MR_ClearHudMsg(598);
+        terminate;
+    }
+
+    str depStr = "";
+    switch(Researches[classno][CK_DEP])
+    {
+        case DEP_CENTRE:
+        {
+            depStr = "Research Centre";
+            break;
+        }
+
+        case DEP_BARRACKS:
+        {
+            depStr = "Barracks";
+            break;
+        }
+
+        case DEP_REFINERY:
+        {
+            depStr = "Refinery";
+            break;
+        }
+
+        default:
+        {
+            depStr = "None";
+            break;
+        }
+    }
+
+    int creds = Credits[PlayerNumber()];
+
+    // Draw class information
+    HudMessage(s: "\ct", s: Researches[classno][CK_NAME], s: "\n",
+                s: "\cdCost: \cq", s: cond((Researches[classno][CK_COST] == 0), "Free", StrParam(s: cond((creds < Researches[classno][CK_COST]), "\cc", ""), s: "$",  d: Researches[classno][CK_COST])), s: "\n",
+                s: "\cdDependency: \cq", s: depStr, s: "\n\n",
+                s: "\ctDescription\n\cj",
+                s: Researches[classno][CK_DESC];
+                HUDMSG_PLAIN, 598, CR_WHITE, 0.4, 0.65, 0);
 }
 
 function void MR_ClearHudMsg(int id) {
         HudMessage(s: ""; HUDMSG_PLAIN, id, CR_GREY, 0, 0, 0);
 }
 
-function void MR_Clear(void) { ACS_ExecuteAlways(MSCR_Clear, 0, 0, 0, 0); }
-Script MSCR_Clear (void) {
-    for (int i = 0; i < R_CATEGORIES_AMOUNT; i++) {
+function void MR_Clear (void) { ACS_ExecuteAlways(MSCR_Clear, 0, 0, 0, 0); }
+Script MSCR_Clear (void)
+{
+    for (int i = 0; i < RMS_NUM; i++) {
         MR_ClearHudMsg(600 + i);
     }
 
-    for (int i1 = 0; i1 < R_ITEMS_AMOUNT; i1++) {
+    for (int i1 = 0; i1 < MAX_ITEMS; i1++) {
         MR_ClearHudMsg(700 + i1);
     }
 
     MR_ClearHudMsg(599);
+    MR_ClearHudMsg(598);
 }
 
-function void MR_InputLoop_Start(void) { ACS_ExecuteAlways(MSCR_Input_Loop, 0, 0, 0, 0); }
-function void MR_InputLoop_Stop(void) { ACS_Terminate(MSCR_Input_Loop, 0); }
-Script MSCR_Input_Loop (void) {
+function void MR_InputLoop_Start (void) { ACS_ExecuteAlways(MSCR_Input_Loop, 0, 0, 0, 0); }
+function void MR_InputLoop_Stop (void) { ACS_Terminate(MSCR_Input_Loop, 0); }
+Script MSCR_Input_Loop (void)
+{
     int input = GetPlayerInput(-1, INPUT_BUTTONS);
     int player = PlayerNumber();
     bool inputUsed = false; // This is to stop us from drawing the menu again if nothing changed.
@@ -211,69 +273,106 @@ Script MSCR_Input_Loop (void) {
     if (input & BT_FORWARD) {
         inputUsed = true;
 
-        if(playerSide[player] == MSIDE_CATEGORIES
-            && playerSelection[player][MSIDE_CATEGORIES] == 0) {
-                playerSelection[player][MSIDE_CATEGORIES] = R_CATEGORIES_AMOUNT - 1;
-        } else if(playerSide[player] == MSIDE_ITEMS
-            && playerSelection[player][MSIDE_ITEMS] == 0) {
-                playerSelection[player][MSIDE_ITEMS] = R_ITEMS_AMOUNT - 1;
-        } else
-            playerSelection[player][playerSide[player]]--;
+        if (playerSide[PlayerNumber()] == MSIDE_CATEGORIES
+            && playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == 0)
+//              playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == CATEGORIES_AMOUNT - cond((!drawResign[player] || IsResignedN()), 2, 1);
+                playerSelection[PlayerNumber()][MSIDE_CATEGORIES] = (RMS_NUM - IsResignedN() - 1);
+        else if (playerSide[PlayerNumber()] == MSIDE_ITEMS
+            && playerSelection[PlayerNumber()][MSIDE_ITEMS] == 0)
+                playerSelection[PlayerNumber()][MSIDE_CATEGORIES] = MAX_ITEMS - 1;
+        else
+            if (playerSide[PlayerNumber()] == MSIDE_CATEGORIES)
+                playerSelection[PlayerNumber()][MSIDE_CATEGORIES] -= 1;
+            else
+                playerSelection[PlayerNumber()][MSIDE_ITEMS] -= 1;
 
         LocalAmbientSound("menu/cursor", 127);
 
-        Log(d:playerSelection[player][0], s:", ", d: playerSelection[player][1]);
+        DebugLog(StrParam(d: playerSelection[PlayerNumber()][MSIDE_CATEGORIES], s:", ", d: playerSelection[PlayerNumber()][MSIDE_ITEMS]));
     }
 
     if (input & BT_BACK) {
         inputUsed = true;
 
-        if(playerSide[player] == MSIDE_CATEGORIES
-            && playerSelection[player][MSIDE_CATEGORIES] == R_CATEGORIES_AMOUNT - 1) {
-                playerSelection[player][MSIDE_CATEGORIES] = 0;
-        } else if(playerSide[player] == MSIDE_ITEMS
-            && playerSelection[player][MSIDE_ITEMS] == R_ITEMS_AMOUNT - 1) {
-                playerSelection[player][MSIDE_ITEMS] = 0;
-        } else
-            playerSelection[player][playerSide[player]]++;
+        if (playerSide[PlayerNumber()] == MSIDE_CATEGORIES && playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == RMS_NUM - 1)
+            playerSelection[PlayerNumber()][MSIDE_CATEGORIES] = 0;
+        else if (playerSide[PlayerNumber()] == MSIDE_ITEMS
+            && playerSelection[PlayerNumber()][MSIDE_ITEMS] == MAX_ITEMS - 1)
+                playerSelection[PlayerNumber()][MSIDE_ITEMS] = 0;
+        else
+            if (playerSide[PlayerNumber()] == MSIDE_CATEGORIES)
+                playerSelection[PlayerNumber()][MSIDE_CATEGORIES] += 1;
+            else
+                playerSelection[PlayerNumber()][MSIDE_ITEMS] += 1;
 
         LocalAmbientSound("menu/cursor", 127);
 
-        Log(d:playerSelection[player][0], s:", ", d: playerSelection[player][1]);
+        DebugLog(StrParam(d: playerSelection[PlayerNumber()][MSIDE_CATEGORIES], s:", ", d: playerSelection[PlayerNumber()][MSIDE_ITEMS]));
     }
 
-    if (input & BT_MOVELEFT || input & BT_LEFT) {
-        inputUsed = true;
-        playerSide[player] = MSIDE_CATEGORIES;
+    if (input & BT_MOVELEFT || input & BT_LEFT)
+    {
+        if (playerSide[PlayerNumber()] != MSIDE_CATEGORIES)
+        {
+            inputUsed = true;
+            playerSide[PlayerNumber()] = MSIDE_CATEGORIES;
+            LocalAmbientSound("menu/activate", 127);
+        }
     }
 
-    if (input & BT_MOVERIGHT || input & BT_RIGHT) {
-        inputUsed = true;
-        playerSide[player] = MSIDE_ITEMS;
+    if (input & BT_MOVERIGHT || input & BT_RIGHT)
+    {
+        if (playerSide[PlayerNumber()] != MSIDE_ITEMS)
+        {
+            inputUsed = true;
+
+            if (playerSelection[PlayerNumber()][MSIDE_CATEGORIES] != 5)
+            {
+                playerSide[PlayerNumber()] = MSIDE_ITEMS;
+                LocalAmbientSound("menu/activate", 127);
+            }
+        }
     }
 
-    if (input & BT_ALTATTACK) {
+    if (input & BT_ALTATTACK)
+    {
         MR_Exit();
     }
 
     if (input & BT_USE || input & BT_ATTACK) {
         inputUsed = true;
 
-        if(playerSide[player] == MSIDE_CATEGORIES)
-            playerSide[player] = MSIDE_ITEMS;
+        if (playerSide[PlayerNumber()] == MSIDE_CATEGORIES)
+            if (playerSelection[PlayerNumber()][MSIDE_CATEGORIES] == 5 && (drawResign[player] || !IsResignedN()))
+                MR_InputReceived(playerSelection[PlayerNumber()][MSIDE_CATEGORIES],
+                    playerSelection[PlayerNumber()][MSIDE_ITEMS]);
+            else {
+                SetInventory("PlayerSide", MSIDE_ITEMS);
+                LocalAmbientSound("menu/activate", 127);
+            }
         else
-            MR_InputReceived(playerSelection[player][MSIDE_CATEGORIES],
-                    playerSelection[player][MSIDE_ITEMS]);
+            MR_InputReceived(playerSelection[PlayerNumber()][MSIDE_CATEGORIES],
+                    playerSelection[PlayerNumber()][MSIDE_ITEMS]);
     }
 
 
     if (inputUsed) { MR_Draw(); }
     Delay(MIL_DELAY);
-    if(inMenu[player]) restart;
+    if (CheckInventory("InMenu")) restart;
 }
 
-function void MR_DeathReset(void) { ACS_ExecuteAlways(MSCR_DEATHRESET, 0, 0, 0, 0); }
+function void MR_DeathReset (void) { ACS_ExecuteAlways(MSCR_DEATHRESET, 0, 0, 0, 0); }
 Script MSCR_DEATHRESET DEATH { MR_Exit(); }
 
-function void MR_QuitReset(void) { ACS_ExecuteAlways(MSCR_QUITRESET, 0, 0, 0, 0); }
-Script MSCR_QUITRESET (int gone) DISCONNECT { MR_Exit(); }
+function void MR_QuitReset (void) { ACS_ExecuteAlways(MSCR_QUITRESET, 0, 0, 0, 0); }
+Script MSCR_QUITRESET (int gone) DISCONNECT { if (PlayerNumber() == gone) MR_Exit(); }
+
+Script 65 (void) MR_Enter();
+Script 66 (void) MR_Enter();
+Script 67 (void) MR_Enter();
+Script 68 (void) MR_Enter();
+Script 69 (void) MR_Enter();
+Script 70 (void) MR_Enter();
+Script 71 (void) MR_Enter();
+Script 72 (void) MR_Enter();
+Script 73 (void) MR_Enter();

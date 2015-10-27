@@ -1192,7 +1192,7 @@ graphic jeticon, 25, 29 {
 	Patch fuelicon, 0, 0
 }*/
 
-//[SB]
+//[ZB]
 texture crateli2, 64, 128 {
 	patch sgcrate2, 0, 0 {}
 	patch sgcrate2, 32, 0 {}
@@ -1205,4 +1205,36 @@ texture crateli5, 64, 128 {
 	patch n_cttnlt, 32, 0 {}
 	patch n_ctgnl, 0, 64 {}
 	patch n_ctgnr, 32, 64 {}
+}
+
+// ============================================================================
+// Testing Inventory Icons
+
+sprite "ISBLIC", 32, 32 {
+	xscale 1.5
+	yscale 1.5
+	//offset -32, -20
+	patch "ISBLA0", 0, 0
+}
+
+sprite "ISREIC", 32, 32 {
+	xscale 1.5
+	yscale 1.5
+	//offset -32, -20
+	patch "ISREA0", 0, 0
+}
+
+
+sprite "TSRBIC", 32, 32 {
+	xscale 1.5
+	yscale 1.5
+	//offset -32, -20
+	patch "TSRBA0", 0, 0
+}
+
+sprite "TSBRIC", 32, 32 {
+	xscale 1.5
+	yscale 1.5
+	//offset -32, -20
+	patch "TSBRA0", 0, 0
 }

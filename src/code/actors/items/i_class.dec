@@ -17,7 +17,7 @@ actor ClassPlasma : Inventory {}
 
 // Class Rocketer - 1st Ability
 // Blasting radius increased by 20% also give ability to use heat seekers.
-actor ClassRocketer : Inventory {}
+actor Classmissilelauncher : Inventory {}
 
 // Class Gausser - 1st Ability
 // Reduce alt fire ammo cost and increade damage by 5 against marines.

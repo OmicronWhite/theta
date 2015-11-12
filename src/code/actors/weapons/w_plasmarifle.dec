@@ -185,7 +185,7 @@ actor PlasmaGunPickup : CustomInventory 21087 {
 	Pickup:
 		TNT1 A 0 A_JumpIfInventory ("PlasmaGun", 1, "Failure")
 		TNT1 A 0 A_GiveInventory ("PlasmaGun", 1)
-		TNT1 A 0 A_GiveInventory ("PlasmaRifleAmmo", 80)
+		TNT1 A 0 A_GiveInventory ("EnergyAmmo", 80)
 		TNT1 A 0 A_GiveInventory ("Refunds", 266)
 		stop
 	Failure:

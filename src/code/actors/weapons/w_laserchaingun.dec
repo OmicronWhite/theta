@@ -131,7 +131,7 @@ actor LaserChaingunPickup : CustomInventory 21083 {
 	Pickup:
 		TNT1 AA 0 A_JumpIfInventory ("LaserChaingun", 1, "Failure")
 		TNT1 A 0 A_GiveInventory ("LaserChaingun", 1)
-		TNT1 A 0 A_GiveInventory ("EnergyAmmo ", 80)
+		TNT1 A 0 A_GiveInventory ("EnergyAmmo", 80)
 //		TNT1 A 0 A_GiveInventory ("Refunds", 100) Missing Price
 		stop
 	Failure:

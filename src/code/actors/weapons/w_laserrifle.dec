@@ -219,7 +219,7 @@ actor LaserRiflePickup : CustomInventory 21050 {
 		TNT1 A 0 A_JumpIfInventory ("StealthLaserRifle", 1, "Failure")
 		TNT1 A 0 A_JumpIfInventory ("LaserRifle", 1, "Failure")
 		TNT1 A 0 A_GiveInventory ("LaserRifle", 1)
-		TNT1 A 0 A_GiveInventory ("EnergyAmmo ", 80)
+		TNT1 A 0 A_GiveInventory ("EnergyAmmo", 80)
 		TNT1 A 0 A_GiveInventory ("Refunds", 200)
 		stop
 	Failure:

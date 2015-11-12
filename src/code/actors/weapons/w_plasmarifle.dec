@@ -13,6 +13,7 @@ ACTOR PlasmaGun : AOWWeapon replaces PlasmaRifle {
 	Weapon.Kickback 25
 	Weapon.SelectionOrder 5
 	Weapon.PreferredSkin "MarinePlasma"
+	dropitem "PlasmaGunPickup"
 
 	States {
 	Spawn:

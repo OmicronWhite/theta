@@ -12,7 +12,7 @@ actor ArtilleryCannon : AOWWeapon {
 	Weapon.PreferredSkin "MarineSRockets"
 	Weapon.SelectionOrder 11
 	Scale 0.6
-
+	dropitem "ArtilleryCannonPickup"
 	States {
 	Select:
 		TNT1 A 0 A_JumpIfInventory("IsBlue",1,"SelectBlue")
@@ -232,6 +232,7 @@ actor ArtilleryCannonPickup : CustomInventory 21085 {
 	inventory.maxamount 0
 	inventory.respawntics 2100
 	inventory.pickupsound "misc/w_pkup"
+	Scale 0.6
 	
 	states {
 	Spawn:

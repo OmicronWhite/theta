@@ -11,6 +11,8 @@ actor LaserChaingun : AOWWeapon {
 	weapon.ammouse 1
 	weapon.ammogive 80
 	weapon.preferredskin "MarineMinigun"
+	dropitem "LaserChaingunPickup"
+
 	states {
 	Ready:
 		LCGR AA 0 A_JumpIfInventory ("IsBlue", 1, "ReadyBlue")

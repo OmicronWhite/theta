@@ -14,6 +14,7 @@ actor TiberiumAutorifleWeak : AOWWeapon {
 	weapon.ammogive2 32
 	obituary "%o was skewered by %k's Tiberium Autorifle."
 	Weapon.PreferredSkin "MarineMachineGun"
+	dropitem "TiberiumAutoriflePickup"
 	
 	States {
 	Ready:
@@ -74,8 +75,8 @@ actor TiberiumAutorifle : TiberiumAutorifleWeak {
 	obituary "%o was skewered and mutated by %k's Tiberium Autorifle."
 	weapon.ammotype "TE21Burst6"
 	weapon.ammouse 1
-	Dropitem "TiberiumAutorifleWeak"
 	weapon.ammogive 3
+	dropitem "TiberiumAutoriflePickup"
 	states {
 	Ready:
 		E21C A 0

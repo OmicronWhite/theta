@@ -12,6 +12,7 @@ actor AssaultRifle : AOWWeapon {
 	inventory.pickupmessage "You got the Assault Rifle!"
 	+NOEXTREMEDEATH
 	Weapon.PreferredSkin "MarineMachineGun"
+	dropitem "AssaultRiflePickup"
 
 	States {
 	Ready:

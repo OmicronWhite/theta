@@ -13,6 +13,8 @@ actor SubMachineGun : AOWWeapon {
 	weapon.ammotype2 "SubAmmo"
 	weapon.ammouse2 1
 	weapon.preferredskin "MarineSMG"
+	dropitem "SubMachineGunPickup"
+
 	states {
 	Ready:
 		SUBR A 0 A_JumpIfInventory ("IsBlue", 1, "Ready.Blue")

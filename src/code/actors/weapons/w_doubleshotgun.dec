@@ -11,6 +11,7 @@ actor DoubleShotgun : AOWWeapon {
 	weapon.ammouse 2
 	weapon.ammogive 16
 	weapon.preferredskin "MarineSSG"
+	dropitem "DoubleShotgunPickup"
 	states {
 
 	Ready:

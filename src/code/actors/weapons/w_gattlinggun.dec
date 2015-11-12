@@ -11,6 +11,7 @@ actor GatlingGun : AOWWeapon {
 	weapon.ammotype2 "ChainAmmo"
 	weapon.ammouse2 2
 	weapon.preferredskin "MarineChaingun"
+	dropitem "GatlingGunPickup"
 
 	States {
 	Ready:

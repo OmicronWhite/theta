@@ -14,6 +14,7 @@ actor GrenadeLauncher : AOWWeapon {
 	Weapon.AmmoGive 12
 	Weapon.PreferredSkin "MarineAssaultGrenade"
 	Tag "Grenade Launcher"
+	dropitem "GrenadeLauncherPickup"
 	States {
 	Spawn:
 		GREN X -1

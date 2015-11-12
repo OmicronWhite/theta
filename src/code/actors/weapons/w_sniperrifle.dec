@@ -12,6 +12,8 @@ actor SniperRifle : AOWWeapon {
 	DropItem "SniperRifleWeak"
 	Inventory.PickupMessage "You got the sniper rifle!"
 	Weapon.PreferredSkin "MarineSniper"
+	dropitem "SniperRiflePickup"
+
 	States {
 	Ready:
 		SNIE AA 0 A_JumpIfInventory ("IsZoomed", 1, "ReadyZoomed")

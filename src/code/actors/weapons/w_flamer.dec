@@ -15,6 +15,7 @@ actor Flamer : AOWWeapon {
 	weapon.AmmoUse2 1
 	weapon.AmmoGive2 1
 	weapon.PreferredSkin "MarineFlamer"
+	dropitem "FlamerPickup"
 
 	States {
 	Spawn:

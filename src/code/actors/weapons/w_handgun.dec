@@ -12,6 +12,7 @@ actor Handgun : AOWWeapon {
 	Inventory.Pickupmessage "You got the handgun!"
 	Obituary "%o was capped by %k's handgun."
 	attacksound "pistol/fire"
+	dropitem "HandgunPickup"
 
 	States {
 	Ready:

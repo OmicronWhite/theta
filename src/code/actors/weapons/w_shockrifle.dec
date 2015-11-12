@@ -12,6 +12,7 @@ Actor ShockRifle : AOWWeapon {
 	AttackSound "voltrifle/fire"
 	Weapon.PreferredSkin "MarineFlamer"
 	decal "VoltageScorch"
+	dropitem "ShockRiflePickup"
 
 	states {
 	Ready:

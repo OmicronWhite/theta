@@ -13,6 +13,7 @@ actor FragGrenade : AOWWeapon {
 	weapon.ammogive2 0
 	scale 0.25
 	Weapon.PreferredSkin "MarineFist"
+	dropitem "FragGrenadePickup"
 
 	States {
 	Ready:
@@ -94,7 +95,7 @@ actor FragGrenade : AOWWeapon {
 		TNT1 AA 2
 		goto Ready
 	Spawn:
-		TNT1 A 0 A_SpawnItem ("FragGrenadePickup")
+		FRGP A -1
 		stop
 	}
 }

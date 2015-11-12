@@ -10,6 +10,7 @@ actor MissileLauncher : AOWWeapon {
 	Weapon.AmmoUse 1
 	Weapon.AmmoGive 4
 	Weapon.PreferredSkin "MarineRockets"
+	dropitem "MissileLauncherPickup"
 
 	States {
 	Select:

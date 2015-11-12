@@ -12,6 +12,7 @@ actor EagerBeaver : AOWWeapon {
 	obituary "$OB_CHAINSAW"
 	tag "Chainsaw"
 	decal "BulletChip"
+	dropitem "EagerBeaverPickup"
 
 	states {
 	Ready:

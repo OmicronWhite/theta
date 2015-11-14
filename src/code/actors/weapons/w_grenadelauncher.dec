@@ -1,65 +1,70 @@
+// Layout 2 applyed
 // Grenade Launcher
 // Explosive - Close combat - Barracks - Price:650
 
 actor GrenadeLauncher : AOWWeapon {
-	+WEAPON.NOAUTOAIM
-	Obituary "$OB_GRENADE"
+	Tag "Grenade Launcher"
 	Inventory.PickupMessage "You got the grenade launcher!"
+	Obituary "$OB_GRENADE"
+	Dropitem "GrenadeLauncherPickup"
+	// Weapon defs
 	Weapon.SelectionOrder 12
 	Weapon.KickBack 100
 	Weapon.AmmoType "GrenadeAmmo"
 	Weapon.AmmoUse 1
-	Weapon.AmmoType2 "GrenadeAmmo"
-	Weapon.AmmoUse2 1
+/*	Weapon.AmmoType2 "GrenadeAmmo"
+	Weapon.AmmoUse2 1 */
 	Weapon.AmmoGive 12
 	Weapon.PreferredSkin "MarineAssaultGrenade"
-	Tag "Grenade Launcher"
-	dropitem "GrenadeLauncherPickup"
+	// Flags
+	+WEAPON.NOAUTOAIM
+	+WEAPON.EXPLOSIVE
+	+WEAPON.NOAUTOFIRE
+
 	States {
-	Spawn:
-		GREN X -1
-		stop
 	Select:
 		GREN A 1 A_Raise
 		wait
+
 	Deselect:
 		GREN A 1 A_Lower
 		wait
+
 	Ready:
 		GREN A 1 A_WeaponReady
 		wait
+
 	Fire:
-		TNT1 A 0 A_JumpIfInventory ("IsInSpawnRoom", 1, "Ready")
-		GREN A 5 A_PlayWeaponSound ("grenade/fire")
-		GREN GH 1
-		GREN I 0 A_GunFlash
-		GREN I 1 A_FireCustomMissile ("GrenadeGrenade", 0, 1, 12)
-		GREN D 0 Radius_Quake(7,random(5,6),0,1,0)
-		GREN D 2
-		GREN E 2
-		GREN FF 2
-		GREN F 2
-		GREN F 2
-		GREN E 2
-		GREN D 2
-		GREN ABC 2
-		GREN A 0 A_ReFire
-		goto Ready
-	AltFire:
-		TNT1 A 0 A_JumpIfInventory ("IsInSpawnRoom", 1, "Ready")
+		GREN A 0 A_JumpIfInventory ("IsInSpawnRoom", 1, "Ready")
 		GREN A 4 A_PlayWeaponSound ("grenade/fire")
-		GREN GH 1
+
+		GREN GH 2
 		GREN I 0 A_GunFlash
-		GREN I 1 A_FireCustomMissile ("GrenadeBounce", 0, 1, 12)
-		GREN DEFFFFF 2
-		GREN EDABC 1
+		GREN I 2 A_FireCustomMissile ("GrenadeGrenade", 0, 1, 12)
+		GREN D 0 Radius_Quake(7,random(5,6),0,1,0)
+
+		GREN DEFFFFEDABC 2
 		GREN A 0 A_ReFire
 		goto Ready
+
+	AltFire:
+		GREN A 0 A_JumpIfInventory ("IsInSpawnRoom", 1, "Ready")
+		GREN A 4 A_PlayWeaponSound ("grenade/fire")
+
+		GREN GH 2
+		GREN I 0 A_GunFlash
+		GREN I 2 A_FireCustomMissile ("GrenadeBounce", 0, 1, 12)
+		GREN D 0 Radius_Quake(7,random(5,6),0,1,0)
+
+		GREN DEFFFFEDABC 2
+		GREN A 0 A_ReFire
+		goto Ready
+
+	Spawn:
+		GREN X -1
+		stop
 	}
 }
-
-// orca still uses this
-actor GrenadeSwitch : Inventory {}
 
 actor GrenadeGrenade {
 	PROJECTILE
@@ -71,7 +76,7 @@ actor GrenadeGrenade {
 	Damage (50)
 	RenderStyle Normal
 	Alpha 0.8
-	Gravity 0.8
+	Gravity 0.82
 	DamageType "Explosion"
 	DeathSound "weapons/rocklx"
 	Obituary "$OB_GRENADE"
@@ -98,7 +103,7 @@ actor GrenadeBounce : GrenadeGrenade {
 	+BOUNCEONACTORS
 	Damage (0)
 	Speed 30
-	Gravity 0.8
+	Gravity 0.82
 	BounceFactor 0.40
 	// A timed fuse of three seconds.
 	// [Bloax] Now shorter because three seconds in a firefight is an eternity.
@@ -147,6 +152,9 @@ actor GrenadeBounce : GrenadeGrenade {
 		TNT1 A 1 A_Lower
 		Wait
 */
+
+// orca still uses this
+actor GrenadeSwitch : Inventory {}
 
 // Map Actor
 

@@ -120,6 +120,11 @@ Script 95 (int unused, int force)
 	delay(2);
 	ClearInventory();
 
+	// [ZB] Re-enter the menu - our items were totally cleared just now.
+	MC_Exit2();
+	Delay(1);
+	MC_Enter();
+
 	GiveInventory("Ingame", 1);
 	GiveInventory("Unarmed", 1);
 	GiveInventory("IsInSpawnRoom", 1);
@@ -183,6 +188,7 @@ Script 95 (int unused, int force)
 	ACS_ExecuteAlways(10, 0);
 	RecountTimeCops();
 	Log(s:pname(-1), s:" resigns.");
+
 	delay(3 * 35);
 }
 

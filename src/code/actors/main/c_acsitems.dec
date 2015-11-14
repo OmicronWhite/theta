@@ -79,3 +79,4 @@ actor InMenu : Boolean {}
 actor PlayerSide : Boolean {}
 actor PlayerSelectionCategories : EndlessItem {}
 actor PlayerSelectionItems : EndlessItem {}
+actor DrawResign : Boolean {}

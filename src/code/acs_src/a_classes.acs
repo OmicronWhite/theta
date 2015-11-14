@@ -12,7 +12,7 @@
 #define MSCC_DEATHRESET          486
 #define MSCC_QUITRESET           487
 
-int drawResign[32];
+int drawResign[MAXPLAYERS];
 
 // This function is called when the player has chosen an item.
 function void MC_InputReceived(int category, int item) { RequestScriptPuke(MSCC_INPUTRECV, category, item, 0); }
@@ -25,10 +25,15 @@ Script MSCC_INPUTRECV (int category, int item) NET
         PurchaseClass(menuItems[category][item]);
 
     if (category == 5) { // Resign
-        ACS_ExecuteAlways(95, 0, 0, true); // arg1 is unused
         SetInventory("PlayerSelection", 0);
-        drawResign[player] = false;
+        SetInventory("DrawResign", 0);
         MC_ClearHudMsg(600 + 5);
+        SetInventory("PlayerSelectionCategories", 0);
+        SetInventory("PlayerSelectionItems", 0);
+
+        MC_Draw();
+
+        ACS_ExecuteAlways(95, 0, 0, true); // arg1 is unused
     }
 
     LocalAmbientSound("menu/choose", 127);
@@ -42,7 +47,7 @@ Script MSCC_Enter (void)
 {
     int player = PlayerNumber();
     if (!CheckInventory("InMenu")) {
-        drawResign[player] = !IsResignedN();
+        SetInventory("DrawResign", !IsResignedN());
         SetInventory("InMenu", 1);
         MC_Freeze();
         MC_Draw();
@@ -61,8 +66,9 @@ Script MSCC_Exit (void) NET
     MC_Clear();
     MC_Unfreeze();
 
-    SetInventory("PlayerSelection", 0);
     SetInventory("PlayerSide", 0);
+    SetInventory("PlayerSelectionCategories", 0);
+    SetInventory("PlayerSelectionItems", 0);
 }
 
 function str MC_ItemString(int side, int category, int item)
@@ -276,6 +282,7 @@ function void MC_InputLoop_Start (void) { ACS_ExecuteAlways(MSCC_Input_Loop, 0, 
 function void MC_InputLoop_Stop (void) { ACS_Terminate(MSCC_Input_Loop, 0); }
 Script MSCC_Input_Loop (void) CLIENTSIDE
 {
+    DebugLog("Menu input loop looping");
     int input = GetPlayerInput(-1, INPUT_BUTTONS);
     int player = PlayerNumber();
     bool inputUsed = false; // This is to stop us from drawing the menu again if nothing changed.
@@ -352,7 +359,7 @@ Script MSCC_Input_Loop (void) CLIENTSIDE
         inputUsed = true;
 
         if (CheckInventory("PlayerSide") == MSIDE_CATEGORIES)
-            if (CheckInventory("PlayerSelectionCategories") == 5 && (drawResign[player] || !IsResignedN()))
+            if (CheckInventory("PlayerSelectionCategories") == 5 && (CheckInventory("DrawResign") || !IsResignedN()))
                 MC_InputReceived(CheckInventory("PlayerSelectionCategories"),
                     CheckInventory("PlayerSelectionItems"));
             else {
@@ -371,10 +378,10 @@ Script MSCC_Input_Loop (void) CLIENTSIDE
 }
 
 function void MC_DeathReset (void) { ACS_ExecuteAlways(MSCC_DEATHRESET, 0, 0, 0, 0); }
-Script MSCC_DEATHRESET DEATH CLIENTSIDE { MC_Exit(); }
+Script MSCC_DEATHRESET DEATH CLIENTSIDE { MC_Exit2(); }
 
 function void MC_QuitReset (void) { ACS_ExecuteAlways(MSCC_QUITRESET, 0, 0, 0, 0); }
-Script MSCC_QUITRESET (int gone) DISCONNECT CLIENTSIDE { if (PlayerNumber() == gone) MC_Exit(); }
+Script MSCC_QUITRESET (int gone) DISCONNECT CLIENTSIDE { if (PlayerNumber() == gone) MC_Exit2(); }
 
 // All Out War 2 Class purchase scripts
 // Credit to VoltlocK for originally creating the engine
@@ -534,7 +541,7 @@ function void PurchaseClass (int c)
             MC_Exit();
             MC_Exit2();
         }
-        
+
     	// The essentials
     	SetActorProperty(0, APROP_SPEED, Classes[c][CK_SPEED]);
     	SetArmorGrade(Classes[c][CK_ARMORNUM], Classes[c][CK_ARMORMOD]);

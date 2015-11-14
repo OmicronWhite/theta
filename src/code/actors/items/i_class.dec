@@ -4,9 +4,13 @@
 // Ability position is placed in hub to be more easy to see your advantages.
 
 // Class Rocketer - 1st Ability
-// give ability to use heat seekers.
+// Give ability to use heat seekers.
 Actor Classmissilelauncher : Inventory {}
 
 // Class Double Shotgunner - 1st Ability
 // More 50% range.
 Actor Classdoubleshotgun : Inventory {}
+
+// Class Grenadier - 1st Ability
+// Give ability to use boncing grenades.
+Actor Classgrenadelauncher : Inventory {}

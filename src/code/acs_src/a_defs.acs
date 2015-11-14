@@ -119,6 +119,7 @@ function void LoadClassDefinitions (void)
 	AddClassItem(c, "Rifle", 1);
 	AddClassItem(c, "RifleAmmo", 40);
 	AddClassItem(c, "RifleGrenadeAmmo", 8);
+	AddClassItem(c, "Classgrenadelauncher", 1);
 
 	c = CLASS_ROCKETEER;
 	Classes[c][CK_NAME] = "Rocket Soldier";
@@ -128,12 +129,12 @@ function void LoadClassDefinitions (void)
 	Classes[c][CK_ARMORNUM] = 2;
 	Classes[c][CK_ARMORMOD] = ARMOD_EXPLO;
 	Classes[c][CK_DEP] = DEP_BARRACKS;
-	AddClassItem(c, "Classmissilelauncher", 1);
 	AddClassItem(c, "MissileLauncher", 1);
 	AddClassItem(c, "MissileAmmo", 20);
 	AddClassItem(c, "Rifle", 1);
 	AddClassItem(c, "RifleAmmo", 40);
 	AddClassItem(c, "RifleGrenadeAmmo", 8);
+	AddClassItem(c, "Classmissilelauncher", 1);
 
 	c = CLASS_STEALTH;
 	Classes[c][CK_NAME] = "Stealth Trooper";
@@ -318,9 +319,9 @@ function void LoadClassDefinitions (void)
 	Classes[c][CK_COST] = 200;
 	Classes[c][CK_SPEED] = 0.8;
 	Classes[c][CK_ARMORNUM] = 1;
-	AddClassItem(c, "Classdoubleshotgun", 1);
 	AddClassItem(c, "DoubleShotgun", 1);
 	AddClassItem(c, "ShellsAmmo", 32);
+	AddClassItem(c, "Classdoubleshotgun", 1);
 
 	c = CLASS_PLASMAGUNNER;
 	Classes[c][CK_NAME] = "Plasma Gunner";

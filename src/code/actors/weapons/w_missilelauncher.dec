@@ -13,7 +13,8 @@ Actor MissileLauncher : AOWWeapon {
 	Weapon.AmmoGive 4
 	Weapon.PreferredSkin "MarineRockets"
 	// Flags
-	+NOAUTOFIRE
+	+WEAPON.EXPLOSIVE
+	+WEAPON.NOAUTOFIRE
 
 	States {
 	Select:

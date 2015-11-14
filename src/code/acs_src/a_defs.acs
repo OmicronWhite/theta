@@ -318,6 +318,7 @@ function void LoadClassDefinitions (void)
 	Classes[c][CK_COST] = 200;
 	Classes[c][CK_SPEED] = 0.8;
 	Classes[c][CK_ARMORNUM] = 1;
+	AddClassItem(c, "Classdoubleshotgun", 1);
 	AddClassItem(c, "DoubleShotgun", 1);
 	AddClassItem(c, "ShellsAmmo", 32);
 

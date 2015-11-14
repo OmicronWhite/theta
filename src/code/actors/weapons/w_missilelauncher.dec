@@ -5,7 +5,7 @@
 Actor MissileLauncher : AOWWeapon {
 	Inventory.PickupMessage "You got the missile laucher!"
 	Obituary "$OB_MISSILELAUNCHER"
-	dropitem "MissileLauncherPickup"
+	Dropitem "MissileLauncherPickup"
 	// Weapon defs
 	Weapon.SelectionOrder 13
 	Weapon.AmmoType "MissileAmmo"

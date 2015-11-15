@@ -203,6 +203,7 @@ actor FragGrenadePickup : CustomInventory {
 	inventory.maxamount 0
 	inventory.respawntics 2100
 	inventory.pickupsound "misc/w_pkup"
+	scale 0.25
 
 	states {
 	Spawn:

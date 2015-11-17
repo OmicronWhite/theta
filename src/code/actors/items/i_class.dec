@@ -14,3 +14,7 @@ Actor Classdoubleshotgun : Inventory {}
 // Class Grenadier - 1st Ability
 // Give ability to use boncing grenades.
 Actor Classgrenadelauncher : Inventory {}
+
+// Plasma Gunner - 1st Ability
+// Plasma unheat more fast.
+Actor Classplasmagun : Inventory {}

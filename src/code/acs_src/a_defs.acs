@@ -334,6 +334,7 @@ function void LoadClassDefinitions (void)
 	Classes[c][CK_ARMORMOD] = ARMOD_LASER;
 	AddClassItem(c, "PlasmaGun", 1);
 	AddClassItem(c, "EnergyAmmo", 300);
+	AddClassItem(c, "Classplasmagun", 1);
 
 	c = CLASS_ARTILLERY;
 	Classes[c][CK_NAME] = "Artillery Soldier";

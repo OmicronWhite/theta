@@ -47,6 +47,7 @@
 #include "actors/items/i_timedc4.dec"
 #include "actors/items/i_ammo.dec"
 #include "actors/items/i_class.dec"
+#include "actors/weapons/w_autoshotgun.dec"
 #include "actors/weapons/w_bfg2704.dec"
 #include "actors/weapons/w_chainsaw.dec"
 #include "actors/weapons/w_chemsprayer.dec"

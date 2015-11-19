@@ -1,0 +1,71 @@
+// Auto Shotgun
+// Bullet - Close combat - Barracks - Price: 250
+
+actor AutoShotgun : AOWWeapon {
+	//$Category Weapons
+	Tag "AutoShotgun"
+	Obituary "$OB_SHOTGUN"
+	Inventory.PickupMessage "You got the Auto shotgun!"
+	Weapon.SelectionOrder 17
+	Weapon.AmmoType "ShellsAmmo"
+	Weapon.AmmoUse 1
+	Weapon.AmmoGive 16
+	Weapon.PreferredSkin "MarineShotgun"
+	dropitem "AutoShotgun"
+
+	States {
+	Ready:
+		ASTG A 1 A_WeaponReady
+		wait
+
+	Deselect:
+		ASTG A 1 A_Lower
+		wait
+
+	Select:
+		ASTG A 1 A_Raise
+		wait
+
+	Fire:
+		ASTG A 1 Bright A_GunFlash
+//		ASTG A 0 Bright Radius_Quake (3, random (3, 5), 0, 1, 0)
+		ASTG B 3 Bright A_FireBullets (6, 6, 10, 10, "HandgunPuff", FBF_NORANDOM, 350)
+		ASTG C 4 Bright
+		ASTG A 2 A_SpawnItemEx ("ShotgunShellCasing", 12, 9, 33, random (-2, -4), random (2, 3), random (1, 2), random (45, 60))
+		ASTG D 10
+		ASTG A 0 A_ReFire
+		goto Ready
+
+	Flash:
+		TNT0 A 3 Bright A_Light1
+		TNT0 B 3 Bright A_Light2
+		TNT0 B 0 A_Light0
+		stop
+
+	Spawn:
+		SHOT A -1
+		stop
+	}
+}
+
+// Map Actor
+
+actor AutoShotgunpickup : CustomInventory {
+	inventory.pickupmessage "You got the Auto shotgun!"
+	inventory.maxamount 0
+	inventory.respawntics 2100
+	inventory.pickupsound "misc/w_pkup"
+	states {
+
+	Spawn:
+		SHOT A -1
+		stop
+	Pickup:
+		TNT1 A 0 A_GiveInventory("AutoShotgun", 1)
+		TNT1 A 0 A_GiveInventory("ShellsAmmo", 16)
+		stop
+	Failure:
+		TNT1 A 0
+		fail
+	}
+}

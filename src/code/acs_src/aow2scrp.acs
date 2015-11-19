@@ -385,6 +385,7 @@ int resMenuItems[RMS_NUM][MAX_ITEMS] = {
 #define SC_RestoreObelisk          944
 #define SC_InventoryItemUse       951
 #define SC_HealingRadius          952
+#define SC_OICW_CL_FX 		  954
 #define SC_TimeGun                958
 #define SC_CL_TimeGunHUD          959
 #define SC_MARINE_STATS           967

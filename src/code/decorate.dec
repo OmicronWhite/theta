@@ -77,6 +77,7 @@
 #include "actors/weapons/w_subby.dec"
 #include "actors/weapons/w_tiberiumautorifle.dec"
 #include "actors/weapons/w_timegun.dec"
+#include "actors/weapons/w_oicw.dec"
 #include "actors/mechs/m_mechbase.dec"
 #include "actors/mechs/m_mechflamer.dec"
 #include "actors/mechs/m_wolverine.dec"

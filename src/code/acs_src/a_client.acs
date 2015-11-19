@@ -259,3 +259,18 @@ Script SC_CL_ObeliskTrail (int type) CLIENTSIDE
 			break;
 	}
 }
+
+// OICW FX
+Script SC_OICW_CL_FX (int fx) CLIENTSIDE
+{
+	switch (fx)
+	{
+		case 0:
+			FadeTo(0, 255, 0, 0.3, 0.5);
+			break;
+			
+		case 1:
+			FadeTo(0, 255, 0, 0, 0.5);
+			break;
+	}
+}

@@ -1,0 +1,158 @@
+ACTOR OICW : DoomWeapon 20024
+{
+	Scale 0.1
+	Weapon.SelectionOrder 350
+	Inventory.PickupSound "ar2/ready"
+	Weapon.AmmoGive 250
+	Weapon.AmmoUse 1
+	Weapon.AmmoType "OICWAmmo"
+	Weapon.SlotNumber 4
+	Inventory.PickupMessage "Picked up an OICW."
+	Tag "Objective Individual Combat Weapon"
+	
+	States
+	{
+		Spawn:
+			OICW Z -1
+			Stop
+			
+		Ready:
+			TNT1 A 0 A_JumpIfInventory("OICW_Scoping", 1, "Scope.Ready")
+			OICW A 1 A_WeaponReady
+			Loop 
+			
+		Deselect:
+			TNT1 A 0 A_JumpIfInventory("OICW_Scoping", 1, "Scope.Deselect")
+			OICW A 1 A_Lower
+			Loop 
+			
+		Select:
+			OICW A 1 A_Raise
+			Loop 
+			
+		Fire:
+			TNT1 A 0 A_JumpIfInventory("OICW_Scoping", 1, "Scope.Fire")
+			OICW E 0 A_JumpIfInventory("OICW_Firing", 1, "Fire.Shooting")
+			OICW ED 1
+			OICW B 0 A_GiveInventory("OICW_Firing", 1)
+			Goto Fire.Shooting
+			
+		Fire.Shooting:
+			OICW CB 1
+			OICW B 0 A_FireBullets (10, 10, 1, 10, "BulletPuff")
+			OICW B 0 A_PlaySound("ar2/fire0", CHAN_AUTO)
+			OICW F 1 Bright
+			OICW BC 1
+			OICW C 0 A_ReFire
+			Goto Fire.Ending
+			
+		Fire.Ending:
+			OICW DE 1
+			OICW E 0 A_TakeInventory("OICW_Firing", 1)
+			Goto Ready
+			
+		AltFire:
+			OICW A 0 A_JumpIfInventory("OICW_Scoping", 1, "Scope.Disable")
+			Goto Scope.Enable
+			
+		Scope.Enable:
+			TNT1 A 0 A_GiveInventory("OICW_Scoping", 1)
+			TNT1 A 0 A_ZoomFactor(2.0)
+			TNT1 A 0 ACS_ExecuteAlways(952, 0, 0)
+			OICW GHI 5
+			Goto Ready
+			
+		Scope.Disable:
+			TNT1 A 0 A_TakeInventory("OICW_Scoping", 1)
+			TNT1 A 0 A_ZoomFactor(1.0)
+			TNT1 A 0 ACS_ExecuteAlways(952, 0, 1)
+			OICW IHG 5
+			Goto Ready
+			
+		Scope.Ready:
+			TNT1 A 1 A_WeaponReady
+			Loop 
+		
+		Scope.Deselect:
+			TNT1 A 0 A_TakeInventory("OICW_Scoping", 1)
+			TNT1 A 0 A_ZoomFactor(1.0)
+			OICW IHG 5
+			Goto Deselect
+			
+		Scope.Fire:
+			TNT1 A 4
+			OICW B 0 A_FireBullets (2.5, 2.5, 1, 10, "BulletPuff")
+			OICW B 0 A_PlaySound("ar2/fire1", CHAN_AUTO)
+			TNT1 A 8
+			TNT1 A 0 A_ReFire
+			Goto Ready
+			
+		Flash:
+			OICW A 0
+			Stop
+	}
+}
+
+ACTOR OICW_Firing : Inventory {}
+ACTOR OICW_Scoping : Inventory {}
+
+ACTOR OICWAmmo : Ammo
+{
+	Inventory.PickupMessage "Picked up an OICW clip."
+	Inventory.Amount 4
+	Inventory.MaxAmount 250
+	Ammo.BackpackAmount 4
+	Ammo.BackpackMaxAmount 500
+	Inventory.Icon "CLIPA0"
+	
+	States
+	{
+		Spawn:
+			CLIP A -1
+			Stop
+	}
+}
+
+ACTOR OICWAmmoBox : OICWAmmo
+{
+	Inventory.PickupMessage "Picked up a box of OICW bullets."
+	Inventory.Amount 50
+	States
+	{
+		Spawn:
+			AMMO A -1
+			Stop
+	}
+}
+
+ACTOR OIChaingun : Chaingun {}
+ACTOR OIClip : Clip {}
+ACTOR OIClipBox : ClipBox {}
+
+actor CGSpawner : RandomSpawner replaces Chaingun
+{
+    DropItem "OICW"
+    DropItem "OIChaingun"
+}
+
+actor CGClip : RandomSpawner replaces Clip
+{
+    DropItem "OIClip"
+    DropItem "OICWAmmo"
+}
+
+actor CGClipBox : RandomSpawner replaces ClipBox
+{
+    DropItem "OIClipBox"
+    DropItem "OICWAmmoBox"
+}
+
+ACTOR OIZombieMan : ZombieMan replaces ZombieMan
+{
+	DropItem "OIClip"
+}
+
+ACTOR OIChaingunGuy : ChaingunGuy replaces ChaingunGuy
+{
+	DropItem "OIChaingun"
+}

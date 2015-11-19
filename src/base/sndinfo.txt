@@ -787,3 +787,16 @@ $rolloff mech/explode/junk	500 2000
 
 misc/poweron	powon
 misc/poweroff	powoff
+
+ar2/fire0 oicwfire
+ar2/fire1 oicwfir1
+ar2/fire2 oicwfir2
+
+ar2/ready oicwrdy
+
+$random ar2/fire
+{
+	ar2/fire0
+	ar2/fire1
+	ar2/fire2
+}

@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## 0.99.5
+ - A major weapons rework.
+ - Add the Objective Individual Combat Weapon from the 2003 *Half-Life 2* leak.
+ - Add the Automatic Shotgun.
+ 
 ## 0.99.4 *"Actinium"*
  - Add AOW10 - Mining Site (imported from AOW 2.1)
    - Update the base designs for Theta.

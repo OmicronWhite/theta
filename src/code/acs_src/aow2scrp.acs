@@ -95,6 +95,7 @@
 #define ADDON_PLASCAN 34
 #define ADDON_ARMOUR 35
 #define NUM_CLASSES 36
+#define CLASS_LAZERGUNNER 37
 
 // classes menu stuff
 #define CMS_GENERIC 0

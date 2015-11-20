@@ -45,6 +45,13 @@ function void LoadClassDefinitions (void)
 	AddClassItem(c, "SubMachineGun", 1);
 	AddClassItem(c, "SubAmmo", 225);
 
+	c = CLASS_LAZERGUNNER;
+	Classes[c][CK_NAME] = "Lazer Gunner";
+	Classes[c][CK_COST] = 150;
+	Classes[c][CK_ARMORMOD] = ARMOD_LASER;
+	AddClassItem(c, "StealthLaserRifle", 1);
+	AddClassItem(c, "EnergyAmmo", 300);
+
 	c = CLASS_ENGINEER;
 	Classes[c][CK_NAME] = "Engineer";
 	Classes[c][CK_SPEED] = 0.8;

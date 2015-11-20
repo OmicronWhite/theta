@@ -18,3 +18,7 @@ Actor Classgrenadelauncher : Inventory {}
 // Plasma Gunner - 1st Ability
 // Plasma unheat more fast.
 Actor Classplasmagun : Inventory {}
+
+// Stealth Trooper - 1st Ability
+// Has ability to use stealth.
+Actor Classstealth : Inventory {}

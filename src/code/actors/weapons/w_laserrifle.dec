@@ -1,5 +1,5 @@
 // Laser Rifle
-// Energy - Stealth or for a far distance assault - Price:600
+// Energy - Stealth or for a far distance assault - Price:(normal:150 Stealth:600)
 
 actor StealthLaserRifle : AOWWeapon {
 	+NOEXTREMEDEATH
